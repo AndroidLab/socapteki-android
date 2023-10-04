@@ -1,0 +1,5 @@
+<resources>
+    <string name="error">Ошибка</string>
+    <string name="http_error">Http error %s</string>
+    <string name="http_error_not_connection">Отсутствует подключение к сети</string>
+</resources>
