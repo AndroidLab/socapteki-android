@@ -85,6 +85,9 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 uploadservice = { group = "net.gotev", name = "uploadservice", version = "4.7.0" }
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version = "3.1.0" }
 xfetch2 = { group = "androidx.tonyodev.fetch2", name = "xfetch2", version =  "3.1.6" }
+decoro = { module = "ru.tinkoff.decoro:decoro", version = "1.5.2" }
+
+
 
 # Dependencies of the included build-logic
 android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }

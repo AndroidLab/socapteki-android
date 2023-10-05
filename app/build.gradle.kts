@@ -21,6 +21,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":components"))
+
     //Google & Android
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

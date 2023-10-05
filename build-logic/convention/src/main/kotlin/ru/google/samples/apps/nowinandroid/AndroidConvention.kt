@@ -70,6 +70,12 @@ internal fun Project.configureModule(
             targetCompatibility = JavaVersion.VERSION_17
         }
 
+        buildFeatures {
+            dataBinding {
+                enable = true
+            }
+        }
+
         tasks.withType<KotlinCompile>().configureEach {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_17.toString()
