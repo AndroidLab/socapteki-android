@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- PinCode -->
+    <declare-styleable name="PinCodeView">
+
+        <attr name="cellsCount" format="integer"/>
+        <attr name="cellSize" format="dimension"/>
+        <attr name="cellBorderSize" format="dimension"/>
+        <attr name="cellGapSize" format="dimension"/>
+        <attr name="cellCornerRadius" format="dimension"/>
+        <attr name="cellBackgroundColor" format="color"/>
+        <attr name="cellBackgroundFocusColor" format="color"/>
+        <attr name="cellBackgroundSuccessColor" format="color"/>
+        <attr name="cellBackgroundErrorColor" format="color"/>
+        <attr name="cellBorderColor" format="color"/>
+        <attr name="cellBorderFocusColor" format="color"/>
+        <attr name="cellBorderSuccessColor" format="color"/>
+        <attr name="cellBorderErrorColor" format="color"/>
+        <attr name="cellTextColor" format="color"/>
+
+    </declare-styleable>
+
+    <!-- TextInputLayout -->
+    <declare-styleable name="TextInputLayout">
+        <attr name="textInputLayoutFocusedDrawable" format="reference"/>
+        <attr name="textInputLayoutUnfocusedDrawable" format="reference"/>
+        <attr name="textInputLayoutDisabledDrawable" format="reference"/>
+        <attr name="textInputLayoutErrorDrawable" format="reference"/>
+    </declare-styleable>
+
+</resources>

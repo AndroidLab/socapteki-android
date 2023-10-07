@@ -37,7 +37,7 @@ androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.re
 [libraries]
 #Google & Android
 core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.6.1" }
+#appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.6.1" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version = "1.1.0" }
 material = { group = "com.google.android.material", name = "material", version = "1.9.0" }

@@ -26,7 +26,7 @@ dependencies {
 
     //Google & Android
     implementation(libs.core.ktx)
-    implementation(libs.appcompat)
+    //implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.swiperefreshlayout)
     implementation(libs.material)

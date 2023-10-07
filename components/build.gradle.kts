@@ -9,5 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+
     api(libs.decoro)
+    implementation(libs.material)
 }
