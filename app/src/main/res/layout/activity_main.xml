@@ -4,19 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <FrameLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary">
+        android:background="@color/white"
+        android:fitsSystemWindows="false"
+        tools:openDrawer="start">
 
-        <fragment
-            android:id="@+id/general_nav_host"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/general_nav_graph" />
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <View
+                android:id="@+id/statusBarStub"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@color/color_primary" />
+
+            <fragment
+                android:id="@+id/general_nav_host"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/general_nav_graph" />
+
+        </LinearLayout>
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="ru.apteka.social.presentation.drawer.DrawerFragment"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

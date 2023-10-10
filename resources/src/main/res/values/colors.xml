@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_primary">#FFFFFF</color>
-    <color name="background_secondary">#eff0f7</color>
-    <color name="color_primary">#008e62</color>
+    <color name="background_secondary">#EFF0F7</color>
+    <color name="color_primary">#008E62</color>
     <color name="color_primary_variant">#015a3e</color>
     <color name="color_secondary_container">#e7f3ec</color>
     <color name="color_secondary">#e7f3ec</color>
@@ -12,17 +12,18 @@
 
     <!-- Other -->
     <color name="black">#000000</color>
+    <color name="dark_black">#2E2C34</color>
     <color name="light_black">#666666</color>
     <color name="white">#FFFFFF</color>
-    <color name="red">#ce0c36</color>
+    <color name="red">#FF4D4F</color>
     <color name="light_red">#ffb7b7</color>
     <color name="light_green">#a7edc5</color>
     <!--<color name="blue">#000099</color>
     <color name="light_blue">#7C7CFF</color>-->
-    <color name="orange">#fcce00</color>
+    <color name="orange">#FFC53D</color>
     <color name="dark_grey">#93959d</color>
     <color name="light_orange">#F2C94C</color>
     <color name="gold">#ffd700</color>
     <color name="grey">#bababa</color>
-    <color name="light_grey">#dedede</color>-->
+    <color name="light_grey">#EDEDED</color>
 </resources>

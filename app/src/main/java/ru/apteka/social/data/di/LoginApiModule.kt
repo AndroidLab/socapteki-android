@@ -13,10 +13,10 @@ import ru.apteka.social.data.repository.remote.api.ILoginApi
 class LoginApiModule {
 
     /**
-     * Предоставляет экземпляр [LoginApi].
+     * Предоставляет экземпляр [ILoginApi].
      */
     @Provides
-    fun provideExecuteApi(retrofitClient: Retrofit): ILoginApi =
+    fun provideLoginApiApi(retrofitClient: Retrofit): ILoginApi =
         retrofitClient.create(ILoginApi::class.java)
 
 }

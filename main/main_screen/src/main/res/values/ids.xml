@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="tab_1" />
-    <item type="id" name="tab_2" />
-    <item type="id" name="tab_3" />
-    <item type="id" name="tab_4" />
-    <item type="id" name="tab_5" />
+    <item type="id" name="home_graph" />
+    <item type="id" name="catalog_graph" />
+    <item type="id" name="orders_graph" />
+    <item type="id" name="favorites_graph" />
+    <item type="id" name="basket_graph" />
 </resources>

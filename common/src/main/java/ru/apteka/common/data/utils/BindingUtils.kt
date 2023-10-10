@@ -1,6 +1,7 @@
 package ru.apteka.common.data.utils
 
 import android.content.Context
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.util.TypedValue
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.google.android.flexbox.FlexboxLayout
 import ru.apteka.resources.BR
 import ru.apteka.resources.R
 import java.util.Calendar
@@ -34,7 +36,7 @@ import java.util.Calendar
  * Изменяет видимости представления.
  * @param value [Boolean] - флаг, отвечающий за видимость представления.
  */
-@BindingAdapter("apteka:visibleIf")
+@BindingAdapter("app:visibleIf")
 fun View.visibleIf(value: Boolean?) {
     visibility = if (value == true) View.VISIBLE else View.GONE
 }
@@ -44,7 +46,7 @@ fun View.visibleIf(value: Boolean?) {
  * @param value [Any] Значение для преобразования в текст.
  * @param isHtml Флаг является ли текст html.
  */
-@BindingAdapter("apteka:setText", "apteka:isHtml", requireAll = false)
+@BindingAdapter("app:setText", "app:isHtml", requireAll = false)
 fun TextView.setText(value: Any?, isHtml: Boolean = false) {
     val _text = if (value is Int && value != 0) {
         context.getString(value.toInt())
@@ -74,7 +76,7 @@ fun setTextSize(textView: TextView, value: Float) {
  * @param marginTop [Int]
  * @param marginBottom [Int]
  */
-@BindingAdapter("apteka:layoutMarginTop", "apteka:layoutMarginBottom", requireAll = false)
+@BindingAdapter("app:layoutMarginTop", "app:layoutMarginBottom", requireAll = false)
 fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
     if (marginTop != null || marginBottom != null) {
         val lp = LinearLayout.LayoutParams(view.layoutParams.width, view.layoutParams.height)
@@ -109,7 +111,7 @@ fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
  * @param layoutWidth [Int]
  * @param layoutHeight [Int]
  */
-@BindingAdapter("apteka:extra_layout_width", "apteka:extra_layout_height", requireAll = false)
+@BindingAdapter("app:extra_layout_width", "app:extra_layout_height", requireAll = false)
 fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
     val lp = view.layoutParams
     lp.width = layoutWidth?.dp ?: ViewGroup.LayoutParams.MATCH_PARENT
@@ -123,7 +125,7 @@ fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
  * @param defEndIconDrawable Иконка по умолчанию.
  * @param liveSearchProgress Флаг отображения прогресса.
  */
-@BindingAdapter("alab:defEndIconDrawable", "alab:liveSearchProgress", requireAll = false)
+@BindingAdapter("app:defEndIconDrawable", "app:liveSearchProgress", requireAll = false)
 fun setLiveSearchProgress(
     textInputLayout: TextInputLayout,
     defEndIconDrawable: Drawable?,
@@ -146,7 +148,7 @@ fun setLiveSearchProgress(
  * @param view Отображение списка.
  * @param listAdapter Адаптер.
  */
-@BindingAdapter("apteka:adapter")
+@BindingAdapter("app:adapter")
 fun setRecyclerViewAdapter(
     view: RecyclerView,
     listAdapter: ListAdapter<Any, RecyclerView.ViewHolder>?
@@ -160,7 +162,7 @@ fun setRecyclerViewAdapter(
  * @param layout Разметка ввода.
  * @param errorText Текст ошибки.
  */
-@BindingAdapter("apteka:errorText")
+@BindingAdapter("app:errorText")
 fun setErrorTextToTextInputLayout(layout: TextInputLayout, errorText: String?) {
     layout.error = errorText
 }
@@ -169,7 +171,7 @@ fun setErrorTextToTextInputLayout(layout: TextInputLayout, errorText: String?) {
  * Устанавливает изображение из ресурса.
  * @param glideImageRes Ресурс изображения.
  */
-@BindingAdapter("apteka:glideImageRes")
+@BindingAdapter("app:glideImageRes")
 fun ImageView.setGlideImage(
     glideImageRes: Any?
 ) {
@@ -187,7 +189,7 @@ fun ImageView.setGlideImage(
  * @param editText Виджет.
  * @param color Цвет выделения.
  */
-@BindingAdapter("apteka:highlightColor")
+@BindingAdapter("app:highlightColor")
 fun setHighlightColor(
     editText: EditText,
     @ColorRes color: Int?
@@ -203,7 +205,7 @@ fun setHighlightColor(
  * Устанавливает цвет векторного изображения в [ImageView].
  * @param color Цвет выделения.
  */
-@BindingAdapter("apteka:imageTint")
+@BindingAdapter("app:imageTint")
 fun ImageView.setImageTint(@ColorInt color: Int?) {
     if (color != null && color != 0) {
         setColorFilter(color)
@@ -216,7 +218,7 @@ fun ImageView.setImageTint(@ColorInt color: Int?) {
  * @param timeInMills Время в секундах.
  * @param lowerCase Регистр.
  */
-@BindingAdapter("apteka:formatDateFromSec", "apteka:lowerCase")
+@BindingAdapter("app:formatDateFromSec", "app:lowerCase")
 fun TextView.setFormatDateFromSec(timeInSec: Int?, lowerCase: Boolean = false) {
     setFormatDateFromMills(timeInSec?.let { it * 1000L }, lowerCase)
 }
@@ -226,7 +228,7 @@ fun TextView.setFormatDateFromSec(timeInSec: Int?, lowerCase: Boolean = false) {
  * @param timeInMills Время в мс.
  * @param lowerCase Регистр.
  */
-@BindingAdapter("apteka:formatDateFromMills", "apteka:lowerCase")
+@BindingAdapter("app:formatDateFromMills", "app:lowerCase")
 fun TextView.setFormatDateFromMills(timeInMills: Long?, lowerCase: Boolean = false) {
     if (timeInMills != null) {
         val _text: String = getFormatDate(context, timeInMills).run {
@@ -247,6 +249,18 @@ fun TextView.setFormatDateFromMills(timeInMills: Long?, lowerCase: Boolean = fal
 fun getFormatDate(context: Context, timeInMills: Long) =
     Calendar((timeInMills / 1000).toInt()).formatDate(context)
 
+
+/**
+ * Устанавливает зачеркнутый текст.
+ */
+@BindingAdapter("app:isStrikethrough")
+fun TextView.isStrikethrough(
+    value: Boolean = false
+) {
+    paintFlags = if (value) paintFlags or Paint.STRIKE_THRU_TEXT_FLAG else paintFlags
+}
+
+
 /**
  * Создает представление из шаблона для каждого элемента списка.
  * @param items List<T>? Список элементов.
@@ -254,14 +268,13 @@ fun getFormatDate(context: Context, timeInMills: Long) =
  * @param gap Int? Размер пространства между отображениями в dp.
  * @param lifecycleOwner [LifecycleOwner].
  */
-/*@BindingAdapter(
-    value = ["apteka:forItems", "apteka:useTemplate", "apteka:itemGap", "apteka:lifecycleOwner"],
+@BindingAdapter(
+    value = ["app:forItems", "app:useTemplate", "app:lifecycleOwner"],
     requireAll = false
 )
 fun <T> ViewGroup.inflateTemplateByItems(
     items: List<T>?,
     @LayoutRes template: Int?,
-    gap: Int?,
     lifecycleOwner: LifecycleOwner?
 ) {
     if (items != null && template != null) {
@@ -278,21 +291,6 @@ fun <T> ViewGroup.inflateTemplateByItems(
                 viewBinding.setVariable(BR.bindingItem, item)
                 viewBinding.executePendingBindings()
             }
-            this.children.forEachIndexed { index, view ->
-                if (index != 0) {
-                    val params =
-                        if (view.layoutParams != null) LinearLayoutCompat.LayoutParams(
-                            view.layoutParams.width,
-                            view.layoutParams.height
-                        )
-                        else LinearLayoutCompat.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                    params.setMargins(0, gap?.dp ?: 0, 0, 0)
-                    view.layoutParams = params
-                }
-            }
             return
         }
         if (this.childCount == items.size) {
@@ -301,18 +299,6 @@ fun <T> ViewGroup.inflateTemplateByItems(
                 viewBinding?.lifecycleOwner = lifecycleOwner
                 viewBinding?.setVariable(BR.bindingItem, items[index])
                 viewBinding?.executePendingBindings()
-                if (index != 0) {
-                    val params =
-                        if (view.layoutParams != null) LinearLayoutCompat.LayoutParams(
-                            view.layoutParams.width,
-                            view.layoutParams.height
-                        ) else LinearLayoutCompat.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                    params.setMargins(0, gap?.dp ?: 0, 0, 0)
-                    view.layoutParams = params
-                }
             }
             return
         }
@@ -329,9 +315,9 @@ fun <T> ViewGroup.inflateTemplateByItems(
                     )
                 }
             }
-            inflateTemplateByItems(items, template, gap, lifecycleOwner)
+            inflateTemplateByItems(items, template, lifecycleOwner)
         }
     } else {
         this.removeAllViews()
     }
-}*/
+}

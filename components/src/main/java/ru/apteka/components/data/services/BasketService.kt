@@ -35,4 +35,9 @@ class BasketService @Inject constructor(
     fun removeProduct(product: UUID) {
         _products.value = _products.value!!.minus(product)
     }
+
+    /**
+     *
+     */
+    fun isContainsInBasket(uuid: UUID) = _products.value!!.contains(uuid)
 }

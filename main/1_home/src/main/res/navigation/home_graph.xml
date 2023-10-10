@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/home_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ru.apteka.home.presentation.home.HomeFragment"
+        tools:layout="@layout/home_fragment">
+
+        <!--<action
+            android:id="@+id/to_screen_1_1"
+            app:destination="@id/screen_1_1" />
+-->
+    </fragment>
+
+    <!--<fragment
+        android:id="@+id/screen_1_1"
+        android:name="ru.apteka.screen_1.presentation.screen_1_1.Screen_1_1_Fragment"
+        android:label="Screen_1_1"
+        tools:layout="@layout/screen_1_1_fragment" />-->
+
+</navigation>

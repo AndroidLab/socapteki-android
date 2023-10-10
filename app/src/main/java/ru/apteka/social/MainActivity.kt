@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.ui.navigateUp
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.common.data.services.error_notice_service.ErrorNoticeService
 import ru.apteka.common.data.services.error_notice_service.models.IRequestError
@@ -13,10 +14,15 @@ import ru.apteka.common.data.services.message_notice_service.models.CommonDialog
 import ru.apteka.common.data.services.message_notice_service.models.DialogModel
 import ru.apteka.common.data.services.message_notice_service.showCommonDialog
 import ru.apteka.common.data.utils.launchIO
+import ru.apteka.common.data.utils.transparentStatusBar
 import ru.apteka.common.ui.CommonDialogFragment
 import ru.apteka.components.data.navigation_manager.NavigationManager
 import ru.apteka.social.databinding.ActivityMainBinding
 import javax.inject.Inject
+import ru.apteka.basket.R as BasketR
+import ru.apteka.catalog.R as CatalogR
+import ru.apteka.favorites.R as FavoritesR
+import ru.apteka.orders.R as OrdersR
 
 
 @AndroidEntryPoint
@@ -41,8 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.root
-        navigationManager.generalNavController = findNavController(R.id.general_nav_host)
+        transparentStatusBar()
+        navigationManager.apply {
+            drawerLayout = binding.drawerLayout
+            generalNavController = findNavController(R.id.general_nav_host)
+        }
 
         /*GlobalScope.launch {
             delay(15000)
@@ -60,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                         dialogModel = DialogModel(
                             title = it.title,
                             message = CommonDialogFragment.CommonDialogMessage(
-                                message = when(it) {
+                                message = when (it) {
                                     is IRequestError.RequestErrorResMsg -> it.msg
                                     is IRequestError.RequestErrorStringMsg -> it.msg
                                 }
@@ -90,16 +99,31 @@ class MainActivity : AppCompatActivity() {
         navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.call()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
+    /*override fun onSupportNavigateUp(): Boolean {
         return navigationManager.currentBottomNavControllerLiveData.value?.navigateUp() ?: false
+    }*/
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationManager.currentBottomNavControllerLiveData.value!!.navigateUp(
+            navigationManager.getAppBarConfiguration()
+        ) || super.onSupportNavigateUp()
     }
 
     /**
      * Переопределение popBackStack необходимо в этом случае, если приложение запускается по глубокой ссылке.
      */
     override fun onBackPressed() {
-        if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
-            super.onBackPressed()
+        val currentDestinationId = navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
+
+        if (currentDestinationId == CatalogR.id.catalogFragment
+            || currentDestinationId == OrdersR.id.ordersFragment
+            || currentDestinationId == FavoritesR.id.favoritesFragment
+            || currentDestinationId == BasketR.id.basketFragment) {
+            navigationManager.bottomNavBar.selectedItemId = navigationManager.bottomNavBar.menu.getItem(0).itemId
+        } else {
+            if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
+                super.onBackPressed()
+            }
         }
     }
 }

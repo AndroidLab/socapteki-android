@@ -1,16 +1,21 @@
 package ru.apteka.main.presentation.main
 
+import android.view.Gravity
+import androidx.appcompat.app.ActionBar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.common.ui.BaseFragment
 import ru.apteka.main.R
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.main.databinding.MainFragmentBinding
-import ru.apteka.screen_1.R as Screen1R
-import ru.apteka.screen_2.R as Screen2R
-import ru.apteka.screen_3.R as Screen3R
-import ru.apteka.screen_4.R as Screen4R
-import ru.apteka.screen_5.R as Screen5R
+import ru.apteka.main.databinding.ToolbarMenuBinding
+import ru.apteka.basket.R as BasketR
+import ru.apteka.catalog.R as CatalogR
+import ru.apteka.favorites.R as FavoritesR
+import ru.apteka.home.R as HomeR
+import ru.apteka.orders.R as OrdersR
 
 
 /**
@@ -22,12 +27,23 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     override val layoutId: Int = R.layout.main_fragment
 
     override fun onViewBindingInflated(binding: MainFragmentBinding) {
+        mActivity.setSupportActionBar(binding.toolbar)
+        mActivity.supportActionBar!!.setDisplayShowCustomEnabled(true)
+        viewModel.navigationManager.bottomNavBar = binding.bottomNav.component
+        viewModel.navigationManager.topLevelDestinationIds = setOf(
+            HomeR.id.homeFragment,
+            CatalogR.id.catalogFragment,
+            OrdersR.id.ordersFragment,
+            FavoritesR.id.favoritesFragment,
+            BasketR.id.basketFragment,
+        )
+        setupBottomNavigationBar()
         viewModel.navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.observe(
             viewLifecycleOwner
         ) {
             setupBottomNavigationBar()
         }
-        //TODO Для сэмпла
+
         viewModel.basketService.products.observe(viewLifecycleOwner) { products ->
             products.size.toUInt().also { productCount ->
                 binding.bottomNav.nbTab5.setNumber(
@@ -39,26 +55,46 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 )
             }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        mActivity.supportActionBar?.setCustomView(
+            DataBindingUtil.inflate<ToolbarMenuBinding>(layoutInflater, R.layout.toolbar_menu, null, false).apply {
+                ivMenuSearch.setOnClickListener {
 
+                }
+                ivMenuDoctor.setOnClickListener {
+
+                }
+                ivMenuAuth.setOnClickListener {
+
+                }
+            }.root,
+            ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.END
+            )
+        )
     }
 
     private fun setupBottomNavigationBar() {
         viewModel.navigationManager.currentBottomNavControllerLiveData =
             binding.bottomNav.component.setupWithNavController(
                 navGraphIds = listOf(
-                    Screen1R.navigation.screen_1_graph,
-                    Screen2R.navigation.screen_2_graph,
-                    Screen3R.navigation.screen_3_graph,
-                    Screen4R.navigation.screen_4_graph,
-                    Screen5R.navigation.screen_5_graph
+                    HomeR.navigation.home_graph,
+                    CatalogR.navigation.catalog_graph,
+                    OrdersR.navigation.orders_graph,
+                    FavoritesR.navigation.favorites_graph,
+                    BasketR.navigation.basket_graph
                 ),
                 fragmentManager = childFragmentManager,
                 containerId = R.id.nav_host_container,
                 intent = requireActivity().intent
             ).apply {
                 observe(viewLifecycleOwner) { navController ->
-                    //(requireActivity() as AppCompatActivity).setupActionBarWithNavController(navController)
+                    mActivity.setupActionBarWithNavController(navController, viewModel.navigationManager.getAppBarConfiguration())
                 }
             }
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/basket_graph"
+    app:startDestination="@id/basketFragment">
+
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="ru.apteka.basket.presentation.basket.BasketFragment"
+        android:label="@string/basket_title"
+        tools:layout="@layout/basket_fragment">
+
+    </fragment>
+
+</navigation>

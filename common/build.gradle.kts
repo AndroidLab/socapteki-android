@@ -14,7 +14,8 @@ dependencies {
     implementation(project(":resources"))
 
     //implementation(libs.glide.glide)
-    implementation(libs.appcompat)
-    implementation(libs.bundles.navigationDeps)
+    api(libs.appcompat)
+    api(libs.bundles.navigationDeps)
+    api(libs.flexbox)
     implementation(libs.swiperefreshlayout)
 }

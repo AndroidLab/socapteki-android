@@ -29,12 +29,12 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/components" />
             <option value="$PROJECT_DIR$/main" />
+            <option value="$PROJECT_DIR$/main/1_home" />
+            <option value="$PROJECT_DIR$/main/2_catalog" />
+            <option value="$PROJECT_DIR$/main/3_orders" />
+            <option value="$PROJECT_DIR$/main/4_favorites" />
+            <option value="$PROJECT_DIR$/main/5_basket" />
             <option value="$PROJECT_DIR$/main/main_screen" />
-            <option value="$PROJECT_DIR$/main/screen_1" />
-            <option value="$PROJECT_DIR$/main/screen_2" />
-            <option value="$PROJECT_DIR$/main/screen_3" />
-            <option value="$PROJECT_DIR$/main/screen_4" />
-            <option value="$PROJECT_DIR$/main/screen_5" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/resources" />
           </set>

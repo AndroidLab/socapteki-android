@@ -27,12 +27,15 @@ dependencies {
     implementation(project(":components"))
     implementation(project(":network"))
     implementation(project(":main:main_screen"))
+    implementation(project(":main:1_home"))
+    implementation(project(":main:2_catalog"))
+    implementation(project(":main:3_orders"))
+    implementation(project(":main:4_favorites"))
+    implementation(project(":main:5_basket"))
 
     //Google & Android
     implementation(libs.core.ktx)
-    //implementation(libs.appcompat)
     implementation(libs.constraintlayout)
-    implementation(libs.swiperefreshlayout)
     implementation(libs.material)
     implementation(libs.gson)
     implementation(libs.bundles.lifecycleDeps)
