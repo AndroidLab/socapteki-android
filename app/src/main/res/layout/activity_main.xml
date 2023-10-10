@@ -4,72 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/background_secondary">
 
-        <ru.apteka.components.ui.TextInputLayout
-            android:id="@+id/myTextInputLayout"
-            style="@style/TextInputLayout"
+        <fragment
+            android:id="@+id/general_nav_host"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
-            app:startIconDrawable="@drawable/baseline_phone_24"
-            android:hint="Ввод номера телефона">
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/general_nav_graph" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/myEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:background="@drawable/text_input_white_background_unfocused_shape"/>
-
-        </ru.apteka.components.ui.TextInputLayout>
-
-
-        <ru.apteka.components.ui.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
-            android:hint="Код подтверждения">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codeEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits=" ,_0,1,2,3,4,5,6,7,8,9"
-                android:inputType="number"
-                android:background="@drawable/text_input_white_background_unfocused_shape"/>
-
-        </ru.apteka.components.ui.TextInputLayout>
-
-        <ru.apteka.components.ui.PinCodeView
-            android:id="@+id/pinCodeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="64dp" />
-
-        <Button
-            android:id="@+id/btnPinCodeSuccess"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
-            android:text="Success PinCode"/>
-
-        <Button
-            android:id="@+id/btnPinCodeError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
-            android:text="Failure PinCode"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </layout>

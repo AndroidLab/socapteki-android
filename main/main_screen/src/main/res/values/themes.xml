@@ -1,0 +1,10 @@
+<resources>
+
+    <style name="BottomNavBar" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@drawable/navigation_bar_shape</item>
+        <item name="itemIconTint">@drawable/navigation_bar_item_selector</item>
+        <item name="itemTextColor">@drawable/navigation_bar_item_selector</item>
+        <item name="itemRippleColor">@color/grey</item>
+    </style>
+
+</resources>

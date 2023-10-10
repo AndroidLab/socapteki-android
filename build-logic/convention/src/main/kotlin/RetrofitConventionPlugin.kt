@@ -11,7 +11,8 @@ class RetrofitConventionPlugin : Plugin<Project> {
         with(target) {
             dependencies {
                 "implementation"(libs.findLibrary("retrofit").get())
-                "implementation"(libs.findLibrary("converter.gson").get())
+                "implementation"(libs.findLibrary("converterGson").get())
+                "implementation"(libs.findLibrary("loggingInterceptor").get())
                 //"implementation"(libs.findLibrary("converter.scalars").get())
             }
         }

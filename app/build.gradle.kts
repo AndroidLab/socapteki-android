@@ -4,6 +4,7 @@ plugins {
     id(libs.plugins.apteka.kotlin.convention.plugin.get().pluginId)
     id(libs.plugins.apteka.hilt.convention.plugin.get().pluginId)
     id(libs.plugins.apteka.navigation.convention.plugin.get().pluginId)
+    id(libs.plugins.apteka.retrofit.convention.plugin.get().pluginId)
 }
 
 private val major = 0
@@ -22,7 +23,10 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":resources"))
     implementation(project(":components"))
+    implementation(project(":network"))
+    implementation(project(":main:main_screen"))
 
     //Google & Android
     implementation(libs.core.ktx)
@@ -31,5 +35,5 @@ dependencies {
     implementation(libs.swiperefreshlayout)
     implementation(libs.material)
     implementation(libs.gson)
-    implementation(libs.bundles.lifecycle.deps)
+    implementation(libs.bundles.lifecycleDeps)
 }

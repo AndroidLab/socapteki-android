@@ -2,10 +2,8 @@ package ru.apteka.components.ui
 
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
@@ -15,10 +13,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import ru.apteka.common.data.utils.dp
 import ru.apteka.components.R
+import ru.apteka.resources.R as ResourcesR
 import ru.apteka.components.databinding.PinCodeItemBinding
 import ru.apteka.components.databinding.PinCodeViewBinding
-import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет отображение ввода пинкода.
@@ -31,18 +30,18 @@ class PinCodeView @JvmOverloads constructor(
     private val _binding = PinCodeViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var cellsCount = 4
-    private var cellSize = getDp(52)
-    private var cellBorderSize = getDp(2)
-    private var cellGapSize = getDp(16)
-    private var cellCornerRadius = getDp(4)
+    private var cellSize = 52.dp
+    private var cellBorderSize = 2.dp
+    private var cellGapSize = 16.dp
+    private var cellCornerRadius = 4.dp
     private var cellBackgroundColor = Color.WHITE
     private var cellBackgroundFocusColor = Color.WHITE
-    private var cellBackgroundSuccessColor = context.getColor(ComponentsR.color.light_green)
-    private var cellBackgroundErrorColor = context.getColor(ComponentsR.color.light_red)
+    private var cellBackgroundSuccessColor = context.getColor(ResourcesR.color.light_green)
+    private var cellBackgroundErrorColor = context.getColor(ResourcesR.color.light_red)
     private var cellBorderColor = Color.GRAY
-    private var cellBorderFocusColor = context.getColor(ComponentsR.color.color_primary)
-    private var cellBorderSuccessColor = context.getColor(ComponentsR.color.color_primary)
-    private var cellBorderErrorColor = context.getColor(ComponentsR.color.red)
+    private var cellBorderFocusColor = context.getColor(ResourcesR.color.color_primary)
+    private var cellBorderSuccessColor = context.getColor(ResourcesR.color.color_primary)
+    private var cellBorderErrorColor = context.getColor(ResourcesR.color.red)
     private var cellTextColor = Color.DKGRAY
 
     private val cells = mutableListOf<PinCodeItemBinding>()
@@ -53,13 +52,18 @@ class PinCodeView @JvmOverloads constructor(
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PinCodeView)
-        cellsCount = typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellsCount, cellsCount)
+        cellsCount =
+            typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellsCount, cellsCount)
         cellSize = typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellSize, cellSize)
         cellBorderSize =
             typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellBorderSize, cellBorderSize)
-        cellGapSize = typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellGapSize, cellGapSize)
+        cellGapSize =
+            typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellGapSize, cellGapSize)
         cellCornerRadius =
-            typedArray.getDimensionPixelSize(R.styleable.PinCodeView_cellCornerRadius, cellCornerRadius)
+            typedArray.getDimensionPixelSize(
+                R.styleable.PinCodeView_cellCornerRadius,
+                cellCornerRadius
+            )
         cellBackgroundColor =
             typedArray.getColor(R.styleable.PinCodeView_cellBackgroundColor, cellBackgroundColor)
         cellBackgroundFocusColor = typedArray.getColor(
@@ -74,11 +78,15 @@ class PinCodeView @JvmOverloads constructor(
             R.styleable.PinCodeView_cellBackgroundErrorColor,
             cellBackgroundErrorColor
         )
-        cellBorderColor = typedArray.getColor(R.styleable.PinCodeView_cellBorderColor, cellBorderColor)
+        cellBorderColor =
+            typedArray.getColor(R.styleable.PinCodeView_cellBorderColor, cellBorderColor)
         cellBorderFocusColor =
             typedArray.getColor(R.styleable.PinCodeView_cellBorderFocusColor, cellBorderFocusColor)
         cellBorderSuccessColor =
-            typedArray.getColor(R.styleable.PinCodeView_cellBorderSuccessColor, cellBorderSuccessColor)
+            typedArray.getColor(
+                R.styleable.PinCodeView_cellBorderSuccessColor,
+                cellBorderSuccessColor
+            )
         cellBorderErrorColor =
             typedArray.getColor(R.styleable.PinCodeView_cellBorderErrorColor, cellBorderErrorColor)
         cellTextColor = typedArray.getColor(R.styleable.PinCodeView_cellTextColor, cellTextColor)
@@ -125,7 +133,7 @@ class PinCodeView @JvmOverloads constructor(
             if (!editable.isNullOrEmpty()) {
                 _binding.etCode.setText("")
                 if (codes.size < cells.size) {
-                    codes.add(editable.toString());
+                    codes.add(editable.toString())
                     showCode()
                 }
             }
@@ -254,13 +262,6 @@ class PinCodeView @JvmOverloads constructor(
      * @return проверочный код.
      */
     fun getPinCode() = codes.joinToString("")
-
-    private fun getDp(value: Int) =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            value.toFloat(),
-            Resources.getSystem().displayMetrics
-        ).toInt()
 }
 
 /**

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.social.presentation.auth.auth_login.AuthViewModel" />
+
+    </data>
+
+
+    <ru.apteka.common.ui.LoaderLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isLoading="@{viewModel.isLoading}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/base_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/auth_title"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/auth_desc"
+                android:textColor="@color/dark_grey" />
+
+            <ru.apteka.components.ui.TextInputLayout
+                android:id="@+id/tilPhone"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="@string/auth_phone_hint"
+                app:errorText="@{viewModel.isError ? @string/auth_phone_error : ``}"
+                app:startIconDrawable="@drawable/ic_phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="phone"
+                    android:text="@={viewModel.phoneNumber}" />
+
+            </ru.apteka.components.ui.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:checked="@={viewModel.isRememberMeLiveData}"
+                android:text="@string/auth_remember_me" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbPersonalData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.isPersonalDataLiveData}"
+                android:text="@string/auth_personal_data"
+                android:textColorLink="@color/black" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{viewModel.isPersonalDataLiveData &amp; viewModel.phoneNumberRaw.length() == 10 &amp; !viewModel.isLoading}"
+                android:onClick="@{() -> viewModel.sendPhoneNumber()}"
+                android:text="@string/auth_send_btn" />
+
+        </LinearLayout>
+
+    </ru.apteka.common.ui.LoaderLayout>
+
+</layout>

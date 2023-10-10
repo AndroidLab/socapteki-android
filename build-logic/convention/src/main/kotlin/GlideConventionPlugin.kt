@@ -13,8 +13,8 @@ class GlideConventionPlugin : Plugin<Project> {
                 apply(libs.findPlugin("kotlin.ksp").get().get().pluginId)
             }
             dependencies {
-                "implementation"(libs.findLibrary("glide.glide").get())
-                "ksp"(libs.findLibrary("glide.compiler").get())
+                "implementation"(libs.findLibrary("glideGlide").get())
+                //"ksp"(libs.findLibrary("glideCompiler").get())
             }
         }
     }

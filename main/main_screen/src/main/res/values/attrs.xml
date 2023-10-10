@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- NotificationBadge -->
+    <declare-styleable name="NotificationBadge">
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="nbBackground" format="reference" />
+        <attr name="nbAnimationDuration" format="integer" />
+        <attr name="nbCountLimit" format="integer" />
+        <attr name="nbEllipsizeText" format="string" />
+    </declare-styleable>
+
+</resources>

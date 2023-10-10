@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@+id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="ru.apteka.social.presentation.auth.auth_login.AuthFragment"
+        tools:layout="@layout/auth_fragment">
+
+        <action
+            android:id="@+id/toAuthConfirmFragment"
+            app:destination="@id/authConfirmFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/authConfirmFragment"
+        android:name="ru.apteka.social.presentation.auth.auth_confirm.AuthConfirmFragment"
+        tools:layout="@layout/auth_confirm_fragment">
+
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>

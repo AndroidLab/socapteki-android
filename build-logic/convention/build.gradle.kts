@@ -54,7 +54,7 @@ gradlePlugin {
         }
         register(libs.plugins.apteka.glide.convention.plugin.get().pluginId) {
             id = libs.plugins.apteka.glide.convention.plugin.get().pluginId
-            implementationClass = "RoomConventionPlugin"
+            implementationClass = "GlideConventionPlugin"
         }
     }
 }

@@ -1,0 +1,8 @@
+<resources>
+    <string name="error">Ошибка</string>
+    <string name="http_error">Http error %s</string>
+    <string name="http_error_not_connection">Отсутствует подключение к сети</string>
+    <string name="binding_class_not_created">Биндинг класс еще не создан.</string>
+    <string name="common_today">Сегодня</string>
+    <string name="common_yesterday">Вчера</string>
+</resources>

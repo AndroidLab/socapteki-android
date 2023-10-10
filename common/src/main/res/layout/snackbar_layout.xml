@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="imageRes"
+            type="int" />
+
+        <variable
+            name="message"
+            type="Object" />
+
+        <variable
+            name="subMessage"
+            type="Object" />
+
+        <variable
+            name="messageLevel"
+            type="ru.apteka.common.data.services.message_notice_service.models.MessageLevel" />
+
+        <variable
+            name="actionBtnText"
+            type="Object" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@{imageRes == -1 ? null : context.getDrawable(imageRes)}"
+            app:visibleIf="@{imageRes != -1}"
+            tools:ignore="ContentDescription" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="@{context.getColor(messageLevel.color)}"
+                app:setText="@{message}"
+                app:visibleIf="@{!message.toString().empty}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/white"
+                app:setText="@{subMessage}"
+                app:visibleIf="@{!subMessage.toString().empty}" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/snackBarAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:background="?attr/selectableItemBackground"
+            app:setText="@{actionBtnText}"
+            app:strokeColor="@color/white"
+            app:visibleIf="@{!actionBtnText.toString().empty}"
+            tools:enabled="true"
+            tools:text="Action button" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

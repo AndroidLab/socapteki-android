@@ -17,6 +17,12 @@ dependencyResolutionManagement {
 rootProject.name = "socapteka"
 include(":app")
 include(":common")
+include(":resources")
 include(":network")
 include(":components")
-include(":main")
+include(":main:main_screen")
+include(":main:screen_1")
+include(":main:screen_2")
+include(":main:screen_3")
+include(":main:screen_4")
+include(":main:screen_5")

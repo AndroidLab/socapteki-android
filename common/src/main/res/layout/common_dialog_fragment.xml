@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apteka="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="imageRes"
+            type="int" />
+
+        <variable
+            name="title"
+            type="Object" />
+
+        <variable
+            name="dialogMessage"
+            type="ru.apteka.common.ui.CommonDialogFragment.CommonDialogMessage" />
+
+        <variable
+            name="isCustomContent"
+            type="Boolean" />
+
+        <variable
+            name="buttonCancel"
+            type="ru.apteka.common.data.services.message_notice_service.models.DialogButtonModel" />
+
+        <variable
+            name="buttonConfirm"
+            type="ru.apteka.common.data.services.message_notice_service.models.DialogButtonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/commonDialogLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Заголовок -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:visibleIf="@{imageRes != -1 | !title.toString().empty}">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:src="@{imageRes == -1 ? null : context.getDrawable(imageRes)}"
+                app:visibleIf="@{imageRes != -1}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/commonDialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary_variant"
+                android:textSize="14sp"
+                app:setText="@{title}"
+                app:visibleIf="@{!title.toString().empty}"
+                tools:text="Заголовок" />
+
+        </LinearLayout>
+
+        <!-- Тело диалога -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/commonDialogMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                apteka:isHtml="@{dialogMessage.isHtml}"
+                apteka:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
+                apteka:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
+                apteka:setText="@{dialogMessage.message}"
+                app:visibleIf="@{!dialogMessage.message.toString().empty}"
+                tools:text="Обычный текст диалога" />
+
+            <FrameLayout
+                android:id="@+id/commonDialogContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                apteka:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }"
+                app:visibleIf="@{isCustomContent}" />
+
+        </LinearLayout>
+
+        <!-- Кнопки -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:visibleIf="@{buttonCancel != null | buttonConfirm != null}">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/commonDialogCancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@color/color_primary"
+                android:textSize="14sp"
+                apteka:visibleIf="@{buttonCancel != null}"
+                app:setText='@{buttonCancel == null ? "" : buttonCancel.text}'
+                tools:text="cancel"
+                tools:textColor="@color/color_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/commonDialogConfirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@color/color_primary"
+                android:textSize="14sp"
+                apteka:visibleIf="@{buttonConfirm != null}"
+                app:setText='@{buttonConfirm == null ? "" : buttonConfirm.text}'
+                tools:text="ok"
+                tools:textColor="@color/color_primary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- PinCode -->
+    <!-- Параметры для  PinCode -->
     <declare-styleable name="PinCodeView">
 
         <attr name="cellsCount" format="integer"/>
@@ -21,7 +21,7 @@
 
     </declare-styleable>
 
-    <!-- TextInputLayout -->
+    <!-- Параметры для TextInputLayout -->
     <declare-styleable name="TextInputLayout">
         <attr name="textInputLayoutFocusedDrawable" format="reference"/>
         <attr name="textInputLayoutUnfocusedDrawable" format="reference"/>
