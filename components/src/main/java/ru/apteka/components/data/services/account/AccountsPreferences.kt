@@ -22,14 +22,14 @@ class AccountsPreferences @Inject constructor(
         private const val ACCOUNT = "account"
     }
 
-    private val accountsPref =
+    private val accountPref =
         context.getSharedPreferences(AccountsPreferences::class.java.simpleName, Context.MODE_PRIVATE)
 
     /**
      * Возвращет текущий аккаунт.
      */
     var account: Account? by PreferencesDelegate(
-        accountsPref,
+        accountPref,
         ACCOUNT,
         null, {
             it?.let { Gson().toJson(it) } ?: ""

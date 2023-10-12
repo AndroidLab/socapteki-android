@@ -11,15 +11,19 @@
         android:name="ru.apteka.main.presentation.main.MainFragment"
         tools:layout="@layout/main_fragment">
 
-        <!--<action
-            android:id="@+id/toOtherFragment"
-            app:destination="@id/otherFragment" />-->
-
     </fragment>
 
-    <!--<fragment
-        android:id="@+id/otherFragment"
-        android:name="OtherFragment"
-        tools:layout="@layout/other_fragment"/>-->
+    <include app:graph="@navigation/choosing_city_graph" />
+
+    <include app:graph="@navigation/about_company_graph" />
+
+    <include app:graph="@navigation/brands_graph" />
+
+    <include app:graph="@navigation/pharmacies_map_graph" />
+
+    <include app:graph="@navigation/advantages_graph" />
+
+    <include app:graph="@navigation/partners_graph" />
+
 
 </navigation>

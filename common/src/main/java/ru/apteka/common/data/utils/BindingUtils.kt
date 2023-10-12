@@ -22,6 +22,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
@@ -258,6 +259,29 @@ fun TextView.isStrikethrough(
     value: Boolean = false
 ) {
     paintFlags = if (value) paintFlags or Paint.STRIKE_THRU_TEXT_FLAG else paintFlags
+}
+
+
+/**
+ * Устанавливает margin для итема списка.
+ */
+@BindingAdapter("app:marginItemHorizontal", "app:marginItemVertical", requireAll = false)
+fun RecyclerView.marginItemDecoration(
+    marginItemHorizontal: Int,
+    marginItemVertical: Int
+) {
+    addItemDecoration(MarginItemDecoration(horizontal = marginItemHorizontal.dp, vertical = marginItemVertical.dp))
+}
+
+
+/**
+ * Устанавливает доскроливание с привязкой к центру.
+ */
+@BindingAdapter("app:linearSnapHelper")
+fun RecyclerView.linearSnapHelper(
+    linearSnapHelper: Boolean
+) {
+    LinearSnapHelper().attachToRecyclerView(this)
 }
 
 

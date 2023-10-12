@@ -42,7 +42,7 @@ class AuthConfirmFragment : BaseFragment<AuthConfirmViewModel, AuthConfirmFragme
         ).installOn(binding.etAuthConfirmPhone)
 
         viewModel.isNavigationToMain.observe(viewLifecycleOwner) {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
+            //startActivity(Intent(requireContext(), MainActivity::class.java))
             mActivity.finish()
         }
     }

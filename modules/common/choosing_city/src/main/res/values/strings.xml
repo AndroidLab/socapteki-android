@@ -1,0 +1,4 @@
+<resources>
+    <string name="choosing_city_query_loading_hint">Поиск городов…</string>
+    <string name="choosing_city_query_hint">Начните вводить…</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.new_module.presentation.ChoosingCityViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@={viewModel.cityQuery}"
+            android:hint="@{viewModel.isLoading ? @string/choosing_city_query_loading_hint : @string/choosing_city_query_hint}"
+            android:enabled="@{!viewModel.isLoading}"
+            android:background="@null" />
+
+        <FrameLayout
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="20dp"
+                android:onClick="@{() -> viewModel.clearQuery()}"
+                android:src="@drawable/ic_close"
+                app:visibleIf="@{!viewModel.isLoading}"
+                tools:ignore="ContentDescription" />
+
+            <ProgressBar
+                style="@style/Theme.Socapteki.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:indeterminateOnly="true"
+                app:visibleIf="@{viewModel.isLoading}" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</layout>
+

@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
 import ru.apteka.resources.R as ResourcesR

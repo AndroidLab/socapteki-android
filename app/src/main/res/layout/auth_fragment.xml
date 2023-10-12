@@ -23,11 +23,28 @@
             android:orientation="vertical"
             android:padding="@dimen/base_padding">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/auth_title"
-                android:textSize="32sp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/authBack"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/auth_back"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    style="@style/Theme.Socapteki.HeaderH0"
+                    android:text="@string/auth_title" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,6 +61,7 @@
                 android:layout_marginTop="24dp"
                 android:hint="@string/auth_phone_hint"
                 app:errorText="@{viewModel.isError ? @string/auth_phone_error : ``}"
+                app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_phone">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@id/mainFragment"
+            android:visible="false"
+            android:title="main"/>
+
+        <item
+            android:id="@id/about_company_graph"
+            android:icon="@drawable/ic_about_company"
+            android:title="@string/about_company" />
+
+        <item
+            android:id="@+id/_1"
+            android:icon="@drawable/ic_work_with_us"
+            android:title="@string/work_with_us" />
+
+        <item
+            android:id="@+id/_2"
+            android:icon="@drawable/ic_manufacturers"
+            android:title="@string/manufacturers" />
+
+        <item
+            android:id="@+id/_3"
+            android:icon="@drawable/ic_contacts"
+            android:title="@string/contacts" />
+
+        <item
+            android:id="@id/pharmacies_map_graph"
+            android:icon="@drawable/ic_pharmacies"
+            android:title="@string/pharmacies_map_title" />
+
+        <item
+            android:id="@+id/_5"
+            android:icon="@drawable/ic_reviews"
+            android:title="@string/reviews" />
+
+        <item
+            android:id="@+id/_6"
+            android:icon="@drawable/ic_cooperation"
+            android:title="@string/cooperation" />
+
+        <item
+            android:id="@+id/_7"
+            android:icon="@drawable/ic_licenses_and_permits"
+            android:title="@string/licenses_and_permits" />
+
+        <item
+            android:id="@+id/_8"
+            android:icon="@drawable/ic_partners"
+            android:title="@string/partners" />
+
+        <item
+            android:id="@+id/_9"
+            android:icon="@drawable/ic_mobile_application"
+            android:title="@string/mobile_application" />
+
+        <item
+            android:id="@+id/brands_graph"
+            android:icon="@drawable/ic_brands"
+            android:title="@string/brands" />
+
+    </group>
+
+</menu>

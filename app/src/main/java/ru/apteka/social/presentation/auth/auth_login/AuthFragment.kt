@@ -47,6 +47,10 @@ class AuthFragment : BaseFragment<AuthViewModel, AuthFragmentBinding>() {
     override fun onViewBindingInflated(binding: AuthFragmentBinding) {
         binding.viewModel = viewModel
 
+        binding.authBack.setOnClickListener {
+            mActivity.finish()
+        }
+
         MaskFormatWatcher(
             MaskImpl(
                 Slot.copySlotArray(PredefinedSlots.RUS_PHONE_NUMBER).apply {

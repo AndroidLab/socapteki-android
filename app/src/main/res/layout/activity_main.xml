@@ -17,11 +17,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
+           <!-- <View
                 android:id="@+id/statusBarStub"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:background="@color/color_primary" />
+                android:background="@color/color_primary" />-->
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grey" />
+
+            </com.google.android.material.appbar.AppBarLayout>
 
             <fragment
                 android:id="@+id/general_nav_host"
@@ -33,13 +50,24 @@
 
         </LinearLayout>
 
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:drawerLayoutCornerSize="0dp"
+            app:itemIconTint="@color/color_primary"
+            app:itemRippleColor="@color/color_secondary_container"
+            app:menu="@menu/drawer_menu" />
 
-        <androidx.fragment.app.FragmentContainerView
+        <!--<androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="ru.apteka.social.presentation.drawer.DrawerFragment"
             android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start" />
+            android:layout_gravity="start" />-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

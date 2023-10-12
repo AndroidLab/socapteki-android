@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="choosing_city_graph" />
+    <item type="id" name="about_company_graph" />
+    <item type="id" name="brands_graph" />
+    <item type="id" name="pharmacies_map_graph" />
+    <item type="id" name="advantages_graph" />
+    <item type="id" name="partners_graph" />
+</resources>

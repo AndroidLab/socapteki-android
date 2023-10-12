@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":resources"))
 
     api(libs.decoro)
+    api(libs.skeleton)
     implementation(libs.material)
     implementation(libs.gson)
 }

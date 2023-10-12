@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.new_module.presentation.ChoosingCityViewModel" />
+
+    </data>
+
+
+    <ru.apteka.common.ui.LoaderLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isLoading="@{viewModel.isLoading}">
+
+        <!-- Выбор города -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChoosingCity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:visibleIf="@{!viewModel.citiesFilteredMediator.empty}" />
+
+
+    </ru.apteka.common.ui.LoaderLayout>
+
+
+</layout>

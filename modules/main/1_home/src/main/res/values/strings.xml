@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="home_city_not_selected">Город не выбран</string>
+    <string name="home_location_change">Изменить</string>
+    <string name="home_promotions">Акции</string>
+    <string name="home_promotions_all">Все акции</string>
+    <string name="home_products_day">Товары дня</string>
+    <string name="home_product_bye_one_click">Купить в 1 клик</string>
+    <string name="home_products_discount">Товары со скидкой</string>
+    <string name="home_products_all">Все товары</string>
+
+    <string name="home_menu_brands">Бренды</string>
+    <string name="home_menu_pharmacies_map">Аптеки на карте</string>
+    <string name="home_menu_advantages">Преимущества</string>
+    <string name="home_menu_partners">Наши партнеры</string>
+
+</resources>

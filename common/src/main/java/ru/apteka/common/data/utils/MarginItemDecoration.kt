@@ -2,6 +2,8 @@ package ru.apteka.common.data.utils
 
 import android.graphics.Rect
 import android.view.View
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -36,10 +38,20 @@ class MarginItemDecoration(
         state: RecyclerView.State
     ) {
         with(outRect) {
-            if (parent.getChildAdapterPosition(view) == 0) {
+            if ((parent.layoutManager as? LinearLayoutManager)?.orientation == LinearLayout.VERTICAL) {
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    top = topSize
+                }
+            } else {
                 top = topSize
             }
-            left = leftSize
+            if ((parent.layoutManager as? LinearLayoutManager)?.orientation == LinearLayout.HORIZONTAL) {
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    left = leftSize
+                }
+            } else {
+                left = leftSize
+            }
             right = rightSize
             bottom = bottomSize
         }

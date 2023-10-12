@@ -16,16 +16,15 @@ class DrawerFragment : BaseFragment<DrawerViewModel, DrawerFragmentBinding>() {
 
 
     override fun onViewBindingInflated(binding: DrawerFragmentBinding) {
+        binding.aboutCompany.item.setOnClickListener {
+
+        }
+
+
+
 
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
 
 }

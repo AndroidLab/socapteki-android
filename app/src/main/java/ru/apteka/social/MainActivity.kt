@@ -1,11 +1,18 @@
 package ru.apteka.social
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.common.data.services.error_notice_service.ErrorNoticeService
 import ru.apteka.common.data.services.error_notice_service.models.IRequestError
@@ -14,14 +21,15 @@ import ru.apteka.common.data.services.message_notice_service.models.CommonDialog
 import ru.apteka.common.data.services.message_notice_service.models.DialogModel
 import ru.apteka.common.data.services.message_notice_service.showCommonDialog
 import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.data.utils.transparentStatusBar
 import ru.apteka.common.ui.CommonDialogFragment
 import ru.apteka.components.data.navigation_manager.NavigationManager
 import ru.apteka.social.databinding.ActivityMainBinding
+import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
 import ru.apteka.basket.R as BasketR
 import ru.apteka.catalog.R as CatalogR
 import ru.apteka.favorites.R as FavoritesR
+import ru.apteka.main.R as MainR
 import ru.apteka.orders.R as OrdersR
 
 
@@ -37,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var messageNoticeService: MessageNoticeService
 
-
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(
             this,
@@ -45,22 +52,59 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private val generalNavController by lazy {
+        findNavController(R.id.general_nav_host)
+    }
+
+    private val generalAppBarConfiguration by lazy {
+        AppBarConfiguration(
+            setOf(
+                R.id.mainFragment
+            ),
+            binding.drawerLayout
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparentStatusBar()
+        installSplashScreen()
+        setSupportActionBar(binding.toolbar)
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+
+
+        //transparentStatusBar()
+        /*window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.TRANSPARENT
+        WindowCompat.getInsetsController(window, View(this)).isAppearanceLightStatusBars = true*/
+
         navigationManager.apply {
+            toolBar = supportActionBar!!
             drawerLayout = binding.drawerLayout
-            generalNavController = findNavController(R.id.general_nav_host)
+            _generalNavController = this@MainActivity.generalNavController
+            navigateToAuthActivity = {
+                startActivity(Intent(this@MainActivity, AuthActivity::class.java))
+            }
+        }
+        binding.navView.setupWithNavController(generalNavController)
+
+        generalNavController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.mainFragment) {
+                if (navigationManager.selectedMainDestinationId != null) {
+                    navigationManager.onBottomNavBarRestore.value =
+                        navigationManager.selectedMainDestinationId!!
+                    navigationManager.selectedMainDestinationId = null
+                }
+            } else {
+                if (navigationManager.bottomNavBar.selectedItemId != MainR.id.home_graph) {
+                    navigationManager.selectedMainDestinationId =
+                        navigationManager.bottomNavBar.selectedItemId
+                    navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
+                }
+                setupActionBarWithNavController(generalNavController, binding.drawerLayout)
+            }
         }
 
-        /*GlobalScope.launch {
-            delay(15000)
-            withContext(Dispatchers.Main) {
-                navigationManager.generalNavController!!.navigate(
-                    MainFragmentDirections.toSecondFragment()
-                )
-            }
-        }*/
         lifecycleScope.launchIO {
             errorNoticeService.error.collect {
                 showCommonDialog(
@@ -99,30 +143,42 @@ class MainActivity : AppCompatActivity() {
         navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.call()
     }
 
-    /*override fun onSupportNavigateUp(): Boolean {
-        return navigationManager.currentBottomNavControllerLiveData.value?.navigateUp() ?: false
-    }*/
-
     override fun onSupportNavigateUp(): Boolean {
-        return navigationManager.currentBottomNavControllerLiveData.value!!.navigateUp(
-            navigationManager.getAppBarConfiguration()
-        ) || super.onSupportNavigateUp()
+        return if (generalNavController.currentDestination!!.id == R.id.mainFragment) {
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateUp(
+                navigationManager.getAppBarConfiguration()
+            )
+        } else {
+            generalNavController.navigateUp(generalAppBarConfiguration)
+        } || super.onSupportNavigateUp()
     }
 
     /**
      * Переопределение popBackStack необходимо в этом случае, если приложение запускается по глубокой ссылке.
      */
     override fun onBackPressed() {
-        val currentDestinationId = navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
+        val currentGeneralDestinationId =
+            navigationManager.generalNavController.currentBackStackEntry?.destination?.id
+        val currentMainDestinationId =
+            navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
 
-        if (currentDestinationId == CatalogR.id.catalogFragment
-            || currentDestinationId == OrdersR.id.ordersFragment
-            || currentDestinationId == FavoritesR.id.favoritesFragment
-            || currentDestinationId == BasketR.id.basketFragment) {
-            navigationManager.bottomNavBar.selectedItemId = navigationManager.bottomNavBar.menu.getItem(0).itemId
+        if (binding.drawerLayout.isOpen) {
+            binding.drawerLayout.close()
         } else {
-            if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
-                super.onBackPressed()
+            if (currentGeneralDestinationId != R.id.mainFragment) {
+                navigationManager.generalNavController.popBackStack()
+            } else {
+                if (currentMainDestinationId == CatalogR.id.catalogFragment
+                    || currentMainDestinationId == OrdersR.id.ordersFragment
+                    || currentMainDestinationId == FavoritesR.id.favoritesFragment
+                    || currentMainDestinationId == BasketR.id.basketFragment
+                ) {
+                    navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
+                } else {
+                    if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
+                        super.onBackPressed()
+                    }
+                }
             }
         }
     }
