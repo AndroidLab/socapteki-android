@@ -8,6 +8,7 @@ import ru.apteka.components.ui.BaseFragment
 import ru.apteka.home.R
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.choosing_city_api.R as ChoosingCityApiR
+import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewSkeletonAdapter
@@ -95,7 +96,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         }
 
         binding.homeMenuPharmacies.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigate(PharmaciesMapApiR.id.pharmacies_map_graph)
         }
 
         binding.homeMenuAdvantages.homeMenuItem.setOnClickListener {

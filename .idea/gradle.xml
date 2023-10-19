@@ -40,6 +40,8 @@
             <option value="$PROJECT_DIR$/modules/features/order_search/feature" />
             <option value="$PROJECT_DIR$/modules/features/partners" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map" />
+            <option value="$PROJECT_DIR$/modules/features/pharmacies_map/api" />
+            <option value="$PROJECT_DIR$/modules/features/pharmacies_map/feature" />
             <option value="$PROJECT_DIR$/modules/features/shared" />
             <option value="$PROJECT_DIR$/modules/features/shared/order_details" />
             <option value="$PROJECT_DIR$/modules/features/shared/order_details/api" />

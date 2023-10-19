@@ -30,7 +30,7 @@ include(":modules:main:4_favorites")
 include(":modules:main:5_basket")
 include(":modules:features:about_company")
 include(":modules:features:brands")
-include(":modules:features:pharmacies_map")
+
 include(":modules:features:advantages")
 include(":modules:features:partners")
 
@@ -41,6 +41,10 @@ include(":modules:features:order_search:api")
 //Модуль выбора города
 include(":modules:features:choosing_city:feature")
 include(":modules:features:choosing_city:api")
+
+//Модуль карты аптек
+include(":modules:features:pharmacies_map:feature")
+include(":modules:features:pharmacies_map:api")
 
 //Модуль деталей заказа
 include(":modules:features:shared:order_details:feature")

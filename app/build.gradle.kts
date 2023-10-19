@@ -32,9 +32,10 @@ dependencies {
     implementation(project(":modules:features:choosing_city:feature"))
     implementation(project(":modules:features:shared:order_details:feature"))
     implementation(project(":modules:features:order_search:feature"))
+    implementation(project(":modules:features:pharmacies_map:api"))
+    implementation(project(":modules:features:pharmacies_map:feature"))
     implementation(project(":modules:features:about_company"))
     implementation(project(":modules:features:brands"))
-    implementation(project(":modules:features:pharmacies_map"))
     implementation(project(":modules:features:advantages"))
     implementation(project(":modules:features:partners"))
 
@@ -45,4 +46,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.coreSplashscreen)
     implementation(libs.bundles.lifecycleDeps)
+    implementation(libs.mapsMobile)
 }

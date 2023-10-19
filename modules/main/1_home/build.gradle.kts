@@ -16,6 +16,7 @@ android {
 dependencies {
     implementation(project(":components"))
     implementation(project(":modules:features:choosing_city:api"))
+    implementation(project(":modules:features:pharmacies_map:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)
