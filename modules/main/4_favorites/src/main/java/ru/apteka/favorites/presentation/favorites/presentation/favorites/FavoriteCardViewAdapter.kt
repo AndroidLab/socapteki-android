@@ -1,7 +1,7 @@
 package ru.apteka.favorites.presentation.favorites.presentation.favorites
 
 import androidx.lifecycle.LifecycleOwner
-import ru.apteka.common.data.composite_delegate_adapter.ViewBindingDelegateAdapter
+import ru.apteka.components.ui.composite_delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.favorites.databinding.FavoriteCardViewBinding
 import ru.apteka.favorites.presentation.favorites.data.models.FavoritesCardModel
 

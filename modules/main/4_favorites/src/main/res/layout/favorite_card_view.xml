@@ -30,23 +30,13 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp">
 
-                <com.google.android.material.card.MaterialCardView
+                <!-- Картинка -->
+                <include
+                    layout="@layout/image_card"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_margin="@dimen/base_padding"
-                    app:cardCornerRadius="10dp"
-                    app:strokeColor="@color/light_grey"
-                    app:strokeWidth="1dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/image_stub"
-                        android:scaleType="fitCenter"
-                        app:glideImageRes="@{model.favorite.imageSrc}"
-                        tools:ignore="ContentDescription" />
-
-                </com.google.android.material.card.MaterialCardView>
+                    app:imageUrl="@{model.favorite.imageSrc}" />
 
 
                 <LinearLayout
@@ -81,13 +71,11 @@
 
                     <!-- Актуальная цена -->
                     <TextView
-                        style="@style/Theme.Socapteki.HeaderH4"
+                        style="@style/Theme.Socapteki.Price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@{model.favorite.price}"
-                        android:textColor="@color/red"
-                        android:textStyle="bold" />
+                        android:text="@{model.favorite.price}" />
 
                     <!-- Старая цена -->
                     <LinearLayout

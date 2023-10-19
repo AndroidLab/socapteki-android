@@ -1,8 +1,8 @@
 package ru.apteka.home.presentation.home.adapters
 
 
-import ru.apteka.common.data.composite_delegate_adapter.ViewBindingDelegateAdapter
-import ru.apteka.common.data.utils.Skeleton
+import ru.apteka.components.ui.composite_delegate_adapter.ViewBindingDelegateAdapter
+import ru.apteka.components.data.utils.Skeleton
 import ru.apteka.home.databinding.OtherCardViewSceletonBinding
 
 

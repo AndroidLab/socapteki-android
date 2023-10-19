@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.common.data.RequestHandler
-import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.data.utils.mainThread
-import ru.apteka.common.data.utils.single_live_event.SingleLiveEvent
-import ru.apteka.common.ui.BaseViewModel
+import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.social.domain.login.usecase.SendPhoneUseCase
 import javax.inject.Inject
 

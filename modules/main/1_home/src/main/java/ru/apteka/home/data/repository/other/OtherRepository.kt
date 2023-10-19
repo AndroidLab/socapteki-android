@@ -2,11 +2,7 @@ package ru.apteka.home.data.repository.other
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.LabelModel
-import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.OtherModel
-import ru.apteka.home.data.models.PromotionModel
-import ru.apteka.resources.R
 import java.util.UUID
 import javax.inject.Inject
 
@@ -23,7 +19,7 @@ class OtherRepository @Inject constructor(
      * Получает.
      */
     suspend fun getOther(): List<OtherModel> {
-        delay(2000)
+        delay(1500)
         return listOf(
             OtherModel(
                 id = UUID.randomUUID(),

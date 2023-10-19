@@ -1,12 +1,8 @@
 package ru.apteka.social.presentation.auth
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.data.utils.transparentStatusBar
 import ru.apteka.social.R
 
 

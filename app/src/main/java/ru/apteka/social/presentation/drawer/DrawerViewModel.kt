@@ -1,7 +1,7 @@
 package ru.apteka.social.presentation.drawer
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.common.ui.BaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 /**

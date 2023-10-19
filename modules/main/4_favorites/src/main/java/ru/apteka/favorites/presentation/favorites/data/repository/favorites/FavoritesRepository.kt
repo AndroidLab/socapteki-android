@@ -1,9 +1,9 @@
 package ru.apteka.favorites.presentation.favorites.data.repository.favorites
 
 import kotlinx.coroutines.delay
+import ru.apteka.components.R
 import ru.apteka.components.data.models.LabelModel
 import ru.apteka.favorites.presentation.favorites.data.models.FavoriteModel
-import ru.apteka.resources.R
 import java.util.UUID
 import javax.inject.Inject
 

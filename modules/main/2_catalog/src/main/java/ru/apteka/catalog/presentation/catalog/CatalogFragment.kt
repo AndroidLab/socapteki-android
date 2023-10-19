@@ -1,9 +1,7 @@
 package ru.apteka.catalog.presentation.catalog
 
-import android.util.Log
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.catalog.R
 import ru.apteka.catalog.databinding.CatalogFragmentBinding
 

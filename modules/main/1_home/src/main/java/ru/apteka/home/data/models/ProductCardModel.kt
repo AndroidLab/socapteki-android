@@ -1,6 +1,7 @@
 package ru.apteka.home.data.models
 
 import androidx.lifecycle.MutableLiveData
+import ru.apteka.components.data.models.ProductModel
 
 
 /**

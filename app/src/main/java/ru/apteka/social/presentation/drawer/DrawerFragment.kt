@@ -2,7 +2,7 @@ package ru.apteka.social.presentation.drawer
 
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.social.R
 import ru.apteka.social.databinding.DrawerFragmentBinding
 

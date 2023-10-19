@@ -28,20 +28,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:cardCornerRadius="12dp"
-                app:strokeColor="@color/grey"
-                app:strokeWidth="1dp">
+                app:cardCornerRadius="12dp">
 
-                <!-- Изображение товара -->
-                <ImageView
+                <include
+                    layout="@layout/image_card"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:background="@drawable/image_stub"
-                    android:padding="8dp"
-                    app:glideImageRes="@{model.product.image}"
-                    tools:ignore="ContentDescription" />
+                    app:imageUrl="@{model.product.image}" />
 
                 <!-- Лэйблы -->
                 <com.google.android.flexbox.FlexboxLayout
@@ -81,7 +74,7 @@
 
                 <!-- Актуальная цена -->
                 <TextView
-                    style="@style/Theme.Socapteki.HeaderH4"
+                    style="@style/Theme.Socapteki.Price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

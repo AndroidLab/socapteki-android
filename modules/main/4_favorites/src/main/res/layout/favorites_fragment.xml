@@ -11,7 +11,7 @@
     </data>
 
 
-    <ru.apteka.common.ui.LoaderLayout
+    <ru.apteka.components.ui.LoaderLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:isLoading="@{viewModel.isLoading}">
@@ -44,6 +44,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </ru.apteka.common.ui.LoaderLayout>
+    </ru.apteka.components.ui.LoaderLayout>
 
 </layout>

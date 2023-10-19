@@ -13,9 +13,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import ru.apteka.common.data.utils.dp
 import ru.apteka.components.R
-import ru.apteka.resources.R as ResourcesR
+import ru.apteka.components.data.utils.dp
 import ru.apteka.components.databinding.PinCodeItemBinding
 import ru.apteka.components.databinding.PinCodeViewBinding
 
@@ -36,12 +35,12 @@ class PinCodeView @JvmOverloads constructor(
     private var cellCornerRadius = 4.dp
     private var cellBackgroundColor = Color.WHITE
     private var cellBackgroundFocusColor = Color.WHITE
-    private var cellBackgroundSuccessColor = context.getColor(ResourcesR.color.light_green)
-    private var cellBackgroundErrorColor = context.getColor(ResourcesR.color.light_red)
+    private var cellBackgroundSuccessColor = context.getColor(R.color.light_green)
+    private var cellBackgroundErrorColor = context.getColor(R.color.light_red)
     private var cellBorderColor = Color.GRAY
-    private var cellBorderFocusColor = context.getColor(ResourcesR.color.color_primary)
-    private var cellBorderSuccessColor = context.getColor(ResourcesR.color.color_primary)
-    private var cellBorderErrorColor = context.getColor(ResourcesR.color.red)
+    private var cellBorderFocusColor = context.getColor(R.color.color_primary)
+    private var cellBorderSuccessColor = context.getColor(R.color.color_primary)
+    private var cellBorderErrorColor = context.getColor(R.color.red)
     private var cellTextColor = Color.DKGRAY
 
     private val cells = mutableListOf<PinCodeItemBinding>()

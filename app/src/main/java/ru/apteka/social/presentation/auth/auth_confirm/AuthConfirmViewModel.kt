@@ -1,18 +1,17 @@
 package ru.apteka.social.presentation.auth.auth_confirm
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
-import ru.apteka.common.data.RequestHandler
-import ru.apteka.common.data.utils.DownTimer
-import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.data.utils.mainThread
-import ru.apteka.common.data.utils.single_live_event.SingleLiveEvent
-import ru.apteka.common.ui.BaseViewModel
+import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.utils.DownTimer
+import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.social.domain.login.usecase.CheckCodeUseCase
 import ru.apteka.social.domain.login.usecase.NewCodeUseCase
 import java.text.DecimalFormat

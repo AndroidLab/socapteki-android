@@ -1,15 +1,13 @@
 package ru.apteka.favorites.presentation.favorites.presentation.favorites
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.common.data.RequestHandler
-import ru.apteka.common.data.composite_delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.ui.BaseViewModel
-import ru.apteka.components.data.services.BasketService
+import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.favorites.presentation.favorites.data.models.FavoritesCardModel
 import ru.apteka.favorites.presentation.favorites.domain.favorites.FavoritesCodeUseCase
 import javax.inject.Inject

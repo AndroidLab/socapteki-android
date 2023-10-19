@@ -1,11 +1,9 @@
 package ru.apteka.social.presentation.auth.auth_confirm
 
-import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
-import ru.apteka.social.MainActivity
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.social.R
 import ru.apteka.social.databinding.AuthConfirmFragmentBinding
 import ru.tinkoff.decoro.MaskImpl

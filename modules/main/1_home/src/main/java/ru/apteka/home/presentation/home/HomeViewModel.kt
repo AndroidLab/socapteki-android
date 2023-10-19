@@ -6,11 +6,11 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.common.data.RequestHandler
-import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.ui.BaseViewModel
-import ru.apteka.components.data.navigation_manager.INavigationManager
-import ru.apteka.components.data.services.city.CityPreferences
+import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.navigation_manager.INavigationManager
+import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.OtherModel
 import ru.apteka.home.data.models.ProductCardModel
@@ -34,14 +34,14 @@ class HomeViewModel @Inject constructor(
     private val productsDayRepository: ProductsDayRepository,
     private val productsDiscountRepository: ProductsDiscountRepository,
     private val otherRepository: OtherRepository,
-    private val cityPreferences: CityPreferences,
+    private val userPreferences: UserPreferences,
     val navigationManager: INavigationManager
 ) : BaseViewModel() {
 
     /**
      * Возвращает название выбранного города.
      */
-    val selectedCity: LiveData<String?> = cityPreferences.cityFlow.asLiveData().map {
+    val selectedCity: LiveData<String?> = userPreferences.cityFlow.asLiveData().map {
         it?.name
     }
 
@@ -88,12 +88,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            launchIO {
-                cityPreferences.cityFlow.collect {
-
-                }
-            }
-
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { advertRepository.getAdvert() },

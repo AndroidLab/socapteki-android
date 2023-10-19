@@ -1,7 +1,7 @@
 package ru.apteka.home.presentation.home.adapters
 
 
-import ru.apteka.common.data.composite_delegate_adapter.ViewBindingDelegateAdapter
+import ru.apteka.components.ui.composite_delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.home.data.models.OtherModel
 import ru.apteka.home.databinding.OtherCardViewBinding
 

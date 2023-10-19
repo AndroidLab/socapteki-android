@@ -22,22 +22,21 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":resources"))
     implementation(project(":components"))
-    implementation(project(":network"))
     implementation(project(":modules:main:main_screen"))
     implementation(project(":modules:main:1_home"))
     implementation(project(":modules:main:2_catalog"))
     implementation(project(":modules:main:3_orders"))
     implementation(project(":modules:main:4_favorites"))
     implementation(project(":modules:main:5_basket"))
-    implementation(project(":modules:common:choosing_city"))
-    implementation(project(":modules:common:about_company"))
-    implementation(project(":modules:common:brands"))
-    implementation(project(":modules:common:pharmacies_map"))
-    implementation(project(":modules:common:advantages"))
-    implementation(project(":modules:common:partners"))
+    implementation(project(":modules:features:choosing_city:feature"))
+    implementation(project(":modules:features:shared:order_details:feature"))
+    implementation(project(":modules:features:order_search:feature"))
+    implementation(project(":modules:features:about_company"))
+    implementation(project(":modules:features:brands"))
+    implementation(project(":modules:features:pharmacies_map"))
+    implementation(project(":modules:features:advantages"))
+    implementation(project(":modules:features:partners"))
 
     //Google & Android
     implementation(libs.core.ktx)

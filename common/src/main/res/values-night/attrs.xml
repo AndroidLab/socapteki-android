@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- Параметры для LoaderLayout -->
-    <declare-styleable name="LoaderLayout">
-        <attr name="hideContent" format="boolean" />
-    </declare-styleable>
-
-</resources>

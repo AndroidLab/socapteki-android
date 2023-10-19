@@ -1,9 +1,7 @@
 package ru.apteka.home.data.models
 
 import ru.apteka.components.data.models.LabelModel
-import ru.apteka.resources.R
 import java.util.UUID
-import kotlin.random.Random
 
 
 /**

@@ -2,10 +2,10 @@ package ru.apteka.home.data.repository.products_discount
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
+import ru.apteka.components.R
 import ru.apteka.components.data.models.LabelModel
-import ru.apteka.home.data.models.DiscountModel
-import ru.apteka.home.data.models.ProductModel
-import ru.apteka.resources.R
+import ru.apteka.components.data.models.DiscountModel
+import ru.apteka.components.data.models.ProductModel
 import java.util.UUID
 import javax.inject.Inject
 

@@ -1,3 +1,12 @@
 <resources>
+
     <string name="orders_title">Заказы</string>
+    <string name="orders_not_found">У вас пока нет заказов</string>
+    <string name="orders_not_found_desc">Здесь будет храниться история ваших заказов</string>
+    <string name="orders_all_filter">Все</string>
+    <string name="orders_in_work_filter">В работе</string>
+    <string name="orders_canceled_filter">Отмененные</string>
+    <string name="orders_completed_filter">Завершеные</string>
+
+
 </resources>

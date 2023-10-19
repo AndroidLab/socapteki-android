@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.models.OrderStatus" />
+
+        <variable
+            name="model"
+            type="ru.apteka.components.data.models.OrderModel" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/llOrderItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Статус заказа -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@{model.status == OrderStatus.IN_WORK ? @drawable/order_in_work_shape : model.status == OrderStatus.CANCELED ? @drawable/order_canceled_shape : @drawable/order_completed_shape}"
+                    android:paddingHorizontal="4dp"
+                    android:text="@{model.status == OrderStatus.IN_WORK ? @string/orders_in_work_status : model.status == OrderStatus.CANCELED ? @string/orders_canceled_status : @string/orders_completed_status}"
+                    android:textColor="@{model.status == OrderStatus.IN_WORK ? @color/dark_black : model.status == OrderStatus.CANCELED ? @color/red : @color/color_primary}"
+                    android:textSize="12sp" />
+
+                <!-- Номер заказа -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/order_number, model.number)}"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <!-- Дата заказа -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.getFormatDate(context)}"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_arrow_expand"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_grey" />
+
+    </LinearLayout>
+
+
+</layout>
+

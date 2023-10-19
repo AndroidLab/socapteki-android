@@ -2,8 +2,6 @@ package ru.apteka.social
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
@@ -14,15 +12,15 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.data.services.error_notice_service.ErrorNoticeService
-import ru.apteka.common.data.services.error_notice_service.models.IRequestError
-import ru.apteka.common.data.services.message_notice_service.MessageNoticeService
-import ru.apteka.common.data.services.message_notice_service.models.CommonDialogModel
-import ru.apteka.common.data.services.message_notice_service.models.DialogModel
-import ru.apteka.common.data.services.message_notice_service.showCommonDialog
-import ru.apteka.common.data.utils.launchIO
-import ru.apteka.common.ui.CommonDialogFragment
-import ru.apteka.components.data.navigation_manager.NavigationManager
+import ru.apteka.components.data.services.error_notice_service.ErrorNoticeService
+import ru.apteka.components.data.services.error_notice_service.models.IRequestError
+import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.showCommonDialog
+import ru.apteka.components.ui.CommonDialogFragment
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.launchIO
 import ru.apteka.social.databinding.ActivityMainBinding
 import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
@@ -70,13 +68,6 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowCustomEnabled(true)
-
-
-        //transparentStatusBar()
-        /*window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.TRANSPARENT
-        WindowCompat.getInsetsController(window, View(this)).isAppearanceLightStatusBars = true*/
 
         navigationManager.apply {
             toolBar = supportActionBar!!

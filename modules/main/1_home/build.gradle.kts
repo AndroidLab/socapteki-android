@@ -14,9 +14,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":resources"))
     implementation(project(":components"))
+    implementation(project(":modules:features:choosing_city:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

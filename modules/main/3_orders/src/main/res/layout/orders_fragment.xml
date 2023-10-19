@@ -1,24 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.orders.presentation.orders.OrdersViewModel" />
+
+    </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Уведомление отсутствия заказов -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical" >
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:visibleIf="@{!viewModel.isLoading &amp; viewModel.orders.empty}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Заказы"
-                android:layout_gravity="center_horizontal"
-                android:textSize="27sp" />
+                android:text="@string/orders_not_found" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/orders_not_found_desc"
+                android:textColor="@color/dark_grey" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:visibleIf="@{!viewModel.isLoading &amp; !viewModel.orders.empty}">
+
+            <!-- Фильтры -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.filterInWork.onClick.invoke(viewModel.filterInWork)}"
+                        android:text="@{context.getString(viewModel.filterInWork.text)}"
+                        app:chipBackgroundColor="@{viewModel.filterInWork.isSelected ? @color/color_secondary_container : @color/background_secondary}"
+                        app:chipCornerRadius="100dp"
+                        app:chipStrokeColor="@{viewModel.filterInWork.isSelected ? @color/color_primary : @android:color/transparent}"
+                        app:chipStrokeWidth="@{viewModel.filterInWork.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:onClick="@{() -> viewModel.filterCanceled.onClick.invoke(viewModel.filterCanceled)}"
+                        android:text="@{context.getString(viewModel.filterCanceled.text)}"
+                        app:chipBackgroundColor="@{viewModel.filterCanceled.isSelected ? @color/color_secondary_container : @color/background_secondary}"
+                        app:chipCornerRadius="100dp"
+                        app:chipStrokeColor="@{viewModel.filterCanceled.isSelected ? @color/color_primary : @android:color/transparent}"
+                        app:chipStrokeWidth="@{viewModel.filterCanceled.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:onClick="@{() -> viewModel.filterCompleted.onClick.invoke(viewModel.filterCompleted)}"
+                        android:text="@{context.getString(viewModel.filterCompleted.text)}"
+                        app:chipBackgroundColor="@{viewModel.filterCompleted.isSelected ? @color/color_secondary_container : @color/background_secondary}"
+                        app:chipCornerRadius="100dp"
+                        app:chipStrokeColor="@{viewModel.filterCompleted.isSelected ? @color/color_primary : @android:color/transparent}"
+                        app:chipStrokeWidth="@{viewModel.filterCompleted.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <!-- Список заказов -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvOrders"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp" />
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <ProgressBar
+            style="@style/Theme.Socapteki.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateOnly="true"
+            app:visibleIf="@{viewModel.isLoading}" />
 
     </FrameLayout>
 

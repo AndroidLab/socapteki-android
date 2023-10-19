@@ -1,7 +1,7 @@
 package ru.apteka.catalog.presentation.screen_2_1
 
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.catalog.R
 import ru.apteka.catalog.databinding.Screen21FragmentBinding
 

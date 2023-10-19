@@ -2,10 +2,9 @@ package ru.apteka.home.data.repository.promotion
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
+import ru.apteka.components.R
 import ru.apteka.components.data.models.LabelModel
-import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.PromotionModel
-import ru.apteka.resources.R
 import java.util.UUID
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class PromotionRepository @Inject constructor(
      * Получает акции.
      */
     suspend fun getPromotions(): List<PromotionModel> {
-        delay(3000)
+        delay(1500)
         return listOf(
             PromotionModel(
                 id = UUID.randomUUID(),

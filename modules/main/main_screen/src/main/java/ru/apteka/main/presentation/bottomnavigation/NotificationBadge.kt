@@ -13,9 +13,9 @@ import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import ru.apteka.common.data.utils.dp
+import ru.apteka.components.data.utils.dp
 import ru.apteka.main.R
-import ru.apteka.resources.R as ResourcesR
+import ru.apteka.components.R as ComponentsR
 import ru.apteka.main.databinding.NotificationBadgeViewBinding
 
 
@@ -50,7 +50,7 @@ class NotificationBadge @JvmOverloads constructor(
      * Возвращает или устанавливает цвет текста.
      */
     @ColorInt
-    var textColor: Int = context.getColor(ResourcesR.color.white)
+    var textColor: Int = context.getColor(ComponentsR.color.white)
 
     /**
      * Возвращает или устанавливает фон значка.

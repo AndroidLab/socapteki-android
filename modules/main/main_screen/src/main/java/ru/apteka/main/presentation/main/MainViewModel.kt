@@ -2,8 +2,8 @@ package ru.apteka.main.presentation.main
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.navigation_manager.NavigationManager
-import ru.apteka.components.data.services.BasketService
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.services.basket_service.BasketService
 import javax.inject.Inject
 
 

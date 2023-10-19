@@ -2,7 +2,7 @@ package ru.apteka.home.data.repository.products_day
 
 
 import retrofit2.http.POST
-import ru.apteka.home.data.models.ProductModel
+import ru.apteka.components.data.models.ProductModel
 
 
 /**

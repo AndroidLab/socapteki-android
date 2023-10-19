@@ -14,8 +14,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":resources"))
     implementation(project(":components"))
 
     implementation(libs.bundles.navigationDeps)

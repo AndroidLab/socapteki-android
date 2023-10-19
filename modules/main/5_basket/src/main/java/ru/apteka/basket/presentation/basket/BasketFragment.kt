@@ -1,7 +1,7 @@
 package ru.apteka.basket.presentation.basket
 
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.basket.R
 import ru.apteka.basket.databinding.BasketFragmentBinding
 

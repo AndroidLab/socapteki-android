@@ -1,14 +1,12 @@
 package ru.apteka.main.presentation.main
 
-import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import androidx.appcompat.app.ActionBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.main.R
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.main.databinding.MainFragmentBinding
@@ -18,6 +16,8 @@ import ru.apteka.catalog.R as CatalogR
 import ru.apteka.favorites.R as FavoritesR
 import ru.apteka.home.R as HomeR
 import ru.apteka.orders.R as OrdersR
+import ru.apteka.components.R as ComponentsR
+import ru.apteka.order_search_api.R as OrderSearchApiR
 
 
 /**
@@ -75,7 +75,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 intent = requireActivity().intent
             ).apply {
                 observe(viewLifecycleOwner) { navController ->
-                    mActivity.setupActionBarWithNavController(navController, viewModel.navigationManager.getAppBarConfiguration())
+                    mActivity.setupActionBarWithNavController(
+                        navController,
+                        viewModel.navigationManager.getAppBarConfiguration()
+                    )
                 }
             }
     }
@@ -90,7 +93,17 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 false
             ).apply {
                 ivMenuSearch.setOnClickListener {
-
+                    when (viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id) {
+                        HomeR.id.homeFragment -> {}
+                        CatalogR.id.catalogFragment -> {}
+                        OrdersR.id.ordersFragment -> {
+                            viewModel.navigationManager.generalNavController.navigate(
+                                OrderSearchApiR.id.order_search_graph
+                            )
+                        }
+                        FavoritesR.id.favoritesFragment -> {}
+                        BasketR.id.basketFragment -> {}
+                    }
                 }
                 ivMenuDoctor.setOnClickListener {
 
@@ -107,8 +120,4 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
         )
     }
 
-    override fun onStop() {
-        super.onStop()
-        Log.d("myL", "MainFragment onStop")
-    }
 }

@@ -53,6 +53,7 @@
         </attr>
     </declare-styleable>
 
+    <!-- Параметры для BouncyRecyclerScrollView -->
     <declare-styleable name="BouncyRecyclerView">
         <attr name="recyclerviewOverscrollAnimationSize" format="float"/>
         <attr name="recyclerview_fling_animation_size" format="float"/>
@@ -77,6 +78,11 @@
             <enum name="OVERSCROLL_START" value="1" />
             <enum name="OVERSCROLL_END" value="2" />
         </attr>
+    </declare-styleable>
+
+    <!-- Параметры для LoaderLayout -->
+    <declare-styleable name="LoaderLayout">
+        <attr name="hideContent" format="boolean" />
     </declare-styleable>
 
 </resources>

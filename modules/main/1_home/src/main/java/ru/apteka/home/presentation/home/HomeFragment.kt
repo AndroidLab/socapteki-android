@@ -1,12 +1,13 @@
 package ru.apteka.home.presentation.home
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.common.data.composite_delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.common.data.utils.Skeleton
-import ru.apteka.common.ui.BaseFragment
+import ru.apteka.components.ui.composite_delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.components.data.utils.Skeleton
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.home.R
+import ru.apteka.components.R as ComponentsR
+import ru.apteka.choosing_city_api.R as ChoosingCityApiR
 import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewSkeletonAdapter
@@ -16,7 +17,6 @@ import ru.apteka.home.presentation.home.adapters.ProductCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.ProductCardViewSkeletonAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewSkeletonAdapter
-import ru.apteka.resources.R as ResourcesR
 
 
 /**
@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
 
         binding.tvHomeLocationChange.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ResourcesR.id.choosing_city_graph)
+            viewModel.navigationManager.generalNavController.navigate(ChoosingCityApiR.id.choosing_city_graph)
         }
 
         binding.tvHomeChangePromotionsAll.setOnClickListener {
@@ -91,19 +91,19 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         }
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ResourcesR.id.brands_graph)
+            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.brands_graph)
         }
 
         binding.homeMenuPharmacies.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ResourcesR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.pharmacies_map_graph)
         }
 
         binding.homeMenuAdvantages.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ResourcesR.id.advantages_graph)
+            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.advantages_graph)
         }
 
         binding.homeMenuPartners.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ResourcesR.id.partners_graph)
+            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.partners_graph)
         }
 
 
@@ -160,16 +160,14 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("myL", "HomeFragment onResume")
         mActivity.supportActionBar!!.apply {
             title = ""
-            setLogo(ResourcesR.drawable.logo)
+            setLogo(ComponentsR.drawable.logo)
         }
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d("myL", "HomeFragment onStop")
         mActivity.supportActionBar!!.setLogo(null)
     }
 }

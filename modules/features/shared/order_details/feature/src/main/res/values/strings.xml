@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="order_details_method_delivery">Способ получения</string>
+    <string name="order_details_address">Адресс доставки</string>
+    <string name="order_details_total_products">Всего товаров:</string>
+    <string name="order_details_bonus_count">Бонусов начислено:</string>
+    <string name="order_details_payment_method">Способ оплаты:</string>
+    <string name="order_details_total_cost">Итоговая стоимость:</string>
+    <string name="order_details_extend_booking">Продлить бронирование</string>
+    <string name="order_details_cancel_btn">Отменить</string>
+    <string name="order_details_repeat_btn">Повторить заказ</string>
+
+</resources>

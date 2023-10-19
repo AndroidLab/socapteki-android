@@ -14,12 +14,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":components"))
-    implementation(project(":resources"))
     implementation(project(":modules:main:1_home"))
     implementation(project(":modules:main:2_catalog"))
     implementation(project(":modules:main:3_orders"))
     implementation(project(":modules:main:4_favorites"))
     implementation(project(":modules:main:5_basket"))
+    implementation(project(":modules:features:order_search:api"))
 }
