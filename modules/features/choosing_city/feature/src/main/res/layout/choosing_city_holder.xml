@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="ru.apteka.new_module.data.model.CityCardModel" />
+            type="ru.apteka.choosing_city.data.model.CityCardModel" />
 
     </data>
 

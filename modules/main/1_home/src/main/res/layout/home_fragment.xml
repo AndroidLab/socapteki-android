@@ -11,304 +11,172 @@
 
     </data>
 
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/svHome"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            android:id="@+id/homeToolbar"
+            layout="@layout/toolbar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svHome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-            <!-- Выбор локации -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                tools:ignore="UselessParent">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/ic_location"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="0dp"
+                <!-- Выбор локации -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.selectedCity == null ? @string/home_city_not_selected : viewModel.selectedCity}" />
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
-                <TextView
-                    android:id="@+id/tvHomeLocationChange"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_location"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@{viewModel.selectedCity == null ? @string/home_city_not_selected : viewModel.selectedCity}" />
+
+                    <TextView
+                        android:id="@+id/tvHomeLocationChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="16dp"
+                        android:text="@string/home_location_change"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <!-- Реклама -->
+                <include
+                    android:id="@+id/homeAdvert"
+                    layout="@layout/horizontal_list"
+                    app:linearSnapHelper="@{true}"
+                    app:isLoading="@{viewModel.advertsIsLoading}" />
+
+                <!-- Все акции -->
+                <include
+                    android:id="@+id/homePromotions"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="16dp"
-                    android:text="@string/home_location_change"
-                    android:textColor="@color/color_primary" />
+                    android:layout_marginTop="6dp"
+                    layout="@layout/horizontal_list"
+                    app:title="@{@string/home_promotions}"
+                    app:textBtn="@{@string/home_promotions_all}"
+                    app:isLoading="@{viewModel.promotionsIsLoading}" />
+
+                <!-- Товары дня -->
+                <include
+                    android:id="@+id/homeProductsDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    layout="@layout/horizontal_list"
+                    app:title="@{@string/home_products_day}"
+                    app:textBtn="@{@string/home_products_all}"
+                    app:isLoading="@{viewModel.productsDayIsLoading}" />
+
+                <!-- Товары со скидкой -->
+                <include
+                    android:id="@+id/homeProductsDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    layout="@layout/horizontal_list"
+                    app:title="@{@string/home_products_discount}"
+                    app:textBtn="@{@string/home_products_all}"
+                    app:isLoading="@{viewModel.productsDiscountIsLoading}" />
+
+                <!-- Остальное -->
+                <include
+                    android:id="@+id/homeOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    layout="@layout/horizontal_list"
+                    app:linearSnapHelper="@{true}"
+                    app:isLoading="@{viewModel.othersIsLoading}" />
+
+                <!-- Меню -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    app:contentPadding="@dimen/base_padding">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8dp">
+
+                        <include
+                            android:id="@+id/homeMenuBrands"
+                            layout="@layout/bottom_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:icon="@{@drawable/ic_brands}"
+                            app:text="@{@string/home_menu_brands}" />
+
+                        <include
+                            android:id="@+id/homeMenuPharmacies"
+                            layout="@layout/bottom_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:icon="@{@drawable/ic_pharmacies}"
+                            app:text="@{@string/home_menu_pharmacies_map}" />
+
+                        <include
+                            android:id="@+id/homeMenuAdvantages"
+                            layout="@layout/bottom_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:icon="@{@drawable/ic_advantages}"
+                            app:text="@{@string/home_menu_advantages}" />
+
+                        <include
+                            android:id="@+id/homeMenuPartners"
+                            layout="@layout/bottom_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:icon="@{@drawable/ic_partners}"
+                            app:text="@{@string/home_menu_partners}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <include
+                    layout="@layout/footer_stub" />
 
             </LinearLayout>
 
-            <!-- Реклама -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAdvert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bottom_corners_shape"
-                android:orientation="horizontal"
-                android:paddingVertical="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:linearSnapHelper="@{true}"
-                app:marginItemHorizontal="@{16}" />
+        </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
 
-            <!-- Все акции -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/Theme.Socapteki.HeaderH2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:layout_weight="1"
-                            android:text="@string/home_promotions" />
-
-                        <TextView
-                            android:id="@+id/tvHomeChangePromotionsAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="16dp"
-                            android:text="@string/home_promotions_all"
-                            android:textColor="@color/color_primary" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvPromotions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingVertical="8dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:marginItemHorizontal="@{16}" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:layout_marginVertical="10dp"
-                        android:orientation="horizontal" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <!-- Товары дня -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/Theme.Socapteki.HeaderH2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:layout_weight="1"
-                            android:text="@string/home_products_day" />
-
-                        <TextView
-                            android:id="@+id/tvHomeChangeProductsDayAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="16dp"
-                            android:text="@string/home_products_all"
-                            android:textColor="@color/color_primary" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvProductsDay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingVertical="8dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:marginItemHorizontal="@{16}" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <!-- Товары со скидкой -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/Theme.Socapteki.HeaderH2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:layout_weight="1"
-                            android:text="@string/home_products_discount" />
-
-                        <TextView
-                            android:id="@+id/tvHomeChangeProductsDiscountAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="16dp"
-                            android:text="@string/home_products_all"
-                            android:textColor="@color/color_primary" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvProductsDiscount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingVertical="8dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:marginItemHorizontal="@{16}" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <!-- Остальное -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:contentPadding="@dimen/base_padding">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvOther"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:linearSnapHelper="@{true}"
-                    app:marginItemHorizontal="@{16}" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Меню -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="6dp"
-                app:contentPadding="@dimen/base_padding">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingVertical="8dp">
-
-                    <include
-                        android:id="@+id/homeMenuBrands"
-                        layout="@layout/bottom_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:icon="@{@drawable/ic_brands}"
-                        app:text="@{@string/home_menu_brands}" />
-
-                    <include
-                        android:id="@+id/homeMenuPharmacies"
-                        layout="@layout/bottom_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:icon="@{@drawable/ic_pharmacies}"
-                        app:text="@{@string/home_menu_pharmacies_map}" />
-
-                    <include
-                        android:id="@+id/homeMenuAdvantages"
-                        layout="@layout/bottom_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:icon="@{@drawable/ic_advantages}"
-                        app:text="@{@string/home_menu_advantages}" />
-
-                    <include
-                        android:id="@+id/homeMenuPartners"
-                        layout="@layout/bottom_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:icon="@{@drawable/ic_partners}"
-                        app:text="@{@string/home_menu_partners}" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </layout>

@@ -1,8 +1,13 @@
 package ru.apteka.order_details.presentation
 
+import android.util.Log
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import ru.apteka.components.databinding.ToolbarMenuBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.order_details.R
 import ru.apteka.components.R as ComponentsR
@@ -29,17 +34,13 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
 
     override fun onResume() {
         super.onResume()
-        mActivity.supportActionBar!!.apply {
-            title = String.format(getString(ComponentsR.string.order_number), _args.order.number)
-            customView = null
+        binding.orderDetailsToolbar.apply {
+            toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
+            toolbar.setNavigationOnClickListener {
+                viewModel.navigationManager.generalNavController.popBackStack()
+            }
+            toolbar.title = String.format(getString(ComponentsR.string.order_number), _args.order.number)
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        /*mActivity.supportActionBar!!.apply {
-            customView.visibility = View.VISIBLE
-        }*/
     }
 
 }

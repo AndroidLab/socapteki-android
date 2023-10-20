@@ -11,39 +11,51 @@
     </data>
 
 
-    <ru.apteka.components.ui.LoaderLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isLoading="@{viewModel.isLoading}">
+        android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScroll"
+        <include
+            android:id="@+id/favoritesToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            app:isLoading="@{viewModel.isLoading}">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:fillViewport="true">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvFavorites"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    app:marginItemVertical="@{16}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvFavorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:marginItemVertical="@{16}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            </LinearLayout>
+                    <include
+                        layout="@layout/footer_stub" />
 
-        </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
 
-    </ru.apteka.components.ui.LoaderLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
+
+
 
 </layout>

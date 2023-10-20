@@ -15,8 +15,5 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-        //transparentStatusBar()
-        //window.statusBarColor = Color.TRANSPARENT
-        //WindowCompat.getInsetsController(window, View(this)).isAppearanceLightStatusBars = true
     }
 }

@@ -6,6 +6,8 @@
     <color name="color_primary_variant">#015a3e</color>
     <color name="color_secondary_container">#E7F3EC</color>
     <color name="color_secondary">#e7f3ec</color>
+    <color name="color_surface_variant">#E0F5EC</color>
+
     <!--<color name="color_on_primary_variant">#FFFFFF</color>
     <color name="color_secondary_variant">#5796ba</color>
     <color name="color_on_secondary_variant">#dddddd</color>-->
@@ -16,11 +18,11 @@
     <color name="red">#FF4D4F</color>
     <color name="light_red">#ffb7b7</color>
     <color name="pink">#FFEDED</color>
-    <color name="light_green">#a7edc5</color>
+    <color name="light_green">#C2EAD8</color>
     <color name="orange">#FFC53D</color>
-    <color name="dark_grey">#93959d</color>
+    <color name="dark_grey">#98A2B3</color>
     <color name="light_orange">#F2C94C</color>
     <color name="gold">#ffd700</color>
-    <color name="grey">#bababa</color>
+    <color name="grey">#D0D5DD</color>
     <color name="light_grey">#F7F7FC</color>
 </resources>

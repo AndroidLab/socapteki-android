@@ -1,5 +1,6 @@
 package ru.apteka.about_company.presentation
 
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.about_company.R
@@ -20,13 +21,7 @@ class AboutCompanyFragment : BaseFragment<AboutCompanyViewModel, AboutCompanyFra
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.navigationManager.hideToolbar()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.navigationManager.showToolbar()
+    override fun onStart() {
+        super.onStart()
     }
 }

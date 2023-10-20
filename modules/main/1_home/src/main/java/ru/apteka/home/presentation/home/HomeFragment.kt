@@ -1,23 +1,26 @@
 package ru.apteka.home.presentation.home
 
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.components.ui.composite_delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.data.utils.Skeleton
+import ru.apteka.components.data.utils.dp
+import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.recyclerAutoScroll
+import ru.apteka.components.databinding.ToolbarMenuBinding
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.adapters.ProductCardViewAdapter
+import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
 import ru.apteka.home.R
-import ru.apteka.components.R as ComponentsR
-import ru.apteka.choosing_city_api.R as ChoosingCityApiR
-import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
-import ru.apteka.home.presentation.home.adapters.AdvertCardViewSkeletonAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
-import ru.apteka.home.presentation.home.adapters.OtherCardViewSkeletonAdapter
-import ru.apteka.home.presentation.home.adapters.ProductCardViewAdapter
-import ru.apteka.home.presentation.home.adapters.ProductCardViewSkeletonAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
-import ru.apteka.home.presentation.home.adapters.PromotionCardViewSkeletonAdapter
+import ru.apteka.choosing_city_api.R as ChoosingCityApiR
+import ru.apteka.components.R as ComponentsR
+import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 
 
 /**
@@ -28,66 +31,65 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_fragment
 
-    private val skeletons = listOf(Skeleton(), Skeleton())
+    private val skeletons = listOf(Skeleton(), Skeleton(), Skeleton())
 
     private val advertsAdapter by lazy {
         CompositeDelegateAdapter(
             AdvertCardViewAdapter(::onAdvertCardClick),
-            AdvertCardViewSkeletonAdapter()
+            SkeletonAdapter(284.dp, 136.dp)
         )
     }
 
     private val promotionsAdapter by lazy {
         CompositeDelegateAdapter(
             PromotionCardViewAdapter(::onPromotionCardClick),
-            PromotionCardViewSkeletonAdapter()
+            SkeletonAdapter(180.dp, 140.dp)
         )
     }
 
     private val productsDayAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(::onProductsCardClick),
-            ProductCardViewSkeletonAdapter()
+            SkeletonAdapter(166.dp, 340.dp)
         )
     }
 
     private val productsDiscountAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(::onProductsCardClick),
-            ProductCardViewSkeletonAdapter()
+            SkeletonAdapter(166.dp, 340.dp)
         )
     }
 
     private val othersAdapter by lazy {
         CompositeDelegateAdapter(
             OtherCardViewAdapter(::onOtherCardClick),
-            OtherCardViewSkeletonAdapter()
+            SkeletonAdapter(250.dp, 230.dp)
         )
     }
 
 
     override fun onViewBindingInflated(binding: HomeFragmentBinding) {
         binding.viewModel = viewModel
-        binding.rvAdvert.adapter = advertsAdapter
-        binding.rvPromotions.adapter = promotionsAdapter
-        binding.rvProductsDay.adapter = productsDayAdapter
-        binding.rvProductsDiscount.adapter = productsDiscountAdapter
-        binding.rvOther.adapter = othersAdapter
-
+        binding.homeAdvert.rv.adapter = advertsAdapter
+        binding.homePromotions.rv.adapter = promotionsAdapter
+        binding.homeProductsDay.rv.adapter = productsDayAdapter
+        binding.homeProductsDiscount.rv.adapter = productsDiscountAdapter
+        binding.homeOther.rv.adapter = othersAdapter
 
         binding.tvHomeLocationChange.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigate(ChoosingCityApiR.id.choosing_city_graph)
         }
 
-        binding.tvHomeChangePromotionsAll.setOnClickListener {
+        binding.homePromotions.header.btn.setOnClickListener {
 
         }
 
-        binding.tvHomeChangeProductsDayAll.setOnClickListener {
+        binding.homeProductsDay.header.btn.setOnClickListener {
 
         }
 
-        binding.tvHomeChangeProductsDiscountAll.setOnClickListener {
+        binding.homeProductsDiscount.header.btn.setOnClickListener {
 
         }
 
@@ -112,6 +114,9 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             advertsAdapter.swapData(
                 it.ifEmpty { skeletons }
             )
+            if (it.isNotEmpty()) {
+                lifecycleScope.launchIO { recyclerAutoScroll(binding.homeAdvert.rv) }
+            }
         }
 
         viewModel.promotions.observe(viewLifecycleOwner) {
@@ -157,18 +162,35 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     }
 
-
-
     override fun onResume() {
         super.onResume()
-        mActivity.supportActionBar!!.apply {
-            title = ""
-            setLogo(ComponentsR.drawable.logo)
+        binding.homeToolbar.apply {
+            toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_menu)
+            toolbar.setLogo(ComponentsR.drawable.logo)
+            toolbar.setNavigationOnClickListener {
+                viewModel.navigationManager.drawerLayout.open()
+            }
+            toolbarCustomViewContainer.removeAllViews()
+            toolbarCustomViewContainer.addView(
+                DataBindingUtil.inflate<ToolbarMenuBinding>(
+                    layoutInflater,
+                    ComponentsR.layout.toolbar_menu,
+                    null,
+                    false
+                ).apply {
+                    ivMenuSearch.setOnClickListener {
+
+                    }
+                    ivMenuDoctor.setOnClickListener {
+
+                    }
+                    ivMenuAuth.setOnClickListener {
+                        viewModel.navigationManager.navigateToAuthActivity()
+                    }
+                }.root
+            )
         }
+
     }
 
-    override fun onStop() {
-        super.onStop()
-        mActivity.supportActionBar!!.setLogo(null)
-    }
 }

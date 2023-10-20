@@ -7,29 +7,40 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.new_module.presentation.ChoosingCityViewModel" />
+            type="ru.apteka.choosing_city.presentation.ChoosingCityViewModel" />
 
     </data>
 
 
-    <ru.apteka.components.ui.LoaderLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isLoading="@{viewModel.isLoading}">
+        android:orientation="vertical">
 
-        <!-- Выбор города -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvChoosingCity"
+        <include
+            android:id="@+id/choosingCityToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:visibleIf="@{!viewModel.citiesFilteredMediator.empty}" />
+            app:isLoading="@{viewModel.isLoading}">
+
+            <!-- Выбор города -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChoosingCity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:visibleIf="@{!viewModel.citiesFilteredMediator.empty}" />
 
 
-    </ru.apteka.components.ui.LoaderLayout>
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
 
 
 </layout>

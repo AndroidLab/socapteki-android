@@ -21,7 +21,7 @@ class AdvertRepository @Inject constructor(
      * Получает рекламу.
      */
     suspend fun getAdvert(): List<AdvertModel> {
-        delay(2000)
+        delay(1500)
         return listOf(
             AdvertModel(
                 id = UUID.randomUUID(),
@@ -73,7 +73,12 @@ class AdvertRepository @Inject constructor(
                 id = UUID.randomUUID(),
                 title = "Осейняя забота 5",
                 description = "Скидки до 10% с бонусной картой",
-            )
+            ),
+            AdvertModel(
+                id = UUID.randomUUID(),
+                title = "Осейняя забота 6",
+                description = "Скидки до 10% с бонусной картой",
+            ),
         )
     }
 

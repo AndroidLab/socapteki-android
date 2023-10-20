@@ -19,4 +19,5 @@ dependencies {
     implementation(libs.material)
     implementation(libs.gson)
     implementation(libs.swiperefreshlayout)
+    implementation(libs.lottie)
 }

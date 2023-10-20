@@ -29,15 +29,15 @@
             android:background="@null" />
 
         <FrameLayout
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="@dimen/toolbar_height">
 
             <ImageView
                 android:id="@+id/ivToolBarSearchClear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="20dp"
+                android:padding="14dp"
                 android:src="@drawable/ic_close"
                 app:visibleIf="@{!isLoading}"
                 tools:ignore="ContentDescription" />
@@ -46,7 +46,7 @@
                 style="@style/Theme.Socapteki.ProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="14dp"
                 android:layout_gravity="center"
                 android:indeterminateOnly="true"
                 app:visibleIf="@{isLoading}" />

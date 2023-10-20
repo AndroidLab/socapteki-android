@@ -20,6 +20,8 @@ import androidx.core.view.*
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.ListAdapter
@@ -99,6 +101,34 @@ fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
                         marginBottom.dp
                     )
                 }
+        }
+    }
+}
+
+/**
+ * Устанавливает отступы.
+ * @param view [View]
+ * @param paddingTop [Int]
+ * @param paddingBottom [Int]
+ */
+@BindingAdapter("app:layoutPaddingTop", "app:layoutPaddingBottom", requireAll = false)
+fun setLayoutPadding(view: View, paddingTop: Int?, paddingBottom: Int?) {
+    if (paddingTop != null || paddingBottom != null) {
+        if (paddingTop != null) {
+            view.setPadding(
+                view.paddingLeft,
+                paddingTop.dp,
+                view.paddingRight,
+                view.paddingBottom
+            )
+        }
+        if (paddingBottom != null) {
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                view.paddingRight,
+                paddingBottom.dp
+            )
         }
     }
 }
@@ -281,9 +311,11 @@ fun RecyclerView.marginItemDecoration(
  */
 @BindingAdapter("app:linearSnapHelper")
 fun RecyclerView.linearSnapHelper(
-    linearSnapHelper: Boolean
+    linearSnapHelper: Boolean?
 ) {
-    LinearSnapHelper().attachToRecyclerView(this)
+    if (linearSnapHelper == true) {
+        LinearSnapHelper().attachToRecyclerView(this)
+    }
 }
 
 
@@ -303,6 +335,13 @@ fun <T> ViewGroup.inflateTemplateByItems(
     @LayoutRes template: Int?,
     lifecycleOwner: LifecycleOwner?
 ) {
+    val _lifecycleOwner: LifecycleOwner? = lifecycleOwner
+        ?: try {
+            findFragment<Fragment>().viewLifecycleOwner
+        } catch (e: Throwable) {
+            null
+        }
+
     if (items != null && template != null) {
         if (items.isEmpty()) {
             this.removeAllViews()
@@ -313,16 +352,21 @@ fun <T> ViewGroup.inflateTemplateByItems(
             items.forEach { item ->
                 val viewBinding =
                     DataBindingUtil.inflate<ViewDataBinding>(inflater, template, this, true)
-                viewBinding.lifecycleOwner = lifecycleOwner
+                viewBinding.lifecycleOwner = _lifecycleOwner
                 viewBinding.setVariable(BR.bindingItem, item)
                 viewBinding.executePendingBindings()
+            }
+            val lastView = this.children.last()
+            if (lastView is ViewGroup) {
+                val separator = lastView.findViewById<View>(R.id.separator)
+                lastView.removeView(separator)
             }
             return
         }
         if (this.childCount == items.size) {
             this.children.forEachIndexed { index, view ->
                 val viewBinding = DataBindingUtil.getBinding<ViewDataBinding>(view)
-                viewBinding?.lifecycleOwner = lifecycleOwner
+                viewBinding?.lifecycleOwner = _lifecycleOwner
                 viewBinding?.setVariable(BR.bindingItem, items[index])
                 viewBinding?.executePendingBindings()
             }
@@ -341,7 +385,7 @@ fun <T> ViewGroup.inflateTemplateByItems(
                     )
                 }
             }
-            inflateTemplateByItems(items, template, lifecycleOwner)
+            inflateTemplateByItems(items, template, _lifecycleOwner)
         }
     } else {
         this.removeAllViews()

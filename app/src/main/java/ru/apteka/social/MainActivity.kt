@@ -2,16 +2,15 @@ package ru.apteka.social
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.error_notice_service.ErrorNoticeService
 import ru.apteka.components.data.services.error_notice_service.models.IRequestError
@@ -19,9 +18,9 @@ import ru.apteka.components.data.services.message_notice_service.MessageNoticeSe
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
-import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.social.databinding.ActivityMainBinding
 import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
@@ -55,29 +54,30 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.general_nav_host)
     }
 
-    private val generalAppBarConfiguration by lazy {
-        AppBarConfiguration(
-            setOf(
-                R.id.mainFragment
-            ),
-            binding.drawerLayout
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
 
         navigationManager.apply {
-            toolBar = supportActionBar!!
-            drawerLayout = binding.drawerLayout
-            _generalNavController = this@MainActivity.generalNavController
+            //toolBar = supportActionBar!!
+            drawerLayout = binding.drawerLayout.apply {
+                addDrawerListener(object : DrawerListener {
+                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+                    override fun onDrawerOpened(drawerView: View) {
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    }
+                    override fun onDrawerClosed(drawerView: View) {
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    }
+                    override fun onDrawerStateChanged(newState: Int) {}
+                })
+            }
+            generalNavController = this@MainActivity.generalNavController
             navigateToAuthActivity = {
                 startActivity(Intent(this@MainActivity, AuthActivity::class.java))
             }
         }
+
         binding.navView.setupWithNavController(generalNavController)
 
         generalNavController.addOnDestinationChangedListener { controller, destination, arguments ->
@@ -93,7 +93,6 @@ class MainActivity : AppCompatActivity() {
                         navigationManager.bottomNavBar.selectedItemId
                     navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
                 }
-                setupActionBarWithNavController(generalNavController, binding.drawerLayout)
             }
         }
 
@@ -133,16 +132,6 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.call()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return if (generalNavController.currentDestination!!.id == R.id.mainFragment) {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigateUp(
-                navigationManager.getAppBarConfiguration()
-            )
-        } else {
-            generalNavController.navigateUp(generalAppBarConfiguration)
-        } || super.onSupportNavigateUp()
     }
 
     /**

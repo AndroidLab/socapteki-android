@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.favorites.presentation.favorites.data.models.FavoritesCardModel
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val favoritesCodeUseCase: FavoritesCodeUseCase,
-    private val basketService: BasketService
+    private val basketService: BasketService,
+    val navigationManager: NavigationManager
 ) : BaseViewModel() {
 
     private val _favorites = MutableLiveData<List<FavoritesCardModel>>(emptyList())

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@id/catalog_graph"
+    android:id="@+id/catalog_graph"
     app:startDestination="@id/catalogFragment">
 
     <fragment
@@ -13,15 +12,41 @@
         tools:layout="@layout/catalog_fragment">
 
         <action
-            android:id="@+id/to_screen_2_1"
-            app:destination="@id/screen_2_1"/>
+            android:id="@+id/to_catalogProductsFragment"
+            app:destination="@id/catalogProductsFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/screen_2_1"
-        android:name="ru.apteka.catalog.presentation.screen_2_1.CatalogFragment"
-        android:label="Screen_2_1"
-        tools:layout="@layout/screen_2_1_fragment"/>
+        android:id="@+id/catalogProductsFragment"
+        android:name="ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment"
+        tools:layout="@layout/catalog_products_fragment">
+
+        <argument
+            android:name="catalogItemName"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/to_catalogProductRecommendationFragment"
+            app:destination="@id/catalogProductRecommendationFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/catalogProductRecommendationFragment"
+        android:name="ru.apteka.catalog.presentation.recommendations.CatalogProductRecommendationFragment"
+        tools:layout="@layout/catalog_product_recommendation_fragment">
+
+        <argument
+            android:name="title"
+            app:argType="integer" />
+
+        <argument
+            android:name="desk"
+            app:argType="integer" />
+
+    </fragment>
+
 
 </navigation>

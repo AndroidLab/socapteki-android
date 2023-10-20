@@ -1,10 +1,8 @@
 package ru.apteka.components.data.services.navigation_manager
 
-import androidx.appcompat.app.ActionBar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import androidx.navigation.ui.AppBarConfiguration
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import javax.inject.Inject
@@ -16,7 +14,7 @@ import kotlin.properties.Delegates
  * Представляет менеджер навигации.
  */
 @Singleton
-class NavigationManager @Inject constructor(): INavigationManager {
+class NavigationManager @Inject constructor() {
 
     /**
      * Возвращает или устанавливает идентификаторы пунктов назначения основного экрана.
@@ -31,17 +29,12 @@ class NavigationManager @Inject constructor(): INavigationManager {
     /**
      * Устанавливает или возвращает главный навигационный контроллер.
      */
-    var _generalNavController: NavController by Delegates.notNull()
+    var generalNavController: NavController by Delegates.notNull()
 
     /**
      * Возвращает или устанавливает навигационный контроллер для нижней панели навигации.
      */
     var currentBottomNavControllerLiveData: LiveData<NavController> by Delegates.notNull()
-
-    /**
-     * Возвращает или устанавливает верхний бар.
-     */
-    var toolBar: ActionBar by Delegates.notNull()
 
     /**
      * Возвращает или устанавливает нижний бар навигации.
@@ -72,22 +65,4 @@ class NavigationManager @Inject constructor(): INavigationManager {
      */
     var navigateToAuthActivity: () -> Unit by Delegates.notNull()
 
-    /**
-     * Возвращает кофигурацию appbar (Должно быть методом для возвращения нового экземпляра при смене конфигурации).
-     */
-    fun getAppBarConfiguration() = AppBarConfiguration(
-            topLevelMainDestinationIds,
-            drawerLayout
-        )
-
-    override val generalNavController: NavController
-        get() = _generalNavController
-
-    override fun hideToolbar() {
-        toolBar.hide()
-    }
-
-    override fun showToolbar() {
-        toolBar.show()
-    }
 }

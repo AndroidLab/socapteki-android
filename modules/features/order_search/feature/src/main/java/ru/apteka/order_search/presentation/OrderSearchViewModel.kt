@@ -6,9 +6,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.components.data.repository.OrdersRepository
+import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject

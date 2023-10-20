@@ -19,7 +19,7 @@ class ProductsDayRepository @Inject constructor(
 ) {
 
     /**
-     * Получает акции.
+     * Получает продукты дня.
      */
     suspend fun getProductionsDay(): List<ProductModel> {
         delay(1500)
@@ -29,7 +29,7 @@ class ProductsDayRepository @Inject constructor(
                 image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
                 isFavorite = false,
                 price = "от 18 913 ₽",
-                desc = "Диклофенак-акос гель для наружного применения 5% 50 г",
+                desc = "Диклофенак-акос гель для наружного применения 5% 50 г адлфвоа фдлоа жофд аафвлождало фоа жофр ажшор жфщшаро щшгрофашщрофщжгаро фш а",
                 rating = "4.7",
                 comments = 123,
                 discount = DiscountModel(

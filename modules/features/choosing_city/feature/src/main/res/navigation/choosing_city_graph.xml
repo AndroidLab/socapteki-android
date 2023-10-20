@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/choosingCityFragment"
-        android:name="ru.apteka.new_module.presentation.ChoosingCityFragment"
+        android:name="ru.apteka.choosing_city.presentation.ChoosingCityFragment"
         tools:layout="@layout/choosing_city_fragment">
 
     </fragment>

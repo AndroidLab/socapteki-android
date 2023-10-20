@@ -1,6 +1,7 @@
 package ru.apteka.pharmacies_map.presentation
 
 import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -48,6 +49,7 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
 
     override fun onStart() {
         super.onStart()
+        viewModel.navigationManager.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         MapKitFactory.getInstance().onStart()
         mapView.onStart()
     }

@@ -2,7 +2,7 @@ package ru.apteka.components.ui.orders
 
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.databinding.OrderHolderBinding
-import ru.apteka.components.ui.composite_delegate_adapter.ViewBindingDelegateAdapter
+import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 
 
 /**

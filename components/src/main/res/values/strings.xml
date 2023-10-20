@@ -5,8 +5,13 @@
     <string name="binding_class_not_created">Биндинг класс еще не создан.</string>
     <string name="common_today">Сегодня</string>
     <string name="common_yesterday">Вчера</string>
+    <string name="apply">Применить</string>
+    <string name="close">Закрыть</string>
+    <string name="cancel">Отмена</string>
     <string name="orders_in_work_status">В работе</string>
     <string name="orders_canceled_status">Отменнено</string>
     <string name="orders_completed_status">Завершено</string>
     <string name="order_number">Заказ №%s</string>
+    <string name="bye_one_click">Купить в 1 клик</string>
+    <string name="all">Все</string>
 </resources>

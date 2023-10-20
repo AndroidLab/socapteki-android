@@ -20,5 +20,4 @@ dependencies {
     implementation(project(":modules:main:3_orders"))
     implementation(project(":modules:main:4_favorites"))
     implementation(project(":modules:main:5_basket"))
-    implementation(project(":modules:features:order_search:api"))
 }

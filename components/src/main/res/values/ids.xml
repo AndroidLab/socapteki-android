@@ -4,4 +4,5 @@
     <item type="id" name="brands_graph" />
     <item type="id" name="advantages_graph" />
     <item type="id" name="partners_graph" />
+    <item type="id" name="separator" />
 </resources>

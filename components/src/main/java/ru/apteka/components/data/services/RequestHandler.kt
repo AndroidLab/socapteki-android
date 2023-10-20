@@ -2,6 +2,8 @@ package ru.apteka.components.data.services
 
 import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.R
+import ru.apteka.components.data.services.error_notice_service.IErrorNoticeService
+import ru.apteka.components.data.services.error_notice_service.models.IRequestError
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -14,7 +16,7 @@ import javax.net.ssl.SSLException
  * @param errorNoticeService Сервис уведомлений об ошибке.
  */
 class RequestHandler @Inject constructor(
-    private val errorNoticeService: ru.apteka.components.data.services.error_notice_service.IErrorNoticeService,
+    private val errorNoticeService: IErrorNoticeService
 ) {
 
     /**
@@ -29,7 +31,7 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: (error: Throwable) -> Unit = {
             errorNoticeService.showError(
-                ru.apteka.components.data.services.error_notice_service.models.IRequestError.RequestErrorStringMsg(
+                IRequestError.RequestErrorStringMsg(
                     it.message.toString()
                 )
             )
@@ -52,7 +54,7 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: (error: Throwable) -> Unit = {
             errorNoticeService.showError(
-                ru.apteka.components.data.services.error_notice_service.models.IRequestError.RequestErrorStringMsg(
+                IRequestError.RequestErrorStringMsg(
                     it.message.toString()
                 )
             )
@@ -85,7 +87,7 @@ class RequestHandler @Inject constructor(
     ) {
         when (e) {
             is SocketTimeoutException, is ConnectException, is UnknownHostException, is SSLException -> {
-                ru.apteka.components.data.services.error_notice_service.models.IRequestError.RequestErrorResMsg(
+                IRequestError.RequestErrorResMsg(
                     R.string.http_error_not_connection
                 )
             }

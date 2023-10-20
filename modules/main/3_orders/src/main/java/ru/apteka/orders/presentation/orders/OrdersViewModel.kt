@@ -1,15 +1,17 @@
 package ru.apteka.orders.presentation.orders
 
+import android.content.Context
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.models.FilterModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import ru.apteka.components.data.models.FilterChipModel
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderStatus
-import ru.apteka.components.data.repository.OrdersRepository
+import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.navigation_manager.INavigationManager
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -25,13 +27,14 @@ class OrdersViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: INavigationManager
+    val navigationManager: NavigationManager,
+    @ApplicationContext context: Context
 ) : BaseViewModel() {
 
     /**
      * Возвращает модель фильтра 'Отмененные'.
      */
-    val filterCanceled = FilterModel(R.string.orders_canceled_filter).apply {
+    val filterCanceled = FilterChipModel(context.getString(R.string.orders_canceled_filter)).apply {
         userPreferences.disabledOrderFilters.contains(OrderStatus.CANCELED.name).let { value ->
             if (value) isSelected.postValue(false)
         }
@@ -40,7 +43,7 @@ class OrdersViewModel @Inject constructor(
     /**
      * Возвращает модель фильтра 'В работе'.
      */
-    val filterInWork = FilterModel(R.string.orders_in_work_filter).apply {
+    val filterInWork = FilterChipModel(context.getString(R.string.orders_in_work_filter)).apply {
         userPreferences.disabledOrderFilters.contains(OrderStatus.IN_WORK.name).let { value ->
             if (value) isSelected.postValue(false)
         }
@@ -49,7 +52,7 @@ class OrdersViewModel @Inject constructor(
     /**
      * Возвращает модель фильтра 'Завершенные'.
      */
-    val filterCompleted = FilterModel(R.string.orders_completed_filter).apply {
+    val filterCompleted = FilterChipModel(context.getString(R.string.orders_completed_filter)).apply {
         userPreferences.disabledOrderFilters.contains(OrderStatus.COMPLETED.name).let { value ->
             if (value) isSelected.postValue(false)
         }

@@ -22,7 +22,7 @@ class ProductsDiscountRepository @Inject constructor(
      * Получает акции.
      */
     suspend fun getProductionsDiscount(): List<ProductModel> {
-        delay(2000)
+        delay(1500)
         return listOf(
             ProductModel(
                 id = UUID.randomUUID(),

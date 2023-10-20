@@ -6,14 +6,15 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.apteka.components.data.models.ItemCounterModel
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.navigation_manager.INavigationManager
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.OtherModel
-import ru.apteka.home.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.home.data.models.PromotionModel
 import ru.apteka.home.data.repository.advert.AdvertRepository
 import ru.apteka.home.data.repository.other.OtherRepository
@@ -35,7 +36,7 @@ class HomeViewModel @Inject constructor(
     private val productsDiscountRepository: ProductsDiscountRepository,
     private val otherRepository: OtherRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: INavigationManager
+    val navigationManager: NavigationManager
 ) : BaseViewModel() {
 
     /**
@@ -53,6 +54,13 @@ class HomeViewModel @Inject constructor(
      */
     val adverts: LiveData<List<AdvertModel>> = _adverts
 
+    private val _advertsIsLoading = MutableLiveData<Boolean>(false)
+
+    /**
+     *
+     */
+    val advertsIsLoading: LiveData<Boolean> = _advertsIsLoading
+
 
     private val _promotions = MutableLiveData<List<PromotionModel>>(emptyList())
 
@@ -60,6 +68,14 @@ class HomeViewModel @Inject constructor(
      *
      */
     val promotions: LiveData<List<PromotionModel>> = _promotions
+
+    private val _promotionsIsLoading = MutableLiveData<Boolean>(false)
+
+    /**
+     *
+     */
+    val promotionsIsLoading: LiveData<Boolean> = _promotionsIsLoading
+
 
 
     private val _productsDay = MutableLiveData<List<ProductCardModel>>(emptyList())
@@ -69,6 +85,13 @@ class HomeViewModel @Inject constructor(
      */
     val productsDay: LiveData<List<ProductCardModel>> = _productsDay
 
+    private val _productsDayIsLoading = MutableLiveData<Boolean>(false)
+
+    /**
+     *
+     */
+    val productsDayIsLoading: LiveData<Boolean> = _productsDayIsLoading
+
 
     private val _productsDiscount = MutableLiveData<List<ProductCardModel>>(emptyList())
 
@@ -76,6 +99,13 @@ class HomeViewModel @Inject constructor(
      *
      */
     val productsDiscount: LiveData<List<ProductCardModel>> = _productsDiscount
+
+    private val _productsDiscountIsLoading = MutableLiveData<Boolean>(false)
+
+    /**
+     *
+     */
+    val productsDiscountIsLoading: LiveData<Boolean> = _productsDiscountIsLoading
 
 
     private val _others = MutableLiveData<List<OtherModel>>(emptyList())
@@ -85,6 +115,13 @@ class HomeViewModel @Inject constructor(
      */
     val others: LiveData<List<OtherModel>> = _others
 
+    private val _othersIsLoading = MutableLiveData<Boolean>(false)
+
+    /**
+     *
+     */
+    val othersIsLoading: LiveData<Boolean> = _othersIsLoading
+
 
     init {
         viewModelScope.launchIO {
@@ -93,7 +130,8 @@ class HomeViewModel @Inject constructor(
                     onRequest = { advertRepository.getAdvert() },
                     onSuccess = { adverts ->
                         _adverts.postValue(adverts)
-                    }
+                    },
+                    isLoading = _advertsIsLoading
                 )
             }
             launchIO {
@@ -101,7 +139,8 @@ class HomeViewModel @Inject constructor(
                     onRequest = { promotionRepository.getPromotions() },
                     onSuccess = { promotions ->
                         _promotions.postValue(promotions)
-                    }
+                    },
+                    isLoading = _promotionsIsLoading
                 )
             }
             launchIO {
@@ -117,11 +156,20 @@ class HomeViewModel @Inject constructor(
                                     },
                                     onByeOneClick = {
 
-                                    }
+                                    },
+                                    itemCounter = ItemCounterModel(
+                                        onMinus = {
+
+                                        },
+                                        onPlus = {
+
+                                        }
+                                    )
                                 )
                             }
                         )
-                    }
+                    },
+                    isLoading = _productsDayIsLoading
                 )
             }
             launchIO {
@@ -137,11 +185,20 @@ class HomeViewModel @Inject constructor(
                                     },
                                     onByeOneClick = {
 
-                                    }
+                                    },
+                                    itemCounter = ItemCounterModel(
+                                        onMinus = {
+
+                                        },
+                                        onPlus = {
+
+                                        }
+                                    )
                                 )
                             }
                         )
-                    }
+                    },
+                    isLoading = _productsDiscountIsLoading
                 )
             }
 
@@ -150,7 +207,8 @@ class HomeViewModel @Inject constructor(
                     onRequest = { otherRepository.getOther() },
                     onSuccess = { others ->
                         _others.postValue(others)
-                    }
+                    },
+                    isLoading = _othersIsLoading
                 )
             }
         }

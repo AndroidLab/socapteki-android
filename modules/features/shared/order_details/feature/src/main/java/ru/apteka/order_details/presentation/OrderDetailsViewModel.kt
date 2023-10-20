@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.OrderDetailsModel
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.components.data.repository.OrdersRepository
+import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.navigation_manager.INavigationManager
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -24,7 +24,7 @@ class OrderDetailsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: INavigationManager
+    val navigationManager: NavigationManager
 ) : BaseViewModel() {
 
     /**

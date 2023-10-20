@@ -8,7 +8,10 @@ import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.DrawableRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.*
 import ru.apteka.components.R
 import java.text.DateFormat
@@ -320,3 +323,16 @@ fun Activity.transparentStatusBar() {
     }
     window.statusBarColor = Color.TRANSPARENT
 }
+
+
+/**
+ * Возвращает ширину экрана.
+ */
+val screenWidth
+    get() = Resources.getSystem().displayMetrics.widthPixels
+
+/**
+ * Возвращает высоту экрана.
+ */
+val screenHeight
+    get() = Resources.getSystem().displayMetrics.heightPixels

@@ -1,29 +1,23 @@
 package ru.apteka.order_search.presentation
 
 import android.text.InputType
-import android.view.Gravity
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.ActionBar
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.databinding.SearchToolbarViewBinding
-import ru.apteka.components.ui.composite_delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.orders.OrdersAdapter
 import ru.apteka.order_details_api.api.ORDER_DETAILS_ARGUMENT_ORDER
 import ru.apteka.order_search.R
+import ru.apteka.order_search.databinding.OrderSearchFragmentBinding
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.order_details_api.R as OrderDetailsApiR
-import ru.apteka.order_search.databinding.OrderSearchFragmentBinding
 
 
 /**
@@ -52,32 +46,37 @@ class OrderSearchFragment : BaseFragment<OrderSearchViewModel, OrderSearchFragme
 
     override fun onResume() {
         super.onResume()
-        mActivity.supportActionBar?.setCustomView(
-            DataBindingUtil.inflate<SearchToolbarViewBinding>(
-                layoutInflater,
-                ComponentsR.layout.search_toolbar_view,
-                null,
-                false
-            ).apply {
-                lifecycleOwner = viewLifecycleOwner
-                isLoading = viewModel.isLoading
-                hint = getString(R.string.order_search_hint)
-                etToolBarSearch.inputType = InputType.TYPE_CLASS_NUMBER
-                etToolBarSearch.requestFocus()
-                keyBoardOpen(etToolBarSearch)
-                etToolBarSearch.doAfterTextChanged { text ->
-                    this@OrderSearchFragment.viewModel.onOrderSearchTextChange.invoke(text.toString())
-                }
-                ivToolBarSearchClear.setOnClickListener {
-                    etToolBarSearch.setText("")
-                }
-            }.root,
-            ActionBar.LayoutParams(
-                ActionBar.LayoutParams.MATCH_PARENT,
-                ActionBar.LayoutParams.MATCH_PARENT,
-                Gravity.START
-            )
-        )
+        binding.orderSearchToolbar.apply {
+            toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
+            toolbar.setNavigationOnClickListener {
+                viewModel.navigationManager.generalNavController.popBackStack()
+            }
+            toolbarCustomViewContainer.removeAllViews()
+            toolbarCustomViewContainer.apply {
+                layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT)
+                addView(
+                    DataBindingUtil.inflate<SearchToolbarViewBinding>(
+                        layoutInflater,
+                        ComponentsR.layout.search_toolbar_view,
+                        null,
+                        false
+                    ).apply {
+                        lifecycleOwner = viewLifecycleOwner
+                        isLoading = viewModel.isLoading
+                        hint = getString(R.string.order_search_hint)
+                        etToolBarSearch.inputType = InputType.TYPE_CLASS_NUMBER
+                        etToolBarSearch.requestFocus()
+                        keyBoardOpen(etToolBarSearch)
+                        etToolBarSearch.doAfterTextChanged { text ->
+                            this@OrderSearchFragment.viewModel.onOrderSearchTextChange.invoke(text.toString())
+                        }
+                        ivToolBarSearchClear.setOnClickListener {
+                            etToolBarSearch.setText("")
+                        }
+                    }.root
+                )
+            }
+        }
     }
 
     private fun onOrdersClick(order: OrderModel) {
