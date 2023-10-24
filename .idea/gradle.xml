@@ -39,6 +39,9 @@
             <option value="$PROJECT_DIR$/modules/features/order_search/api" />
             <option value="$PROJECT_DIR$/modules/features/order_search/feature" />
             <option value="$PROJECT_DIR$/modules/features/partners" />
+            <option value="$PROJECT_DIR$/modules/features/personal_data" />
+            <option value="$PROJECT_DIR$/modules/features/personal_data/api" />
+            <option value="$PROJECT_DIR$/modules/features/personal_data/feature" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map/api" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map/feature" />
@@ -52,6 +55,7 @@
             <option value="$PROJECT_DIR$/modules/main/3_orders" />
             <option value="$PROJECT_DIR$/modules/main/4_favorites" />
             <option value="$PROJECT_DIR$/modules/main/5_basket" />
+            <option value="$PROJECT_DIR$/modules/main/main_common" />
             <option value="$PROJECT_DIR$/modules/main/main_screen" />
           </set>
         </option>

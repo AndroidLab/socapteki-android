@@ -1,6 +1,5 @@
 package ru.apteka.catalog.presentation.catalog_products
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -8,10 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.catalog.R
-import ru.apteka.components.R as ComponentsR
 import ru.apteka.catalog.data.models.FilterType
 import ru.apteka.catalog.data.models.IFilter
 import ru.apteka.catalog.databinding.CatalogProductsFragmentBinding
@@ -21,7 +18,7 @@ import ru.apteka.components.data.models.FilterChipModel
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-
+import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет фрагмент "Товары каталога".
@@ -38,98 +35,81 @@ class CatalogProductsFragment :
 
     private val catalogProductsAdapter by lazy {
         CompositeDelegateAdapter(
-            ProductCardViewAdapter(::onProductsCardClick)
+            ProductCardViewAdapter(
+                viewLifecycleOwner,
+                ::onProductsCardClick
+            )
         )
     }
 
     private val catalogProductsWithProductBuyAdapter by lazy {
         CompositeDelegateAdapter(
-            ProductCardViewAdapter(::onProductsCardClick)
+            ProductCardViewAdapter(
+                viewLifecycleOwner,
+                ::onProductsCardClick
+            )
         )
     }
 
     private val catalogProductsRecentlyWatchedAdapter by lazy {
         CompositeDelegateAdapter(
-            ProductCardViewAdapter(::onProductsCardClick)
+            ProductCardViewAdapter(
+                viewLifecycleOwner,
+                ::onProductsCardClick
+            )
         )
     }
 
     override fun onViewBindingInflated(binding: CatalogProductsFragmentBinding) {
         binding.viewModel = viewModel
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet)
+
 
         binding.catalogProductsSort.setOnClickListener {
-            binding.bottomSheetContainer.apply {
-                removeAllViews()
-                addView(
-                    CatalogProductsSortBinding.inflate(layoutInflater, null, false).apply {
-                        lifecycleOwner = viewLifecycleOwner
-                        catalogProductSortModel = viewModel.sortModel
-                    }.root
-                )
-            }
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            viewModel.bottomSheetService.show(
+                CatalogProductsSortBinding.inflate(layoutInflater, null, false).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                    catalogProductSortModel = viewModel.sortModel
+                }
+            )
         }
         viewModel.sortModel.editingCompleted.observe(viewLifecycleOwner) {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            viewModel.bottomSheetService.close()
         }
 
 
         viewModel.filterAll.observe(viewLifecycleOwner) {
             it?.apply {
-                binding.isFilterSelected = anySelected
                 editingCompleted.observe(viewLifecycleOwner) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    viewModel.bottomSheetService.close()
                 }
             }
         }
-
         binding.catalogProductAllFilters.setOnClickListener {
-            binding.bottomSheetContainer.apply {
-                removeAllViews()
-                addView(
-                    getFilterBinding(viewModel.filterAll.value!!).root.apply {
-                        findViewById<ViewGroup>(R.id.catalogProductsFilterBodyContainer).apply {
-                            removeAllViews()
-                            viewModel.filterAll.value!!.filters.forEach { filter ->
-                                addView(
-                                    getFilterBodyBinding(filter).root
-                                )
-                            }
+            viewModel.bottomSheetService.show(
+                getFilterBinding(viewModel.filterAll.value!!).apply {
+                    root.findViewById<ViewGroup>(R.id.catalogProductsFilterBodyContainer).apply {
+                        removeAllViews()
+                        viewModel.filterAll.value!!.filters.forEach { filter ->
+                            addView(
+                                getFilterBodyBinding(filter).root
+                            )
                         }
                     }
-                )
-            }
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.blackout.visibility = if (slideOffset > 0) View.VISIBLE else View.GONE
-                binding.blackout.alpha = slideOffset * 0.75f
-            }
-        })
-
-        binding.blackout.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                }
+            )
         }
 
         viewModel.filters.observe(viewLifecycleOwner) { filters ->
             binding.filterChips = filters.map { filter ->
                 filter.editingCompleted.observe(viewLifecycleOwner) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    viewModel.bottomSheetService.close()
                 }
                 FilterChipModel(
                     text = filter.title,
                     onClick = {
-                        binding.bottomSheetContainer.apply {
-                            removeAllViews()
-                            addView(getFilterBinding(filter).root)
-                        }
-                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        viewModel.bottomSheetService.show(
+                            getFilterBinding(filter)
+                        )
                     },
                     onClickClose = {
                         filter.reset()
@@ -264,6 +244,7 @@ class CatalogProductsFragment :
     private fun ViewDataBinding.setFilterVariable(filter: IFilter) {
         lifecycleOwner = viewLifecycleOwner
         setVariable(BR.catalogProductFilterModel, filter)
+        setVariable(BR.lifecycle, viewLifecycleOwner)
     }
 
     override fun onResume() {

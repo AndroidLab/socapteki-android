@@ -52,44 +52,23 @@ sealed interface IFilter {
         val minPrice: Int,
         val maxPrice: Int,
     ) : IFilter {
-        private var selectedMinPrice: Int = minPrice
-        private var selectedMaxPrice: Int = maxPrice
+        private var _selectedMinPrice: Int = minPrice
+        private var _selectedMaxPrice: Int = maxPrice
 
-        val selectedMinProgressLiveData: MutableLiveData<Int> = MutableLiveData(0)
-        val selectedMaxProgressLiveData: MutableLiveData<Int> = MutableLiveData(maxPrice - minPrice)
-
-        /**
-         * Отслеживает изменение ползунков цены, для их ограничения относительно друг друга.
-         */
-        val limiter = MediatorLiveData<String>().apply {
-            val difference = ((maxPrice - minPrice) * 0.1).toInt()
-            addSource(selectedMinProgressLiveData) {
-                if (selectedMinProgressLiveData.value!! > selectedMaxProgressLiveData.value!! - difference) {
-                    val maxProgressValue = selectedMinProgressLiveData.value!! + difference
-                    selectedMaxProgressLiveData.value =
-                        if (maxProgressValue > maxPrice - minPrice) maxPrice - minPrice else maxProgressValue
-                }
-            }
-            addSource(selectedMaxProgressLiveData) {
-                if (selectedMaxProgressLiveData.value!! < selectedMinProgressLiveData.value!! + difference) {
-                    val minProgressValue = selectedMaxProgressLiveData.value!! - difference
-                    selectedMinProgressLiveData.value =
-                        if (minProgressValue < 0) 0 else minProgressValue
-                }
-            }
-        }
+        val selectedMinProgress: MutableLiveData<Int> = MutableLiveData(_selectedMinPrice)
+        val selectedMaxProgress: MutableLiveData<Int> = MutableLiveData(_selectedMaxPrice)
 
         override val isChanged = MediatorLiveData(false).apply {
             fun checkChange() {
                 value =
-                    selectedMinProgressLiveData.value!! + minPrice != selectedMinPrice || selectedMaxProgressLiveData.value!! + minPrice != selectedMaxPrice
+                    selectedMinProgress.value!! != _selectedMinPrice || selectedMaxProgress.value!! != _selectedMaxPrice
             }
 
-            addSource(selectedMinProgressLiveData) {
+            addSource(selectedMinProgress) {
                 checkChange()
             }
 
-            addSource(selectedMaxProgressLiveData) {
+            addSource(selectedMaxProgress) {
                 checkChange()
             }
         }
@@ -101,23 +80,23 @@ sealed interface IFilter {
         override val editingCompleted = SingleLiveEvent<Unit>()
 
         override fun reset() {
-            selectedMinPrice = minPrice
-            selectedMaxPrice = maxPrice
-            selectedMinProgressLiveData.value = 0
-            selectedMaxProgressLiveData.value = maxPrice - minPrice
+            _selectedMinPrice = minPrice
+            _selectedMaxPrice = maxPrice
+            selectedMinProgress.value = _selectedMinPrice
+            selectedMaxProgress.value = _selectedMaxPrice
             apply()
         }
 
         override fun cancel() {
-            selectedMinProgressLiveData.value = selectedMinPrice - minPrice
-            selectedMaxProgressLiveData.value = selectedMaxPrice - minPrice
+            selectedMinProgress.value = _selectedMinPrice
+            selectedMaxProgress.value = _selectedMaxPrice
             super.cancel()
         }
 
         override fun apply() {
-            selectedMinPrice = selectedMinProgressLiveData.value!! + minPrice
-            selectedMaxPrice = selectedMaxProgressLiveData.value!! + minPrice
-            _anySelected.value = selectedMinPrice != minPrice || selectedMaxPrice != maxPrice
+            _selectedMinPrice = selectedMinProgress.value!!
+            _selectedMaxPrice = selectedMaxProgress.value!!
+            _anySelected.value = _selectedMinPrice != minPrice || _selectedMaxPrice != maxPrice
             super.apply()
         }
     }
@@ -498,6 +477,24 @@ sealed interface IFilter {
             filters.forEach {
                 addSource(it.isChanged) {
                     value = filters.any { it.isChanged.value!! }
+                }
+            }
+        }
+
+        val globalAnySelected = MediatorLiveData<Boolean>().apply {
+            fun checkAnySelected() {
+                postValue(
+                    anySelected.value!! || filters.any { it.anySelected.value!! }
+                )
+            }
+
+            addSource(anySelected) {
+                checkAnySelected()
+            }
+
+            filters.forEach {
+                addSource(it.anySelected) {
+                    checkAnySelected()
                 }
             }
         }

@@ -11,10 +11,11 @@ import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.ui.BaseViewModel
+import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import ru.apteka.orders.R
 import javax.inject.Inject
 
@@ -27,9 +28,13 @@ class OrdersViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: NavigationManager,
+    navigationManager: NavigationManager,
+    accountsPreferences: AccountsPreferences,
     @ApplicationContext context: Context
-) : BaseViewModel() {
+) : MainScreenBaseViewModel(
+    accountsPreferences,
+    navigationManager
+) {
 
     /**
      * Возвращает модель фильтра 'Отмененные'.

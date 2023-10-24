@@ -11,12 +11,7 @@
     <string name="auth_confirm_title">Подтвердить вход</string>
     <string name="auth_confirm_phone_change">Изменить</string>
     <string name="auth_confirm_phone_desc">На ваш номер отправлено СМС с кодом для подтверждения входа в аккаунт.</string>
-    <string name="auth_confirm_code_hint">Код подтверждения</string>
-    <string name="auth_confirm_code_is_missing">Не пришел код?</string>
-    <string name="auth_confirm_code_repeat"><u>Отправить повторно</u></string>
-    <string name="auth_confirm_code_repeat_left_time">через: %s</string>
     <string name="auth_confirm_login">Войти</string>
-    <string name="auth_confirm_code_error">Не веврный код</string>
 
     <!-- Drawer -->
     <string name="about_company">О компании</string>

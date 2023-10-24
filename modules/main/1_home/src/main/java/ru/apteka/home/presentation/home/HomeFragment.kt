@@ -1,6 +1,5 @@
 package ru.apteka.home.presentation.home
 
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -8,8 +7,6 @@ import ru.apteka.components.data.utils.Skeleton
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.recyclerAutoScroll
-import ru.apteka.components.databinding.ToolbarMenuBinding
-import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
@@ -18,6 +15,7 @@ import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
+import ru.apteka.main_common.ui.MainScreenBaseFragment
 import ru.apteka.choosing_city_api.R as ChoosingCityApiR
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
@@ -27,7 +25,8 @@ import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
  * Представляет фрагмент "Главная".
  */
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
+class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>() {
+
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_fragment
 
@@ -49,14 +48,20 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     private val productsDayAdapter by lazy {
         CompositeDelegateAdapter(
-            ProductCardViewAdapter(::onProductsCardClick),
+            ProductCardViewAdapter(
+                viewLifecycleOwner,
+                ::onProductsCardClick
+            ),
             SkeletonAdapter(166.dp, 340.dp)
         )
     }
 
     private val productsDiscountAdapter by lazy {
         CompositeDelegateAdapter(
-            ProductCardViewAdapter(::onProductsCardClick),
+            ProductCardViewAdapter(
+                viewLifecycleOwner,
+                ::onProductsCardClick
+            ),
             SkeletonAdapter(166.dp, 340.dp)
         )
     }
@@ -164,33 +169,15 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     override fun onResume() {
         super.onResume()
-        binding.homeToolbar.apply {
-            toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_menu)
-            toolbar.setLogo(ComponentsR.drawable.logo)
-            toolbar.setNavigationOnClickListener {
-                viewModel.navigationManager.drawerLayout.open()
+        fillMainScreensToolbar(
+            binding.homeToolbar,
+            onProfileClick = {
+                viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+                    HomeFragmentDirections.toProfileFragment()
+                )
             }
-            toolbarCustomViewContainer.removeAllViews()
-            toolbarCustomViewContainer.addView(
-                DataBindingUtil.inflate<ToolbarMenuBinding>(
-                    layoutInflater,
-                    ComponentsR.layout.toolbar_menu,
-                    null,
-                    false
-                ).apply {
-                    ivMenuSearch.setOnClickListener {
-
-                    }
-                    ivMenuDoctor.setOnClickListener {
-
-                    }
-                    ivMenuAuth.setOnClickListener {
-                        viewModel.navigationManager.navigateToAuthActivity()
-                    }
-                }.root
-            )
-        }
-
+        )
+        binding.homeToolbar.toolbar.setLogo(ru.apteka.main_common.R.drawable.logo)
     }
 
 }

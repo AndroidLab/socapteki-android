@@ -22,8 +22,8 @@ class ChoosingCityViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val citiesRepository: CitiesRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
     private val _cities = MutableLiveData<List<CityCardModel>>(emptyList())
 

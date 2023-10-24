@@ -30,8 +30,7 @@
             android:layout_width="@dimen/toolbar_height"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="6dp"
-            android:src="@drawable/ic_navigation_menu_auth"
+            android:padding="12dp"
             tools:ignore="ContentDescription" />
 
     </LinearLayout>

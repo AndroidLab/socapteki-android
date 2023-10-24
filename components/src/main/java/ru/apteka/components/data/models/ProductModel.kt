@@ -16,5 +16,5 @@ data class ProductModel(
     val comments: Int,
     val discount: DiscountModel? = null,
     val additionalDesc: String? = null,
-    val labels: List<LabelModel> = emptyList()
+    val labels: List<LabelModel> = emptyList(),
 )

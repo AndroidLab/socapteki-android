@@ -16,7 +16,7 @@
         <item name="colorSecondaryVariant">@color/grey</item>-->
         <item name="colorOnSecondary">@color/dark_black</item>
         <item name="colorSecondaryContainer">@color/color_secondary_container</item>
-
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.Socapteki" parent="Base.Theme.Socapteki" />
@@ -100,6 +100,38 @@
     <style name="CustomTextInputLayoutShapeAppearanceOverlay" parent="">
         <item name="cornerSizeBottomLeft">8dp</item>
         <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+
+    <style name="Theme.Socapteki.DataPicker" parent="Theme.Material3.Light.Dialog">
+        <item name="colorAccent">@color/color_primary</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DataPicker.Button.Positive</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DataPicker.Button.Negative</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/DataPicker.Button.Neutral</item>
+
+    </style>
+
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@color/white</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+
+    <style name="DataPicker.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/color_primary</item>
+    </style>
+
+    <style name="DataPicker.Button.Negative" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/color_primary</item>
+    </style>
+
+    <style name="DataPicker.Button.Neutral" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/color_primary</item>
     </style>
 
 

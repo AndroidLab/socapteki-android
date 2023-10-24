@@ -5,13 +5,11 @@ import androidx.annotation.Keep
 
 /**
  * Представляет аккаунт.
- * @param phoneNumber елефонный номер.
- * @param userId Идентификатор полдьзователя.
+ * @param phoneNumber Телефонный номер.
  * @param token Токен аккаунта.
  */
 @Keep
 data class Account(
     val phoneNumber: String?,
-    val userId: String?,
     val token: String?
 )

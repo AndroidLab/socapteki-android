@@ -8,10 +8,20 @@
     <string name="apply">Применить</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
+    <string name="remove">Удалить</string>
     <string name="orders_in_work_status">В работе</string>
     <string name="orders_canceled_status">Отменнено</string>
     <string name="orders_completed_status">Завершено</string>
     <string name="order_number">Заказ №%s</string>
-    <string name="bye_one_click">Купить в 1 клик</string>
+    <string name="into_basket">В корзину</string>
     <string name="all">Все</string>
+    <string name="save">Сохранить</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="create">Создать</string>
+    <string name="confirm_code_hint">Код подтверждения</string>
+    <string name="confirm_code_is_missing">Не пришел код?</string>
+    <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
+    <string name="confirm_code_repeat_left_time">через: %s</string>
+    <string name="confirm_code_error">Не веврный код</string>
 </resources>

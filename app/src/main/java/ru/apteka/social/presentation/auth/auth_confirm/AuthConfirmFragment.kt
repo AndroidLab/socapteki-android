@@ -37,7 +37,7 @@ class AuthConfirmFragment : BaseFragment<AuthConfirmViewModel, AuthConfirmFragme
             MaskImpl.createTerminated(
                 UnderscoreDigitSlotsParser().parseSlots("_ _ _ _")
             )
-        ).installOn(binding.etAuthConfirmPhone)
+        ).installOn(binding.etAuthConfirmCode)
 
         viewModel.isNavigationToMain.observe(viewLifecycleOwner) {
             //startActivity(Intent(requireContext(), MainActivity::class.java))

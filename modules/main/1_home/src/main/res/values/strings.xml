@@ -13,4 +13,40 @@
     <string name="home_menu_advantages">Преимущества</string>
     <string name="home_menu_partners">Наши партнеры</string>
 
+    <string name="profile_title">Профиль</string>
+    <string name="profile_personal_data">Личные данные</string>
+    <string name="profile_favorites">Избранное</string>
+    <string name="profile_orders">Заказы</string>
+    <string name="profile_apteki">Аптеки</string>
+    <string name="profile_bonus_program">Бонусная программа</string>
+    <string name="profile_referral_program">Реферальная программа</string>
+    <string name="profile_comments_reviews">Комментарии и отзывы</string>
+    <string name="profile_my_subscriptions">Мои подписки</string>
+
+    <string name="my_subscriptions_title">Мои подписки</string>
+    <string name="my_subscriptions_sms_notice">СМС-уведомления</string>
+    <string name="my_subscriptions_sms_notice_desc">Получать СМС-уведомления</string>
+    <string name="my_subscriptions_mail_notice">Уведомления на e-mail</string>
+    <string name="my_subscriptions_mail_notice_desc">Получать уведомления на e-mail</string>
+    <string name="my_subscriptions_save">Сохранить изменения</string>
+
+    <string name="apteki_title">Аптеки</string>
+
+    <string name="bonus_program_title">Бонусная программа</string>
+    <string name="bonus_program_banner_title">Участвуйте в бонусной программе</string>
+    <string name="bonus_program_banner_desc">И получай скидку на покупку товаров</string>
+    <string name="bonus_program_text">Каждый зарегистрированный пользователь сайта может стать участником бонусной программы, зарабатывая бонусные баллы, которые можно использовать для получения скидки до 10% при оформлении заказа</string>
+    <string name="bonus_program_referral">Реферальная программа</string>
+    <string name="bonus_program_history">История бонусов</string>
+    <string name="bonus_program_history_all">Все</string>
+    <string name="bonus_program_register_card">Зарегистрируйте карту, чтобы получать бонусы и скидки на покупку товаров</string>
+    <string name="bonus_program_read_offer">Ознакомиться с офертой</string>
+
+    <string name="comments_reviews_title">Комментарии и отзывы</string>
+    <string name="comments_reviews_comments_page">Комментарии</string>
+    <string name="comments_reviews_reviews_page">Отзывы</string>
+    <string name="comments_reviews_feedback_page">Обратная связь</string>
+    <string name="comments_reviews_published">Опубликованно</string>
+    <string name="comments_reviews_consideration">На рассмотрении</string>
+
 </resources>

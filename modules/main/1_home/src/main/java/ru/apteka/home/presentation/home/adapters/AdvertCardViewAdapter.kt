@@ -14,6 +14,7 @@ class AdvertCardViewAdapter(private val onItemClick: () -> Unit) :
 
     override fun AdvertCardViewBinding.onBind(item: AdvertModel) {
         model = item
+
         executePendingBindings()
         advertCardItem.setOnClickListener {
             onItemClick()

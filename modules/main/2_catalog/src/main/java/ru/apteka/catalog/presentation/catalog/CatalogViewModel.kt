@@ -8,6 +8,8 @@ import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.catalog.data.catalog_repository.CatalogRepository
 import ru.apteka.catalog.data.models.CatalogMenuItem
+import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import javax.inject.Inject
 
 
@@ -19,8 +21,12 @@ class CatalogViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val catalogRepository: CatalogRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager,
+    accountsPreferences: AccountsPreferences
+) : MainScreenBaseViewModel(
+    accountsPreferences,
+    navigationManager
+) {
 
     val catalogs = MutableLiveData(
         listOf(

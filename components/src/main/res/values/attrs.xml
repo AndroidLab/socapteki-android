@@ -4,35 +4,35 @@
     <!-- Параметры для  PinCode -->
     <declare-styleable name="PinCodeView">
 
-        <attr name="cellsCount" format="integer"/>
-        <attr name="cellSize" format="dimension"/>
-        <attr name="cellBorderSize" format="dimension"/>
-        <attr name="cellGapSize" format="dimension"/>
-        <attr name="cellCornerRadius" format="dimension"/>
-        <attr name="cellBackgroundColor" format="color"/>
-        <attr name="cellBackgroundFocusColor" format="color"/>
-        <attr name="cellBackgroundSuccessColor" format="color"/>
-        <attr name="cellBackgroundErrorColor" format="color"/>
-        <attr name="cellBorderColor" format="color"/>
-        <attr name="cellBorderFocusColor" format="color"/>
-        <attr name="cellBorderSuccessColor" format="color"/>
-        <attr name="cellBorderErrorColor" format="color"/>
-        <attr name="cellTextColor" format="color"/>
+        <attr name="cellsCount" format="integer" />
+        <attr name="cellSize" format="dimension" />
+        <attr name="cellBorderSize" format="dimension" />
+        <attr name="cellGapSize" format="dimension" />
+        <attr name="cellCornerRadius" format="dimension" />
+        <attr name="cellBackgroundColor" format="color" />
+        <attr name="cellBackgroundFocusColor" format="color" />
+        <attr name="cellBackgroundSuccessColor" format="color" />
+        <attr name="cellBackgroundErrorColor" format="color" />
+        <attr name="cellBorderColor" format="color" />
+        <attr name="cellBorderFocusColor" format="color" />
+        <attr name="cellBorderSuccessColor" format="color" />
+        <attr name="cellBorderErrorColor" format="color" />
+        <attr name="cellTextColor" format="color" />
 
     </declare-styleable>
 
     <!-- Параметры для TextInputLayout -->
     <declare-styleable name="TextInputLayout">
-        <attr name="textInputLayoutFocusedDrawable" format="reference"/>
-        <attr name="textInputLayoutUnfocusedDrawable" format="reference"/>
-        <attr name="textInputLayoutDisabledDrawable" format="reference"/>
-        <attr name="textInputLayoutErrorDrawable" format="reference"/>
+        <attr name="textInputLayoutFocusedDrawable" format="reference" />
+        <attr name="textInputLayoutUnfocusedDrawable" format="reference" />
+        <attr name="textInputLayoutDisabledDrawable" format="reference" />
+        <attr name="textInputLayoutErrorDrawable" format="reference" />
     </declare-styleable>
 
     <!-- Параметры для BouncyNestedScrollView -->
     <declare-styleable name="BouncyNestedScrollView">
-        <attr name="overscrollAnimationSize" format="float"/>
-        <attr name="flingAnimationSize" format="float"/>
+        <attr name="overscrollAnimationSize" format="float" />
+        <attr name="flingAnimationSize" format="float" />
 
         <attr name="bouncyScrollviewDampingRatio" format="integer">
             <enum name="DAMPING_RATIO_NO_BOUNCY" value="0" />
@@ -55,11 +55,11 @@
 
     <!-- Параметры для BouncyRecyclerScrollView -->
     <declare-styleable name="BouncyRecyclerView">
-        <attr name="recyclerviewOverscrollAnimationSize" format="float"/>
-        <attr name="recyclerview_fling_animation_size" format="float"/>
+        <attr name="recyclerviewOverscrollAnimationSize" format="float" />
+        <attr name="recyclerview_fling_animation_size" format="float" />
 
-        <attr name="allowDragReorder" format="boolean"/>
-        <attr name="allowItemSwipe" format="boolean"/>
+        <attr name="allowDragReorder" format="boolean" />
+        <attr name="allowItemSwipe" format="boolean" />
 
         <attr name="bouncyRecyclerviewDampingRatio" format="integer">
             <enum name="DAMPING_RATIO_NO_BOUNCY" value="0" />
@@ -84,5 +84,22 @@
     <declare-styleable name="LoaderLayout">
         <attr name="hideContent" format="boolean" />
     </declare-styleable>
+
+    <!-- Параметры для SeekBar -->
+    <declare-styleable name="SeekBarRangedView">
+        <attr name="min" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="currentMin" format="integer" />
+        <attr name="currentMax" format="integer" />
+        <attr name="rounded" format="boolean" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="backgroundHeight" format="dimension" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressHeight" format="dimension" />
+        <attr name="thumbsResource" format="reference" />
+        <attr name="thumbNormalResource" format="reference" />
+        <attr name="thumbPressedResource" format="reference" />
+    </declare-styleable>
+
 
 </resources>

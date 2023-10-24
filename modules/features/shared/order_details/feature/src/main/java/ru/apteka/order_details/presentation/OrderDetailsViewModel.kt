@@ -24,8 +24,8 @@ class OrderDetailsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
     /**
      * Возвращает или устанавливает заказ.

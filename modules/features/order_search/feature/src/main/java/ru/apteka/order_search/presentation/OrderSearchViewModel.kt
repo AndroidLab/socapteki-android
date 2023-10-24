@@ -20,8 +20,8 @@ import javax.inject.Inject
 class OrderSearchViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
     private val _foundOrders = MutableLiveData<List<OrderModel>>(emptyList())
 

@@ -1,5 +1,9 @@
 package ru.apteka.main.presentation.main
 
+import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment

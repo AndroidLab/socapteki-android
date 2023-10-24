@@ -165,16 +165,10 @@
 
             <!-- Счетчик -->
             <include
+                android:id="@+id/productCardCounter"
                 layout="@layout/item_counter_view"
                 app:model="@{model.itemCounter}"/>
-
-            <!-- Купить в 1 клик -->
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="6dp"
-                android:text="@string/bye_one_click" />
-
+            
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

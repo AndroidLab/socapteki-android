@@ -8,14 +8,14 @@ import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.DrawableRes
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LifecycleOwner
-import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.*
 import ru.apteka.components.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -55,20 +55,11 @@ fun Calendar.formatDate(context: Context): String {
 }
 
 /**
- * Возвращает владельца жизненого цикла вью.
+ * Возвращает милисекунды из текстовой даты.
  */
-fun View.getLifeCycleOwner(): LifecycleOwner {
-    var localContext = context
-    while (localContext is ContextWrapper) {
-        if (localContext is LifecycleOwner) {
-            return localContext
-        }
-        localContext = localContext.baseContext
-    }
-
-    throw Exception("Владелец ЖЦ не найден.")
-}
-
+fun getMillsByDate(date: String, formatter: String) =
+    LocalDateTime.parse(date, DateTimeFormatter.ofPattern(formatter, Locale.ENGLISH))
+        .atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
 
 /**
@@ -250,7 +241,7 @@ fun <T> List<T>.subListOrNull(fromIndex: Int, toIndex: Int): List<T>? {
     return if (fromIndex > lastIndex) {
         null
     } else {
-        subList(fromIndex, if (toIndex > lastIndex) lastIndex+1 else toIndex)
+        subList(fromIndex, if (toIndex > lastIndex) lastIndex + 1 else toIndex)
     }
 }
 
@@ -302,7 +293,7 @@ fun <T> List<T>.contains(predicate: (item: T) -> Boolean): Boolean {
  */
 fun String?.crop(length: Int): String? {
     return if (this == null) {
-         null
+        null
     } else {
         if ((this.length) > length)
             this.substring(0, length) + "..."

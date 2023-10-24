@@ -1,19 +1,23 @@
 package ru.apteka.social.presentation.auth.auth_confirm
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
+import ru.apteka.components.data.models.ConfirmCodeStatus
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.account.models.Account
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.DownTimer
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.social.domain.login.usecase.CheckCodeUseCase
-import ru.apteka.social.domain.login.usecase.NewCodeUseCase
+import ru.apteka.components.data.repository.kogin.LoginRepository
 import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -25,9 +29,10 @@ import kotlin.properties.Delegates
 @HiltViewModel
 class AuthConfirmViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    private val newCodeUseCase: NewCodeUseCase,
-    private val checkCodeUseCase: CheckCodeUseCase
-) : BaseViewModel() {
+    private val loginRepository: LoginRepository,
+    private val accountsPreferences: AccountsPreferences,
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
     private val downTimer = DownTimer(60)
     private val _leftTime = MutableLiveData<String?>(null)
@@ -72,11 +77,11 @@ class AuthConfirmViewModel @Inject constructor(
     /**
      * Получает код повторно.
      */
-    fun getNewCode() {
+    val onNewCode: (View) -> Unit = {
         if (leftTime.value == null) {
             viewModelScope.launchIO {
                 requestHandler.handleApiRequest(
-                    onRequest = { newCodeUseCase.execute(phoneNumber) },
+                    onRequest = { loginRepository.getNewCode(phoneNumber) },
                     isLoading = _isLoading
                 )
             }
@@ -90,11 +95,15 @@ class AuthConfirmViewModel @Inject constructor(
     fun checkCodeNumber() {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
-                onRequest = { checkCodeUseCase.execute(codeRaw.value!!) },
+                onRequest = { loginRepository.checkCode(codeRaw.value!!) },
                 onSuccess = { sendCodeResult ->
                     mainThread {
                         if (sendCodeResult.success) {
                             _confirmCodeStatus.value = ConfirmCodeStatus.SUCCESS
+                            accountsPreferences.account = Account(
+                                phoneNumber = phoneNumber,
+                                token = "12345"
+                            )
                             isNavigationToMain.call()
                         } else {
                             _confirmCodeStatus.value = ConfirmCodeStatus.ERROR
@@ -123,11 +132,6 @@ class AuthConfirmViewModel @Inject constructor(
                 _leftTime.postValue(it)
             }
         }
-    }
-
-    enum class ConfirmCodeStatus() {
-        SUCCESS,
-        ERROR
     }
 
 }

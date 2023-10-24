@@ -23,6 +23,7 @@ rootProject.name = "socapteka"
 include(":app")
 include(":components")
 include(":modules:main:main_screen")
+include(":modules:main:main_common")
 include(":modules:main:1_home")
 include(":modules:main:2_catalog")
 include(":modules:main:3_orders")
@@ -30,9 +31,12 @@ include(":modules:main:4_favorites")
 include(":modules:main:5_basket")
 include(":modules:features:about_company")
 include(":modules:features:brands")
-
 include(":modules:features:advantages")
 include(":modules:features:partners")
+
+//Модуль профиля
+include(":modules:features:personal_data:feature")
+include(":modules:features:personal_data:api")
 
 //Модуль поиска заказа
 include(":modules:features:order_search:feature")

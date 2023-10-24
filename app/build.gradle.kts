@@ -29,6 +29,7 @@ dependencies {
     implementation(project(":modules:main:3_orders"))
     implementation(project(":modules:main:4_favorites"))
     implementation(project(":modules:main:5_basket"))
+    implementation(project(":modules:features:personal_data:feature"))
     implementation(project(":modules:features:choosing_city:feature"))
     implementation(project(":modules:features:shared:order_details:feature"))
     implementation(project(":modules:features:order_search:feature"))

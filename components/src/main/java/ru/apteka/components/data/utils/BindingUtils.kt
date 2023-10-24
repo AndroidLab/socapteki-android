@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.text.Html
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -111,14 +112,36 @@ fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
  * @param paddingTop [Int]
  * @param paddingBottom [Int]
  */
-@BindingAdapter("app:layoutPaddingTop", "app:layoutPaddingBottom", requireAll = false)
-fun setLayoutPadding(view: View, paddingTop: Int?, paddingBottom: Int?) {
-    if (paddingTop != null || paddingBottom != null) {
+@BindingAdapter(
+    "app:layoutPaddingStart",
+    "app:layoutPaddingTop",
+    "app:layoutPaddingEnd",
+    "app:layoutPaddingBottom",
+    requireAll = false
+)
+fun setLayoutPadding(view: View, paddingStart: Int?, paddingTop: Int?, paddingEnd: Int?, paddingBottom: Int?) {
+    if (paddingStart != null || paddingTop != null || paddingEnd != null || paddingBottom != null) {
+        if (paddingStart != null) {
+            view.setPadding(
+                paddingStart.dp,
+                view.paddingTop,
+                view.paddingRight,
+                view.paddingBottom
+            )
+        }
         if (paddingTop != null) {
             view.setPadding(
                 view.paddingLeft,
                 paddingTop.dp,
                 view.paddingRight,
+                view.paddingBottom
+            )
+        }
+        if (paddingTop != null) {
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                paddingTop.dp,
                 view.paddingBottom
             )
         }

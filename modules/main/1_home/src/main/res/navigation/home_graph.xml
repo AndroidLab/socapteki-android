@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_graph"
+    android:id="@id/home_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -10,6 +10,51 @@
         android:name="ru.apteka.home.presentation.home.HomeFragment"
         tools:layout="@layout/home_fragment">
 
+        <action
+            android:id="@+id/toProfileFragment"
+            app:destination="@id/profileFragment" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.apteka.home.presentation.profile.UserProfileFragment">
+
+        <action
+            android:id="@+id/toAptekiFragment"
+            app:destination="@id/aptekiFragment" />
+
+        <action
+            android:id="@+id/toBonusProgramFragment"
+            app:destination="@id/bonusProgramFragment" />
+
+        <action
+            android:id="@+id/toCommentsReviewsFragment"
+            app:destination="@id/commentsReviewsFragment" />
+
+        <action
+            android:id="@+id/toSubscriptionsFragment"
+            app:destination="@id/mySubscriptionsFragment" />
+
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/aptekiFragment"
+        android:name="ru.apteka.home.presentation.apteki.AptekiFragment"/>
+
+    <fragment
+        android:id="@+id/bonusProgramFragment"
+        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"/>
+
+    <fragment
+        android:id="@+id/commentsReviewsFragment"
+        android:name="ru.apteka.home.presentation.comments_reviews.CommentsReviewsFragment"/>
+
+    <fragment
+        android:id="@+id/mySubscriptionsFragment"
+        android:name="ru.apteka.home.presentation.my_subscriptions.MySubscriptionsFragment"/>
+
 
 </navigation>

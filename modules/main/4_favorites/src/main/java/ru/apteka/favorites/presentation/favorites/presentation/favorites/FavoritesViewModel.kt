@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.favorites.presentation.favorites.data.models.FavoritesCardModel
 import ru.apteka.favorites.presentation.favorites.domain.favorites.FavoritesCodeUseCase
+import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import javax.inject.Inject
 
 
@@ -22,8 +24,12 @@ class FavoritesViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val favoritesCodeUseCase: FavoritesCodeUseCase,
     private val basketService: BasketService,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager,
+    accountsPreferences: AccountsPreferences
+) : MainScreenBaseViewModel(
+    accountsPreferences,
+    navigationManager
+) {
 
     private val _favorites = MutableLiveData<List<FavoritesCardModel>>(emptyList())
 

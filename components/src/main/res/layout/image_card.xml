@@ -9,6 +9,10 @@
             name="imageUrl"
             type="String" />
 
+        <variable
+            name="padding"
+            type="Integer" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -22,7 +26,10 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            app:layoutPaddingStart="@{padding == null ? 8 : padding}"
+            app:layoutPaddingTop="@{padding == null ? 8 : padding}"
+            app:layoutPaddingEnd="@{padding == null ? 8 : padding}"
+            app:layoutPaddingBottom="@{padding == null ? 8 : padding}"
             android:scaleType="centerCrop"
             android:background="@drawable/image_stub"
             app:glideImageRes="@{imageUrl}"

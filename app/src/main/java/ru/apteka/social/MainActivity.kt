@@ -2,16 +2,15 @@ package ru.apteka.social
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.apteka.components.data.services.bottom_sheet_service.BottomSheetService
 import ru.apteka.components.data.services.error_notice_service.ErrorNoticeService
 import ru.apteka.components.data.services.error_notice_service.models.IRequestError
 import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
@@ -20,8 +19,13 @@ import ru.apteka.components.data.services.message_notice_service.models.DialogMo
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.ui.BottomSheet
 import ru.apteka.components.ui.CommonDialogFragment
+import ru.apteka.main.databinding.BottomNavigationViewBinding
 import ru.apteka.social.databinding.ActivityMainBinding
+import ru.apteka.social.databinding.GeneralNavigationViewBinding
+import ru.apteka.social.databinding.GeneralNavigationViewBindingImpl
 import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
 import ru.apteka.basket.R as BasketR
@@ -43,10 +47,21 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var messageNoticeService: MessageNoticeService
 
-    private val binding: ActivityMainBinding by lazy {
+    @Inject
+    lateinit var bottomSheetService: BottomSheetService
+
+    /*private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
+        )
+    }*/
+
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(
+            LayoutInflater.from(
+                this
+            )
         )
     }
 
@@ -57,28 +72,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-
+        setContentView(binding.root)
         navigationManager.apply {
-            //toolBar = supportActionBar!!
-            drawerLayout = binding.drawerLayout.apply {
-                addDrawerListener(object : DrawerListener {
-                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
-                    override fun onDrawerOpened(drawerView: View) {
-                        setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                    }
-                    override fun onDrawerClosed(drawerView: View) {
-                        setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    }
-                    override fun onDrawerStateChanged(newState: Int) {}
-                })
-            }
             generalNavController = this@MainActivity.generalNavController
             navigateToAuthActivity = {
                 startActivity(Intent(this@MainActivity, AuthActivity::class.java))
             }
         }
-
-        binding.navView.setupWithNavController(generalNavController)
 
         generalNavController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.mainFragment) {
@@ -94,6 +94,15 @@ class MainActivity : AppCompatActivity() {
                     navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
                 }
             }
+        }
+
+
+        navigationManager.showAppMenu = {
+            bottomSheetService.show(
+                GeneralNavigationViewBinding.inflate(layoutInflater, null, false).also { binding ->
+                    binding.navView.setupWithNavController(generalNavController)
+                }
+            )
         }
 
         lifecycleScope.launchIO {
@@ -124,6 +133,25 @@ class MainActivity : AppCompatActivity() {
                             dialogModel = dialogModel
                         )
                     )
+                    messageNoticeService.reset()
+                }
+            }
+        }
+
+
+        lifecycleScope.launchIO {
+            bottomSheetService.bottomSheet.collect { bottomSheetBinding ->
+                if (bottomSheetBinding != null) {
+                    mainThread {
+                        bottomSheetService.bottomSheetDialog = BottomSheet.newInstance(
+                            BottomSheet.BottomSheetModel(
+                                bottomSheetBinding
+                            )
+                        ).apply {
+                            show(supportFragmentManager, BottomSheet.TAG)
+                        }
+                        bottomSheetService.reset()
+                    }
                 }
             }
         }
@@ -143,24 +171,21 @@ class MainActivity : AppCompatActivity() {
         val currentMainDestinationId =
             navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
 
-        if (binding.drawerLayout.isOpen) {
-            binding.drawerLayout.close()
+        if (currentGeneralDestinationId != R.id.mainFragment) {
+            navigationManager.generalNavController.popBackStack()
         } else {
-            if (currentGeneralDestinationId != R.id.mainFragment) {
-                navigationManager.generalNavController.popBackStack()
+            if (currentMainDestinationId == CatalogR.id.catalogFragment
+                || currentMainDestinationId == OrdersR.id.ordersFragment
+                || currentMainDestinationId == FavoritesR.id.favoritesFragment
+                || currentMainDestinationId == BasketR.id.basketFragment
+            ) {
+                navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
             } else {
-                if (currentMainDestinationId == CatalogR.id.catalogFragment
-                    || currentMainDestinationId == OrdersR.id.ordersFragment
-                    || currentMainDestinationId == FavoritesR.id.favoritesFragment
-                    || currentMainDestinationId == BasketR.id.basketFragment
-                ) {
-                    navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
-                } else {
-                    if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
-                        super.onBackPressed()
-                    }
+                if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
+                    super.onBackPressed()
                 }
             }
         }
+
     }
 }

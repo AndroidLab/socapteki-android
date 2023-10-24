@@ -1,6 +1,5 @@
 package ru.apteka.components.data.services.message_notice_service
 
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -14,12 +13,19 @@ import javax.inject.Singleton
 @Singleton
 class MessageNoticeService @Inject constructor() : IMessageNoticeService {
     private val _commonDialog =
-        MutableSharedFlow<DialogModel?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow<DialogModel?>(replay = 1)
 
     /**
      * Возвращает модель для показа диалога.
      */
     val commonDialog: SharedFlow<DialogModel?> = _commonDialog.asSharedFlow()
+
+    /**
+     * Сбрасывает значение.
+     */
+    fun reset() {
+        _commonDialog.tryEmit(null)
+    }
 
     override fun showCommonDialog(
         dialogModel: DialogModel?

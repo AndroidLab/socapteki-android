@@ -49,7 +49,6 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
 
     override fun onStart() {
         super.onStart()
-        viewModel.navigationManager.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         MapKitFactory.getInstance().onStart()
         mapView.onStart()
     }

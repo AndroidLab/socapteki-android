@@ -9,5 +9,5 @@ import androidx.lifecycle.MutableLiveData
 data class ItemCounterModel(
     val onMinus: () -> Unit,
     val onPlus: () -> Unit,
-    val value: MutableLiveData<Int> = MutableLiveData(0)
+    val count: MutableLiveData<Int>
 )

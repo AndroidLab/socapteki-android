@@ -9,6 +9,10 @@
             name="catalogProductFilterModel"
             type="ru.apteka.catalog.data.models.IFilter.FilterCountryModel" />
 
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+
     </data>
 
     <LinearLayout
@@ -33,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
+                app:lifecycleOwner="@{lifecycle}"
                 app:forItems="@{catalogProductFilterModel.items}"
                 app:useTemplate="@{@layout/catalog_products_filter_country_template}" />
 

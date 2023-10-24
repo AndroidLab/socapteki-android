@@ -6,12 +6,12 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.social.domain.login.usecase.SendPhoneUseCase
+import ru.apteka.components.data.repository.kogin.LoginRepository
 import javax.inject.Inject
 
 
@@ -21,9 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    private val sendPhoneUseCase: SendPhoneUseCase,
-    private val accountsPreferences: AccountsPreferences
-) : BaseViewModel() {
+    private val loginRepository: LoginRepository,
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
     /**
      * Устанавливает или возвращает номер телефона.
@@ -71,7 +71,7 @@ class AuthViewModel @Inject constructor(
     fun sendPhoneNumber() {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
-                onRequest = { sendPhoneUseCase.execute(phoneNumberRaw.value!!) },
+                onRequest = { loginRepository.sendNumber(phoneNumberRaw.value!!) },
                 onSuccess = {
                     mainThread {
                         if (it.success) {

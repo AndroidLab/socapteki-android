@@ -13,8 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PharmaciesMapViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager
+) : BaseViewModel(navigationManager) {
 
 
     init {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.home.data.models.BonusModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/bonusHistoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{bindingItem.title}"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bonusHistoryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bonusHistoryTitle"
+            android:layout_marginBottom="16dp"
+            android:text="@{ ExtensionsMethodsKt.formatDate(ExtensionsMethodsKt.Calendar(bindingItem.date), context) }" />
+
+        <TextView
+            android:id="@+id/bonusHistoryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:text="@{bindingItem.value > 0 ? `+` + bindingItem.value : ``+bindingItem.value}"
+            android:textColor="@{bindingItem.value > 0 ? @color/color_primary : @color/red}"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/bonusHistoryDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bonusHistoryValue"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="16dp"
+            android:text="@{bindingItem.desc}" />
+
+        <View
+            android:id="@id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/light_grey" />
+
+    </RelativeLayout>
+
+</layout>

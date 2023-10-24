@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(project(":components"))
+    implementation(project(":modules:main:main_common"))
 
     implementation(libs.bundles.navigationDeps)
 }

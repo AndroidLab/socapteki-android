@@ -6,21 +6,25 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.ItemCounterModel
+import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.ui.BaseViewModel
+import ru.apteka.components.data.utils.mainThread
 import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.OtherModel
-import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.home.data.models.PromotionModel
 import ru.apteka.home.data.repository.advert.AdvertRepository
 import ru.apteka.home.data.repository.other.OtherRepository
 import ru.apteka.home.data.repository.products_day.ProductsDayRepository
 import ru.apteka.home.data.repository.products_discount.ProductsDiscountRepository
 import ru.apteka.home.data.repository.promotion.PromotionRepository
+import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import javax.inject.Inject
 
 
@@ -36,8 +40,12 @@ class HomeViewModel @Inject constructor(
     private val productsDiscountRepository: ProductsDiscountRepository,
     private val otherRepository: OtherRepository,
     private val userPreferences: UserPreferences,
-    val navigationManager: NavigationManager
-) : BaseViewModel() {
+    navigationManager: NavigationManager,
+    accountsPreferences: AccountsPreferences
+) : MainScreenBaseViewModel(
+    accountsPreferences,
+    navigationManager
+) {
 
     /**
      * Возвращает название выбранного города.
@@ -54,7 +62,7 @@ class HomeViewModel @Inject constructor(
      */
     val adverts: LiveData<List<AdvertModel>> = _adverts
 
-    private val _advertsIsLoading = MutableLiveData<Boolean>(false)
+    private val _advertsIsLoading = MutableLiveData(false)
 
     /**
      *
@@ -69,13 +77,12 @@ class HomeViewModel @Inject constructor(
      */
     val promotions: LiveData<List<PromotionModel>> = _promotions
 
-    private val _promotionsIsLoading = MutableLiveData<Boolean>(false)
+    private val _promotionsIsLoading = MutableLiveData(false)
 
     /**
      *
      */
     val promotionsIsLoading: LiveData<Boolean> = _promotionsIsLoading
-
 
 
     private val _productsDay = MutableLiveData<List<ProductCardModel>>(emptyList())
@@ -85,7 +92,7 @@ class HomeViewModel @Inject constructor(
      */
     val productsDay: LiveData<List<ProductCardModel>> = _productsDay
 
-    private val _productsDayIsLoading = MutableLiveData<Boolean>(false)
+    private val _productsDayIsLoading = MutableLiveData(false)
 
     /**
      *
@@ -100,7 +107,7 @@ class HomeViewModel @Inject constructor(
      */
     val productsDiscount: LiveData<List<ProductCardModel>> = _productsDiscount
 
-    private val _productsDiscountIsLoading = MutableLiveData<Boolean>(false)
+    private val _productsDiscountIsLoading = MutableLiveData(false)
 
     /**
      *
@@ -115,7 +122,7 @@ class HomeViewModel @Inject constructor(
      */
     val others: LiveData<List<OtherModel>> = _others
 
-    private val _othersIsLoading = MutableLiveData<Boolean>(false)
+    private val _othersIsLoading = MutableLiveData(false)
 
     /**
      *
@@ -147,27 +154,36 @@ class HomeViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { productsDayRepository.getProductionsDay() },
                     onSuccess = { productsDay ->
-                        _productsDay.postValue(
-                            productsDay.map { product ->
-                                ProductCardModel(
-                                    product = product,
-                                    onFavoriteClick = {
-
-                                    },
-                                    onByeOneClick = {
-
-                                    },
-                                    itemCounter = ItemCounterModel(
-                                        onMinus = {
+                        mainThread {
+                            _productsDay.value =
+                                productsDay.map { product ->
+                                    val counterLiveData = MutableLiveData(0)
+                                    ProductCardModel(
+                                        product = product,
+                                        onFavoriteClick = {
 
                                         },
-                                        onPlus = {
+                                        onByeOneClick = {
 
-                                        }
+                                        },
+                                        itemCounter = ItemCounterModel(
+                                            onMinus = {
+                                                val newVal = counterLiveData.value!! - 1
+                                                viewModelScope.launchAfter(100) {
+                                                    counterLiveData.postValue(newVal)
+                                                }
+                                            },
+                                            onPlus = {
+                                                val newVal = counterLiveData.value!! + 1
+                                                viewModelScope.launchAfter(100) {
+                                                    counterLiveData.postValue(newVal)
+                                                }
+                                            },
+                                            count = counterLiveData
+                                        )
                                     )
-                                )
-                            }
-                        )
+                                }
+                        }
                     },
                     isLoading = _productsDayIsLoading
                 )
@@ -178,6 +194,7 @@ class HomeViewModel @Inject constructor(
                     onSuccess = { productsDiscount ->
                         _productsDiscount.postValue(
                             productsDiscount.map { product ->
+                                val counterLiveData = MutableLiveData(0)
                                 ProductCardModel(
                                     product = product,
                                     onFavoriteClick = {
@@ -188,11 +205,18 @@ class HomeViewModel @Inject constructor(
                                     },
                                     itemCounter = ItemCounterModel(
                                         onMinus = {
-
+                                            val newVal = counterLiveData.value!! - 1
+                                            viewModelScope.launchAfter(100) {
+                                                counterLiveData.postValue(newVal)
+                                            }
                                         },
                                         onPlus = {
-
-                                        }
+                                            val newVal = counterLiveData.value!! + 1
+                                            viewModelScope.launchAfter(100) {
+                                                counterLiveData.postValue(newVal)
+                                            }
+                                        },
+                                        count = counterLiveData
                                     )
                                 )
                             }

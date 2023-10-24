@@ -15,25 +15,21 @@
             name="filterChips"
             type="java.util.List&lt;FilterChipModel&gt;" />
 
-        <variable
-            name="isFilterSelected"
-            type="androidx.lifecycle.LiveData&lt;Boolean&gt;" />
-
     </data>
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            android:id="@+id/catalogProductsFragmentToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/catalogProductsFragmentToolbar"
-                layout="@layout/toolbar" />
+            android:layout_height="match_parent"
+            app:isLoading="@{viewModel.isLoading}">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/catalogProducts"
@@ -44,8 +40,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:visibleIf="@{!viewModel.isLoading()}"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:visibleIf="@{!viewModel.isLoading()}">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -97,7 +93,7 @@
                                 android:layout_gravity="end"
                                 android:src="@drawable/shape_circle"
                                 app:tint="@color/red"
-                                app:visibleIf="@{isFilterSelected}"
+                                app:visibleIf="@{viewModel.filterAll.globalAnySelected}"
                                 tools:ignore="ContentDescription" />
 
                         </FrameLayout>
@@ -190,88 +186,35 @@
                     <!-- С этим товаром покупают -->
                     <include
                         android:id="@+id/catalogProductsWithProductBuy"
+                        layout="@layout/horizontal_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        layout="@layout/horizontal_list"
-                        app:title="@{@string/catalog_product_with_product_buy}"
+                        app:isLoading="@{viewModel.productsWithProductBuyIsLoading}"
                         app:textBtn="@{@string/all}"
-                        app:isLoading="@{viewModel.productsWithProductBuyIsLoading}" />
+                        app:title="@{@string/catalog_product_with_product_buy}" />
 
                     <!-- Вы недавно смотрели -->
                     <include
                         android:id="@+id/catalogProductsRecentlyWatched"
+                        layout="@layout/horizontal_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="6dp"
-                        layout="@layout/horizontal_list"
-                        app:title="@{@string/catalog_product_recently_watched}"
+                        app:isLoading="@{viewModel.productsRecentlyWatchedIsLoading}"
                         app:textBtn="@{@string/all}"
-                        app:isLoading="@{viewModel.productsRecentlyWatchedIsLoading}" />
+                        app:title="@{@string/catalog_product_recently_watched}" />
 
-                    <include
-                        layout="@layout/footer_stub" />
+                    <include layout="@layout/footer_stub" />
 
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
 
-        <include
-            layout="@layout/progress_bar"
-            app:isLoading="@{viewModel.isLoading}" />
 
-        <View
-            android:id="@+id/blackout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0"
-            android:background="#000000"
-            android:visibility="gone" />
+        </ru.apteka.components.ui.LoaderLayout>
 
-        <FrameLayout
-            android:id="@+id/bottomSheet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{null}"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="0dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:strokeColor="@color/grey"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:id="@+id/bottomSheetContainer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/footer_stub" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </FrameLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    </LinearLayout>
 
 </layout>

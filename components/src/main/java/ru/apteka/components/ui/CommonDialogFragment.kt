@@ -14,6 +14,7 @@ import kotlinx.parcelize.RawValue
 import kotlin.properties.Delegates
 import androidx.fragment.app.DialogFragment
 import ru.apteka.components.R
+import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.databinding.CommonDialogFragmentBinding
 
 
@@ -28,7 +29,7 @@ class CommonDialogFragment : DialogFragment() {
         /**
          * Возвращает экземпляр общего диалога.
          */
-        fun newInstance(commonDialogModel: ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel) =
+        fun newInstance(commonDialogModel: CommonDialogModel) =
             CommonDialogFragment().apply {
                 arguments = bundleOf(
                     COMMON_DIALOG_MODEL to commonDialogModel
@@ -39,7 +40,7 @@ class CommonDialogFragment : DialogFragment() {
     private var _binding by Delegates.notNull<CommonDialogFragmentBinding>()
 
     private val commonDialogModel
-            get() = (arguments?.getParcelable(COMMON_DIALOG_MODEL) as? ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel)!!
+            get() = (arguments?.getParcelable(COMMON_DIALOG_MODEL) as? CommonDialogModel)!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,10 +92,13 @@ class CommonDialogFragment : DialogFragment() {
 
     override fun onResume() {
         val layout = commonDialogModel.dialogModel.layout
-        dialog?.window?.setLayout(
-            layout.width,
-            layout.height
-        )
+        dialog?.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            setLayout(
+                layout.width,
+                layout.height
+            )
+        }
         super.onResume()
     }
 

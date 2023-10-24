@@ -22,11 +22,6 @@ class NavigationManager @Inject constructor() {
     var topLevelMainDestinationIds: Set<Int> by Delegates.notNull()
 
     /**
-     * Возвращает или устанавливает drawer.
-     */
-    var drawerLayout: DrawerLayout by Delegates.notNull()
-
-    /**
      * Устанавливает или возвращает главный навигационный контроллер.
      */
     var generalNavController: NavController by Delegates.notNull()
@@ -59,10 +54,14 @@ class NavigationManager @Inject constructor() {
      */
     val isBottomNavigationBarNeedUpdateSingleEvent = SingleLiveEvent<Unit>()
 
-
     /**
      * Навигирует к экрану авторизации.
      */
     var navigateToAuthActivity: () -> Unit by Delegates.notNull()
+
+    /**
+     * Показывает меню приложения.
+     */
+    var showAppMenu: () -> Unit by Delegates.notNull()
 
 }
