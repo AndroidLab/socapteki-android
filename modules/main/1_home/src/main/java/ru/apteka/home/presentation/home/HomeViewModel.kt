@@ -13,6 +13,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -44,10 +45,12 @@ class HomeViewModel @Inject constructor(
     private val otherRepository: OtherRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences
+    accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
     accountsPreferences,
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
 
     /**

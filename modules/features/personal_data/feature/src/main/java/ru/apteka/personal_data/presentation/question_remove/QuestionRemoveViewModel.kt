@@ -16,6 +16,7 @@ import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.DownTimer
@@ -37,9 +38,11 @@ class QuestionRemoveViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
     private val accountsPreferences: AccountsPreferences,
-    navigationManager: NavigationManager
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
     private val downTimer = DownTimer(60)
     private val _leftTime = MutableLiveData<String?>(null)

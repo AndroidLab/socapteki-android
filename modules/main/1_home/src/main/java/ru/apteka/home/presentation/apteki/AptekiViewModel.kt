@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
@@ -24,10 +25,12 @@ class AptekiViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val aptekiRepository: AptekiRepository,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences
+    accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
     accountsPreferences,
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
 
     private val _apteki = MutableLiveData<List<AptekaCardModel>>(emptyList())

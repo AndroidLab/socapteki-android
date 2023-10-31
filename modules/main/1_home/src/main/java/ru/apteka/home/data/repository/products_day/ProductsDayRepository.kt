@@ -3,8 +3,8 @@ package ru.apteka.home.data.repository.products_day
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
 import ru.apteka.components.R
-import ru.apteka.components.data.models.LabelModel
 import ru.apteka.components.data.models.DiscountModel
+import ru.apteka.components.data.models.Label
 import ru.apteka.components.data.models.ProductModel
 import java.util.UUID
 import javax.inject.Inject
@@ -38,9 +38,8 @@ class ProductsDayRepository @Inject constructor(
                 ),
                 additionalDesc = "Без рецепта",
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
+                    (
+                        Label.ADVERT
                     )
                 )
             ),
@@ -57,14 +56,12 @@ class ProductsDayRepository @Inject constructor(
                     "30%"
                 ),
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
+                    (
+                        Label.ADVERT
                     ),
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
-                    ),
+                    (
+                        Label.PRODUCT_DAY
+                    )
                 )
             ),
             ProductModel(
@@ -76,14 +73,15 @@ class ProductsDayRepository @Inject constructor(
                 rating = "4.7",
                 comments = 321,
                 labels = listOf(
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
+                    (
+                        Label.ADVERT
                     ),
+                    (
+                        Label.PRODUCT_DAY
+                    )
                 )
             ),
-
-        )
+            )
     }
 
 

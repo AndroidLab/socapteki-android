@@ -54,12 +54,12 @@
             android:layout_marginBottom="16dp"
             android:text="@{bindingItem.desc}" />
 
-        <View
+        <include
             android:id="@id/separator"
+            layout="@layout/separator_view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/light_grey" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

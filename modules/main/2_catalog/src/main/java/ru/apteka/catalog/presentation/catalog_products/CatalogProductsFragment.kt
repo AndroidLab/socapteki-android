@@ -15,6 +15,7 @@ import ru.apteka.catalog.databinding.CatalogProductsFragmentBinding
 import ru.apteka.catalog.databinding.CatalogProductsSortBinding
 import ru.apteka.components.BR
 import ru.apteka.components.data.models.FilterChipModel
+import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
@@ -166,7 +167,7 @@ class CatalogProductsFragment :
         }
     }
 
-    private fun onProductsCardClick() {
+    private fun onProductsCardClick(product: ProductModel) {
 
     }
 

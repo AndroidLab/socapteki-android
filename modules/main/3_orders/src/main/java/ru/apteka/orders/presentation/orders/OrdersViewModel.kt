@@ -12,6 +12,7 @@ import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -30,10 +31,12 @@ class OrdersViewModel @Inject constructor(
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
     accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService,
     @ApplicationContext context: Context
 ) : MainScreenBaseViewModel(
     accountsPreferences,
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
 
     /**

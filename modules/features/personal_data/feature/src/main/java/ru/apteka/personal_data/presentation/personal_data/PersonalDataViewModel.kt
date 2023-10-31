@@ -31,11 +31,12 @@ import javax.inject.Inject
 class PersonalDataViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
-    val messageNoticeService: IMessageNoticeService,
+    messageNoticeService: IMessageNoticeService,
     navigationManager: NavigationManager,
     accountsPreferences: AccountsPreferences
 ) : BaseViewModel(
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
     companion object {
         private val VALID_EMAIL_ADDRESS_REGEX =

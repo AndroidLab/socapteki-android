@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.components.ui.FeatureBaseFragment
@@ -79,7 +80,7 @@ class PersonalDataFragment :
                     viewModel.messageNoticeService.showCommonDialog(
                         dialogModel = DialogModel(
                             title = R.string.personal_data_account_remove_title,
-                            message = CommonDialogFragment.CommonDialogMessage(
+                            message = MessageModel(
                                 message = R.string.personal_data_account_remove_message
                             ),
                             buttonCancel = DialogButtonModel(

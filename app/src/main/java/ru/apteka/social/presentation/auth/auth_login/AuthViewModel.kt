@@ -12,6 +12,7 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import javax.inject.Inject
 
 
@@ -22,8 +23,12 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
-    navigationManager: NavigationManager
-) : BaseViewModel(navigationManager) {
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
+) : BaseViewModel(
+    navigationManager,
+    messageNoticeService
+) {
 
     /**
      * Устанавливает или возвращает номер телефона.

@@ -73,6 +73,7 @@
                 <include
                     android:id="@+id/homeAdvert"
                     layout="@layout/horizontal_list"
+                    app:circlePagerIndicator="@{32}"
                     app:linearSnapHelper="@{true}"
                     app:isLoading="@{viewModel.advertsIsLoading}"
                     app:marginItemHorizontal="@{0}"/>

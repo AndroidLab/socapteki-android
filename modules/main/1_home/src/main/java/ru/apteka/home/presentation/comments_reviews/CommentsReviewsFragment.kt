@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.adapters.PagerAdapter
 import ru.apteka.home.R
 import ru.apteka.home.databinding.CommentsReviewsFragmentBinding
 import ru.apteka.home.presentation.comments_reviews.pages.comments.CommentsPageFragment

@@ -1,10 +1,11 @@
 package ru.apteka.components.data.utils
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.text.Html
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,10 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -29,9 +33,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.textfield.TextInputLayout
 import ru.apteka.components.BR
 import ru.apteka.components.R
+
 
 /**
  * Изменяет видимости представления.
@@ -49,13 +56,9 @@ fun View.visibleIf(value: Boolean?) {
  */
 @BindingAdapter("app:setText", "app:isHtml", requireAll = false)
 fun TextView.setText(value: Any?, isHtml: Boolean = false) {
-    val _text = if (value is Int && value != 0) {
-        context.getString(value.toInt())
-    } else {
-        value.toString()
-    }
+    val _text = context.getStringFrom(value ?: "")
     text = if (isHtml) {
-        Html.fromHtml(_text, Html.FROM_HTML_MODE_COMPACT)
+        getSpannedFromHtml(_text)
     } else {
         _text
     }
@@ -77,10 +80,33 @@ fun setTextSize(textView: TextView, value: Float) {
  * @param marginTop [Int]
  * @param marginBottom [Int]
  */
-@BindingAdapter("app:layoutMarginTop", "app:layoutMarginBottom", requireAll = false)
-fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
-    if (marginTop != null || marginBottom != null) {
+@BindingAdapter(
+    "app:layoutMarginStart",
+    "app:layoutMarginTop",
+    "app:layoutMarginEnd",
+    "app:layoutMarginBottom",
+    requireAll = false
+)
+fun setLayoutMargin(
+    view: View,
+    marginStart: Int?,
+    marginTop: Int?,
+    marginEnd: Int?,
+    marginBottom: Int?
+) {
+    if (marginStart != null || marginTop != null || marginEnd != null || marginBottom != null) {
         val lp = LinearLayout.LayoutParams(view.layoutParams.width, view.layoutParams.height)
+        if (marginStart != null) {
+            view.layoutParams =
+                lp.apply {
+                    setMargins(
+                        marginStart.dp,
+                        view.marginTop,
+                        view.marginRight,
+                        view.marginBottom
+                    )
+                }
+        }
         if (marginTop != null) {
             view.layoutParams =
                 lp.apply {
@@ -88,6 +114,17 @@ fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
                         view.marginLeft,
                         marginTop.dp,
                         view.marginRight,
+                        view.marginBottom
+                    )
+                }
+        }
+        if (marginEnd != null) {
+            view.layoutParams =
+                lp.apply {
+                    setMargins(
+                        view.marginLeft,
+                        view.marginTop,
+                        marginEnd.dp,
                         view.marginBottom
                     )
                 }
@@ -119,7 +156,13 @@ fun setLayoutMargin(view: View, marginTop: Int?, marginBottom: Int?) {
     "app:layoutPaddingBottom",
     requireAll = false
 )
-fun setLayoutPadding(view: View, paddingStart: Int?, paddingTop: Int?, paddingEnd: Int?, paddingBottom: Int?) {
+fun setLayoutPadding(
+    view: View,
+    paddingStart: Int?,
+    paddingTop: Int?,
+    paddingEnd: Int?,
+    paddingBottom: Int?
+) {
     if (paddingStart != null || paddingTop != null || paddingEnd != null || paddingBottom != null) {
         if (paddingStart != null) {
             view.setPadding(
@@ -341,6 +384,31 @@ fun RecyclerView.linearSnapHelper(
     }
 }
 
+/**
+ * Устанавливает постраничный индикатор.
+ */
+@BindingAdapter(
+    "app:circlePagerIndicator",
+    "app:colorActive",
+    "app:colorInactive",
+    requireAll = false
+)
+fun RecyclerView.circlePagerIndicator(
+    verticalOffset: Int?,
+    colorActive: Int?,
+    colorInactive: Int?
+) {
+    if (verticalOffset != null) {
+        addItemDecoration(
+            CirclePagerIndicatorDecoration(
+                verticalOffset,
+                colorActive ?: Color.WHITE,
+                colorInactive ?: ContextCompat.getColor(context, R.color.page_indicator_inactive)
+            )
+        )
+    }
+}
+
 
 /**
  * Создает представление из шаблона для каждого элемента списка.
@@ -413,4 +481,24 @@ fun <T> ViewGroup.inflateTemplateByItems(
     } else {
         this.removeAllViews()
     }
+}
+
+
+/**
+ * Возмможность скролла коллапсинг тоол бара.
+ */
+@BindingAdapter("app:canScroll")
+fun AppBarLayout.canScroll(
+    canScroll: Boolean?
+) {
+    (layoutParams as CoordinatorLayout.LayoutParams).behavior =
+        AppBarLayout.Behavior().apply {
+            setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                    return canScroll == null || canScroll
+                }
+            })
+        }
+
+
 }

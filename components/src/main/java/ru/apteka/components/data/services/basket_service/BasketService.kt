@@ -9,6 +9,7 @@ import ru.apteka.components.data.services.basket_service.models.BasketProductCar
 import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.utils.contains
 import ru.apteka.components.ui.CommonDialogFragment
 import java.util.UUID
@@ -45,7 +46,7 @@ class BasketService @Inject constructor(
             ) { productCardModel ->
                 messageNoticeService.showCommonDialog(
                     dialogModel = DialogModel(
-                        message = CommonDialogFragment.CommonDialogMessage(
+                        message = MessageModel(
                             message = R.string.dialog_remove_product_desk
                         ),
                         buttonCancel = DialogButtonModel(

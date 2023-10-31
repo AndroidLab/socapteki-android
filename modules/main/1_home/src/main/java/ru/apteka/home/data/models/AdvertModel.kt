@@ -1,9 +1,7 @@
 package ru.apteka.home.data.models
 
-import ru.apteka.components.R
-import ru.apteka.components.data.models.LabelModel
+import ru.apteka.components.data.models.Label
 import java.util.UUID
-import kotlin.random.Random
 
 
 /**
@@ -13,6 +11,5 @@ data class AdvertModel(
     val id: UUID,
     val title: String,
     val description: String,
-    val color: Int = Random.let { rnd -> listOf(R.color.color_primary, R.color.orange, R.color.dark_black)[rnd.nextInt(3)] },
-    val labels: List<LabelModel> = emptyList()
+    val labels: List<Label> = emptyList()
 )

@@ -17,6 +17,7 @@
     <string name="into_basket">В корзину</string>
     <string name="all">Все</string>
     <string name="save">Сохранить</string>
+    <string name="search">Поиск</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="create">Создать</string>
@@ -26,4 +27,16 @@
     <string name="confirm_code_repeat_left_time">через: %s</string>
     <string name="confirm_code_error">Не веврный код</string>
     <string name="dialog_remove_product_desk">Вы уверены, что хотите удалить этот товар?</string>
+
+    <string name="label_hit_sales">Хит продаж</string>
+    <string name="label_product_day">Товар дня</string>
+    <string name="label_without_prescription">Без рецепта</string>
+    <string name="label_checked_specialist">Проверяно специалистом</string>
+    <string name="label_advert">Реклама</string>
+
+    <string name="similar_products">Аналоги лекарства</string>
+    <string name="with_products">С этим товаром покупают</string>
+    <string name="recently_viewed_products">Вы недавно смотрели</string>
+
+
 </resources>

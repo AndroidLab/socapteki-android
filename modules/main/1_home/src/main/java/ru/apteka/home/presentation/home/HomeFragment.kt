@@ -3,15 +3,16 @@ package ru.apteka.home.presentation.home
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.components.data.utils.Skeleton
+import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.utils.LinePagerIndicatorDecoration
 import ru.apteka.components.data.utils.dp
+import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.recyclerAutoScroll
 import ru.apteka.components.data.utils.screenWidth
-import ru.apteka.components.ui.adapters.ProductCardViewAdapter
+import ru.apteka.components.data.utils.skeletons
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
 import ru.apteka.home.R
@@ -20,9 +21,11 @@ import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
 import ru.apteka.main_common.ui.MainScreenBaseFragment
+import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.choosing_city_api.R as ChoosingCityApiR
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
+import ru.apteka.product_card_api.R as productCardApiR
 
 
 /**
@@ -33,8 +36,6 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
 
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_fragment
-
-    private val skeletons = listOf(Skeleton(), Skeleton(), Skeleton())
 
     private val advertsAdapter by lazy {
         CompositeDelegateAdapter(
@@ -56,24 +57,16 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
     }
 
     private val productsDayAdapter by lazy {
-        CompositeDelegateAdapter(
-            ProductCardViewAdapter(
-                this,
-                ::onProductsCardClick,
-                true
-            ),
-            SkeletonAdapter(166.dp, 340.dp)
+        getProductCardViewAdapter(
+            this,
+            ::onProductsCardClick,
         )
     }
 
     private val productsDiscountAdapter by lazy {
-        CompositeDelegateAdapter(
-            ProductCardViewAdapter(
-                this,
-                ::onProductsCardClick,
-                true
-            ),
-            SkeletonAdapter(166.dp, 340.dp)
+        getProductCardViewAdapter(
+            this,
+            ::onProductsCardClick,
         )
     }
 
@@ -160,8 +153,6 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
                 it.ifEmpty { skeletons }
             )
         }
-
-
     }
 
     private fun onAdvertCardClick() {
@@ -172,8 +163,12 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
 
     }
 
-    private fun onProductsCardClick() {
-
+    private fun onProductsCardClick(product: ProductModel) {
+        viewModel.navigationManager.generalNavController.navigateWithAnim(
+            productCardApiR.id.product_card_graph, bundleOf(
+                PRODUCT_CARD_ARGUMENT_PRODUCT to product
+            )
+        )
     }
 
     private fun onOtherCardClick() {

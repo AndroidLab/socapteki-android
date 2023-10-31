@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":modules:main:main_common"))
     implementation(project(":modules:features:order_search:api"))
     implementation(project(":modules:features:shared:order_details:api"))
+    implementation(project(":modules:features:shared:product_card:api"))
 
     implementation(libs.bundles.navigationDeps)
 }

@@ -64,6 +64,8 @@
 
             </LinearLayout>
 
+            <include layout="@layout/separator_view" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -101,11 +103,9 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="16dp"
-                android:background="@color/light_grey" />
+            <include
+                layout="@layout/separator_view"
+                app:sepMargin="@{16}" />
 
             <!-- Цена -->
             <RelativeLayout
@@ -115,9 +115,8 @@
 
                 <TextView
                     android:id="@+id/basketProductCardPriceTitle"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="@string/price"
                     android:textColor="@color/light_black" />
 
@@ -139,25 +138,12 @@
                     android:textColor="@color/dark_black" />
 
                 <!-- Процент скидки -->
-                <com.google.android.material.card.MaterialCardView
+                <include
+                    layout="@layout/discount_percentage_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/basketProductCardPrice"
-                    app:cardBackgroundColor="@color/red"
-                    app:cardCornerRadius="4dp"
-                    app:contentPaddingLeft="4dp"
-                    app:contentPaddingRight="4dp"
-                    app:strokeWidth="0dp"
-                    app:visibleIf="@{model.productCard.product.discount != null}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{model.productCard.product.discount.percent}"
-                        android:textColor="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
+                    app:discount="@{model.productCard.product.discount}" />
 
                 <!-- Старая цена -->
                 <TextView
@@ -192,11 +178,9 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="16dp"
-                android:background="@color/light_grey" />
+            <include
+                layout="@layout/separator_view"
+                app:sepMargin="@{16}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -218,6 +202,8 @@
                     android:text="Добавьте еще 1 упаковку для получения скидки" />
 
             </LinearLayout>
+
+            <include layout="@layout/separator_view" />
 
             <View
                 android:layout_width="match_parent"

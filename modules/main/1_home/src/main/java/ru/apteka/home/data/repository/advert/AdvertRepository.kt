@@ -3,7 +3,7 @@ package ru.apteka.home.data.repository.advert
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
 import ru.apteka.components.R
-import ru.apteka.components.data.models.LabelModel
+import ru.apteka.components.data.models.Label
 import ru.apteka.home.data.models.AdvertModel
 import java.util.UUID
 import javax.inject.Inject
@@ -28,20 +28,10 @@ class AdvertRepository @Inject constructor(
                 title = "Осейняя забота 1",
                 description = "Скидки до 35% с бонусной картой",
                 labels = listOf(
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.gold
-                    ),
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.grey
-                    ),
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.red
-                    ),
+                    Label.ADVERT,
+                    Label.CHECKED_SPECIALIST,
+                    Label.PRODUCT_DAY
                 ),
-
             ),
             AdvertModel(
                 id = UUID.randomUUID(),
@@ -54,14 +44,10 @@ class AdvertRepository @Inject constructor(
                 title = "Осейняя забота 3",
                 description = "Скидки до 35% с бонусной картой",
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
-                    ),
-                    LabelModel(
-                        text = "Хит продаж",
-                        color = R.color.color_primary_variant
-                    )
+                    Label.ADVERT,
+                    Label.CHECKED_SPECIALIST,
+                    Label.PRODUCT_DAY
+
                 )
             ),
             AdvertModel(

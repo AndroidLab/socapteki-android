@@ -8,6 +8,7 @@ import ru.apteka.components.data.models.OrderDetailsModel
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -24,8 +25,12 @@ class OrderDetailsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
-    navigationManager: NavigationManager
-) : BaseViewModel(navigationManager) {
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
+) : BaseViewModel(
+    navigationManager,
+    messageNoticeService
+) {
 
     /**
      * Возвращает или устанавливает заказ.

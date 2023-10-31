@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:apteka="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -16,7 +15,7 @@
 
         <variable
             name="dialogMessage"
-            type="ru.apteka.components.ui.CommonDialogFragment.CommonDialogMessage" />
+            type="ru.apteka.components.data.services.message_notice_service.models.MessageModel" />
 
         <variable
             name="isCustomContent"
@@ -37,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        apteka:cardCornerRadius="28dp"
-        apteka:strokeWidth="0dp">
+        app:cardCornerRadius="28dp"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:id="@+id/commonDialogLayout"
@@ -86,10 +85,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
                     app:visibleIf="@{!dialogMessage.message.toString().empty}"
-                    apteka:isHtml="@{dialogMessage.isHtml}"
-                    apteka:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
-                    apteka:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
-                    apteka:setText="@{dialogMessage.message}"
+                    app:isHtml="@{dialogMessage.isHtml}"
+                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
+                    app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
+                    app:setText="@{dialogMessage.message}"
                     tools:text="Обычный текст диалога" />
 
                 <FrameLayout
@@ -97,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:visibleIf="@{isCustomContent}"
-                    apteka:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }" />
+                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }" />
 
             </LinearLayout>
 
@@ -117,7 +116,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
                     app:setText='@{buttonCancel == null ? "" : buttonCancel.text}'
-                    apteka:visibleIf="@{buttonCancel != null}"
+                    app:visibleIf="@{buttonCancel != null}"
                     tools:text="cancel"
                     tools:textColor="@color/color_primary" />
 
@@ -128,7 +127,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
                     app:setText='@{buttonConfirm == null ? "" : buttonConfirm.text}'
-                    apteka:visibleIf="@{buttonConfirm != null}"
+                    app:visibleIf="@{buttonConfirm != null}"
                     tools:text="ok"
                     tools:textColor="@color/color_primary" />
 

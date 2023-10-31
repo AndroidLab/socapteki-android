@@ -1,10 +1,13 @@
 package ru.apteka.components.data.services.message_notice_service
 
+import android.text.Html
 import android.widget.Toast
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.SnackBarModel
 import ru.apteka.components.data.services.message_notice_service.models.ToastModel
 import com.google.android.material.snackbar.Snackbar
+import ru.apteka.components.data.utils.getSpannedFromHtml
+import ru.apteka.components.data.utils.getStringFrom
 import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.components.databinding.SnackbarLayoutBinding
 
@@ -41,5 +44,12 @@ fun showCommonDialog(commonDialogModel: CommonDialogModel) {
  * Показывает Toast.
  */
 fun showToast(toastModel: ToastModel) {
-    Toast.makeText(toastModel.context, toastModel.message, toastModel.duration).show()
+    val _text = toastModel.run {
+        context.getStringFrom(message.message)
+    }
+    Toast.makeText(toastModel.context, if (toastModel.message.isHtml) {
+        getSpannedFromHtml(_text)
+    } else {
+        _text
+    }, toastModel.duration).show()
 }

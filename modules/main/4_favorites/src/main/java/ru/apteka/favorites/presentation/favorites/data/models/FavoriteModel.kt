@@ -1,6 +1,6 @@
 package ru.apteka.favorites.presentation.favorites.data.models
 
-import ru.apteka.components.data.models.LabelModel
+import ru.apteka.components.data.models.Label
 import java.util.UUID
 
 
@@ -12,7 +12,7 @@ data class FavoriteModel(
     val imageSrc: String,
     val title: String,
     val description: String,
-    val labels: List<LabelModel> = emptyList(),
+    val labels: List<Label> = emptyList(),
     val price: String? = null,
     val oldPrice: String? = null,
     val discount: String? = null

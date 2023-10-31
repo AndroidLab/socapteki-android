@@ -1,15 +1,14 @@
 package ru.apteka.components.data.services
 
 import androidx.lifecycle.MutableLiveData
-import ru.apteka.components.R
 import ru.apteka.components.data.services.error_notice_service.IErrorNoticeService
 import ru.apteka.components.data.services.error_notice_service.models.IRequestError
 import java.net.ConnectException
-import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 import javax.net.ssl.SSLException
+
 
 /**
  * Представляет методы для обработки запросов.
@@ -71,30 +70,19 @@ class RequestHandler @Inject constructor(
             // Возникают при отмене работы, выполняемой в Coroutine.
             // Например, может возникнуть, если VM инициировала запрос и была закрыта до его завершения.
             // Нет необходимости как-либо реагировать на отмену.
+        } catch (e: ConnectException) {
+            throw e
+        } catch (e: ConnectException) {
+            throw e
+        } catch (e: UnknownHostException) {
+            throw e
+        } catch (e: SSLException) {
+            throw e
         } catch (e: Throwable) {
-            throwableHandler(e) {
-                onFailure(it)
-            }
+            onFailure(e)
             Result.failure(e)
         } finally {
             onLoading(false)
-        }
-    }
-
-    private fun throwableHandler(
-        e: Throwable,
-        unhandledThrowable: (e: Throwable) -> Unit
-    ) {
-        when (e) {
-            is SocketTimeoutException, is ConnectException, is UnknownHostException, is SSLException -> {
-                IRequestError.RequestErrorResMsg(
-                    R.string.http_error_not_connection
-                )
-            }
-
-            else -> {
-                unhandledThrowable(e)
-            }
         }
     }
 

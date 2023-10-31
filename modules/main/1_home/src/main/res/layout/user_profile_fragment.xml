@@ -115,11 +115,9 @@
                     app:icon="@{@drawable/ic_profile_bonus_program}"
                     app:text="@{@string/profile_bonus_program}" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@color/light_grey" />
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMargin="@{16}"/>
 
                 <include
                     android:id="@+id/userProfileReferralProgram"
@@ -127,11 +125,9 @@
                     app:icon="@{@drawable/ic_profile_referral_program}"
                     app:text="@{@string/profile_referral_program}" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@color/light_grey" />
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMargin="@{16}"/>
 
                 <include
                     android:id="@+id/userProfileCommentsReviews"
@@ -139,11 +135,9 @@
                     app:icon="@{@drawable/ic_profile_comments_reviews}"
                     app:text="@{@string/profile_comments_reviews}" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="@color/light_grey" />
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMargin="@{16}"/>
 
                 <include
                     android:id="@+id/userProfileMySubscriptions"

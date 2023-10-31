@@ -8,6 +8,7 @@ import ru.apteka.components.data.models.SubscriptionsModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
@@ -22,10 +23,12 @@ import javax.inject.Inject
 class ReviewsPageViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences
+    accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
     accountsPreferences,
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
 
 

@@ -1,12 +1,11 @@
 package ru.apteka.catalog.data.catalog_repository
 
 import kotlinx.coroutines.delay
-import ru.apteka.components.R
 import ru.apteka.components.data.models.DiscountModel
-import ru.apteka.components.data.models.LabelModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.catalog.data.models.FilterType
 import ru.apteka.catalog.data.models.IFilter
+import ru.apteka.components.data.models.Label
 import java.util.UUID
 import javax.inject.Inject
 
@@ -38,10 +37,7 @@ class CatalogRepository @Inject constructor(
                 ),
                 additionalDesc = "Без рецепта",
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
-                    )
+                    Label.PRODUCT_DAY
                 )
             ),
             ProductModel(
@@ -57,14 +53,8 @@ class CatalogRepository @Inject constructor(
                     "30%"
                 ),
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
-                    ),
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
-                    ),
+                    Label.ADVERT,
+                    Label.ADVERT
                 )
             ),
             ProductModel(
@@ -76,10 +66,7 @@ class CatalogRepository @Inject constructor(
                 rating = "4.7",
                 comments = 321,
                 labels = listOf(
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
-                    ),
+                    Label.ADVERT
                 )
             ),
             ProductModel(
@@ -95,14 +82,8 @@ class CatalogRepository @Inject constructor(
                     "30%"
                 ),
                 labels = listOf(
-                    LabelModel(
-                        text = "Товар дня",
-                        color = R.color.color_primary
-                    ),
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
-                    ),
+                    Label.PRODUCT_DAY,
+                    Label.ADVERT
                 )
             ),
             ProductModel(
@@ -114,10 +95,7 @@ class CatalogRepository @Inject constructor(
                 rating = "4.7",
                 comments = 321,
                 labels = listOf(
-                    LabelModel(
-                        text = "Реклама",
-                        color = R.color.color_primary
-                    ),
+                    Label.ADVERT
                 )
             ),
         )

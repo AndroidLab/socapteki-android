@@ -18,6 +18,7 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -31,8 +32,12 @@ class AuthConfirmViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
     private val accountsPreferences: AccountsPreferences,
-    navigationManager: NavigationManager
-) : BaseViewModel(navigationManager) {
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
+) : BaseViewModel(
+    navigationManager,
+    messageNoticeService
+) {
 
     private val downTimer = DownTimer(60)
     private val _leftTime = MutableLiveData<String?>(null)

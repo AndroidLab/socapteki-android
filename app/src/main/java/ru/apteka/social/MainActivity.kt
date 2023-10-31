@@ -15,7 +15,10 @@ import ru.apteka.components.data.services.error_notice_service.models.IRequestEr
 import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
+import ru.apteka.components.data.services.message_notice_service.models.ToastModel
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
+import ru.apteka.components.data.services.message_notice_service.showToast
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
@@ -46,13 +49,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var bottomSheetService: BottomSheetService
-
-    /*private val binding: ActivityMainBinding by lazy {
-        DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
-    }*/
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(
@@ -99,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                         fragmentManager = supportFragmentManager,
                         dialogModel = DialogModel(
                             title = it.title,
-                            message = CommonDialogFragment.CommonDialogMessage(
+                            message = MessageModel(
                                 message = when (it) {
                                     is IRequestError.RequestErrorResMsg -> it.msg
                                     is IRequestError.RequestErrorStringMsg -> it.msg
@@ -113,18 +109,27 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchIO {
             messageNoticeService.commonDialog.collect { dialogModel ->
-                if (dialogModel != null) {
-                    showCommonDialog(
-                        CommonDialogModel(
-                            fragmentManager = supportFragmentManager,
-                            dialogModel = dialogModel
-                        )
+                showCommonDialog(
+                    CommonDialogModel(
+                        fragmentManager = supportFragmentManager,
+                        dialogModel = dialogModel
                     )
-                    messageNoticeService.reset()
-                }
+                )
             }
         }
 
+        lifecycleScope.launchIO {
+            messageNoticeService.commonToast.collect { message ->
+                mainThread {
+                    showToast(
+                        ToastModel(
+                            this@MainActivity,
+                            message
+                        )
+                    )
+                }
+            }
+        }
 
         lifecycleScope.launchIO {
             bottomSheetService.bottomSheet.collect { bottomSheetBinding ->

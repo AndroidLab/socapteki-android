@@ -6,24 +6,25 @@
 
         <variable
             name="bindingItem"
-            type="ru.apteka.components.data.models.LabelModel" />
+            type="ru.apteka.components.data.models.Label" />
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        app:cardCornerRadius="3dp"
-        app:cardBackgroundColor="@{context.getColor(bindingItem.color)}">
+        app:cardBackgroundColor="@{bindingItem.getBackgroundColor(context, bindingItem)}"
+        app:cardCornerRadius="8dp"
+        app:strokeWidth="0dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="6dp"
-            android:textColor="@color/white"
-            android:text="@{bindingItem.text}" />
+            app:setText="@{bindingItem.text}"
+            android:textColor="@{bindingItem.getTextColor(context, bindingItem)}" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

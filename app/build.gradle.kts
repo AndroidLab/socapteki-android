@@ -32,6 +32,7 @@ dependencies {
     implementation(project(":modules:features:personal_data:feature"))
     implementation(project(":modules:features:choosing_city:feature"))
     implementation(project(":modules:features:shared:order_details:feature"))
+    implementation(project(":modules:features:shared:product_card:feature"))
     implementation(project(":modules:features:order_search:feature"))
     implementation(project(":modules:features:pharmacies_map:api"))
     implementation(project(":modules:features:pharmacies_map:feature"))
@@ -48,4 +49,5 @@ dependencies {
     implementation(libs.coreSplashscreen)
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.mapsMobile)
+    implementation(libs.measured)
 }

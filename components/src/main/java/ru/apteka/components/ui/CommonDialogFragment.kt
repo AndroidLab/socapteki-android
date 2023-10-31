@@ -113,17 +113,6 @@ class CommonDialogFragment : DialogFragment() {
     }
 
     /**
-     * Представляет сообщение для диалога.
-     * @param message Сообщение.
-     * @param isHtml Флаг является ли текст html.
-     */
-    @Parcelize
-    data class CommonDialogMessage(
-        val message: @RawValue Any = "",
-        val isHtml: Boolean = false
-    ) : Parcelable
-
-    /**
      * Представляет расположение диалога.
      * @param width Ширина диалога.
      * @param height Высота диалога.

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="link"
+            type="String" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:onClick="@{() -> ExtensionsMethodsKt.sharedLink(context, link)}">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_circle_grey_icon"
+            android:scaleType="center"
+            android:src="@drawable/ic_link"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
+
+</layout>

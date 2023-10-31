@@ -3,20 +3,26 @@ package ru.apteka.components.data.utils
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
+import com.airbnb.lottie.LottieAnimationView
 import kotlinx.coroutines.*
 import ru.apteka.components.R
 import java.text.DateFormat
@@ -362,7 +368,6 @@ fun NavController.navigateWithAnim(directions: NavDirections) {
 }
 
 
-
 /**
  * Возвращает ширину экрана.
  */
@@ -374,3 +379,57 @@ val screenWidth
  */
 val screenHeight
     get() = Resources.getSystem().displayMetrics.heightPixels
+
+
+/**
+ * Шарит ссылку другим приложениям.
+ */
+fun sharedLink(
+    ctx: Context,
+    link: String?
+) {
+    if (link != null) {
+        val i = Intent(Intent.ACTION_SEND)
+        i.type = "text/plain"
+        i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL")
+        i.putExtra(Intent.EXTRA_TEXT, link)
+        ContextCompat.startActivity(ctx, Intent.createChooser(i, "Share URL"), bundleOf())
+    }
+}
+
+/**
+ * Проверяет равенство с возможным отклонением.
+ */
+fun Float.equalsWithDeviation(value: Float, deviation: Float): Boolean {
+    return ((this - deviation)..(this + deviation)).contains(value)
+}
+
+/**
+ * Запускает анимацию в указанном интервале.
+ * @param minProgress Минимальный прогресс анимации.
+ * @param maxProgress Максимальный прогресс анимации.
+ */
+fun LottieAnimationView.playAnimation(minProgress: Float, maxProgress: Float) {
+    setMinAndMaxProgress(minProgress, maxProgress)
+    playAnimation()
+}
+
+/**
+ * Получает текст от любого объекта.
+ * @param value Значение.
+ */
+fun Context.getStringFrom(value: Any): String {
+    return if (value is Int && value != 0) {
+        getString(value.toInt())
+    } else {
+        value.toString()
+    }
+}
+
+/**
+ * Возвращает html текст.
+ * @param text Текст.
+ */
+fun getSpannedFromHtml(text: String): Spanned {
+    return Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+}

@@ -31,4 +31,6 @@
 
     <include app:graph="@navigation/personal_data_graph" />
 
+    <include app:graph="@navigation/product_card_graph" />
+
 </navigation>

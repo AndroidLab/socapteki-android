@@ -95,7 +95,8 @@ decoro = { module = "ru.tinkoff.decoro:decoro", version = "1.5.2" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version = "3.0.0" }
 skeleton = { module = "com.github.AgnaldoNP:AGSkeletonLoading", version = "1.2" }
 mapsMobile = { module = "com.yandex.android:maps.mobile", version = "4.4.0-lite" }
-
+expansionpanel = { module = "com.github.florent37:expansionpanel", version = "1.2.4" }
+measured = { module = "io.nacular.measured:measured", version = "0.3.3" }
 
 # Dependencies of the included build-logic
 android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }

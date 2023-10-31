@@ -18,6 +18,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.bottom_sheet_service.IBottomSheetService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -36,8 +37,12 @@ class CatalogProductsViewModel @Inject constructor(
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
     val bottomSheetService: IBottomSheetService,
-    navigationManager: NavigationManager
-) : BaseViewModel(navigationManager) {
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
+) : BaseViewModel(
+    navigationManager,
+    messageNoticeService
+) {
 
     private val _filters = MutableLiveData<List<IFilter>>(emptyList())
 

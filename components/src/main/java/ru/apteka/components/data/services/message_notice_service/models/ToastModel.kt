@@ -12,6 +12,6 @@ import android.widget.Toast
  */
 data class ToastModel(
     val context: Context,
-    val message: String,
+    val message: MessageModel,
     val duration: Int = Toast.LENGTH_LONG
 )

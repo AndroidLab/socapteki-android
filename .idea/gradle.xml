@@ -49,6 +49,9 @@
             <option value="$PROJECT_DIR$/modules/features/shared/order_details" />
             <option value="$PROJECT_DIR$/modules/features/shared/order_details/api" />
             <option value="$PROJECT_DIR$/modules/features/shared/order_details/feature" />
+            <option value="$PROJECT_DIR$/modules/features/shared/product_card" />
+            <option value="$PROJECT_DIR$/modules/features/shared/product_card/api" />
+            <option value="$PROJECT_DIR$/modules/features/shared/product_card/feature" />
             <option value="$PROJECT_DIR$/modules/main" />
             <option value="$PROJECT_DIR$/modules/main/1_home" />
             <option value="$PROJECT_DIR$/modules/main/2_catalog" />

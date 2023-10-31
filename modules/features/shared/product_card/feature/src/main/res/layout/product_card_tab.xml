@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="name"
+            type="String" />
+
+    </data>
+
+
+    <merge>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:text="@{name}"
+            android:textAlignment="center"
+            android:textColor="@color/dark_black"
+            app:chipBackgroundColor="@color/background_secondary"
+            app:chipStrokeWidth="1dp"
+            app:chipStrokeColor="@color/dark_black" />
+
+    </merge>
+
+
+</layout>

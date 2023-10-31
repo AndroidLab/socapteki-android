@@ -12,6 +12,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.main_common.ui.MainScreenBaseViewModel
@@ -28,10 +29,12 @@ class BasketViewModel @Inject constructor(
     val basketService: BasketService,
     val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences
+    accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
     accountsPreferences,
-    navigationManager
+    navigationManager,
+    messageNoticeService
 ) {
     private val _productsWatchedRecently = MutableLiveData<List<ProductCardModel>>(emptyList())
 

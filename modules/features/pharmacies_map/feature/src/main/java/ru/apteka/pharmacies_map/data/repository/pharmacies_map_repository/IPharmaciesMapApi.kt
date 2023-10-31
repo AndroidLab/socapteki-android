@@ -5,14 +5,14 @@ import retrofit2.http.POST
 
 
 /**
- * Описывает методы .
+ * Описывает методы аптек.
  */
 interface IPharmaciesMapApi {
 
     /**
-     * Получает список .
+     * Получает список аптек.
      */
-    @POST("/get")
-    suspend fun get(): List<Unit>
+    @POST("apteki/get")
+    suspend fun getApteki(): List<Unit>
 
 }

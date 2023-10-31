@@ -1,10 +1,12 @@
 package ru.apteka.components.data.services.error_notice_service
 
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import ru.apteka.components.data.services.error_notice_service.models.IRequestError
+import ru.apteka.components.data.utils.launchIO
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class ErrorNoticeService @Inject constructor() : IErrorNoticeService {
     private val _error =
-        MutableSharedFlow<IRequestError>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow<IRequestError>()
 
     /**
      * Возвращает ошибку запроса.
@@ -24,7 +26,9 @@ class ErrorNoticeService @Inject constructor() : IErrorNoticeService {
     override fun showError(
         errorRequest: IRequestError
     ) {
-        _error.tryEmit(errorRequest)
+        GlobalScope.launchIO {
+            _error.emit(errorRequest)
+        }
     }
 
 }

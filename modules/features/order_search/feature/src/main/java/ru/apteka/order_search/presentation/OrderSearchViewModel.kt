@@ -8,6 +8,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.repository.orders.OrdersRepository
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
@@ -20,8 +21,12 @@ import javax.inject.Inject
 class OrderSearchViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
-    navigationManager: NavigationManager
-) : BaseViewModel(navigationManager) {
+    navigationManager: NavigationManager,
+    messageNoticeService: IMessageNoticeService
+) : BaseViewModel(
+    navigationManager,
+    messageNoticeService
+) {
 
     private val _foundOrders = MutableLiveData<List<OrderModel>>(emptyList())
 

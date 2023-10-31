@@ -19,4 +19,5 @@ dependencies {
     implementation("com.yandex.android:maps.mobile:4.4.0-lite")
 
     implementation(libs.bundles.navigationDeps)
+    implementation(libs.lottie)
 }

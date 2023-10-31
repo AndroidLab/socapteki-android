@@ -4,6 +4,7 @@ package ru.apteka.components.ui.adapters
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import ru.apteka.components.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.screenWidth
 import ru.apteka.components.databinding.ProductCardViewBinding
@@ -15,7 +16,7 @@ import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
  */
 class ProductCardViewAdapter(
     private val lifeOwner: LifecycleOwner,
-    private val onItemClick: () -> Unit,
+    private val onItemClick: (ProductModel) -> Unit,
     private val isHorizontal: Boolean = false
 ) :
     ViewBindingDelegateAdapter<ProductCardModel, ProductCardViewBinding>(ProductCardViewBinding::inflate) {
@@ -33,7 +34,7 @@ class ProductCardViewAdapter(
 
         executePendingBindings()
         productCardItem.setOnClickListener {
-            onItemClick()
+            onItemClick(item.product)
         }
     }
 

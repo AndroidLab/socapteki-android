@@ -1,4 +1,4 @@
-package ru.apteka.home.presentation.comments_reviews
+package ru.apteka.components.ui.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

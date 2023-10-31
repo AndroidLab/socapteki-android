@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="value"
+            type="String" />
+
+        <variable
+            name="background"
+            type="android.graphics.drawable.Drawable" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_circle_grey_icon"
+            android:scaleType="center"
+            android:src="@{icon}"
+            tools:ignore="ContentDescription"
+            app:extra_layout_width="@{background == null ? 20 : 30}"
+            app:extra_layout_height="@{background == null ? 20 : 30}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{value}" />
+
+    </LinearLayout>
+
+
+</layout>

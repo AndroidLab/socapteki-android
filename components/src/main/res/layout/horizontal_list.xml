@@ -27,6 +27,10 @@
             name="marginItemHorizontal"
             type="Integer" />
 
+        <variable
+            name="circlePagerIndicator"
+            type="Integer" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -42,8 +46,8 @@
             <include
                 android:id="@+id/header"
                 layout="@layout/horizontal_list_header"
-                app:title="@{title}"
-                app:textBtn="@{textBtn}" />
+                app:textBtn="@{textBtn}"
+                app:title="@{title}" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -54,10 +58,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
-                    app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
-                    app:linearSnapHelper="@{linearSnapHelper}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
+                    app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
+                    app:circlePagerIndicator="@{circlePagerIndicator}"
+                    app:linearSnapHelper="@{linearSnapHelper}"
                     app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
 
                 <include

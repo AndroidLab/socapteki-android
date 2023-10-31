@@ -53,3 +53,7 @@ include(":modules:features:pharmacies_map:api")
 //Модуль деталей заказа
 include(":modules:features:shared:order_details:feature")
 include(":modules:features:shared:order_details:api")
+
+//Модуль карточки товара
+include(":modules:features:shared:product_card:feature")
+include(":modules:features:shared:product_card:api")

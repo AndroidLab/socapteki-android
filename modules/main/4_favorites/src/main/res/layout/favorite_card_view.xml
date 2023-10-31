@@ -106,11 +106,9 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/base_padding"
-                android:background="@color/light_grey" />
+            <include
+                layout="@layout/separator_view"
+                app:sepMargin="@{16}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,6 +126,7 @@
                     android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
                     app:imageTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
                     tools:ignore="ContentDescription" />
+
 
                 <View
                     android:layout_width="0dp"

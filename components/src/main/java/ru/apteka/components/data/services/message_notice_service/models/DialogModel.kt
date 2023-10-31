@@ -14,7 +14,7 @@ import ru.apteka.components.data.utils.dp
 data class DialogModel(
     val imageRes: Int = -1,
     val title: @RawValue Any = "",
-    val message: CommonDialogFragment.CommonDialogMessage = CommonDialogFragment.CommonDialogMessage(),
+    val message: MessageModel = MessageModel(),
     val bodyContent: BodyContentModel? = null,
     val buttonCancel: DialogButtonModel? = null,
     val buttonConfirm: DialogButtonModel? = null,
