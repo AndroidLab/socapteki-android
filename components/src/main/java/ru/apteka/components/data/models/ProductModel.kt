@@ -17,4 +17,5 @@ data class ProductModel(
     val discount: DiscountModel? = null,
     val additionalDesc: String? = null,
     val labels: List<LabelModel> = emptyList(),
+    val countInBasket: Int = 0,
 )

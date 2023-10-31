@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -22,10 +21,8 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.components.ui.CommonDialogFragment
-import ru.apteka.main.databinding.BottomNavigationViewBinding
 import ru.apteka.social.databinding.ActivityMainBinding
 import ru.apteka.social.databinding.GeneralNavigationViewBinding
-import ru.apteka.social.databinding.GeneralNavigationViewBindingImpl
 import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
 import ru.apteka.basket.R as BasketR
@@ -81,21 +78,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         generalNavController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.mainFragment) {
-                if (navigationManager.selectedMainDestinationId != null) {
-                    navigationManager.onBottomNavBarRestore.value =
-                        navigationManager.selectedMainDestinationId!!
-                    navigationManager.selectedMainDestinationId = null
-                }
-            } else {
-                if (navigationManager.bottomNavBar.selectedItemId != MainR.id.home_graph) {
-                    navigationManager.selectedMainDestinationId =
-                        navigationManager.bottomNavBar.selectedItemId
-                    navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
-                }
+            if (destination.id != R.id.mainFragment && navigationManager.bottomNavBar.selectedItemId != MainR.id.home_graph) {
+                navigationManager.selectedMainDestinationId =
+                    navigationManager.bottomNavBar.selectedItemId
             }
         }
-
 
         navigationManager.showAppMenu = {
             bottomSheetService.show(
@@ -170,7 +157,6 @@ class MainActivity : AppCompatActivity() {
             navigationManager.generalNavController.currentBackStackEntry?.destination?.id
         val currentMainDestinationId =
             navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
-
         if (currentGeneralDestinationId != R.id.mainFragment) {
             navigationManager.generalNavController.popBackStack()
         } else {
@@ -179,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                 || currentMainDestinationId == FavoritesR.id.favoritesFragment
                 || currentMainDestinationId == BasketR.id.basketFragment
             ) {
-                navigationManager.onBottomNavBarRestore.value = MainR.id.home_graph
+                navigationManager.bottomNavBar.selectedItemId = MainR.id.home_graph
             } else {
                 if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
                     super.onBackPressed()

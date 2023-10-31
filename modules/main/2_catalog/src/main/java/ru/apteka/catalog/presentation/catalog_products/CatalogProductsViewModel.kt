@@ -2,25 +2,25 @@ package ru.apteka.catalog.presentation.catalog_products
 
 import android.view.View
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import ru.apteka.catalog.R
 import ru.apteka.catalog.data.catalog_repository.CatalogRepository
 import ru.apteka.catalog.data.models.IFilter
 import ru.apteka.catalog.data.models.SortModel
-import ru.apteka.components.data.models.ItemCounterModel
+import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.bottom_sheet_service.BottomSheetService
+import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.bottom_sheet_service.IBottomSheetService
+import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
@@ -33,6 +33,8 @@ class CatalogProductsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val catalogRepository: CatalogRepository,
     private val productsRepository: ProductsRepository,
+    private val basketService: BasketService,
+    private val favoriteService: FavoriteService,
     val bottomSheetService: IBottomSheetService,
     navigationManager: NavigationManager
 ) : BaseViewModel(navigationManager) {
@@ -99,31 +101,19 @@ class CatalogProductsViewModel @Inject constructor(
                 onSuccess = { products ->
                     _products.postValue(
                         products.map { product ->
-                            val counterLiveData = MutableLiveData(0)
                             ProductCardModel(
-                                product = product,
-                                onFavoriteClick = {
-
-                                },
-                                onByeOneClick = {
-
-                                },
-                                itemCounter = ItemCounterModel(
-                                    onMinus = {
-                                        val newVal = counterLiveData.value!! - 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    onPlus = {
-                                        val newVal = counterLiveData.value!! + 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    count = counterLiveData
+                                product = product
+                            ).apply {
+                                favorite = FavoriteModel(
+                                    favoriteService = favoriteService,
+                                    isFavorite = product.isFavorite,
                                 )
-                            )
+                                itemCounter = ProductCounterModel(
+                                    basketService = basketService,
+                                    productCard = this,
+                                    countInBasket = product.countInBasket
+                                )
+                            }
                         }
                     )
                 },
@@ -161,29 +151,18 @@ class CatalogProductsViewModel @Inject constructor(
                         products.map { product ->
                             val counterLiveData = MutableLiveData(0)
                             ProductCardModel(
-                                product = product,
-                                onFavoriteClick = {
-
-                                },
-                                onByeOneClick = {
-
-                                },
-                                itemCounter = ItemCounterModel(
-                                    onMinus = {
-                                        val newVal = counterLiveData.value!! - 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    onPlus = {
-                                        val newVal = counterLiveData.value!! + 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    count = counterLiveData
+                                product = product
+                            ).apply {
+                                favorite = FavoriteModel(
+                                    favoriteService = favoriteService,
+                                    isFavorite = product.isFavorite,
                                 )
-                            )
+                                itemCounter = ProductCounterModel(
+                                    basketService = basketService,
+                                    productCard = this,
+                                    countInBasket = product.countInBasket
+                                )
+                            }
                         }
                     )
                 },
@@ -219,31 +198,19 @@ class CatalogProductsViewModel @Inject constructor(
                 onSuccess = { products ->
                     _productsRecentlyWatched.postValue(
                         products.map { product ->
-                            val counterLiveData = MutableLiveData(0)
                             ProductCardModel(
-                                product = product,
-                                onFavoriteClick = {
-
-                                },
-                                onByeOneClick = {
-
-                                },
-                                itemCounter = ItemCounterModel(
-                                    onMinus = {
-                                        val newVal = counterLiveData.value!! - 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    onPlus = {
-                                        val newVal = counterLiveData.value!! + 1
-                                        viewModelScope.launchAfter(100) {
-                                            counterLiveData.postValue(newVal)
-                                        }
-                                    },
-                                    count = counterLiveData
+                                product = product
+                            ).apply {
+                                favorite = FavoriteModel(
+                                    favoriteService = favoriteService,
+                                    isFavorite = product.isFavorite,
                                 )
-                            )
+                                itemCounter = ProductCounterModel(
+                                    basketService = basketService,
+                                    productCard = this,
+                                    countInBasket = product.countInBasket
+                                )
+                            }
                         }
                     )
                 },
@@ -253,7 +220,6 @@ class CatalogProductsViewModel @Inject constructor(
             )
         }
     }
-
 
 
     /**
@@ -268,7 +234,7 @@ class CatalogProductsViewModel @Inject constructor(
      * Показать назначение лекарств.
      */
     val onShowPrescribingMedications: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
             CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
                 R.string.catalog_product_recommendation_prescribing_medications,
                 R.string.catalog_product_recommendation_prescribing_medications_desc
@@ -280,7 +246,7 @@ class CatalogProductsViewModel @Inject constructor(
      * Показать формы выпуска.
      */
     val onShowReleaseForm: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
             CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
                 R.string.catalog_product_recommendation_release_form,
                 R.string.catalog_product_recommendation_release_form_desk
@@ -292,7 +258,7 @@ class CatalogProductsViewModel @Inject constructor(
      * Показать как выбрать и заказать лекарство.
      */
     val onShowToChooseAndOrder: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
             CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
                 R.string.catalog_product_recommendation_how_to_choose,
                 R.string.catalog_product_recommendation_how_to_choose_desk

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.favorites_service.FavoriteService
 import javax.inject.Inject
 
 
@@ -13,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     val navigationManager: NavigationManager,
-    val basketService: BasketService
+    val basketService: BasketService,
+    val favoriteService: FavoriteService
 ): ViewModel() {
 
 

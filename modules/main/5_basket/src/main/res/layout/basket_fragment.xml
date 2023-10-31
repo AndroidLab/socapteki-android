@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.basket.presentation.basket.BasketViewModel" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,29 +20,123 @@
             android:id="@+id/basketToolbar"
             layout="@layout/toolbar" />
 
-        <FrameLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Корзина"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="27sp" />
+                    android:animateLayoutChanges="true">
+
+                    <!-- В корзине ничего нет -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bottom_corners_shape"
+                        android:orientation="vertical"
+                        app:visibleIf="@{viewModel.basketService.products.empty}">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/basket_there_nothing"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/basket_there_nothing_desc"
+                            android:textColor="@color/light_black" />
+
+                        <!-- Кнопки -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="16dp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/basketToPromotion"
+                                style="@style/Theme.Socapteki.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                android:text="@string/basket_to_promotion" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/basketToCatalog"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                android:text="@string/basket_to_catalog" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Содержимое корзины -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBasket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:visibleIf="@{!viewModel.basketService.products.empty}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:marginItemVertical="@{6}" />
+
+                </FrameLayout>
+
+                <!-- Не давно смотрели -->
+                <include
+                    android:id="@+id/basketWatchedRecently"
+                    layout="@layout/horizontal_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:isLoading="@{viewModel.watchedRecentlyIsLoading}"
+                    app:textBtn="@{@string/basket_watched_recently_all_products}"
+                    app:title="@{@string/basket_watched_recently}" />
+
+                <!-- Кнопка купить -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/basketBuy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/basket_buy" />
+
+                </FrameLayout>
+
+                <include layout="@layout/footer_stub" />
 
             </LinearLayout>
 
-        </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
-
 
 
 </layout>

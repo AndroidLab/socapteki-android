@@ -56,9 +56,10 @@
                         android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:onClick="@{() -> model.onFavoriteClick.invoke(model)}"
+                        android:onClick="@{() -> model.favorite.onFavoriteClick.invoke(model)}"
                         android:padding="8dp"
-                        android:src="@drawable/ic_favorite_off"
+                        android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                        app:imageTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
                         tools:ignore="ContentDescription" />
 
                 </FrameLayout>
@@ -166,7 +167,7 @@
             <!-- Счетчик -->
             <include
                 android:id="@+id/productCardCounter"
-                layout="@layout/item_counter_view"
+                layout="@layout/product_counter_view"
                 app:model="@{model.itemCounter}"/>
             
         </LinearLayout>

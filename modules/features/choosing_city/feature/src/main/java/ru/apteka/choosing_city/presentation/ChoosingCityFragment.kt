@@ -1,14 +1,13 @@
 package ru.apteka.choosing_city.presentation
 
 import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.choosing_city.R
 import ru.apteka.choosing_city.databinding.ChoosingCityFragmentBinding
+import ru.apteka.components.data.utils.bitmap
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter

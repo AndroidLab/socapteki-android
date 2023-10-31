@@ -106,7 +106,7 @@ class ProductsRepository @Inject constructor(
                     ),
                 )
             ),
-            )
+        )
     }
 
 }

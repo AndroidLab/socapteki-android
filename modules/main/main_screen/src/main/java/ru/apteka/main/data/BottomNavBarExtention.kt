@@ -21,7 +21,8 @@ fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
-    intent: Intent
+    intent: Intent,
+    //selectedItemId: Int?
 ): LiveData<NavController> {
     val graphIdToTagMap = HashMap<Int, String>()
     val selectedNavController = MutableLiveData<NavController>()
@@ -54,7 +55,7 @@ fun BottomNavigationView.setupWithNavController(
         if (this.selectedItemId == graphId) {
             // Обновляет текущий выбранный контроллер навигации.
             selectedNavController.value = navHostFragment.navController
-            attachNavHostFragment(fragmentManager, navHostFragment, index == 1)
+            attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
         } else {
             detachNavHostFragment(fragmentManager, navHostFragment)
         }
@@ -103,10 +104,10 @@ fun BottomNavigationView.setupWithNavController(
                         }
                         addToBackStack(firstFragmentTag)
                         /*.setCustomAnimations(
-                            R.anim.nav_default_enter_anim,
-                            R.anim.nav_default_exit_anim,
-                            R.anim.nav_default_pop_enter_anim,
-                            R.anim.nav_default_pop_exit_anim)*/
+                            R.anim.slide_to_right,
+                            R.anim.slide_center_to_right,
+                            R.anim.slide_left_to_right,
+                            R.anim.slide_out_right)*/
                         setReorderingAllowed(true)
                     }
                 }

@@ -6,14 +6,15 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.ItemCounterModel
+import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
-import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.home.data.models.AdvertModel
@@ -38,6 +39,8 @@ class HomeViewModel @Inject constructor(
     private val promotionRepository: PromotionRepository,
     private val productsDayRepository: ProductsDayRepository,
     private val productsDiscountRepository: ProductsDiscountRepository,
+    private val basketService: BasketService,
+    private val favoriteService: FavoriteService,
     private val otherRepository: OtherRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
@@ -155,34 +158,23 @@ class HomeViewModel @Inject constructor(
                     onRequest = { productsDayRepository.getProductionsDay() },
                     onSuccess = { productsDay ->
                         mainThread {
-                            _productsDay.value =
+                            _productsDay.postValue(
                                 productsDay.map { product ->
-                                    val counterLiveData = MutableLiveData(0)
                                     ProductCardModel(
                                         product = product,
-                                        onFavoriteClick = {
-
-                                        },
-                                        onByeOneClick = {
-
-                                        },
-                                        itemCounter = ItemCounterModel(
-                                            onMinus = {
-                                                val newVal = counterLiveData.value!! - 1
-                                                viewModelScope.launchAfter(100) {
-                                                    counterLiveData.postValue(newVal)
-                                                }
-                                            },
-                                            onPlus = {
-                                                val newVal = counterLiveData.value!! + 1
-                                                viewModelScope.launchAfter(100) {
-                                                    counterLiveData.postValue(newVal)
-                                                }
-                                            },
-                                            count = counterLiveData
+                                    ).apply {
+                                        favorite = FavoriteModel(
+                                            favoriteService = favoriteService,
+                                            isFavorite = product.isFavorite,
                                         )
-                                    )
+                                        itemCounter = ProductCounterModel(
+                                            basketService = basketService,
+                                            productCard = this,
+                                            countInBasket = product.countInBasket
+                                        )
+                                    }
                                 }
+                            )
                         }
                     },
                     isLoading = _productsDayIsLoading
@@ -194,31 +186,19 @@ class HomeViewModel @Inject constructor(
                     onSuccess = { productsDiscount ->
                         _productsDiscount.postValue(
                             productsDiscount.map { product ->
-                                val counterLiveData = MutableLiveData(0)
                                 ProductCardModel(
-                                    product = product,
-                                    onFavoriteClick = {
-
-                                    },
-                                    onByeOneClick = {
-
-                                    },
-                                    itemCounter = ItemCounterModel(
-                                        onMinus = {
-                                            val newVal = counterLiveData.value!! - 1
-                                            viewModelScope.launchAfter(100) {
-                                                counterLiveData.postValue(newVal)
-                                            }
-                                        },
-                                        onPlus = {
-                                            val newVal = counterLiveData.value!! + 1
-                                            viewModelScope.launchAfter(100) {
-                                                counterLiveData.postValue(newVal)
-                                            }
-                                        },
-                                        count = counterLiveData
+                                    product = product
+                                ).apply {
+                                    favorite = FavoriteModel(
+                                        favoriteService = favoriteService,
+                                        isFavorite = product.isFavorite,
                                     )
-                                )
+                                    itemCounter = ProductCounterModel(
+                                        basketService = basketService,
+                                        productCard = this,
+                                        countInBasket = product.countInBasket
+                                    )
+                                }
                             }
                         )
                     },

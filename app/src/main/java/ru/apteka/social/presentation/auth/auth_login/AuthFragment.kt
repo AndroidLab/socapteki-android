@@ -12,6 +12,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.social.R
 import ru.apteka.social.databinding.AuthFragmentBinding
@@ -61,7 +62,7 @@ class AuthFragment : BaseFragment<AuthViewModel, AuthFragmentBinding>() {
         ).installOnAndFill(binding.etPhone)
 
         viewModel.isNavigationToConfirmCode.observe(viewLifecycleOwner) {
-            findNavController().navigate(
+            findNavController().navigateWithAnim(
                 AuthFragmentDirections.toAuthConfirmFragment(viewModel.phoneNumberRaw.value!!)
             )
         }

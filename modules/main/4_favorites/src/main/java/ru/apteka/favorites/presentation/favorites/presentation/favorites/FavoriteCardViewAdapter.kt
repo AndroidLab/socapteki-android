@@ -1,9 +1,9 @@
 package ru.apteka.favorites.presentation.favorites.presentation.favorites
 
 import androidx.lifecycle.LifecycleOwner
+import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.favorites.databinding.FavoriteCardViewBinding
-import ru.apteka.favorites.presentation.favorites.data.models.FavoritesCardModel
 
 
 /**
@@ -13,10 +13,11 @@ class FavoriteCardViewAdapter(
     private val _lifecycleOwner: LifecycleOwner,
     private val onItemClick: () -> Unit
 ) :
-    ViewBindingDelegateAdapter<FavoritesCardModel, FavoriteCardViewBinding>(FavoriteCardViewBinding::inflate) {
+    ViewBindingDelegateAdapter<ProductCardModel, FavoriteCardViewBinding>(FavoriteCardViewBinding::inflate) {
 
-    override fun FavoriteCardViewBinding.onBind(item: FavoritesCardModel) {
+    override fun FavoriteCardViewBinding.onBind(item: ProductCardModel) {
         lifecycleOwner = _lifecycleOwner
+
         model = item
         executePendingBindings()
         favoriteCardItem.setOnClickListener {
@@ -24,7 +25,7 @@ class FavoriteCardViewAdapter(
         }
     }
 
-    override fun isForViewType(item: Any) = item is FavoritesCardModel
+    override fun isForViewType(item: Any) = item is ProductCardModel
 
-    override fun FavoritesCardModel.getItemId() = favorite.id
+    override fun ProductCardModel.getItemId() = product.id
 }

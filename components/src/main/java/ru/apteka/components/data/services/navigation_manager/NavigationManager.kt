@@ -1,6 +1,5 @@
 package ru.apteka.components.data.services.navigation_manager
 
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,12 +41,6 @@ class NavigationManager @Inject constructor() {
      * null если находимся на главном экране.
      */
     var selectedMainDestinationId: Int? = null
-
-    /**
-     * Обработчкик восстановления вкладки BottomNavBar, при возвращении к MainFragment от внешних destination. (При переходе к внешней вкладке сбрасывает на главную вкладку)
-     */
-    val onBottomNavBarRestore = SingleLiveEvent<Int>()
-
 
     /**
      * Возвращает событие необходимости установить конфигурацию для нижнего навигационного бара.

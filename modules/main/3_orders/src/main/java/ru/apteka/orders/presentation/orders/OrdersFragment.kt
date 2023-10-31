@@ -2,13 +2,16 @@ package ru.apteka.orders.presentation.orders
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.OrderModel
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.orders.OrdersAdapter
 import ru.apteka.main_common.ui.MainScreenBaseFragment
 import ru.apteka.order_details_api.api.ORDER_DETAILS_ARGUMENT_ORDER
 import ru.apteka.orders.R
+import ru.apteka.components.R as ComponentsR
 import ru.apteka.orders.databinding.OrdersFragmentBinding
 import ru.apteka.order_details_api.R as OrderDetailsApiR
 import ru.apteka.order_search_api.R as OrderSearchApiR
@@ -40,7 +43,7 @@ class OrdersFragment : MainScreenBaseFragment<OrdersViewModel, OrdersFragmentBin
     }
 
     private fun onOrdersClick(order: OrderModel) {
-        viewModel.navigationManager.generalNavController.navigate(
+        viewModel.navigationManager.generalNavController.navigateWithAnim(
             OrderDetailsApiR.id.order_details_graph, bundleOf(
                 ORDER_DETAILS_ARGUMENT_ORDER to order
             )
@@ -50,8 +53,8 @@ class OrdersFragment : MainScreenBaseFragment<OrdersViewModel, OrdersFragmentBin
     override fun onResume() {
         super.onResume()
         fillMainScreensToolbar(binding.ordersToolbar) {
-            viewModel.navigationManager.generalNavController.navigate(
-                OrderSearchApiR.id.order_search_graph
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                OrderSearchApiR.id.order_search_graph,
             )
         }
         binding.ordersToolbar.toolbar.title = getString(R.string.orders_title)

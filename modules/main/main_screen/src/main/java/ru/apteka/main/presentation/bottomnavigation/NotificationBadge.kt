@@ -31,10 +31,10 @@ class NotificationBadge @JvmOverloads constructor(
         NotificationBadgeViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     @Volatile
-    private var _number: UInt? = null
+    private var _number: Int? = null
     private var _textSize = 12.dp
     var animationDuration: Int = 250
-    var countLimit: UInt = 99u
+    var countLimit: Int = 99
     var badgeVisible = false
         set(value) {
             field = value
@@ -181,7 +181,7 @@ class NotificationBadge @JvmOverloads constructor(
             countLimit = typedArray.getInt(
                 R.styleable.NotificationBadge_nbCountLimit,
                 countLimit.toInt()
-            ).toUInt()
+            )
             typedArray.getString(R.styleable.NotificationBadge_nbEllipsizeText)?.let {
                 ellipsizeText = it
             }
@@ -212,7 +212,7 @@ class NotificationBadge @JvmOverloads constructor(
      * Устанавливает значение.
      * @param number Значение.
      */
-    fun setNumber(number: UInt?) {
+    fun setNumber(number: Int?) {
         val badgeText = if (number == null) {
             ""
         } else {

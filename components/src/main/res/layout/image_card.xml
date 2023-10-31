@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
         <variable
             name="imageUrl"
             type="String" />
@@ -13,6 +15,10 @@
             name="padding"
             type="Integer" />
 
+        <variable
+            name="isBorderShow"
+            type="boolean" />
+        
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -21,7 +27,7 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:strokeColor="@color/light_grey"
-        app:strokeWidth="1dp">
+        app:strokeWidth="@{isBorderShow ? ExtensionsMethodsKt.getDp(0) : 0}">
 
         <ImageView
             android:layout_width="match_parent"
@@ -31,7 +37,6 @@
             app:layoutPaddingEnd="@{padding == null ? 8 : padding}"
             app:layoutPaddingBottom="@{padding == null ? 8 : padding}"
             android:scaleType="centerCrop"
-            android:background="@drawable/image_stub"
             app:glideImageRes="@{imageUrl}"
             tools:ignore="ContentDescription" />
 

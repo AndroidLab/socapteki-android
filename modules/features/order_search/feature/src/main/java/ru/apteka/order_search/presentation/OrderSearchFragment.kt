@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.OrderModel
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
@@ -80,7 +81,7 @@ class OrderSearchFragment : BaseFragment<OrderSearchViewModel, OrderSearchFragme
     }
 
     private fun onOrdersClick(order: OrderModel) {
-        viewModel.navigationManager.generalNavController.navigate(
+        viewModel.navigationManager.generalNavController.navigateWithAnim(
             OrderDetailsApiR.id.order_details_graph, bundleOf(
                 ORDER_DETAILS_ARGUMENT_ORDER to order
             )

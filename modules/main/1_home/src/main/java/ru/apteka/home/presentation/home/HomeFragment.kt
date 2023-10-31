@@ -1,12 +1,16 @@
 package ru.apteka.home.presentation.home
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.utils.Skeleton
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.recyclerAutoScroll
+import ru.apteka.components.data.utils.screenWidth
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
@@ -35,7 +39,12 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
     private val advertsAdapter by lazy {
         CompositeDelegateAdapter(
             AdvertCardViewAdapter(::onAdvertCardClick),
-            SkeletonAdapter(284.dp, 136.dp)
+            SkeletonAdapter(
+                screenWidth - 16.dp*2,
+                200.dp,
+                _marginStart = 16.dp,
+                _marginEnd = 16.dp
+            )
         )
     }
 
@@ -49,8 +58,9 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
     private val productsDayAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
-                viewLifecycleOwner,
-                ::onProductsCardClick
+                this,
+                ::onProductsCardClick,
+                true
             ),
             SkeletonAdapter(166.dp, 340.dp)
         )
@@ -59,8 +69,9 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
     private val productsDiscountAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
-                viewLifecycleOwner,
-                ::onProductsCardClick
+                this,
+                ::onProductsCardClick,
+                true
             ),
             SkeletonAdapter(166.dp, 340.dp)
         )
@@ -83,7 +94,9 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         binding.homeOther.rv.adapter = othersAdapter
 
         binding.tvHomeLocationChange.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ChoosingCityApiR.id.choosing_city_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ChoosingCityApiR.id.choosing_city_graph,
+            )
         }
 
         binding.homePromotions.header.btn.setOnClickListener {
@@ -99,19 +112,19 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         }
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.brands_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.brands_graph)
         }
 
         binding.homeMenuPharmacies.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(PharmaciesMapApiR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(PharmaciesMapApiR.id.pharmacies_map_graph)
         }
 
         binding.homeMenuAdvantages.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.advantages_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.advantages_graph)
         }
 
         binding.homeMenuPartners.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigate(ComponentsR.id.partners_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.partners_graph)
         }
 
 
@@ -172,7 +185,7 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         fillMainScreensToolbar(
             binding.homeToolbar,
             onProfileClick = {
-                viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+                viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                     HomeFragmentDirections.toProfileFragment()
                 )
             }

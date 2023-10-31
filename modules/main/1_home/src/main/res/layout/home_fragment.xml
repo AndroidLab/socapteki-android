@@ -74,7 +74,8 @@
                     android:id="@+id/homeAdvert"
                     layout="@layout/horizontal_list"
                     app:linearSnapHelper="@{true}"
-                    app:isLoading="@{viewModel.advertsIsLoading}" />
+                    app:isLoading="@{viewModel.advertsIsLoading}"
+                    app:marginItemHorizontal="@{0}"/>
 
                 <!-- Все акции -->
                 <include

@@ -1,9 +1,5 @@
 package ru.apteka.main.presentation.main
 
-import android.util.Log
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
@@ -27,6 +23,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     override fun onViewBindingInflated(binding: MainFragmentBinding) {
         viewModel.navigationManager.bottomNavBar = binding.bottomNav.component
+        viewModel.navigationManager.selectedMainDestinationId?.let { destinationId ->
+            viewModel.navigationManager.bottomNavBar.selectedItemId = destinationId
+            viewModel.navigationManager.selectedMainDestinationId = null
+        }
         viewModel.navigationManager.topLevelMainDestinationIds = setOf(
             HomeR.id.homeFragment,
             CatalogR.id.catalogFragment,
@@ -34,9 +34,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             FavoritesR.id.favoritesFragment,
             BasketR.id.basketFragment,
         )
-        viewModel.navigationManager.onBottomNavBarRestore.observe(viewLifecycleOwner) { itemId ->
-            binding.bottomNav.component.selectedItemId = itemId!!
-        }
         setupBottomNavigationBar()
         viewModel.navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.observe(
             viewLifecycleOwner
@@ -44,16 +41,24 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             setupBottomNavigationBar()
         }
 
-        viewModel.basketService.products.observe(viewLifecycleOwner) { products ->
-            products.size.toUInt().also { productCount ->
-                binding.bottomNav.nbTab5.setNumber(
-                    if (productCount > 0u) {
-                        productCount
-                    } else {
-                        null
-                    }
-                )
-            }
+        viewModel.favoriteService.totalCount.observe(viewLifecycleOwner) { count ->
+            binding.bottomNav.nbTab4.setNumber(
+                if (count > 0) {
+                    count
+                } else {
+                    null
+                }
+            )
+        }
+
+        viewModel.basketService.totalCount.observe(viewLifecycleOwner) { count ->
+            binding.bottomNav.nbTab5.setNumber(
+                if (count > 0) {
+                    count
+                } else {
+                    null
+                }
+            )
         }
     }
 
@@ -69,9 +74,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 ),
                 fragmentManager = childFragmentManager,
                 containerId = R.id.nav_host_container,
-                intent = requireActivity().intent
+                intent = requireActivity().intent,
             )
     }
-
 
 }

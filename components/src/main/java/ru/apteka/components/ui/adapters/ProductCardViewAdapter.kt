@@ -15,15 +15,22 @@ import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
  */
 class ProductCardViewAdapter(
     private val lifeOwner: LifecycleOwner,
-    private val onItemClick: () -> Unit
+    private val onItemClick: () -> Unit,
+    private val isHorizontal: Boolean = false
 ) :
     ViewBindingDelegateAdapter<ProductCardModel, ProductCardViewBinding>(ProductCardViewBinding::inflate) {
 
     override fun ProductCardViewBinding.onBind(item: ProductCardModel) {
         lifecycleOwner = lifeOwner
-        val itemWidth = (screenWidth - 16.dp*2 - 8.dp) / 2
+        productCardCounter.lifecycleOwner = lifeOwner
+        var itemWidth = ((screenWidth - 16.dp*2 - 8.dp) / 2)
+        if (isHorizontal) {
+            itemWidth -= itemWidth / 5
+        }
+
         root.layoutParams = ViewGroup.LayoutParams(itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
         model = item
+
         executePendingBindings()
         productCardItem.setOnClickListener {
             onItemClick()

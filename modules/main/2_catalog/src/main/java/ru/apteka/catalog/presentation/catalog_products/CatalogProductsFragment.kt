@@ -36,7 +36,7 @@ class CatalogProductsFragment :
     private val catalogProductsAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
-                viewLifecycleOwner,
+                this,
                 ::onProductsCardClick
             )
         )
@@ -45,8 +45,9 @@ class CatalogProductsFragment :
     private val catalogProductsWithProductBuyAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
-                viewLifecycleOwner,
-                ::onProductsCardClick
+                this,
+                ::onProductsCardClick,
+                true
             )
         )
     }
@@ -54,8 +55,9 @@ class CatalogProductsFragment :
     private val catalogProductsRecentlyWatchedAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
-                viewLifecycleOwner,
-                ::onProductsCardClick
+                this,
+                ::onProductsCardClick,
+                true
             )
         )
     }

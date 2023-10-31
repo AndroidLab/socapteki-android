@@ -22,7 +22,14 @@ class BottomNavigationView @JvmOverloads constructor(
      */
     val component = binding.bottomNavigationView
 
-    val nbTab5 = binding.nbTab5
+    /**
+     * Возвращает бэйдж для 4 таба.
+     */
+    val nbTab4 = binding.nbTab4
 
+    /**
+     * Возвращает бэйдж для 5 таба.
+     */
+    val nbTab5 = binding.nbTab5
 
 }

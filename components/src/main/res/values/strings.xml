@@ -6,6 +6,7 @@
     <string name="common_today">Сегодня</string>
     <string name="common_yesterday">Вчера</string>
     <string name="apply">Применить</string>
+    <string name="price">Цена</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
     <string name="remove">Удалить</string>
@@ -24,4 +25,5 @@
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
     <string name="confirm_code_repeat_left_time">через: %s</string>
     <string name="confirm_code_error">Не веврный код</string>
+    <string name="dialog_remove_product_desk">Вы уверены, что хотите удалить этот товар?</string>
 </resources>

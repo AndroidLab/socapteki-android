@@ -63,5 +63,9 @@ class BottomSheet private constructor() : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onPause() {
+        this.dismiss()
+        super.onPause()
+    }
 
 }

@@ -51,40 +51,36 @@
 
             <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/catalog_product_sort_first_popular"
-                    android:paddingHorizontal="8dp"
                     android:checked="@={catalogProductSortModel.popular}" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
                     android:text="@string/catalog_product_sort_first_cheaper"
                     android:checked="@={catalogProductSortModel.cheaper}" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
                     android:text="@string/catalog_product_sort_first_expensive"
                     android:checked="@={catalogProductSortModel.expensive}" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
                     android:text="@string/catalog_product_sort_first_stock"
                     android:checked="@={catalogProductSortModel.stock}" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
                     android:text="@string/catalog_product_sort_firrst_discount"
                     android:checked="@={catalogProductSortModel.discount}" />
 

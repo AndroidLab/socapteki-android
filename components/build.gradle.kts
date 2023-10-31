@@ -16,6 +16,7 @@ dependencies {
     api(libs.decoro)
     api(libs.skeleton)
     api(libs.flexbox)
+    api("androidx.fragment:fragment-ktx:1.6.1")
     implementation(libs.material)
     implementation(libs.gson)
     implementation(libs.swiperefreshlayout)

@@ -29,7 +29,7 @@ class FavoritesFragment : MainScreenBaseFragment<FavoritesViewModel, FavoritesFr
         binding.viewModel = viewModel
         binding.rvFavorites.adapter = adapter
 
-        viewModel.favorites.observe(viewLifecycleOwner) {
+        viewModel.favoriteService.products.observe(viewLifecycleOwner) {
             adapter.swapData(it)
         }
     }

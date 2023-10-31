@@ -23,6 +23,10 @@
             name="isLoading"
             type="androidx.lifecycle.LiveData&lt;Boolean&gt;" />
 
+        <variable
+            name="marginItemHorizontal"
+            type="Integer" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -54,7 +58,7 @@
                     app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
                     app:linearSnapHelper="@{linearSnapHelper}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:marginItemHorizontal="@{16}" />
+                    app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
 
                 <include
                     layout="@layout/progress_bar"

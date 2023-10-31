@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.components.ui.FeatureBaseFragment
 import ru.apteka.personal_data.R
@@ -87,7 +88,7 @@ class PersonalDataFragment :
                             buttonConfirm = DialogButtonModel(
                                 text = ComponentsR.string.yes,
                             ) {
-                                viewModel.navigationManager.generalNavController.navigate(PersonalDataFragmentDirections.toQuestionRemoveFragment())
+                                viewModel.navigationManager.generalNavController.navigateWithAnim(PersonalDataFragmentDirections.toQuestionRemoveFragment())
                             }
                         )
                     )

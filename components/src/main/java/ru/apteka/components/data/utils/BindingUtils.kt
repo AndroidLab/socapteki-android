@@ -137,11 +137,11 @@ fun setLayoutPadding(view: View, paddingStart: Int?, paddingTop: Int?, paddingEn
                 view.paddingBottom
             )
         }
-        if (paddingTop != null) {
+        if (paddingEnd != null) {
             view.setPadding(
                 view.paddingLeft,
                 view.paddingTop,
-                paddingTop.dp,
+                paddingEnd.dp,
                 view.paddingBottom
             )
         }
@@ -230,7 +230,7 @@ fun ImageView.setGlideImage(
         Glide
             .with(context)
             .load(it)
-            //.placeholder(progressDrawable)
+            .placeholder(R.drawable.image_stub)
             .into(this)
     }
 }

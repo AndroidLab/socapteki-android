@@ -27,8 +27,8 @@
             tools:ignore="ContentDescription" />-->
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="end|bottom"
             android:src="@drawable/catalog_menu_tub"
             />

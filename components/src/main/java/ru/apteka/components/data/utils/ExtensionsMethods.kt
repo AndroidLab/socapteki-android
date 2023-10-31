@@ -4,11 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import kotlinx.coroutines.*
 import ru.apteka.components.R
 import java.text.DateFormat
@@ -314,6 +322,45 @@ fun Activity.transparentStatusBar() {
     }
     window.statusBarColor = Color.TRANSPARENT
 }
+
+/**
+ * Возвращает bitmap представления.
+ */
+val View.bitmap
+    get() = Bitmap.createBitmap(
+        width, height, Bitmap.Config.ARGB_8888
+    ).also {
+        val canvas = Canvas(it)
+        this.draw(canvas)
+    }
+
+private val navOptions: NavOptions = NavOptions.Builder()
+    .setEnterAnim(R.anim.move_in_left)
+    .setExitAnim(R.anim.move_out_left)
+    .setPopExitAnim(R.anim.move_out_down)
+    .build()
+
+/**
+ * Навигирует с анимацией перехода.
+ */
+fun NavController.navigateWithAnim(@IdRes resId: Int, args: Bundle = bundleOf()) {
+    navigate(
+        resId,
+        args,
+        navOptions
+    )
+}
+
+/**
+ * Навигирует с анимацией перехода.
+ */
+fun NavController.navigateWithAnim(directions: NavDirections) {
+    navigate(
+        directions,
+        navOptions
+    )
+}
+
 
 
 /**

@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.catalog.R
 import ru.apteka.catalog.data.models.CatalogMenuItem
 import ru.apteka.catalog.databinding.CatalogFragmentBinding
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.databinding.ToolbarMenuBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
@@ -44,7 +45,7 @@ class CatalogFragment : MainScreenBaseFragment<CatalogViewModel, CatalogFragment
 
 
     private fun onMenuItemClick(item: CatalogMenuItem) {
-        nController.navigate(
+        nController.navigateWithAnim(
             CatalogFragmentDirections.toCatalogProductsFragment(item.title)
         )
     }

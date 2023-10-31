@@ -3,6 +3,7 @@ package ru.apteka.home.presentation.profile
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.account.AccountRemoveService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.home.R
 import ru.apteka.home.databinding.UserProfileFragmentBinding
@@ -30,7 +31,7 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
         }
 
         binding.llProfilePersonalData.setOnClickListener {
-            navigationManager.generalNavController.navigate(UserProfileApiR.id.personal_data_graph)
+            navigationManager.generalNavController.navigateWithAnim(UserProfileApiR.id.personal_data_graph)
         }
 
         binding.userProfileFavorite.profileCard.setOnClickListener {
@@ -42,14 +43,14 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
         }
 
         binding.userProfileApteki.profileCard.setOnClickListener {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 UserProfileFragmentDirections.toAptekiFragment()
             )
         }
 
 
         binding.userProfileBonusProgram.llProfileMenuItem.setOnClickListener {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 UserProfileFragmentDirections.toBonusProgramFragment()
             )
         }
@@ -59,13 +60,13 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
         }
 
         binding.userProfileCommentsReviews.llProfileMenuItem.setOnClickListener {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 UserProfileFragmentDirections.toCommentsReviewsFragment()
             )
         }
 
         binding.userProfileMySubscriptions.llProfileMenuItem.setOnClickListener {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 UserProfileFragmentDirections.toSubscriptionsFragment()
             )
         }
