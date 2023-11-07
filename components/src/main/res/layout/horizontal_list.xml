@@ -7,6 +7,8 @@
 
         <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
 
+        <import type="androidx.recyclerview.widget.LinearLayoutManager" />
+
         <variable
             name="title"
             type="String" />
@@ -51,19 +53,22 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:minHeight="200dp">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <ru.apteka.components.ui.boundcy.BouncyRecyclerView
                     android:id="@+id/rv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                    app:circlePagerIndicator="@{circlePagerIndicator}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
                     app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
-                    app:circlePagerIndicator="@{circlePagerIndicator}"
                     app:linearSnapHelper="@{linearSnapHelper}"
-                    app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
+                    app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}"
+                    app:recyclerviewOverscrollAnimationSize="0.5" />
 
                 <include
                     layout="@layout/progress_bar"

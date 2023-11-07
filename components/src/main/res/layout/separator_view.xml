@@ -17,12 +17,13 @@
 
     </data>
 
-    <View
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@{sepColor == null ? @color/light_grey : sepColor}"
-        app:layoutMarginEnd="@{sepMargin == null ? 0 : ExtensionsMethodsKt.getDp(sepMargin)}"
-        app:layoutMarginStart="@{sepMargin == null ? 0 : ExtensionsMethodsKt.getDp(sepMargin)}" />
+        android:src="@{sepColor == null ? @color/grey : sepColor}"
+        app:layoutPaddingEnd="@{sepMargin == null ? 0 : sepMargin}"
+        app:layoutPaddingStart="@{sepMargin == null ? 0 : sepMargin}"
+        tools:ignore="ContentDescription" />
 
 </layout>
 

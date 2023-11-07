@@ -57,3 +57,7 @@ include(":modules:features:shared:order_details:api")
 //Модуль карточки товара
 include(":modules:features:shared:product_card:feature")
 include(":modules:features:shared:product_card:api")
+
+//Оформление заказа
+include(":modules:features:making_order:feature")
+include(":modules:features:making_order:api")

@@ -12,6 +12,10 @@
     <string name="auth_confirm_phone_change">Изменить</string>
     <string name="auth_confirm_phone_desc">На ваш номер отправлено СМС с кодом для подтверждения входа в аккаунт.</string>
     <string name="auth_confirm_login">Войти</string>
+    <string name="main_menu_login">Авторизация</string>
+    <string name="main_menu_profile">Профиль</string>
+    <string name="main_menu_city_not_selected">Город не выбран</string>
+
 
     <!-- Drawer -->
     <string name="about_company">О компании</string>
@@ -25,5 +29,6 @@
     <string name="mobile_application">Мобильное приложение</string>
     <string name="brands">Бренды</string>
 
+    <string name="scan_desc">Наведите смартфон на штрихкод для поиска товара</string>
 
 </resources>

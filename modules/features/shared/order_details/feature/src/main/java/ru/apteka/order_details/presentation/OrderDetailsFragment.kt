@@ -39,7 +39,7 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.generalNavController.popBackStack()
             }
-            toolbar.title = String.format(getString(ComponentsR.string.order_number), _args.order.number)
+            tvToolbarTitle.text = String.format(getString(ComponentsR.string.order_number), _args.order.number)
         }
     }
 

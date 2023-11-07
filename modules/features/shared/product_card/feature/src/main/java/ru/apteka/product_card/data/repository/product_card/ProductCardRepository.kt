@@ -142,19 +142,31 @@ class ProductCardRepository @Inject constructor(
             commentCount = 123,
             comments = listOf(
                 CommentModel.CommentItem(
-                    name = "Пескова Наталья",
+                    name = "Пескова Наталья 0",
                     rating = 3.3f,
                     date = 1698920656,
                     text = "Супер пробиотик, действительно помогает. Лучший из подобных препаратов"
                 ),
                 CommentModel.CommentItem(
-                    name = "Пескова Наталья",
+                    name = "Пескова Наталья 1",
                     rating = 2.3f,
                     date = 1698920656,
                     text = "Супер пробиотик, действительно помогает. Лучший из подобных препаратов"
                 ),
                 CommentModel.CommentItem(
-                    name = "Пескова Наталья",
+                    name = "Пескова Наталья 2",
+                    rating = 1.3f,
+                    date = 1698920656,
+                    text = "Супер пробиотик, действительно помогает. Лучший из подобных препаратов"
+                ),
+                CommentModel.CommentItem(
+                    name = "Пескова Наталья 3",
+                    rating = 2.3f,
+                    date = 1698920656,
+                    text = "Супер пробиотик, действительно помогает. Лучший из подобных препаратов"
+                ),
+                CommentModel.CommentItem(
+                    name = "Пескова Наталья 4",
                     rating = 1.3f,
                     date = 1698920656,
                     text = "Супер пробиотик, действительно помогает. Лучший из подобных препаратов"

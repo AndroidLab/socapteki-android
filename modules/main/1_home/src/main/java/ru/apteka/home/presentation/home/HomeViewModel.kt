@@ -11,9 +11,11 @@ import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
+import ru.apteka.components.data.services.barcode_scan.IBarCodeScanService
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -40,26 +42,16 @@ class HomeViewModel @Inject constructor(
     private val promotionRepository: PromotionRepository,
     private val productsDayRepository: ProductsDayRepository,
     private val productsDiscountRepository: ProductsDiscountRepository,
+    private val otherRepository: OtherRepository,
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
-    private val otherRepository: OtherRepository,
-    private val userPreferences: UserPreferences,
+    val barCodeScanService: IBarCodeScanService,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {
-
-    /**
-     * Возвращает название выбранного города.
-     */
-    val selectedCity: LiveData<String?> = userPreferences.cityFlow.asLiveData().map {
-        it?.name
-    }
-
 
     private val _adverts = MutableLiveData<List<AdvertModel>>(emptyList())
 
@@ -216,6 +208,16 @@ class HomeViewModel @Inject constructor(
                         _others.postValue(others)
                     },
                     isLoading = _othersIsLoading
+                )
+            }
+        }
+
+        viewModelScope.launchIO {
+            barCodeScanService.barcodeResult.collect {
+                messageNoticeService.showCommonToast(
+                    MessageModel(
+                        message = "Code $it"
+                    )
                 )
             }
         }

@@ -1,27 +1,32 @@
 package ru.apteka.catalog.presentation.catalog_products
 
-import android.view.View
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.catalog.R
 import ru.apteka.catalog.data.catalog_repository.CatalogRepository
 import ru.apteka.catalog.data.models.IFilter
+import ru.apteka.catalog.data.models.SearchHistoryHeaderModel
+import ru.apteka.catalog.data.models.SearchResultHeaderModel
+import ru.apteka.catalog.data.models.SearchResultModel
 import ru.apteka.catalog.data.models.SortModel
+import ru.apteka.catalog.data.services.SearchProductPreferences
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.barcode_scan.BarCodeScanService
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.bottom_sheet_service.IBottomSheetService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
@@ -36,13 +41,20 @@ class CatalogProductsViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
+    private val savedStateHandle: SavedStateHandle,
+    val searchProductPreferences: SearchProductPreferences,
     val bottomSheetService: IBottomSheetService,
+    val barCodeScanService: BarCodeScanService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {
+    /**
+     * Возвращает выбранный пункт каталога.
+     */
+    val catalogItemName = savedStateHandle.get<String>("catalogItemName")!!
 
     private val _filters = MutableLiveData<List<IFilter>>(emptyList())
 
@@ -69,18 +81,6 @@ class CatalogProductsViewModel @Inject constructor(
      */
     val sortModel = SortModel()
 
-    init {
-        viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { catalogRepository.getFilters() },
-                onSuccess = { filters ->
-                    _filters.postValue(filters)
-                },
-                isLoading = _isLoading
-            )
-        }
-        getProducts()
-    }
 
     private val _products = MutableLiveData<List<ProductCardModel>>(emptyList())
 
@@ -89,21 +89,23 @@ class CatalogProductsViewModel @Inject constructor(
      */
     val products: LiveData<List<ProductCardModel>> = _products
 
-    private val _productsIsLoading = MutableLiveData(false)
+    private val _isProductsLoading = MutableLiveData(false)
 
     /**
      *
      */
-    val productsIsLoading: LiveData<Boolean> = _productsIsLoading
+    val isProductsLoading: LiveData<Boolean> = _isProductsLoading
 
     /**
      * Получает продукты.
      */
-    fun getProducts() {
+    fun getCatalogProducts() {
+        _products.value = emptyList()
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = { productsRepository.getProductions() },
                 onSuccess = { products ->
+                    _filters.postValue(catalogRepository.getFilters())
                     _products.postValue(
                         products.map { product ->
                             ProductCardModel(
@@ -123,7 +125,7 @@ class CatalogProductsViewModel @Inject constructor(
                     )
                 },
                 onLoading = {
-                    _productsIsLoading
+                    _isProductsLoading.postValue(it)
                 }
             )
         }
@@ -154,7 +156,6 @@ class CatalogProductsViewModel @Inject constructor(
                 onSuccess = { products ->
                     _productsWithProductBuy.postValue(
                         products.map { product ->
-                            val counterLiveData = MutableLiveData(0)
                             ProductCardModel(
                                 product = product
                             ).apply {
@@ -235,41 +236,110 @@ class CatalogProductsViewModel @Inject constructor(
     }
 
 
+    private val _foundResults = MutableLiveData<List<Any>>(emptyList())
+
     /**
-     * Показать назначение лекарств.
+     * Возвращает найденные результаты.
      */
-    val onShowPrescribingMedications: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
-                R.string.catalog_product_recommendation_prescribing_medications,
-                R.string.catalog_product_recommendation_prescribing_medications_desc
-            )
+    val foundResults: LiveData<List<Any>> = _foundResults
+
+    /**
+     * Возвращает или устанавливает введенный текст для поиска.
+     */
+    val searchText = MutableLiveData("")
+
+    /**
+     * Возвращает или устанавливает текст для поиска.
+     */
+    var textQuery = ""
+
+
+    /**
+     * Возвращает текст поиска заказа.
+     */
+    val onSearchTextChange = viewModelScope.debounce<String>(1000L) { value ->
+        if (value.isNotBlank()) {
+            if (value != textQuery) {
+                searchProducts(value)
+            }
+        } else {
+            clearData()
+        }
+        textQuery = value
+    }
+
+    private val _isSearchProductsLoading = MutableLiveData(false)
+
+    /**
+     * Возвращает флаг поиска продукции.
+     */
+    val isSearchProductsLoading = _isSearchProductsLoading
+
+
+    /**
+     * Возвращает флаг показа экрана поиска.
+     */
+    val isSearchShow =
+        MediatorLiveData(catalogItemName == CatalogProductsFragment.SEARCH_MODE).apply {
+            addSource(isSearchProductsLoading) {
+                if (it) value = true
+            }
+            addSource(isProductsLoading) {
+                if (it) value = false
+            }
+        }
+
+    private suspend fun searchProducts(value: String) {
+        val historyRequests = searchProductPreferences.getHistoryRequest(value).let {
+            buildList {
+                if (it.isNotEmpty()) {
+                    add(
+                        SearchHistoryHeaderModel {
+                            searchProductPreferences.clear()
+                            _foundResults.value = _foundResults.value!!.filter {
+                                it !is SearchHistoryHeaderModel && it is SearchResultHeaderModel || (it is SearchResultModel && it.type != SearchResultModel.SearchResultType.HISTORY)
+                            }
+                        }
+                    )
+                    addAll(
+                        it.map {
+                            SearchResultModel(
+                                type = SearchResultModel.SearchResultType.HISTORY,
+                                text = it
+                            )
+                        }
+                    )
+                }
+            }
+        }
+        _foundResults.postValue(historyRequests)
+
+        requestHandler.handleApiRequest(
+            onRequest = {
+                catalogRepository.searchResult(value)
+            },
+            onSuccess = { searchResults ->
+                _foundResults.postValue(
+                    buildList {
+                        addAll(historyRequests)
+                        if (searchResults.isNotEmpty()) {
+                            add(SearchResultHeaderModel())
+                            addAll(
+                                searchResults
+                            )
+                        }
+                    }
+                )
+            },
+            isLoading = _isSearchProductsLoading
         )
     }
 
     /**
-     * Показать формы выпуска.
+     * Очищает данные.
      */
-    val onShowReleaseForm: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
-                R.string.catalog_product_recommendation_release_form,
-                R.string.catalog_product_recommendation_release_form_desk
-            )
-        )
+    private fun clearData() {
+        _foundResults.postValue(emptyList())
     }
-
-    /**
-     * Показать как выбрать и заказать лекарство.
-     */
-    val onShowToChooseAndOrder: (view: View) -> Unit = {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            CatalogProductsFragmentDirections.toCatalogProductRecommendationFragment(
-                R.string.catalog_product_recommendation_how_to_choose,
-                R.string.catalog_product_recommendation_how_to_choose_desk
-            )
-        )
-    }
-
 
 }

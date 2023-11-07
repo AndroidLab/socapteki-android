@@ -29,10 +29,8 @@ class BasketViewModel @Inject constructor(
     val basketService: BasketService,
     val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

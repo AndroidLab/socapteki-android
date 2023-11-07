@@ -42,57 +42,105 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Баннер -->
-                    <FrameLayout
+                    <!-- Бонусная карта -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:background="@color/pink">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginHorizontal="16dp"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/bonus_program_banner_title"
-                                android:textSize="27sp" />
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/bonus_program_virtual_card"
+                                android:textColor="@color/light_black" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/bonus_program_banner_desc" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:padding="16dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/bonus_card"
+                                tools:ignore="ContentDescription" />
 
                         </LinearLayout>
 
-                    </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Описание -->
-                    <LinearLayout
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bottom_corners_shape"
-                        android:orientation="vertical">
+                        android:layout_marginTop="6dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/base_padding"
-                            android:text="@string/bonus_program_text" />
+                            android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
-                            style="@style/Theme.Socapteki.OutlinedButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="16dp"
-                            android:text="@string/bonus_program_referral" />
+                            <!-- Баннер -->
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:background="@color/pink">
 
-                    </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginHorizontal="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/bonus_program_banner_title"
+                                        android:textSize="27sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/bonus_program_banner_desc" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <!-- Описание -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bottom_corners_shape"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/base_padding"
+                                    android:text="@string/bonus_program_text" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    style="@style/Theme.Socapteki.OutlinedButton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/bonus_program_referral" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
 
                     <!-- История бонусов -->
                     <com.google.android.material.card.MaterialCardView

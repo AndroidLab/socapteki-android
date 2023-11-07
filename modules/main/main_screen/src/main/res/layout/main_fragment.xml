@@ -31,8 +31,8 @@
             app:contentInsetEnd="0dp"
             app:contentInsetStart="0dp"
             app:fabAlignmentMode="center"
-            app:fabCradleMargin="6dp"
-            app:fabCradleRoundedCornerRadius="8dp">
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,17 +80,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"
+            app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
             app:layout_anchor="@id/bottomAppBar"
             app:maxImageSize="32dp"
             app:rippleColor="@color/grey"
-            app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_height"
             android:layout_gravity="bottom">
-
 
             <ru.apteka.main.presentation.bottomnavigation.NotificationBadge
                 android:id="@+id/nbTab4"

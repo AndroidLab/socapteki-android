@@ -7,9 +7,12 @@
     <string name="common_yesterday">Вчера</string>
     <string name="apply">Применить</string>
     <string name="price">Цена</string>
+    <string name="settings">Настройки</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
     <string name="remove">Удалить</string>
+    <string name="change">Изменить</string>
+    <string name="clear">Очистить</string>
     <string name="orders_in_work_status">В работе</string>
     <string name="orders_canceled_status">Отменнено</string>
     <string name="orders_completed_status">Завершено</string>
@@ -20,13 +23,16 @@
     <string name="search">Поиск</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
+    <string name="exit">Выйти</string>
     <string name="create">Создать</string>
+    <string name="add">Добавить</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
     <string name="confirm_code_repeat_left_time">через: %s</string>
     <string name="confirm_code_error">Не веврный код</string>
     <string name="dialog_remove_product_desk">Вы уверены, что хотите удалить этот товар?</string>
+    <string name="dialog_remove_product_all_desk">Вы уверены, что хотите удалить все товары?</string>
 
     <string name="label_hit_sales">Хит продаж</string>
     <string name="label_product_day">Товар дня</string>
@@ -37,6 +43,8 @@
     <string name="similar_products">Аналоги лекарства</string>
     <string name="with_products">С этим товаром покупают</string>
     <string name="recently_viewed_products">Вы недавно смотрели</string>
+    <string name="access_phone_camera">Для продолжения необходим доступ к камере телефона. Нажмите кнопку настройки и дайте доступ к камере телефона.</string>
+    <string name="access_mic_record">Для продолжения необходим доступ к микрофону телефона. Нажмите кнопку настройки и дайте доступ к микрофону телефона.</string>
 
 
 </resources>

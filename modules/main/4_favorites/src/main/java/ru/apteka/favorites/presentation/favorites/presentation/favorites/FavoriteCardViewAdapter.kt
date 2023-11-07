@@ -15,7 +15,11 @@ class FavoriteCardViewAdapter(
 ) :
     ViewBindingDelegateAdapter<ProductCardModel, FavoriteCardViewBinding>(FavoriteCardViewBinding::inflate) {
 
-    override fun FavoriteCardViewBinding.onBind(item: ProductCardModel) {
+    override fun FavoriteCardViewBinding.onBind(
+        item: ProductCardModel, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         lifecycleOwner = _lifecycleOwner
 
         model = item

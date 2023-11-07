@@ -190,4 +190,18 @@ class ProductCardViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Загрузить комментарии по популярности.
+     */
+    fun popularCommentsSort() {
+
+    }
+
+    /**
+     * Показать больше комментариев.
+     */
+    fun showMoreComments() {
+
+    }
+
 }

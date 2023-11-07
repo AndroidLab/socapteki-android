@@ -36,6 +36,8 @@ dependencies {
     implementation(project(":modules:features:order_search:feature"))
     implementation(project(":modules:features:pharmacies_map:api"))
     implementation(project(":modules:features:pharmacies_map:feature"))
+    //implementation(project(":modules:features:making_order:api"))
+    implementation(project(":modules:features:making_order:feature"))
     implementation(project(":modules:features:about_company"))
     implementation(project(":modules:features:brands"))
     implementation(project(":modules:features:advantages"))
@@ -50,4 +52,6 @@ dependencies {
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.mapsMobile)
     implementation(libs.measured)
+    implementation(libs.zbar)
+    implementation(libs.dexter)
 }

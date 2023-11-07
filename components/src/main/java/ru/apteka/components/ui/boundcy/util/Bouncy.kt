@@ -21,4 +21,8 @@ object Bouncy
     const val OVERSCROLL_ALL = 0
     const val OVERSCROLL_START = 1
     const val OVERSCROLL_END = 2
+
+    //overscroll type
+    const val OVERSCROLL_TRANSLATION = 0
+    const val OVERSCROLL_PADDING = 1
 }

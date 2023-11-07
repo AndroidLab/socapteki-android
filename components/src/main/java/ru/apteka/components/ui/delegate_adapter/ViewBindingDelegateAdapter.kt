@@ -33,10 +33,10 @@ abstract class ViewBindingDelegateAdapter<T : Any, V : ViewDataBinding>(
     @Suppress("UNCHECKED_CAST")
     final override fun onBindViewHolder(holder: RecyclerView.ViewHolder, items: List<Any>, position: Int) {
         holder as ViewBindingHolder<V>
-        holder.viewDataBinding.onBind(items[position] as T)
+        holder.viewDataBinding.onBind(items[position] as T, position, position == 0, position == items.size-1)
     }
 
-    abstract fun V.onBind(item: T)
+    abstract fun V.onBind(item: T, position: Int, isFirst: Boolean, isLast: Boolean)
 
     override fun onRecycled(holder: RecyclerView.ViewHolder) {
         (holder as ViewBindingHolder<V>).viewDataBinding.onRecycled()

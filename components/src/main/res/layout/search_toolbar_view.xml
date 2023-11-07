@@ -10,6 +10,18 @@
             type="androidx.lifecycle.LiveData&lt;Boolean&gt;" />
 
         <variable
+            name="searchText"
+            type="androidx.lifecycle.MutableLiveData&lt;String&gt;" />
+
+        <variable
+            name="isMicIconVisible"
+            type="boolean" />
+
+        <variable
+            name="isBarCodeIconVisible"
+            type="boolean" />
+
+        <variable
             name="hint"
             type="String" />
 
@@ -25,14 +37,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@null"
             android:hint="@{hint}"
-            android:background="@null" />
+            android:maxLines="1"
+            android:text="@={searchText}" />
 
         <FrameLayout
             android:layout_width="@dimen/toolbar_height"
             android:layout_height="@dimen/toolbar_height">
 
-            <ImageView
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/searchToolbarSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:scaleX="1.6"
+                android:scaleY="1.6"
+                app:lottie_autoPlay="false"
+                app:lottie_colorFilter="@color/light_black"
+                app:lottie_progress="0.1"
+                app:lottie_rawRes="@raw/close"
+                app:lottie_repeatCount="0"
+                app:visibleIf="@{!isLoading}" />
+
+            <!--<ImageView
                 android:id="@+id/ivToolBarSearchClear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,18 +68,38 @@
                 android:padding="14dp"
                 android:src="@drawable/ic_close"
                 app:visibleIf="@{!isLoading}"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription" />-->
 
             <ProgressBar
                 style="@style/Theme.Socapteki.ProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="14dp"
                 android:layout_gravity="center"
                 android:indeterminateOnly="true"
+                android:padding="14dp"
                 app:visibleIf="@{isLoading}" />
 
         </FrameLayout>
+
+        <ImageView
+            android:id="@+id/ivSearchToolbarMic"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp"
+            android:src="@drawable/ic_mic"
+            app:visibleIf="@{isMicIconVisible}"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/ivSearchToolbarBarcode"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp"
+            android:src="@drawable/ic_barcodescan"
+            app:visibleIf="@{isBarCodeIconVisible}"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

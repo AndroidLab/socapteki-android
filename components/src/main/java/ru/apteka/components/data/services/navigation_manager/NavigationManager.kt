@@ -41,13 +41,12 @@ class NavigationManager @Inject constructor() {
     val isBottomNavigationBarNeedUpdateSingleEvent = SingleLiveEvent<Unit>()
 
     /**
-     * Навигирует к экрану авторизации.
-     */
-    var navigateToAuthActivity: () -> Unit by Delegates.notNull()
-
-    /**
      * Показывает меню приложения.
      */
     var showAppMenu: () -> Unit by Delegates.notNull()
 
+    /**
+     * Показывает экран поиска продукции.
+     */
+    var showSearchProduct: () -> Unit by Delegates.notNull()
 }

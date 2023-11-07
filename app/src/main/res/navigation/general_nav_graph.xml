@@ -33,4 +33,6 @@
 
     <include app:graph="@navigation/product_card_graph" />
 
+    <include app:graph="@navigation/making_order_graph" />
+
 </navigation>

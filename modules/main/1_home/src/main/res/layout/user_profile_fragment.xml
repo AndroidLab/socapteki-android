@@ -36,6 +36,8 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:background="@drawable/shape_circle_surface_variant_icon"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_profile_personal_data"
                     tools:ignore="ContentDescription" />
 
@@ -91,7 +93,7 @@
                     android:layout_weight="1"
                     app:color="@{@color/color_surface_variant}"
                     app:icon="@{@drawable/ic_profile_apteki}"
-                    app:text="@{@string/profile_apteki}" />
+                    app:text="@{@string/profile_pharmacies}" />
 
             </LinearLayout>
 
@@ -117,7 +119,7 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}"/>
+                    app:sepMargin="@{16}" />
 
                 <include
                     android:id="@+id/userProfileReferralProgram"
@@ -127,7 +129,7 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}"/>
+                    app:sepMargin="@{16}" />
 
                 <include
                     android:id="@+id/userProfileCommentsReviews"
@@ -137,7 +139,7 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}"/>
+                    app:sepMargin="@{16}" />
 
                 <include
                     android:id="@+id/userProfileMySubscriptions"
@@ -149,6 +151,14 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userProfileLogout"
+            style="@style/Theme.Socapteki.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            android:text="@string/exit" />
 
     </LinearLayout>
 

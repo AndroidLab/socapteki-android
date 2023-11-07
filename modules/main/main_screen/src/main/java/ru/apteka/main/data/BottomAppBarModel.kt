@@ -44,7 +44,7 @@ class BottomAppBarModel {
 
     val item_4 = MenuItemModel(
         itemId = R.id.favorites_graph,
-        icon = R.drawable.ic_favorite,
+        icon = R.drawable.ic_stocks,
         title = R.string.menu_label_4,
         onItemClick = {
             _selectedItemId.value = it

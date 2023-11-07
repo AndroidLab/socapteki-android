@@ -20,10 +20,8 @@ class FavoritesViewModel @Inject constructor(
     private val basketService: BasketService,
     val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

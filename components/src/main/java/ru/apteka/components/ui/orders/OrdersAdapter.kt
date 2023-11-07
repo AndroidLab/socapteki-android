@@ -11,7 +11,11 @@ import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 class OrdersAdapter(private val onItemClick: (OrderModel) -> Unit) :
     ViewBindingDelegateAdapter<OrderModel, OrderHolderBinding>(OrderHolderBinding::inflate) {
 
-    override fun OrderHolderBinding.onBind(item: OrderModel) {
+    override fun OrderHolderBinding.onBind(
+        item: OrderModel, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
         executePendingBindings()
         llOrderItem.setOnClickListener {

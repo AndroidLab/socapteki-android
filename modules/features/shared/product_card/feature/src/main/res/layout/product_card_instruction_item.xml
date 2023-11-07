@@ -5,78 +5,84 @@
 
     <data>
 
-    <variable
-        name="bindingItem"
-        type="ru.apteka.product_card.data.model.InstructionModel.InstructionItem" />
+        <variable
+            name="bindingItem"
+            type="ru.apteka.product_card.data.model.InstructionModel.InstructionItem" />
 
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Theme.Socapteki.BackgroundCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="6dp"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/light_grey">
 
-        <com.github.florent37.expansionpanel.ExpansionHeader
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            app:expansion_headerIndicator="@id/headerIndicator"
-            app:expansion_layout="@id/expansionLayout">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.github.florent37.expansionpanel.ExpansionHeader
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:padding="16dp"
+                app:expansion_headerIndicator="@id/headerIndicator"
+                app:expansion_layout="@id/expansionLayout">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{bindingItem.title}"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/headerIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_arrow_expand" />
-
-        </com.github.florent37.expansionpanel.ExpansionHeader>
-
-        <com.github.florent37.expansionpanel.ExpansionLayout
-            android:id="@+id/expansionLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expansion_expanded="false">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/separator_view"
-                    android:layout_marginHorizontal="16dp"/>
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{bindingItem.title}"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/headerIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:text="@{bindingItem.desc}" />
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_arrow_expand"
+                    tools:ignore="ContentDescription" />
 
-            </LinearLayout>
+            </com.github.florent37.expansionpanel.ExpansionHeader>
 
-        </com.github.florent37.expansionpanel.ExpansionLayout>
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expansion_expanded="false">
 
-        <include
-            android:id="@id/separator"
-            layout="@layout/separator_view" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-    </LinearLayout>
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMargin="@{16}"
+                        app:sepColor="@{@color/grey}"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        android:text="@{bindingItem.desc}" />
+
+                </LinearLayout>
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

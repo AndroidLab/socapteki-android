@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
 
 /**
  * Возвращает адаптер для карточек продукции.
@@ -21,6 +20,5 @@ fun getProductCardViewAdapter(
         lifeOwner,
         onItemClick,
         isHorizontal
-    ),
-    SkeletonAdapter(166.dp, 340.dp)
+    )
 )

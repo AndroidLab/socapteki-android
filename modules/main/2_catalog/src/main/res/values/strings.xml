@@ -18,15 +18,11 @@
     <string name="catalog_product_sort_first_stock">Сначала в наличии</string>
     <string name="catalog_product_sort_firrst_discount">Сначала товары со скидкой</string>
     <string name="catalog_product_show_more">Показать еще</string>
-    <string name="catalog_product_recommendation_prescribing_medications">Назначение лекарств</string>
-    <string name="catalog_product_recommendation_prescribing_medications_desc">Назначение и выписывание лекарственных препаратов осуществляется медицинским работником по международному непатентованному наименованию (МНИ), а при его отсутствии по группировочному наименованию.</string>
-    <string name="catalog_product_recommendation_release_form">Форма выпуска</string>
-    <string name="catalog_product_recommendation_release_form_desk">Лекарственная форма (форма выпуска) – это готовая и удобная в применении форма лекарственного средства и лекарственного растительного сырья, которая окажет ожидаемый терапевтический эффект.</string>
-    <string name="catalog_product_recommendation_how_to_choose">Как выбрать и заказать лекарство</string>
-    <string name="catalog_product_recommendation_how_to_choose_desk">На сайте вам откроется карта с местоположением аптек поблизости от вас. И среди них вы сможете выбрать наиболее удобную. Ориентироваться можно по трем параметрам: местоположение, цена лекарства и срок доставки. Аптечные сети позволяют бронировать товары с возможностью забрать их в течение дня. Предварительное бронирование позволит вам провести в аптеке минимум времени. Даже если ваш заказ нужно собрать на складе, вы получите письмо или SMS-уведомление уже по факту доставки нужных препаратов в удобную для вас аптеку.</string>
     <string name="catalog_product_with_product_buy">С этим товаром покупают</string>
     <string name="catalog_product_recently_watched">Вы недавно смотрели</string>
 
-
+    <string name="catalog_product_search_hint">Найти товары</string>
+    <string name="catalog_product_search_history">История</string>
+    <string name="catalog_product_search_categories">Категории</string>
 
 </resources>

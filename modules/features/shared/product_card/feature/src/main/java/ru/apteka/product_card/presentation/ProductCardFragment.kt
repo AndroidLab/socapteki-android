@@ -1,36 +1,29 @@
 package ru.apteka.product_card.presentation
 
-import android.R.layout
-import android.text.TextUtils
+import android.animation.ValueAnimator
+import android.graphics.Color
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.widget.RatingBar
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.os.bundleOf
-import androidx.core.view.children
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.request.transition.ViewPropertyTransition.Animator
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.internal.CollapsingTextHelper
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
-import ru.apteka.components.data.utils.playAnimation
-import ru.apteka.components.data.utils.skeletons
+import ru.apteka.components.data.utils.screenHeight
+import ru.apteka.components.data.utils.setVisibleWithInteractionEnabled
 import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.product_card.R
-import ru.apteka.pharmacies_map_api.R as pharmaciesMapApiR
 import ru.apteka.product_card.databinding.ProductCardFragmentBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
-import java.lang.reflect.Field
 import kotlin.math.abs
 import ru.apteka.components.R as ComponentsR
+import ru.apteka.pharmacies_map_api.R as pharmaciesMapApiR
 
 
 /**
@@ -71,38 +64,78 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         binding.pricePageWithProduct.rv.adapter = withProductProductsDayAdapter
 
 
-
         binding.productCardAptekiLocation1.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
         }
-
         binding.productCardAptekiLocation2.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
         }
 
-        binding.productCardDescTab.tab.setOnClickListener {
+        binding.nsvProductCard.setOnScrollChangeListener { view, i, i2, i3, i4 ->
+            if (i2 > binding.productCardDesc1.y && binding.productCardTabs.visibility == View.INVISIBLE) {
+                tabsAnimatorShow.start()
+            }
+            if (i2 < binding.productCardReleaseForm.y && binding.productCardTabs.visibility == View.VISIBLE) {
+                binding.productCardTabs.translationY = -binding.productCardTabs.height / 2f
+                binding.productCardTabs.setVisibleWithInteractionEnabled(false)
+            }
+
+            val scrollLayoutOffsetTriggerPoint = i2 + screenHeight / 2
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
+                binding.productCardTabDesc.setBackgroundResource(ComponentsR.color.light_grey)
+            } else {
+                binding.productCardTabDesc.setBackgroundColor(Color.WHITE)
+            }
+
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardInstructions.y && scrollLayoutOffsetTriggerPoint < binding.productCardComments.y) {
+                binding.productCardTabInstructions.setBackgroundResource(ComponentsR.color.light_grey)
+            } else {
+                binding.productCardTabInstructions.setBackgroundColor(Color.WHITE)
+            }
+
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardComments.y) {
+                binding.productCardTabReviews.setBackgroundResource(ComponentsR.color.light_grey)
+            } else {
+                binding.productCardTabReviews.setBackgroundColor(Color.WHITE)
+            }
+        }
+
+        binding.productCardTabDesc.setOnClickListener {
             binding.nsvProductCard.smoothScrollTo(
                 binding.productCardDesc.x.toInt(),
-                binding.productCardDesc.y.toInt() - binding.productCardDescTab.tab.height
+                binding.productCardDesc.y.toInt() - binding.productCardTabs.height
             )
         }
 
-        binding.productCardInstructionsTab.tab.setOnClickListener {
+        binding.productCardTabInstructions.setOnClickListener {
             binding.nsvProductCard.smoothScrollTo(
                 binding.productCardInstructions.x.toInt(),
-                binding.productCardInstructions.y.toInt() - binding.productCardInstructionsTab.tab.height
+                binding.productCardInstructions.y.toInt() - binding.productCardTabs.height
             )
         }
 
-        binding.productCardCommentsTab.tab.setOnClickListener {
+        binding.productCardTabReviews.setOnClickListener {
             binding.nsvProductCard.smoothScrollTo(
                 binding.productCardComments.x.toInt(),
-                binding.productCardComments.y.toInt() - binding.productCardCommentsTab.tab.height
+                binding.productCardComments.y.toInt() - binding.productCardTabs.height
             )
         }
 
 
-        binding.pricePageReleaseForm.setOnClickListener {
+        binding.productCardReleaseForm.setOnClickListener {
+            Log.d("myL", "productCardReleaseForm")
+        }
+
+        binding.productCardPharmaciesInMap.setOnClickListener {
+            Log.d("myL", "productCardPharmaciesInMap")
+        }
+
+
+        binding.tvProductCardSendComment.setOnClickListener {
+            binding.btnProductCardSendComment.performClick()
+        }
+
+        binding.btnProductCardSendComment.setOnClickListener {
 
         }
 
@@ -115,15 +148,11 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         viewModel.similarProducts.observe(viewLifecycleOwner) {
-            similarProductsAdapter.swapData(
-                it.ifEmpty { skeletons }
-            )
+            similarProductsAdapter.swapData(it)
         }
 
         viewModel.withProductProducts.observe(viewLifecycleOwner) {
-            withProductProductsDayAdapter.swapData(
-                it.ifEmpty { skeletons }
-            )
+            withProductProductsDayAdapter.swapData(it)
         }
 
     }
@@ -158,55 +187,86 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
     }
 
+    private val tabsAnimatorShow: ValueAnimator
+        get() {
+            binding.productCardTabs.setVisibleWithInteractionEnabled(true)
+            return ValueAnimator.ofFloat(
+                -binding.productCardTabs.height / 2f,
+                binding.productCardTabs.height / 2f - 1.dp
+            ).apply {
+                addUpdateListener { valueAnimator ->
+                    binding.productCardTabs.translationY = valueAnimator.animatedValue as Float
+                }
+                duration = 350
+            }
+        }
+
     override fun onResume() {
         super.onResume()
-        binding.productCardAptekiLocation2.addOnHideAnimationListener(object :
-            android.animation.Animator.AnimatorListener {
-            override fun onAnimationStart(p0: android.animation.Animator) {}
-            override fun onAnimationEnd(p0: android.animation.Animator) {
-                binding.productCardAptekiLocation1.visibility = View.VISIBLE
-                binding.lavProductCardAptekiLocation1.playAnimation(0f, .5f)
-            }
+        binding.productCardTabs.doOnLayout {
+            it.translationY = -binding.productCardTabs.height / 2f
+        }
 
-            override fun onAnimationCancel(p0: android.animation.Animator) {}
-            override fun onAnimationRepeat(p0: android.animation.Animator) {}
-        })
-
-        binding.productCardAptekiLocation2.addOnShowAnimationListener(object :
-            android.animation.Animator.AnimatorListener {
-            override fun onAnimationStart(p0: android.animation.Animator) {
-                binding.productCardAptekiLocation1.visibility = View.GONE
-            }
-
-            override fun onAnimationEnd(p0: android.animation.Animator) {}
-            override fun onAnimationCancel(p0: android.animation.Animator) {}
-            override fun onAnimationRepeat(p0: android.animation.Animator) {}
-        })
 
         binding.toolbar.apply {
             binding.toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
             binding.toolbar.subtitle = _args.product.desc
-            var maxOffset = 0
+            var maxOffsetForRecycler: Int? = null
+            var maxOffsetForTitle: Int? = null
+            var maxOffsetForFab: Int? = null
+            var descStartTranslationY: Float? = null
+            var fabStartTranslationX: Float? = null
             binding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (maxOffset == 0) {
-                    maxOffset = binding.appbar.height - binding.toolbar.height
+                if (maxOffsetForRecycler == null) {
+                    maxOffsetForRecycler = binding.appbar.height - binding.toolbar.height * 2
                 }
-                val absVerticalOffset = abs(verticalOffset)
-                val rvAlpha = 1 - absVerticalOffset * 1f / maxOffset
-                binding.rvProductCardImages.alpha = rvAlpha
-                binding.tvProductCardDesc.x =
-                    16.dp + (absVerticalOffset * 50f / maxOffset).dp.toFloat()
-                binding.rvProductCardImages.visibleIf(rvAlpha > 0)
-                binding.productCardAptekiLocation1.visibleIf(binding.productCardAptekiLocation2.visibility == View.INVISIBLE)
-                binding.productCardToolBarSeparator.visibleIf(rvAlpha == 0f)
+                if (maxOffsetForTitle == null) {
+                    maxOffsetForTitle = binding.appbar.height - binding.toolbar.height
+                }
+                if (maxOffsetForFab == null) {
+                    maxOffsetForFab = binding.appbar.height - binding.toolbar.height
+                }
+                if (descStartTranslationY == null) {
+                    descStartTranslationY = binding.tvProductCardDesc.translationY
+                }
+                if (fabStartTranslationX == null) {
+                    fabStartTranslationX = binding.flProductCardAptekiLocation.translationX
+                }
 
-                if (maxOffset - absVerticalOffset < maxOffset / 5) {
-                    binding.productCardTabs.visibility = View.VISIBLE
-                    val tabsAlpha = 1 - (maxOffset - absVerticalOffset) * 1f / (maxOffset / 5)
-                    binding.productCardTabs.alpha = tabsAlpha
+                val absVerticalOffset = abs(verticalOffset)
+                val rvAlpha = 1 - absVerticalOffset * 1f / maxOffsetForRecycler!!
+                binding.rvProductCardImages.alpha = if (rvAlpha < 0f) 0f else rvAlpha
+                binding.rvProductCardImages.visibleIf(rvAlpha > 0)
+
+                if (maxOffsetForTitle!! - absVerticalOffset < binding.toolbar.height) {
+                    binding.tvProductCardDesc.visibility = View.VISIBLE
+                    val descOffsetPercent =
+                        (maxOffsetForTitle!! - absVerticalOffset) * 1f / binding.toolbar.height
+
+                    binding.tvProductCardDesc.alpha = 1 - descOffsetPercent
+                    binding.tvProductCardDesc.translationY =
+                        descStartTranslationY!! * descOffsetPercent
+                    binding.flProductCardAptekiLocation.translationY = (-50).dp * descOffsetPercent
                 } else {
-                    binding.productCardTabs.visibility = View.GONE
+                    binding.tvProductCardDesc.visibility = View.INVISIBLE
+                    binding.flProductCardAptekiLocation.translationY = (-50).dp.toFloat()
                 }
+
+                if (binding.rvProductCardImages.visibility == View.GONE) {
+                    binding.toolbar.setBackgroundResource(ComponentsR.color.white)
+                } else {
+                    binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
+                }
+
+                if (maxOffsetForFab!! - absVerticalOffset > binding.toolbar.height) {
+                    binding.productCardAptekiLocation2.show()
+                    val fabOffsetTranslationX = 1 - absVerticalOffset * 1f / maxOffsetForRecycler!!
+                    binding.flProductCardAptekiLocation.translationX =
+                        fabStartTranslationX!! * fabOffsetTranslationX
+                } else {
+                    binding.productCardAptekiLocation2.hide()
+                }
+
             }
             binding.toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.generalNavController.popBackStack()

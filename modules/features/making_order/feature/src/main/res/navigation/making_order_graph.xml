@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/making_order_graph"
+    app:startDestination="@id/makingOrderFragment">
+
+    <fragment
+        android:id="@+id/makingOrderFragment"
+        android:name="ru.apteka.making_order.presentation.MakingOrderFragment"
+        tools:layout="@layout/making_order_fragment">
+
+        <argument
+            android:name="productsForOrder"
+            app:argType="ru.apteka.components.data.models.ProductModel[]" />
+
+    </fragment>
+
+</navigation>

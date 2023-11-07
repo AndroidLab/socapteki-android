@@ -30,11 +30,9 @@ class OrdersViewModel @Inject constructor(
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService,
     @ApplicationContext context: Context
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

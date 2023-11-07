@@ -9,9 +9,16 @@ import ru.apteka.product_card.databinding.ProductCardPriceImageHolderBinding
  * Представляет адаптер для карточки рекламы.
  */
 class PriceImageAdapter :
-    ViewBindingDelegateAdapter<String, ProductCardPriceImageHolderBinding>(ProductCardPriceImageHolderBinding::inflate) {
+    ViewBindingDelegateAdapter<String, ProductCardPriceImageHolderBinding>(
+        ProductCardPriceImageHolderBinding::inflate
+    ) {
 
-    override fun ProductCardPriceImageHolderBinding.onBind(item: String) {
+    override fun ProductCardPriceImageHolderBinding.onBind(
+        item: String,
+        position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         image = item
         executePendingBindings()
     }

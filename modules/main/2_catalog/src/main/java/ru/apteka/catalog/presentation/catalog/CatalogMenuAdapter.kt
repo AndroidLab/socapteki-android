@@ -12,7 +12,11 @@ import ru.apteka.catalog.data.models.CatalogMenuItem
 class CatalogMenuAdapter(private val onItemClick: (CatalogMenuItem) -> Unit) :
     ViewBindingDelegateAdapter<CatalogMenuItem, CatalogMenuItemBinding>(CatalogMenuItemBinding::inflate) {
 
-    override fun CatalogMenuItemBinding.onBind(item: CatalogMenuItem) {
+    override fun CatalogMenuItemBinding.onBind(
+        item: CatalogMenuItem, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
         executePendingBindings()
         catalogMenuItem.setOnClickListener {

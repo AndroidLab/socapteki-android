@@ -13,7 +13,11 @@ import ru.apteka.choosing_city.data.model.CityCardModel
 class ChoosingCityAdapter(private val _lifecycleOwner: LifecycleOwner) :
     ViewBindingDelegateAdapter<CityCardModel, ChoosingCityHolderBinding>(ChoosingCityHolderBinding::inflate) {
 
-    override fun ChoosingCityHolderBinding.onBind(item: CityCardModel) {
+    override fun ChoosingCityHolderBinding.onBind(
+        item: CityCardModel, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         lifecycleOwner = _lifecycleOwner
         model = item
         executePendingBindings()

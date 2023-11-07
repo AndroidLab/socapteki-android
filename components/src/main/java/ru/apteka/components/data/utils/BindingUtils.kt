@@ -1,11 +1,9 @@
 package ru.apteka.components.data.utils
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
-import android.text.Html
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +17,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -34,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputLayout
 import ru.apteka.components.BR
 import ru.apteka.components.R
@@ -77,8 +73,8 @@ fun setTextSize(textView: TextView, value: Float) {
 /**
  * Устанавливает отступы.
  * @param view [View]
- * @param marginTop [Int]
- * @param marginBottom [Int]
+ * @param top [Int]
+ * @param bottom [Int]
  */
 @BindingAdapter(
     "app:layoutMarginStart",
@@ -87,56 +83,55 @@ fun setTextSize(textView: TextView, value: Float) {
     "app:layoutMarginBottom",
     requireAll = false
 )
-fun setLayoutMargin(
-    view: View,
-    marginStart: Int?,
-    marginTop: Int?,
-    marginEnd: Int?,
-    marginBottom: Int?
+fun View.setLayoutMargin(
+    start: Int? = null,
+    top: Int? = null,
+    end: Int? = null,
+    bottom: Int? = null
 ) {
-    if (marginStart != null || marginTop != null || marginEnd != null || marginBottom != null) {
-        val lp = LinearLayout.LayoutParams(view.layoutParams.width, view.layoutParams.height)
-        if (marginStart != null) {
-            view.layoutParams =
+    if (start != null || top != null || end != null || bottom != null) {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        if (start != null) {
+            layoutParams =
                 lp.apply {
                     setMargins(
-                        marginStart.dp,
-                        view.marginTop,
-                        view.marginRight,
-                        view.marginBottom
+                        start.dp,
+                        marginTop,
+                        marginRight,
+                        marginBottom
                     )
                 }
         }
-        if (marginTop != null) {
-            view.layoutParams =
+        if (top != null) {
+            layoutParams =
                 lp.apply {
                     setMargins(
-                        view.marginLeft,
-                        marginTop.dp,
-                        view.marginRight,
-                        view.marginBottom
+                        marginLeft,
+                        top.dp,
+                        marginRight,
+                        marginBottom
                     )
                 }
         }
-        if (marginEnd != null) {
-            view.layoutParams =
+        if (end != null) {
+            layoutParams =
                 lp.apply {
                     setMargins(
-                        view.marginLeft,
-                        view.marginTop,
-                        marginEnd.dp,
-                        view.marginBottom
+                        marginLeft,
+                        marginTop,
+                        end.dp,
+                        marginBottom
                     )
                 }
         }
-        if (marginBottom != null) {
-            view.layoutParams =
+        if (bottom != null) {
+            layoutParams =
                 lp.apply {
                     setMargins(
-                        view.marginLeft,
-                        view.marginTop,
-                        view.marginRight,
-                        marginBottom.dp
+                        marginLeft,
+                        marginTop,
+                        marginRight,
+                        bottom.dp
                     )
                 }
         }
@@ -219,6 +214,20 @@ fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
         layoutHeight?.dp ?: ViewGroup.LayoutParams.WRAP_CONTENT
     }
     view.layoutParams = lp
+}
+
+/**
+ * Устанавливает ширину бордера CardView.
+ * @param cardView [MaterialCardView].
+ * @param borderWidth [Int].
+ */
+@BindingAdapter("app:borderWidth")
+fun setBorderWidth(cardView: MaterialCardView, borderWidth: Int?) {
+    if (borderWidth == null) {
+        cardView.strokeWidth = 0
+    } else {
+        cardView.strokeWidth = borderWidth.dp
+    }
 }
 
 /**
@@ -507,6 +516,39 @@ fun AppBarLayout.canScroll(
                 }
             })
         }
+}
 
+/**
+ * Возмможность скролла коллапсинг тоол бара.
+ */
+/*
+@BindingAdapter("app:bouncyOrientation")
+fun BouncyRecyclerView.bouncyOrientation(
+    orientation: Int?
+) {
+    if (orientation != null) {
+        layoutManager = LinearLayoutManager(context, orientation, false)
+    }
+}*/
 
+/**
+ * Устанавливает флаг возможности клика по вью и всем его потомкам.
+ */
+@BindingAdapter("app:isUserInteractionEnabled")
+fun View.setUserInteractionEnabled(enabled: Boolean) {
+    isEnabled = enabled
+    if (this is ViewGroup && this.childCount > 0) {
+        this.children.forEach {
+            it.setUserInteractionEnabled(enabled)
+        }
+    }
+}
+
+/**
+ * Устанавливает флаг видимости с выключением клика по вью и всем его потомкам.
+ */
+@BindingAdapter("app:isVisibleWithInteractionEnabled")
+fun View.setVisibleWithInteractionEnabled(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    setUserInteractionEnabled(isVisible)
 }

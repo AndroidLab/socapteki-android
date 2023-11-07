@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.making_order.presentation.MakingOrderViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/makingOrderToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isLoading="@{viewModel.isLoading}">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_secondary"
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Выбор города -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="16dp"
+                            android:src="@drawable/ic_city_location"
+                            app:tint="@color/grey"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@{viewModel.selectedCity.name}" />
+
+                        <TextView
+                            android:id="@+id/makingOrderChoosingCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="16dp"
+                            android:text="@string/change"
+                            android:textColor="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <!-- Ваш заказ -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.github.florent37.expansionpanel.ExpansionHeader
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp"
+                                app:expansion_headerIndicator="@id/headerIndicator"
+                                app:expansion_layout="@id/expansionLayout">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/making_order_your_order" />
+
+                                <ImageView
+                                    android:id="@+id/headerIndicator"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:src="@drawable/ic_arrow_expand"
+                                    tools:ignore="ContentDescription" />
+
+                            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                            <com.github.florent37.expansionpanel.ExpansionLayout
+                                android:id="@+id/expansionLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:expansion_expanded="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:forItems="@{viewModel.productsForOrder}"
+                                    app:useTemplate="@{@layout/making_order_template}" />
+
+                            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Добавьте 2,3,4 товара -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.github.florent37.expansionpanel.ExpansionHeader
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp"
+                                app:expansion_headerIndicator="@id/headerIndicator1"
+                                app:expansion_layout="@id/expansionLayout1">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:background="@drawable/shape_circle_surface_variant_icon"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_list_percent"
+                                        tools:ignore="ContentDescription" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginHorizontal="16dp"
+                                        android:text="Добавьте 2-3-4 товара, участвующих в акции, чтобы получить скидку 1 000 ₽" />
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/headerIndicator1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:src="@drawable/ic_arrow_expand"
+                                    tools:ignore="ContentDescription" />
+
+                            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                            <com.github.florent37.expansionpanel.ExpansionLayout
+                                android:id="@+id/expansionLayout1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:expansion_expanded="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="6dp"
+                                    android:paddingBottom="36dp"
+                                    app:forItems="@{viewModel.additionalProducts}"
+                                    app:useTemplate="@{@layout/making_order_additional_products_template}" />
+
+                            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
+
+</layout>

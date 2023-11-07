@@ -12,7 +12,12 @@ import ru.apteka.home.databinding.PromotionCardViewBinding
 class PromotionCardViewAdapter(private val onItemClick: () -> Unit) :
     ViewBindingDelegateAdapter<PromotionModel, PromotionCardViewBinding>(PromotionCardViewBinding::inflate) {
 
-    override fun PromotionCardViewBinding.onBind(item: PromotionModel) {
+    override fun PromotionCardViewBinding.onBind(
+        item: PromotionModel,
+        position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
         executePendingBindings()
         promotionCardItem.setOnClickListener {

@@ -12,7 +12,11 @@ import ru.apteka.home.databinding.AdvertCardViewBinding
 class AdvertCardViewAdapter(private val onItemClick: () -> Unit) :
     ViewBindingDelegateAdapter<AdvertModel, AdvertCardViewBinding>(AdvertCardViewBinding::inflate) {
 
-    override fun AdvertCardViewBinding.onBind(item: AdvertModel) {
+    override fun AdvertCardViewBinding.onBind(
+        item: AdvertModel, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
 
         executePendingBindings()

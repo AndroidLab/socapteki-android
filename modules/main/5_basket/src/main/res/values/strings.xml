@@ -2,11 +2,12 @@
     <string name="basket_title">Корзина</string>
 
     <string name="basket_there_nothing">В корзине пока ничего нет</string>
+    <string name="basket_clear_all">Очистить все (%sшт)</string>
     <string name="basket_there_nothing_desc">Наполните ее товарами с главной страницы или с раздела с акциями</string>
     <string name="basket_to_promotion">К акциям</string>
     <string name="basket_to_catalog">В каталог</string>
-    <string name="basket_watched_recently">Вы недавно смотрели</string>
-    <string name="basket_watched_recently_all_products">Все товары</string>
-    <string name="basket_buy">Купить</string>
+    <string name="basket_always_useful">Всегда пригодится</string>
+    <string name="basket_always_useful_all_products">Все товары</string>
+    <string name="basket_buy">Оформить заказ</string>
 
 </resources>

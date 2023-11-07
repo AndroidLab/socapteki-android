@@ -24,10 +24,8 @@ class MySubscriptionsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

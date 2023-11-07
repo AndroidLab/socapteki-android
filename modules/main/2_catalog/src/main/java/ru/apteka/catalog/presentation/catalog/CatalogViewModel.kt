@@ -23,10 +23,8 @@ class CatalogViewModel @Inject constructor(
     private val catalogRepository: CatalogRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

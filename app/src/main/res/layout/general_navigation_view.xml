@@ -3,16 +3,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        android:fitsSystemWindows="true"
-        app:drawerLayoutCornerSize="0dp"
-        app:itemIconTint="@color/color_primary"
-        app:itemRippleColor="@color/color_secondary_container"
-        app:menu="@menu/drawer_menu" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Выбор авторизации/профиля -->
+        <include
+            android:id="@+id/appMenuItemAuth"
+            layout="@layout/app_menu_item" />
+
+        <!-- Выбор города -->
+        <include
+            android:id="@+id/appMenuItemCity"
+            layout="@layout/app_menu_item"
+            app:desc="@{@string/change}"
+            app:icon="@{@drawable/ic_city_location}" />
+
+        <include
+            layout="@layout/separator_view"
+            app:sepMargin="@{4}" />
+
+        <!-- О компании -->
+        <include
+            android:id="@+id/appMenuItemAboutCompany"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_about_company}"
+            app:title="@{@string/about_company}" />
+
+        <!-- Работа у нас -->
+        <include
+            android:id="@+id/appMenuItemWorkWithUs"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_work_with_us}"
+            app:title="@{@string/work_with_us}" />
+
+        <!-- Производители -->
+        <include
+            android:id="@+id/appMenuItemManufacturers"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_manufacturers}"
+            app:title="@{@string/manufacturers}" />
+
+        <!-- Контакты -->
+        <include
+            android:id="@+id/appMenuItemContacts"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_contacts}"
+            app:title="@{@string/contacts}" />
+
+        <!-- Аптеки на карте -->
+        <include
+            android:id="@+id/appMenuItemPharmacies"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_pharmacies_in_map}"
+            app:title="@{@string/pharmacies_map_title}" />
+
+        <!-- Отзывы -->
+        <include
+            android:id="@+id/appMenuItemReviews"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_reviews}"
+            app:title="@{@string/reviews}" />
+
+        <!-- Сотрудничество -->
+        <include
+            android:id="@+id/appMenuItemCooperation"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_cooperation}"
+            app:title="@{@string/cooperation}" />
+
+        <!-- Лицензии и разрешения -->
+        <include
+            android:id="@+id/appMenuItemLicensesAndPermits"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_licenses_and_permits}"
+            app:title="@{@string/licenses_and_permits}" />
+
+        <!-- Партнерам -->
+        <include
+            android:id="@+id/appMenuItemPartners"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_partners}"
+            app:title="@{@string/partners}" />
+
+        <!-- Бренды -->
+        <include
+            android:id="@+id/appMenuItemBrands"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_brands}"
+            app:title="@{@string/brands}" />
+
+    </LinearLayout>
+
 
 </layout>

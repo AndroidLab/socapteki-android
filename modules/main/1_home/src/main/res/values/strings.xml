@@ -1,23 +1,27 @@
 <resources>
 
-    <string name="home_city_not_selected">Город не выбран</string>
-    <string name="home_location_change">Изменить</string>
     <string name="home_promotions">Акции</string>
     <string name="home_promotions_all">Все акции</string>
     <string name="home_products_day">Товары дня</string>
     <string name="home_products_discount">Товары со скидкой</string>
     <string name="home_products_all">Все товары</string>
 
+    <string name="home_advantages">Преимущества</string>
+    <string name="home_advantages_around_clock_title">Круглосуточно и без выходных</string>
+    <string name="home_advantages_around_clock_desc">Интернет заказы принимаются в любое удобное время</string>
+    <string name="home_advantages_more_products_title">50 000 товаров</string>
+    <string name="home_advantages_more_products_desc">Редкие лекарства доступны в одном месте</string>
+    <string name="home_advantages_no_queue_title">Обслуживание без очереди</string>
+    <string name="home_advantages_no_queue_desc">Получение товара в аптеке без очереди после поступления СМС уведомления о готовности заказа</string>
     <string name="home_menu_brands">Бренды</string>
     <string name="home_menu_pharmacies_map">Аптеки на карте</string>
-    <string name="home_menu_advantages">Преимущества</string>
     <string name="home_menu_partners">Наши партнеры</string>
 
     <string name="profile_title">Профиль</string>
     <string name="profile_personal_data">Личные данные</string>
     <string name="profile_favorites">Избранное</string>
     <string name="profile_orders">Заказы</string>
-    <string name="profile_apteki">Аптеки</string>
+    <string name="profile_pharmacies">Аптеки</string>
     <string name="profile_bonus_program">Бонусная программа</string>
     <string name="profile_referral_program">Реферальная программа</string>
     <string name="profile_comments_reviews">Комментарии и отзывы</string>
@@ -33,6 +37,7 @@
     <string name="apteki_title">Аптеки</string>
 
     <string name="bonus_program_title">Бонусная программа</string>
+    <string name="bonus_program_virtual_card">Виртуальная карта</string>
     <string name="bonus_program_banner_title">Участвуйте в бонусной программе</string>
     <string name="bonus_program_banner_desc">И получай скидку на покупку товаров</string>
     <string name="bonus_program_text">Каждый зарегистрированный пользователь сайта может стать участником бонусной программы, зарабатывая бонусные баллы, которые можно использовать для получения скидки до 10% при оформлении заказа</string>
@@ -48,5 +53,7 @@
     <string name="comments_reviews_feedback_page">Обратная связь</string>
     <string name="comments_reviews_published">Опубликованно</string>
     <string name="comments_reviews_consideration">На рассмотрении</string>
+
+    <string name="card_title">Карта</string>
 
 </resources>

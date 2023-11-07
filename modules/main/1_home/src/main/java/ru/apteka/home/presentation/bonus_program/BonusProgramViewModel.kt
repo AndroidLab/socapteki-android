@@ -27,10 +27,8 @@ class BonusProgramViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val bonusRepository: BonusRepository,
     navigationManager: NavigationManager,
-    accountsPreferences: AccountsPreferences,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
-    accountsPreferences,
     navigationManager,
     messageNoticeService
 ) {

@@ -20,7 +20,6 @@ abstract class MainScreenBaseFragment<TViewModel : MainScreenBaseViewModel, TDat
      */
     fun fillMainScreensToolbar(
         toolbarBinding: ToolbarBinding,
-        onProfileClick: (() -> Unit)? = null,
         onSearchClick: (() -> Unit)? = null
     ) {
         toolbarBinding.apply {
@@ -36,23 +35,8 @@ abstract class MainScreenBaseFragment<TViewModel : MainScreenBaseViewModel, TDat
                     null,
                     false
                 ).apply {
-                    viewModel!!.account.observe(viewLifecycleOwner) { account ->
-                        ivMenuAuth.setImageResource(
-                            if (account == null) R.drawable.ic_login else R.drawable.ic_account
-                        )
-                    }
                     ivMenuSearch.setOnClickListener {
                         onSearchClick?.invoke()
-                    }
-                    ivMenuDoctor.setOnClickListener {
-
-                    }
-                    ivMenuAuth.setOnClickListener {
-                        if (viewModel!!.accountsPreferences.account == null) {
-                            viewModel!!.navigationManager.navigateToAuthActivity()
-                        } else {
-                            onProfileClick?.invoke()
-                        }
                     }
                 }.root
             )

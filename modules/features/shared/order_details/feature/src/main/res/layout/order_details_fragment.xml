@@ -32,8 +32,8 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
                 android:background="@color/background_secondary"
+                android:fillViewport="true"
                 android:overScrollMode="never"
                 android:scrollbars="none">
 
@@ -91,8 +91,7 @@
 
                         </FrameLayout>
 
-                        <include
-                            layout="@layout/separator_view" />
+                        <include layout="@layout/separator_view" />
 
                         <!-- Способ доставки -->
                         <LinearLayout
@@ -184,8 +183,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/color_primary"
                                 android:text="@{viewModel.orderDetail.bonusCount}"
+                                android:textColor="@color/color_primary"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -215,7 +214,7 @@
 
                         <include
                             layout="@layout/separator_view"
-                            app:sepMargin="@{16}"/>
+                            app:sepMargin="@{16}" />
 
                         <!-- Итоговая стоимость -->
                         <LinearLayout
@@ -255,15 +254,12 @@
 
 
                     <!-- Продлить бронирование -->
-                    <TextView
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Theme.Socapteki.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center_horizontal"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="@string/order_details_extend_booking"
-                        android:textColor="@color/color_primary" />
+                        android:layout_marginHorizontal="16dp"
+                        android:text="@string/order_details_extend_booking" />
 
                     <!-- Кнопки отменить/повторить -->
                     <LinearLayout
@@ -300,7 +296,6 @@
         </ru.apteka.components.ui.LoaderLayout>
 
     </LinearLayout>
-
 
 
 </layout>

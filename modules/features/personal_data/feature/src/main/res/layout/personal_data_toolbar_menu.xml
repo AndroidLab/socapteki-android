@@ -7,8 +7,9 @@
         android:id="@+id/personalDataToolbarMenuDelete"
         android:layout_width="@dimen/toolbar_height"
         android:layout_height="@dimen/toolbar_height"
-        android:paddingEnd="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingEnd="8dp"
+        android:scaleType="fitEnd"
         android:src="@drawable/ic_personal_data_delete"
         tools:ignore="ContentDescription" />
 

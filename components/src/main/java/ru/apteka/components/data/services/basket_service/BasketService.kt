@@ -80,6 +80,29 @@ class BasketService @Inject constructor(
     }
 
     /**
+     * Очищает корзину.
+     */
+    fun removeAll() {
+        messageNoticeService.showCommonDialog(
+            dialogModel = DialogModel(
+                message = MessageModel(
+                    message = R.string.dialog_remove_product_all_desk
+                ),
+                buttonCancel = DialogButtonModel(
+                    text = R.string.cancel
+                ),
+                buttonConfirm = DialogButtonModel(
+                    text = R.string.remove,
+                ) {
+                    _products.value!!.forEach {
+                        it.productCard.itemCounter.clear()
+                    }
+                }
+            )
+        )
+    }
+
+    /**
      * Возвращает флаг содержания продукции в корзине.
      */
     fun isContainsInBasket(uuid: UUID) = _products.value!!.contains { it.productCard.product.id == uuid }

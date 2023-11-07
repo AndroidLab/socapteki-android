@@ -35,180 +35,206 @@
                 android:id="@+id/catalogProducts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:overScrollMode="never"
                 android:background="@color/background_secondary"
                 android:fillViewport="true">
 
-                <LinearLayout
+                <!-- Контейнер для перекючения между поиском и результатом -->
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:visibleIf="@{!viewModel.isLoading()}">
+                    android:layout_height="match_parent">
 
+                    <!-- Список результатов поиска -->
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white">
+                        android:layout_height="match_parent">
 
-                        <!-- Сортировка -->
-                        <LinearLayout
-                            android:id="@+id/catalogProductsSort"
-                            android:layout_width="wrap_content"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSearchResult"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:orientation="horizontal"
-                            android:paddingStart="@dimen/base_padding">
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:visibleIf="@{viewModel.isSearchShow}" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                app:setText="@{viewModel.sortModel.itemSelected}" />
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_arrow_down"
-                                tools:ignore="ContentDescription" />
-
-                        </LinearLayout>
-
-                        <!-- Значек филтра -->
-                        <FrameLayout
-                            android:id="@+id/catalogProductAllFilters"
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_filters"
-                                tools:ignore="ContentDescription" />
-
-                            <ImageView
-                                android:layout_width="6dp"
-                                android:layout_height="6dp"
-                                android:layout_gravity="end"
-                                android:src="@drawable/shape_circle"
-                                app:tint="@color/red"
-                                app:visibleIf="@{viewModel.filterAll.globalAnySelected}"
-                                tools:ignore="ContentDescription" />
-
-                        </FrameLayout>
+                        <include
+                            layout="@layout/progress_bar"
+                            app:isLoading="@{viewModel.isSearchProductsLoading}" />
 
                     </FrameLayout>
 
-                    <!-- Список фильтров -->
-                    <HorizontalScrollView
+
+                    <!-- Экран найденной продукции -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:fillViewport="true"
-                        android:scrollbars="none">
+                        android:orientation="vertical"
+                        app:visibleIf="@{!viewModel.isSearchShow}">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="16dp"
-                            app:forItems="@{filterChips}"
-                            app:useTemplate="@{@layout/catalog_product_filter_chip_template}" />
-
-                    </HorizontalScrollView>
-
-                    <!-- Список товаров -->
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPaddingLeft="@dimen/base_padding"
-                        app:contentPaddingRight="@dimen/base_padding">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvCatalogProducts"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:overScrollMode="never" />
+                            android:minHeight="100dp">
 
-                    </com.google.android.material.card.MaterialCardView>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:visibleIf="@{!viewModel.products.empty}">
 
-                    <!-- Показать еще -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/base_padding"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:onClick="@{() -> viewModel.showMore()}"
-                        android:padding="8dp"
-                        android:text="@string/catalog_product_show_more"
-                        android:textColor="@color/color_primary" />
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
 
-                    <!-- Советы -->
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPaddingBottom="4dp"
-                        app:contentPaddingTop="4dp">
+                                    <!-- Сортировка -->
+                                    <LinearLayout
+                                        android:id="@+id/catalogProductsSort"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:orientation="horizontal"
+                                        android:paddingStart="@dimen/base_padding">
 
-                        <LinearLayout
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            app:setText="@{viewModel.sortModel.itemSelected}" />
+
+                                        <ImageView
+                                            android:layout_width="24dp"
+                                            android:layout_height="24dp"
+                                            android:src="@drawable/ic_arrow_down"
+                                            tools:ignore="ContentDescription" />
+
+                                    </LinearLayout>
+
+                                    <!-- Значек фильтра -->
+                                    <FrameLayout
+                                        android:id="@+id/catalogProductAllFilters"
+                                        android:layout_width="46dp"
+                                        android:layout_height="46dp"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:padding="16dp">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:src="@drawable/ic_filters"
+                                            tools:ignore="ContentDescription" />
+
+                                        <ImageView
+                                            android:layout_width="6dp"
+                                            android:layout_height="6dp"
+                                            android:layout_gravity="end"
+                                            android:src="@drawable/shape_circle"
+                                            app:tint="@color/red"
+                                            app:visibleIf="@{viewModel.filterAll.globalAnySelected}"
+                                            tools:ignore="ContentDescription" />
+
+                                    </FrameLayout>
+
+                                </FrameLayout>
+
+                                <!-- Список фильтров -->
+                                <HorizontalScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:fillViewport="true"
+                                    android:scrollbars="none">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="16dp"
+                                        app:forItems="@{filterChips}"
+                                        app:useTemplate="@{@layout/catalog_product_filter_chip_template}" />
+
+                                </HorizontalScrollView>
+
+                                <!-- Список товаров -->
+                                <com.google.android.material.card.MaterialCardView
+                                    style="@style/Theme.Socapteki.BackgroundCard"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:contentPaddingLeft="@dimen/base_padding"
+                                    app:contentPaddingRight="@dimen/base_padding">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rvCatalogProducts"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/white"
+                                            android:overScrollMode="never" />
+
+                                        <!-- Показать еще -->
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/base_padding"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:gravity="center"
+                                            android:onClick="@{() -> viewModel.showMore()}"
+                                            android:padding="8dp"
+                                            android:text="@string/catalog_product_show_more"
+                                            android:textColor="@color/color_primary" />
+
+                                    </LinearLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </LinearLayout>
+
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.isProductsLoading}" />
+
+                        </FrameLayout>
+
+                        <!-- С этим товаром покупают -->
+                        <include
+                            android:id="@+id/catalogProductsWithProductBuy"
+                            layout="@layout/horizontal_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="6dp"
+                            app:isLoading="@{viewModel.productsWithProductBuyIsLoading}"
+                            app:marginItemHorizontal="@{0}"
+                            app:textBtn="@{@string/all}"
+                            app:title="@{@string/catalog_product_with_product_buy}" />
 
-                            <include
-                                layout="@layout/catalog_product_recommendation"
-                                app:image="@{@drawable/ic_pill}"
-                                app:onClick="@{viewModel.onShowPrescribingMedications}"
-                                app:title="@{@string/catalog_product_recommendation_prescribing_medications}" />
+                        <!-- Вы недавно смотрели -->
+                        <include
+                            android:id="@+id/catalogProductsRecentlyWatched"
+                            layout="@layout/horizontal_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="6dp"
+                            app:isLoading="@{viewModel.productsRecentlyWatchedIsLoading}"
+                            app:marginItemHorizontal="@{0}"
+                            app:textBtn="@{@string/all}"
+                            app:title="@{@string/catalog_product_recently_watched}" />
 
-                            <include
-                                layout="@layout/catalog_product_recommendation"
-                                app:image="@{@drawable/ic_release_form}"
-                                app:onClick="@{viewModel.onShowReleaseForm}"
-                                app:title="@{@string/catalog_product_recommendation_release_form}" />
+                        <include layout="@layout/footer_stub" />
 
-                            <include
-                                layout="@layout/catalog_product_recommendation"
-                                app:image="@{@drawable/ic_how_to_choose}"
-                                app:onClick="@{viewModel.onShowToChooseAndOrder}"
-                                app:title="@{@string/catalog_product_recommendation_how_to_choose}" />
+                    </LinearLayout>
 
-                        </LinearLayout>
+                </FrameLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
 
-                    <!-- С этим товаром покупают -->
-                    <include
-                        android:id="@+id/catalogProductsWithProductBuy"
-                        layout="@layout/horizontal_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        app:isLoading="@{viewModel.productsWithProductBuyIsLoading}"
-                        app:textBtn="@{@string/all}"
-                        app:title="@{@string/catalog_product_with_product_buy}" />
-
-                    <!-- Вы недавно смотрели -->
-                    <include
-                        android:id="@+id/catalogProductsRecentlyWatched"
-                        layout="@layout/horizontal_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="6dp"
-                        app:isLoading="@{viewModel.productsRecentlyWatchedIsLoading}"
-                        app:textBtn="@{@string/all}"
-                        app:title="@{@string/catalog_product_recently_watched}" />
-
-                    <include layout="@layout/footer_stub" />
-
-                </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
 

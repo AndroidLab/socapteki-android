@@ -57,7 +57,7 @@ class OrdersFragment : MainScreenBaseFragment<OrdersViewModel, OrdersFragmentBin
                 OrderSearchApiR.id.order_search_graph,
             )
         }
-        binding.ordersToolbar.toolbar.title = getString(R.string.orders_title)
+        binding.ordersToolbar.tvToolbarTitle.text = getString(R.string.orders_title)
     }
 
 }

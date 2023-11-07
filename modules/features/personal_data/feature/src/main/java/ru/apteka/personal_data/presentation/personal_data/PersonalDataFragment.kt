@@ -69,7 +69,7 @@ class PersonalDataFragment :
     override fun onResume() {
         super.onResume()
         fillFeatureScreensToolbar(binding.personalDataToolbar)
-        binding.personalDataToolbar.toolbar.title = getString(R.string.personal_data)
+        binding.personalDataToolbar.tvToolbarTitle.text = getString(R.string.personal_data)
         binding.personalDataToolbar.toolbarCustomViewContainer.addView(
             PersonalDataToolbarMenuBinding.inflate(
                 layoutInflater,

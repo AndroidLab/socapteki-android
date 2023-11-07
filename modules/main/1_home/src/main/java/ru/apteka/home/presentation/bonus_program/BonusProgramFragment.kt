@@ -33,7 +33,7 @@ class BonusProgramFragment :
         super.onResume()
         binding.bonusProgramToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            toolbar.title = getString(R.string.bonus_program_title)
+            tvToolbarTitle.text = getString(R.string.bonus_program_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

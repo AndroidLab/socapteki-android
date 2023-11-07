@@ -2,6 +2,7 @@ package ru.apteka.home.presentation.profile
 
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.account.AccountRemoveService
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
@@ -25,6 +26,9 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
     @Inject
     lateinit var accountRemoveService: AccountRemoveService
 
+    @Inject
+    lateinit var accountsPreferences: AccountsPreferences
+
     override fun onViewBindingInflated(binding: UserProfileFragmentBinding) {
         accountRemoveService.isAccountRemove.observe(viewLifecycleOwner) {
             navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
@@ -44,7 +48,7 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
 
         binding.userProfileApteki.profileCard.setOnClickListener {
             navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-                UserProfileFragmentDirections.toAptekiFragment()
+                UserProfileFragmentDirections.toPharmaciesFragment()
             )
         }
 
@@ -70,13 +74,18 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
                 UserProfileFragmentDirections.toSubscriptionsFragment()
             )
         }
+
+        binding.userProfileLogout.setOnClickListener {
+            accountsPreferences.account = null
+            navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
+        }
     }
 
     override fun onResume() {
         super.onResume()
         binding.profileToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
-            toolbar.title = getString(R.string.profile_title)
+            tvToolbarTitle.text = getString(R.string.profile_title)
             toolbar.setNavigationOnClickListener {
                 navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

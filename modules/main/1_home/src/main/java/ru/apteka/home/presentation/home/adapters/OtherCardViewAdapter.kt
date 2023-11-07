@@ -12,7 +12,11 @@ import ru.apteka.home.databinding.OtherCardViewBinding
 class OtherCardViewAdapter(private val onItemClick: () -> Unit) :
     ViewBindingDelegateAdapter<OtherModel, OtherCardViewBinding>(OtherCardViewBinding::inflate) {
 
-    override fun OtherCardViewBinding.onBind(item: OtherModel) {
+    override fun OtherCardViewBinding.onBind(
+        item: OtherModel, position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
         executePendingBindings()
         otherCardItem.setOnClickListener {

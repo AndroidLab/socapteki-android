@@ -12,7 +12,7 @@
         tools:layout="@layout/catalog_fragment">
 
         <action
-            android:id="@+id/to_catalogProductsFragment"
+            android:id="@+id/toCatalogProductsFragment"
             app:destination="@id/catalogProductsFragment" />
 
     </fragment>
@@ -25,26 +25,6 @@
         <argument
             android:name="catalogItemName"
             app:argType="string" />
-
-        <action
-            android:id="@+id/to_catalogProductRecommendationFragment"
-            app:destination="@id/catalogProductRecommendationFragment" />
-
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/catalogProductRecommendationFragment"
-        android:name="ru.apteka.catalog.presentation.recommendations.CatalogProductRecommendationFragment"
-        tools:layout="@layout/catalog_product_recommendation_fragment">
-
-        <argument
-            android:name="title"
-            app:argType="integer" />
-
-        <argument
-            android:name="desk"
-            app:argType="integer" />
 
     </fragment>
 

@@ -11,21 +11,16 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/homeToolbar"
-            layout="@layout/toolbar" />
-
-        <androidx.core.widget.NestedScrollView
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
             android:id="@+id/svHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/homePharmaciesMap"
             android:fillViewport="true"
-            android:overScrollMode="never"
             android:scrollbars="none">
 
             <LinearLayout
@@ -33,107 +28,128 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Выбор локации -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    tools:ignore="UselessParent">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_location"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@{viewModel.selectedCity == null ? @string/home_city_not_selected : viewModel.selectedCity}" />
-
-                    <TextView
-                        android:id="@+id/tvHomeLocationChange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="16dp"
-                        android:text="@string/home_location_change"
-                        android:textColor="@color/color_primary" />
-
-                </LinearLayout>
-
                 <!-- Реклама -->
                 <include
                     android:id="@+id/homeAdvert"
                     layout="@layout/horizontal_list"
-                    app:circlePagerIndicator="@{32}"
-                    app:linearSnapHelper="@{true}"
-                    app:isLoading="@{viewModel.advertsIsLoading}"
-                    app:marginItemHorizontal="@{0}"/>
-
-                <!-- Все акции -->
-                <include
-                    android:id="@+id/homePromotions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    layout="@layout/horizontal_list"
-                    app:title="@{@string/home_promotions}"
-                    app:textBtn="@{@string/home_promotions_all}"
-                    app:isLoading="@{viewModel.promotionsIsLoading}" />
+                    app:circlePagerIndicator="@{32}"
+                    app:isLoading="@{viewModel.advertsIsLoading}"
+                    app:linearSnapHelper="@{true}"
+                    app:marginItemHorizontal="@{0}" />
 
                 <!-- Товары дня -->
                 <include
                     android:id="@+id/homeProductsDay"
+                    layout="@layout/horizontal_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    layout="@layout/horizontal_list"
-                    app:title="@{@string/home_products_day}"
+                    app:isLoading="@{viewModel.productsDayIsLoading}"
+                    app:marginItemHorizontal="@{0}"
                     app:textBtn="@{@string/home_products_all}"
-                    app:isLoading="@{viewModel.productsDayIsLoading}" />
+                    app:title="@{@string/home_products_day}" />
+
+                <!-- Все акции -->
+                <include
+                    android:id="@+id/homePromotions"
+                    layout="@layout/horizontal_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:isLoading="@{viewModel.promotionsIsLoading}"
+                    app:textBtn="@{@string/home_promotions_all}"
+                    app:title="@{@string/home_promotions}" />
 
                 <!-- Товары со скидкой -->
                 <include
                     android:id="@+id/homeProductsDiscount"
+                    layout="@layout/horizontal_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    layout="@layout/horizontal_list"
-                    app:title="@{@string/home_products_discount}"
+                    app:isLoading="@{viewModel.productsDiscountIsLoading}"
+                    app:marginItemHorizontal="@{0}"
                     app:textBtn="@{@string/home_products_all}"
-                    app:isLoading="@{viewModel.productsDiscountIsLoading}" />
+                    app:title="@{@string/home_products_discount}" />
 
                 <!-- Остальное -->
                 <include
                     android:id="@+id/homeOther"
+                    layout="@layout/horizontal_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    layout="@layout/horizontal_list"
-                    app:linearSnapHelper="@{true}"
-                    app:isLoading="@{viewModel.othersIsLoading}" />
+                    app:isLoading="@{viewModel.othersIsLoading}"
+                    app:linearSnapHelper="@{true}" />
+
+                <!-- Преимущества -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="4dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/home_advantages"
+                            android:textSize="20sp" />
+
+                        <include
+                            layout="@layout/home_advantages_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            app:desc="@{@string/home_advantages_around_clock_desc}"
+                            app:icon="@{@drawable/ic_home_advantages_around_clock}"
+                            app:title="@{@string/home_advantages_around_clock_title}" />
+
+                        <include
+                            layout="@layout/home_advantages_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            app:desc="@{@string/home_advantages_more_products_desc}"
+                            app:icon="@{@drawable/ic_home_advantages_more_products}"
+                            app:title="@{@string/home_advantages_more_products_title}" />
+
+                        <include
+                            layout="@layout/home_advantages_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            app:desc="@{@string/home_advantages_no_queue_desc}"
+                            app:icon="@{@drawable/ic_home_advantages_no_queue}"
+                            app:title="@{@string/home_advantages_no_queue_title}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <!-- Меню -->
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="6dp"
-                    app:contentPadding="@dimen/base_padding">
+                    android:layout_marginVertical="6dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingVertical="8dp">
+                        android:paddingVertical="4dp">
 
                         <include
                             android:id="@+id/homeMenuBrands"
@@ -142,22 +158,6 @@
                             android:layout_height="wrap_content"
                             app:icon="@{@drawable/ic_brands}"
                             app:text="@{@string/home_menu_brands}" />
-
-                        <include
-                            android:id="@+id/homeMenuPharmacies"
-                            layout="@layout/bottom_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:icon="@{@drawable/ic_pharmacies}"
-                            app:text="@{@string/home_menu_pharmacies_map}" />
-
-                        <include
-                            android:id="@+id/homeMenuAdvantages"
-                            layout="@layout/bottom_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:icon="@{@drawable/ic_advantages}"
-                            app:text="@{@string/home_menu_advantages}" />
 
                         <include
                             android:id="@+id/homeMenuPartners"
@@ -171,14 +171,52 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <include
-                    layout="@layout/footer_stub" />
+                <include layout="@layout/footer_stub" />
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
 
-    </LinearLayout>
+        <include
+            android:id="@+id/homeToolbar"
+            layout="@layout/toolbar" />
+
+        <!-- Аптеки на карте -->
+        <LinearLayout
+            android:id="@+id/homePharmaciesMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homeToolbar"
+            android:background="@drawable/bottom_corners_shape"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_pharmacies_in_map"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="@string/home_menu_pharmacies_map"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_arrow_expand"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </layout>

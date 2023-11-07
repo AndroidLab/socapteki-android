@@ -1,24 +1,23 @@
 <resources>
-    <string name="product_card_tab_price">Цена</string>
+    <string name="product_card_tab_desc">Описание</string>
     <string name="product_card_tab_analogs">Аналоги</string>
     <string name="product_card_tab_instruction">Инструкция</string>
     <string name="product_card_tab_reviews">Отзывы</string>
 
     <string name="product_card_release_form">Форма выпуска</string>
+    <string name="product_card_availability_pharmacies">Наличие в аптеках</string>
     <string name="product_card_manufacturer">Производитель</string>
     <string name="product_card_active_substance">Действующее вещество</string>
-    <string name="product_card_dosage">Дозировка</string>
     <string name="product_card_expiration_date">Срок годности</string>
     <string name="product_card_pickup">Самовывоз</string>
     <string name="product_card_home_delivery">Доставка на дом</string>
 
-    <string name="price_page_instructions_use_item">Интструкция по применению</string>
-    <string name="price_page_availability_apteki">Наличие в аптеках</string>
-    <string name="price_page_reviews_products">Отзывы</string>
-    <string name="price_page_add_basket">Добавить в корзину</string>
+    <string name="price_page_add_basket">В корзину</string>
 
-    <string name="product_card_instruction">Инструкция</string>
+    <string name="product_card_instruction">Инструкция по применению</string>
     <string name="product_card_send_comment">Написать отзыв</string>
+    <string name="product_card_comments_popular">Популярные</string>
+    <string name="product_card_comments_show_more">Показать еще</string>
 
 
 </resources>

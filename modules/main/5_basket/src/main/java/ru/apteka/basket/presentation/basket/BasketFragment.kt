@@ -6,16 +6,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.basket.R
 import ru.apteka.basket.databinding.BasketFragmentBinding
 import ru.apteka.components.data.models.ProductModel
-import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
-import ru.apteka.components.data.utils.skeletons
-import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.components.ui.delegate_adapter.SkeletonAdapter
 import ru.apteka.main_common.ui.MainScreenBaseFragment
+import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.main_common.R as MainCommonR
+import ru.apteka.making_order_api.R as MakingOrderApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
 
 /**
@@ -26,19 +24,10 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
     override val viewModel: BasketViewModel by viewModels()
     override val layoutId: Int = R.layout.basket_fragment
 
-    private val productsBasketAdapter by lazy {
-        CompositeDelegateAdapter(
-            ProductsBasketAdapter(
-                this
-            )
-        )
-    }
-
     private val productsWatchedRecentlyAdapter by lazy {
         getProductCardViewAdapter(
             this,
-            ::onProductsCardClick,
-            false
+            ::onProductsCardClick
         )
     }
 
@@ -57,18 +46,19 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
 
         }
 
-        binding.rvBasket.adapter = productsBasketAdapter
-        viewModel.basketService.products.observe(viewLifecycleOwner) {
-            productsBasketAdapter.swapData(it)
-        }
 
         binding.basketWatchedRecently.rv.adapter = productsWatchedRecentlyAdapter
         viewModel.productsWatchedRecently.observe(viewLifecycleOwner) {
-            productsWatchedRecentlyAdapter.swapData(
-                it.ifEmpty { skeletons }
-            )
+            productsWatchedRecentlyAdapter.swapData(it)
         }
 
+        binding.basketMakingOrder.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                MakingOrderApiR.id.making_order_graph, bundleOf(
+                    MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.products.value!!.map { it.productCard.product }.toTypedArray()
+                )
+            )
+        }
     }
 
     private fun onProductsCardClick(product: ProductModel) {
@@ -81,8 +71,11 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(binding.basketToolbar)
-        binding.basketToolbar.toolbar.title = getString(R.string.basket_title)
+        fillMainScreensToolbar(
+            toolbarBinding = binding.basketToolbar,
+            onSearchClick = viewModel.navigationManager.showSearchProduct
+        )
+        binding.basketToolbar.tvToolbarTitle.text = getString(R.string.basket_title)
     }
 
 }

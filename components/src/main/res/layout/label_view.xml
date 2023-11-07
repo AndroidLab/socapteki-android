@@ -22,8 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="6dp"
-            app:setText="@{bindingItem.text}"
-            android:textColor="@{bindingItem.getTextColor(context, bindingItem)}" />
+            android:singleLine="true"
+            android:textColor="@{bindingItem.getTextColor(context, bindingItem)}"
+            app:setText="@{bindingItem.text}" />
 
     </com.google.android.material.card.MaterialCardView>
 

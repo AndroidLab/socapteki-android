@@ -40,7 +40,10 @@ class FavoritesFragment : MainScreenBaseFragment<FavoritesViewModel, FavoritesFr
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(binding.favoritesToolbar)
-        binding.favoritesToolbar.toolbar.title = getString(R.string.favorites_title)
+        fillMainScreensToolbar(
+            toolbarBinding = binding.favoritesToolbar,
+            onSearchClick = viewModel.navigationManager.showSearchProduct
+        )
+        binding.favoritesToolbar.tvToolbarTitle.text = getString(R.string.favorites_title)
     }
 }

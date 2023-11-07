@@ -14,11 +14,10 @@ android {
 
 dependencies {
     api(libs.decoro)
-    api(libs.skeleton)
     api(libs.flexbox)
+    api(libs.lottie)
     implementation(libs.material)
     implementation(libs.gson)
     implementation(libs.swiperefreshlayout)
-    implementation(libs.lottie)
     implementation(libs.measured)
 }

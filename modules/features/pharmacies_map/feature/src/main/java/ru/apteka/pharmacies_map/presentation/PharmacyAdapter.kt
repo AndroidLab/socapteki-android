@@ -12,7 +12,12 @@ import ru.apteka.pharmacies_map.databinding.PharmacieItemHolderBinding
 class PharmacyAdapter(private val onItemClick: (PharmacyModel) -> Unit) :
     ViewBindingDelegateAdapter<PharmacyModel, PharmacieItemHolderBinding>(PharmacieItemHolderBinding::inflate) {
 
-    override fun PharmacieItemHolderBinding.onBind(item: PharmacyModel) {
+    override fun PharmacieItemHolderBinding.onBind(
+        item: PharmacyModel,
+        position: Int,
+        isFirst: Boolean,
+        isLast: Boolean
+    ) {
         model = item
         pharmacyItem.setOnClickListener {
             onItemClick(item)

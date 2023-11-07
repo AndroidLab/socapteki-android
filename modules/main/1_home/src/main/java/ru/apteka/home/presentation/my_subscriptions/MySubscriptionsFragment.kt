@@ -27,7 +27,7 @@ class MySubscriptionsFragment :
         super.onResume()
         binding.mySubscriptionsToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            toolbar.title = getString(R.string.my_subscriptions_title)
+            tvToolbarTitle.text = getString(R.string.my_subscriptions_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

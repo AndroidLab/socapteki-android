@@ -8,6 +8,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.choosing_city.R
 import ru.apteka.choosing_city.databinding.ChoosingCityFragmentBinding
 import ru.apteka.components.data.utils.bitmap
+import ru.apteka.components.data.utils.equalsWithDeviation
+import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
@@ -48,7 +50,7 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
             }
             toolbarCustomViewContainer.removeAllViews()
             toolbarCustomViewContainer.apply {
-                layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT)
+                //layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT)
                 addView(
                     DataBindingUtil.inflate<SearchToolbarViewBinding>(
                         layoutInflater,
@@ -67,12 +69,35 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
                                 }
                             )
                         }
-                        etToolBarSearch.doAfterTextChanged {
-                            viewModel.cityQuery.value = it.toString()
-                        }
-                        ivToolBarSearchClear.setOnClickListener {
+                        searchToolbarSearch.setOnClickListener {
                             etToolBarSearch.setText("")
                         }
+                        val deviation = 0.01f
+                        val startProgress = 0.1f
+                        val middleProgress = 0.25f
+                        val endProgress = 0.48f
+                        etToolBarSearch.doAfterTextChanged {
+                            viewModel.cityQuery.value = it.toString()
+                            val progress = searchToolbarSearch.progress
+                            if (it.isNullOrEmpty()) {
+                                if (progress.equalsWithDeviation(middleProgress, deviation)) {
+                                    searchToolbarSearch.playAnimation(0.4f, endProgress)
+                                }
+                            } else {
+                                if (progress.equalsWithDeviation(
+                                        startProgress,
+                                        deviation
+                                    ) || progress.equalsWithDeviation(endProgress, deviation)
+                                ) {
+                                    searchToolbarSearch.playAnimation(
+                                        startProgress,
+                                        middleProgress
+                                    )
+                                }
+                            }
+                        }
+
+
                     }.root
                 )
             }

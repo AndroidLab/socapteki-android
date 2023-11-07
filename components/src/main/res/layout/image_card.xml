@@ -16,7 +16,7 @@
             type="Integer" />
 
         <variable
-            name="isBorderShow"
+            name="isBorderNotShow"
             type="boolean" />
         
     </data>
@@ -26,8 +26,8 @@
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
-        app:strokeColor="@color/light_grey"
-        app:strokeWidth="@{isBorderShow ? ExtensionsMethodsKt.getDp(0) : 0}">
+        app:strokeColor="@color/grey"
+        app:borderWidth="@{isBorderNotShow ? 0 : 1}">
 
         <ImageView
             android:layout_width="match_parent"

@@ -433,3 +433,35 @@ fun Context.getStringFrom(value: Any): String {
 fun getSpannedFromHtml(text: String): Spanned {
     return Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
 }
+
+/**
+ * Устанавливает паддинг слева.
+ * @param paddingLeft Отступ слева.
+ */
+fun View.setPaddingLeft(paddingLeft: Int) {
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+}
+
+/**
+ * Устанавливает паддинг сверху.
+ * @param paddingTop Отступ сверху.
+ */
+fun View.setPaddingTop(paddingTop: Int) {
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+}
+
+/**
+ * Устанавливает паддинг справа.
+ * @param paddingRight Отступ справа.
+ */
+fun View.setPaddingRight(paddingRight: Int) {
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+}
+
+/**
+ * Устанавливает паддинг снизу.
+ * @param paddingBottom Отступ снизу.
+ */
+fun View.setPaddingBottom(paddingBottom: Int) {
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+}

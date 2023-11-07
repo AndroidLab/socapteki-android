@@ -49,7 +49,7 @@ class CommentsReviewsFragment :
         super.onResume()
         binding.commentsReviewsToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            toolbar.title = getString(R.string.comments_reviews_title)
+            tvToolbarTitle.text = getString(R.string.comments_reviews_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

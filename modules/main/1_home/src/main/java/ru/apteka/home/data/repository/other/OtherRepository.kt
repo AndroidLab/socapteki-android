@@ -19,7 +19,7 @@ class OtherRepository @Inject constructor(
      * Получает.
      */
     suspend fun getOther(): List<OtherModel> {
-        delay(1500)
+        delay(3000)
         return listOf(
             OtherModel(
                 id = UUID.randomUUID(),

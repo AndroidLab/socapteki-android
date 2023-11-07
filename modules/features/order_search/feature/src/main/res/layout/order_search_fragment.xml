@@ -24,17 +24,16 @@
         <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_secondary"
+            android:background="@color/white"
             app:isLoading="@{viewModel.isLoading}">
 
             <!-- Выбор заказа -->
-            <androidx.recyclerview.widget.RecyclerView
+            <ru.apteka.components.ui.boundcy.BouncyRecyclerView
                 android:id="@+id/rvOrderSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:visibleIf="@{!viewModel.foundOrders.empty}" />
 

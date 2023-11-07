@@ -62,6 +62,36 @@ class OrdersRepository @Inject constructor(
                 number = Random.nextInt(99999),
                 status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
                 date = 1690930595
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                date = 1677711395
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                date = 1680389795
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                date = 1682981795
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                date = 1685660195
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                date = 1688252195
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                date = 1690930595
             )
         )
     }

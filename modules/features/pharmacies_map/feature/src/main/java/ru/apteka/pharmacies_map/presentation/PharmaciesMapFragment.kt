@@ -1,6 +1,5 @@
 package ru.apteka.pharmacies_map.presentation
 
-import android.util.Log
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.viewModels
 import com.yandex.mapkit.Animation

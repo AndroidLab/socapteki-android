@@ -2,6 +2,6 @@
     <string name="menu_label_1">Главная</string>
     <string name="menu_label_2">Каталог</string>
     <string name="menu_label_3">Заказы</string>
-    <string name="menu_label_4">Избранное</string>
+    <string name="menu_label_4">Акции</string>
     <string name="menu_label_5">Корзина</string>
 </resources>

@@ -21,8 +21,8 @@
         android:name="ru.apteka.home.presentation.profile.UserProfileFragment">
 
         <action
-            android:id="@+id/toAptekiFragment"
-            app:destination="@id/aptekiFragment" />
+            android:id="@+id/toPharmaciesFragment"
+            app:destination="@id/pharmaciesFragment" />
 
         <action
             android:id="@+id/toBonusProgramFragment"
@@ -36,17 +36,16 @@
             android:id="@+id/toSubscriptionsFragment"
             app:destination="@id/mySubscriptionsFragment" />
 
-
-
     </fragment>
 
     <fragment
-        android:id="@+id/aptekiFragment"
-        android:name="ru.apteka.home.presentation.apteki.AptekiFragment"/>
+        android:id="@+id/pharmaciesFragment"
+        android:name="ru.apteka.home.presentation.apteki.PharmaciesFragment"/>
 
     <fragment
         android:id="@+id/bonusProgramFragment"
-        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"/>
+        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"
+        android:label="@string/bonus_program_title"/>
 
     <fragment
         android:id="@+id/commentsReviewsFragment"

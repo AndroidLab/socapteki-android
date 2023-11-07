@@ -35,6 +35,9 @@
             <option value="$PROJECT_DIR$/modules/features/choosing_city" />
             <option value="$PROJECT_DIR$/modules/features/choosing_city/api" />
             <option value="$PROJECT_DIR$/modules/features/choosing_city/feature" />
+            <option value="$PROJECT_DIR$/modules/features/making_order" />
+            <option value="$PROJECT_DIR$/modules/features/making_order/api" />
+            <option value="$PROJECT_DIR$/modules/features/making_order/feature" />
             <option value="$PROJECT_DIR$/modules/features/order_search" />
             <option value="$PROJECT_DIR$/modules/features/order_search/api" />
             <option value="$PROJECT_DIR$/modules/features/order_search/feature" />
