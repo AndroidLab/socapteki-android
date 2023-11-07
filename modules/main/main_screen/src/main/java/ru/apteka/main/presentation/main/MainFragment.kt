@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.main.R
+import ru.apteka.main.data.BottomAppBarModel
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.main.databinding.MainFragmentBinding
 import ru.apteka.basket.R as BasketR
@@ -22,11 +23,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     override val layoutId: Int = R.layout.main_fragment
 
     override fun onViewBindingInflated(binding: MainFragmentBinding) {
-        viewModel.navigationManager.bottomNavBar = binding.bottomNav.component
-        viewModel.navigationManager.selectedMainDestinationId?.let { destinationId ->
-            viewModel.navigationManager.bottomNavBar.selectedItemId = destinationId
-            viewModel.navigationManager.selectedMainDestinationId = null
-        }
+        binding.bottomAppBarModel = viewModel.bottomAppBar
+
         viewModel.navigationManager.topLevelMainDestinationIds = setOf(
             HomeR.id.homeFragment,
             CatalogR.id.catalogFragment,
@@ -34,6 +32,11 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             FavoritesR.id.favoritesFragment,
             BasketR.id.basketFragment,
         )
+
+        binding.mainFab.setOnClickListener {
+            viewModel.bottomAppBar.onSelectItemId(R.id.home_graph)
+        }
+
         setupBottomNavigationBar()
         viewModel.navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.observe(
             viewLifecycleOwner
@@ -42,7 +45,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
         }
 
         viewModel.favoriteService.totalCount.observe(viewLifecycleOwner) { count ->
-            binding.bottomNav.nbTab4.setNumber(
+            binding.nbTab4.setNumber(
                 if (count > 0) {
                     count
                 } else {
@@ -52,7 +55,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
         }
 
         viewModel.basketService.totalCount.observe(viewLifecycleOwner) { count ->
-            binding.bottomNav.nbTab5.setNumber(
+            binding.nbTab5.setNumber(
                 if (count > 0) {
                     count
                 } else {
@@ -64,7 +67,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     private fun setupBottomNavigationBar() {
         viewModel.navigationManager.currentBottomNavControllerLiveData =
-            binding.bottomNav.component.setupWithNavController(
+            binding.bottomAppBar.setupWithNavController(
+                bottomAppBarModel = viewModel.bottomAppBar,
                 navGraphIds = listOf(
                     HomeR.navigation.home_graph,
                     CatalogR.navigation.catalog_graph,

@@ -31,16 +31,9 @@ class NavigationManager @Inject constructor() {
     var currentBottomNavControllerLiveData: LiveData<NavController> by Delegates.notNull()
 
     /**
-     * Возвращает или устанавливает нижний бар навигации.
+     * Возвращает или устанавливает обработчик выбора пункта нижнего навигационного меню.
      */
-    var bottomNavBar: BottomNavigationView by Delegates.notNull()
-
-
-    /**
-     * Возвращает или устанавливает выбранную вкладку при переходе на внешние destination, для последующего востановления, при возвращении назад.
-     * null если находимся на главном экране.
-     */
-    var selectedMainDestinationId: Int? = null
+    var onSelectItemId: (itemId: Int) -> Unit by Delegates.notNull()
 
     /**
      * Возвращает событие необходимости установить конфигурацию для нижнего навигационного бара.

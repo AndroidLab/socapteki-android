@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -17,12 +18,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * @param containerId Идентификатор контейнера.
  * @param intent Intent.
  */
-fun BottomNavigationView.setupWithNavController(
+fun BottomAppBar.setupWithNavController(
+    bottomAppBarModel: BottomAppBarModel,
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
     intent: Intent,
-    //selectedItemId: Int?
 ): LiveData<NavController> {
     val graphIdToTagMap = HashMap<Int, String>()
     val selectedNavController = MutableLiveData<NavController>()
@@ -52,7 +53,7 @@ fun BottomNavigationView.setupWithNavController(
         graphIdToTagMap[graphId] = fragmentTag
 
         //Если выбрана вкладка с текущим графом
-        if (this.selectedItemId == graphId) {
+        if (bottomAppBarModel.selectedItemId.value!! == graphId) {
             // Обновляет текущий выбранный контроллер навигации.
             selectedNavController.value = navHostFragment.navController
             attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
@@ -62,17 +63,17 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Теперь соедините выбор элемента с заменой фрагментов
-    var selectedFragmentTag = graphIdToTagMap[this.selectedItemId]
+    var selectedFragmentTag = graphIdToTagMap[bottomAppBarModel.selectedItemId.value!!]
     val firstFragmentTag = graphIdToTagMap[firstFragmentGraphId]
     var isOnFirstFragment = selectedFragmentTag == firstFragmentTag
 
     // Слушатель клика по табам
-    setOnItemSelectedListener { menuItem ->
+    bottomAppBarModel.setOnItemSelectedListener { itemId ->
         //Если состояние state уже сохранено
         if (fragmentManager.isStateSaved) {
             false
         } else {
-            val newSelectedItemTag = graphIdToTagMap[menuItem.itemId]
+            val newSelectedItemTag = graphIdToTagMap[itemId]
             //Если выбранный тэг не равен новому тэгу
             if (selectedFragmentTag == newSelectedItemTag) {
                 false
@@ -120,16 +121,16 @@ fun BottomNavigationView.setupWithNavController(
     }
 
     // Необязательно: при выборе элемента переместите стек обратно в пункт назначения графика
-    setupItemReselected(graphIdToTagMap, fragmentManager)
+   // setupItemReselected(graphIdToTagMap, fragmentManager)
 
     // Handle deep link
-    setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
+    //setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
 
     // Наконец, убедитесь, что мы обновляем наш нижний навигационный вид при изменении заднего стека
     fragmentManager.addOnBackStackChangedListener {
         //Если это не первый фрагмент и это не первый экран домашней вкладки
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag!!)) {
-            this.selectedItemId = firstFragmentGraphId
+            bottomAppBarModel.onSelectItemId(firstFragmentGraphId)
         }
 
         // Сброс графика, если текущее назначение недействительно (происходит, когда

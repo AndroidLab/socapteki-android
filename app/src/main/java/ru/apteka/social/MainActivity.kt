@@ -73,13 +73,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        generalNavController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id != R.id.mainFragment && navigationManager.bottomNavBar.selectedItemId != MainR.id.home_graph) {
-                navigationManager.selectedMainDestinationId =
-                    navigationManager.bottomNavBar.selectedItemId
-            }
-        }
-
         navigationManager.showAppMenu = {
             bottomSheetService.show(
                 GeneralNavigationViewBinding.inflate(layoutInflater, null, false).also { binding ->
@@ -170,7 +163,7 @@ class MainActivity : AppCompatActivity() {
                 || currentMainDestinationId == FavoritesR.id.favoritesFragment
                 || currentMainDestinationId == BasketR.id.basketFragment
             ) {
-                navigationManager.bottomNavBar.selectedItemId = MainR.id.home_graph
+                navigationManager.onSelectItemId(MainR.id.home_graph)
             } else {
                 if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
                     super.onBackPressed()

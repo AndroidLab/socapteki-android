@@ -208,8 +208,16 @@ fun setLayoutPadding(
 @BindingAdapter("app:extra_layout_width", "app:extra_layout_height", requireAll = false)
 fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
     val lp = view.layoutParams
-    lp.width = layoutWidth?.dp ?: ViewGroup.LayoutParams.MATCH_PARENT
-    lp.height = layoutHeight?.dp ?: ViewGroup.LayoutParams.WRAP_CONTENT
+    lp.width = if (layoutWidth == -1 || layoutWidth == -2) {
+        layoutWidth
+    } else {
+        layoutWidth?.dp ?: ViewGroup.LayoutParams.MATCH_PARENT
+    }
+    lp.height = if (layoutHeight == -1 || layoutHeight == -2) {
+        layoutHeight
+    } else {
+        layoutHeight?.dp ?: ViewGroup.LayoutParams.WRAP_CONTENT
+    }
     view.layoutParams = lp
 }
 

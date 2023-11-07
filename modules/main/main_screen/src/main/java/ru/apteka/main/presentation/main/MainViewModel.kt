@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
+import ru.apteka.main.data.BottomAppBarModel
 import javax.inject.Inject
 
 
@@ -18,6 +19,13 @@ class MainViewModel @Inject constructor(
     val favoriteService: FavoriteService
 ): ViewModel() {
 
+    /**
+     *
+     */
+    val bottomAppBar = BottomAppBarModel()
 
+    init {
+        navigationManager.onSelectItemId = bottomAppBar.onSelectItemId
+    }
 
 }

@@ -35,11 +35,11 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
         }
 
         binding.userProfileFavorite.profileCard.setOnClickListener {
-            navigationManager.bottomNavBar.selectedItemId = MainCommonR.id.favorites_graph
+            navigationManager.onSelectItemId(MainCommonR.id.favorites_graph)
         }
 
         binding.userProfileOrders.profileCard.setOnClickListener {
-            navigationManager.bottomNavBar.selectedItemId = MainCommonR.id.orders_graph
+            navigationManager.onSelectItemId(MainCommonR.id.orders_graph)
         }
 
         binding.userProfileApteki.profileCard.setOnClickListener {

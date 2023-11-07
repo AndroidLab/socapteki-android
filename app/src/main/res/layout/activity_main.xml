@@ -7,11 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/fl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <fragment
                 android:id="@+id/general_nav_host"
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -20,15 +15,6 @@
                 android:background="@color/white"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/general_nav_graph" />
-
-        </FrameLayout>
-
-
-        <ImageView
-            android:id="@+id/iv"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"/>
 
     </FrameLayout>
 

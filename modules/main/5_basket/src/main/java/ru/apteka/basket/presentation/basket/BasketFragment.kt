@@ -49,8 +49,8 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
         }
 
         binding.basketToCatalog.setOnClickListener {
-            viewModel.navigationManager.bottomNavBar.selectedItemId =
-                MainCommonR.id.catalog_graph
+            viewModel.navigationManager.onSelectItemId(MainCommonR.id.catalog_graph)
+
         }
 
         binding.basketWatchedRecently.header.btn.setOnClickListener {
