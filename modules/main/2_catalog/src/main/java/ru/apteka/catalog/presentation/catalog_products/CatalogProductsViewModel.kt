@@ -1,5 +1,6 @@
 package ru.apteka.catalog.presentation.catalog_products
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +15,8 @@ import ru.apteka.catalog.data.models.SearchResultHeaderModel
 import ru.apteka.catalog.data.models.SearchResultModel
 import ru.apteka.catalog.data.models.SortModel
 import ru.apteka.catalog.data.services.SearchProductPreferences
+import ru.apteka.catalog.data.models.AlphabetModel
+import ru.apteka.catalog.data.models.FilterType
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductCounterModel
@@ -51,27 +54,53 @@ class CatalogProductsViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
+
+
     /**
      * Возвращает выбранный пункт каталога.
      */
     val catalogItemName = savedStateHandle.get<String>("catalogItemName")!!
 
-    private val _filters = MutableLiveData<List<IFilter>>(emptyList())
+    private val _alphabet = listOf(
+        "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "К", "Л", "М",
+        "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Э", "Ю", "Я"
+    )
 
     /**
-     * Возвращает список доступных фильтров.
+     * Возвращает алфовит.
      */
-    val filters: MutableLiveData<List<IFilter>> = _filters
+    val alphabet = MutableLiveData(
+        AlphabetModel(
+            _items = listOf(
+                AlphabetModel.Item(
+                    name = "Все"
+                )
+            ) + _alphabet.map {
+                AlphabetModel.Item(
+                    name = it
+                )
+            }
+        ) {
+            Log.d("myL", "Выбрали букву " + it.name)
+        }
+    )
 
-    /**
-     *
-     */
-    val filterAll: LiveData<IFilter.FilterAllModel?> = filters.map {
-        if (it.isEmpty()) {
-            null
-        } else {
-            IFilter.FilterAllModel(
-                filters = it
+
+    private fun getCountProduction(productsCount: MutableLiveData<Int>) {
+        viewModelScope.launchIO {
+            requestHandler.handleApiRequest(
+                onRequest = { catalogRepository.availableCountProducts() },
+                onSuccess = {
+                    productsCount.postValue(it)
+                },
+                onFailure = {
+                    productsCount.postValue(0)
+                },
+                onLoading = {
+                    if (it) {
+                        productsCount.postValue(-1)
+                    }
+                }
             )
         }
     }
@@ -105,7 +134,7 @@ class CatalogProductsViewModel @Inject constructor(
             requestHandler.handleApiRequest(
                 onRequest = { productsRepository.getProductions() },
                 onSuccess = { products ->
-                    _filters.postValue(catalogRepository.getFilters())
+                    _filters.postValue(filtersFake)
                     _products.postValue(
                         products.map { product ->
                             ProductCardModel(
@@ -131,6 +160,198 @@ class CatalogProductsViewModel @Inject constructor(
         }
     }
 
+    private val filtersFake = listOf(
+        IFilter.FilterPriceModel(
+            type = FilterType.PRICE,
+            title = "Цена",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            minPrice = 100,
+            maxPrice = 200,
+        ),
+        IFilter.FilterReleaseFormModel(
+            type = FilterType.RELEASE_FORM,
+            title = "Форма выпуска",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterReleaseFormModel.ReleaseFormModel(
+                    title = "Жидкое",
+                    desk = "Капли, настойка, настои, сироп, суспензия, эмульсия"
+                ),
+                IFilter.FilterReleaseFormModel.ReleaseFormModel(
+                    title = "Твердые",
+                    desk = "Капсула, таблетка, порошки, гранулы, драже, карамель, карандаш"
+                ),
+                IFilter.FilterReleaseFormModel.ReleaseFormModel(
+                    title = "Мягкие",
+                    desk = "Крем, мазь, гель, суппозитории, пастаsit amet, consectetur"
+                ),
+                IFilter.FilterReleaseFormModel.ReleaseFormModel(
+                    title = "Аэрозоли",
+                ),
+            )
+        ),
+        IFilter.FilterManufacturerModel(
+            type = FilterType.MANUFACTURER,
+            title = "Производитель",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Johnson & Johnson",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Pfizer",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Sinopharm",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Roche Holding",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Johnson & Johnson",
+                ),
+            )
+        ),
+        IFilter.FilterDiscountsModel(
+            type = FilterType.DISCOUNTS,
+            title = "Скидки",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            desc = "Только товары со скидкой",
+        ),
+        IFilter.FilterNosologyModel(
+            type = FilterType.NOSOLOGY,
+            title = "Нозология",
+            foundProducts = products,
+            onChanged = {
+                //getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterNosologyModel.NosologyModel(
+                    title = "Воспаления и инфекции"
+                ),
+                IFilter.FilterNosologyModel.NosologyModel(
+                    title = "Другие"
+                ),
+                IFilter.FilterNosologyModel.NosologyModel(
+                    title = "Обезболивающие"
+                ),
+                IFilter.FilterNosologyModel.NosologyModel(
+                    title = "Перхоть"
+                ),
+                IFilter.FilterNosologyModel.NosologyModel(
+                    title = "Опрелость"
+                )
+            ),
+        ),
+        IFilter.FilterBrandModel(
+            type = FilterType.BRAND,
+            title = "Бренды",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Ауробин",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Декарис",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Плавикс",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Сеафор",
+                )
+            )
+        ),
+        IFilter.FilterCountryModel(
+            type = FilterType.COUNTRY,
+            title = "Страны",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Венгрия",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Германия",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Россия",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Франция",
+                )
+            )
+        ),
+        IFilter.FilterActiveSubstanceModel(
+            type = FilterType.ACTIVE_SUBSTANCE,
+            title = "Действующее вещество",
+            foundProducts = products,
+            onChanged = {
+                getCountProduction(it.productsCount)
+            },
+            items = listOf(
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Декспантенол, преднизолон, лидокаин"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Доксазозин"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Итраконазол"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Клопидогрел"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Левамизол"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Метформин"
+                ),
+            )
+        )
+    )
+
+    private val _filters = MutableLiveData<List<IFilter>>(emptyList())
+
+    /**
+     * Возвращает список доступных фильтров.
+     */
+    val filters: MutableLiveData<List<IFilter>> = _filters
+
+    /**
+     *
+     */
+    val filterAll: LiveData<IFilter.FilterAllModel?> = filters.map {
+        if (it.isEmpty()) {
+            null
+        } else {
+            IFilter.FilterAllModel(
+                filters = it,
+                foundProducts = products,
+                onChanged = {
+                    getCountProduction(it.productsCount)
+                },
+            )
+        }
+    }
 
     private val _productsWithProductBuy = MutableLiveData<List<ProductCardModel>>(emptyList())
 

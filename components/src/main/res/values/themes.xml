@@ -88,6 +88,13 @@
         <item name="hintEnabled">true</item>
     </style>
 
+    <style name="TextInputLayoutDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintEnabled">true</item>
+    </style>
+
+
     <style name="CustomTextInputLayoutThemeOverlay" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="editTextStyle">@style/CustomTextInputLayoutEditTextStyle</item>
     </style>

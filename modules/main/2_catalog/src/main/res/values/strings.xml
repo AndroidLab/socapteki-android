@@ -20,6 +20,8 @@
     <string name="catalog_product_show_more">Показать еще</string>
     <string name="catalog_product_with_product_buy">С этим товаром покупают</string>
     <string name="catalog_product_recently_watched">Вы недавно смотрели</string>
+    <string name="catalog_product_show_count_products">Показать %s товаров</string>
+    <string name="catalog_product_search_products">Поиск…</string>
 
     <string name="catalog_product_search_hint">Найти товары</string>
     <string name="catalog_product_search_history">История</string>

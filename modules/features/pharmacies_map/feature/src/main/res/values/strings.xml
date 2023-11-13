@@ -1,4 +1,5 @@
 <resources>
     <string name="pharmacies_map_title">Аптеки на карте</string>
     <string name="pharmacies_map_in_favorite">В избранном</string>
+    <string name="pharmacies_map_pick_here">Забрать здесь</string>
 </resources>

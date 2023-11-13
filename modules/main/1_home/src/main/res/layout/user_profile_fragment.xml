@@ -119,7 +119,8 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}" />
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
 
                 <include
                     android:id="@+id/userProfileReferralProgram"
@@ -129,7 +130,8 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}" />
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
 
                 <include
                     android:id="@+id/userProfileCommentsReviews"
@@ -139,7 +141,8 @@
 
                 <include
                     layout="@layout/separator_view"
-                    app:sepMargin="@{16}" />
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
 
                 <include
                     android:id="@+id/userProfileMySubscriptions"

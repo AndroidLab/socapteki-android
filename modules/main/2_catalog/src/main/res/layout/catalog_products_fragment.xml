@@ -35,9 +35,9 @@
                 android:id="@+id/catalogProducts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never"
                 android:background="@color/background_secondary"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:overScrollMode="never">
 
                 <!-- Контейнер для перекючения между поиском и результатом -->
                 <FrameLayout
@@ -103,7 +103,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-                                            app:setText="@{viewModel.sortModel.itemSelected}" />
+                                            app:extraText="@{viewModel.sortModel.itemSelected}" />
 
                                         <ImageView
                                             android:layout_width="24dp"
@@ -160,11 +160,58 @@
 
                                 </HorizontalScrollView>
 
+                                <HorizontalScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:overScrollMode="never"
+                                    android:scrollbars="none">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal"
+                                        android:paddingHorizontal="16dp"
+                                        android:paddingVertical="12dp">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="?attr/selectableItemBackgroundBorderless"
+                                            android:onClick="@{() -> viewModel.alphabet.items[0].onItemClick()}"
+                                            android:padding="12dp"
+                                            android:text="@{viewModel.alphabet.items[0].name}"
+                                            android:textColor="@{viewModel.alphabet.items[0].isItemSelected ? @color/black : @color/light_black}"
+                                            app:extraTextStyle="@{viewModel.alphabet.items[0].isItemSelected ? 1 : 0}"
+                                            app:setTextSize="@{viewModel.alphabet.items[0].isItemSelected ? 20 : 16}" />
+
+                                        <View
+                                            android:layout_width="1dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_margin="12dp"
+                                            android:background="@color/light_black" />
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center_vertical"
+                                            android:orientation="horizontal"
+                                            app:forItems="@{viewModel.alphabet.items.subList(1, viewModel.alphabet.items.size())}"
+                                            app:useTemplate="@{@layout/alphabet_item_template}"
+                                            app:visibleIf="@{viewModel.alphabet.mediator}" />
+
+                                    </LinearLayout>
+
+                                </HorizontalScrollView>
+
+                                <include layout="@layout/separator_view" />
+
                                 <!-- Список товаров -->
                                 <com.google.android.material.card.MaterialCardView
                                     style="@style/Theme.Socapteki.BackgroundCard"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     app:contentPaddingLeft="@dimen/base_padding"
                                     app:contentPaddingRight="@dimen/base_padding">
 
@@ -233,7 +280,6 @@
                     </LinearLayout>
 
                 </FrameLayout>
-
 
 
             </androidx.core.widget.NestedScrollView>

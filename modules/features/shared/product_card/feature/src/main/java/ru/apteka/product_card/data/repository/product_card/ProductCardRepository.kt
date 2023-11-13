@@ -1,5 +1,6 @@
 package ru.apteka.product_card.data.repository.product_card
 
+import android.util.Log
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.DiscountModel
 import ru.apteka.components.data.models.Label
@@ -59,7 +60,9 @@ class ProductCardRepository @Inject constructor(
                             name = "Гранулы"
                         ),
                     )
-                ),
+                ) {
+
+                },
                 ProductVariantModel(
                     title = "Дозировка",
                     variants = listOf(
@@ -70,7 +73,9 @@ class ProductCardRepository @Inject constructor(
                             name = "50 тыч ед"
                         ),
                     )
-                ),
+                ) {
+
+                },
                 ProductVariantModel(
                     title = "Количество",
                     variants = listOf(
@@ -81,7 +86,9 @@ class ProductCardRepository @Inject constructor(
                             name = "50 шт"
                         ),
                     )
-                )
+                ) {
+                    Log.d("myL", "Количество " + it)
+                }
             ),
             labels = listOf(
                 Label.CHECKED_SPECIALIST,

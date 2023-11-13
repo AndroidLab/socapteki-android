@@ -16,18 +16,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@drawable/layer_shadow_top" />
+        <include
+            layout="@layout/shadow_view" />
 
-        <Button
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> catalogProductFilterModel.apply()}"
-            android:layout_margin="8dp"
-            android:enabled="@{catalogProductFilterModel.isChanged}"
-            android:text="@string/apply" />
+            android:clickable="@{catalogProductFilterModel.isChanged}"
+            android:layout_margin="8dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{catalogProductFilterModel.productsCount > 0}"
+                android:onClick="@{() -> catalogProductFilterModel.apply()}"
+                android:text="@{catalogProductFilterModel.productsCount == -1 ? @string/catalog_product_search_products : String.format(@string/catalog_product_show_count_products, catalogProductFilterModel.productsCount)}" />
+
+            <ProgressBar
+                style="@style/Theme.Socapteki.ProgressBar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="8dp"
+                android:indeterminateOnly="true"
+                app:visibleIf="@{catalogProductFilterModel.productsCount == -1}" />
+
+        </FrameLayout>
+
 
     </LinearLayout>
 

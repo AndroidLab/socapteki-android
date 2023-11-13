@@ -225,12 +225,14 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchIO {
             messageNoticeService.commonDialog.collect { dialogModel ->
-                showCommonDialog(
-                    CommonDialogModel(
-                        fragmentManager = supportFragmentManager,
-                        dialogModel = dialogModel
+                mainThread {
+                    showCommonDialog(
+                        CommonDialogModel(
+                            fragmentManager = supportFragmentManager,
+                            dialogModel = dialogModel
+                        )
                     )
-                )
+                }
             }
         }
 

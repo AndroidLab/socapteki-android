@@ -2,7 +2,11 @@ package ru.apteka.home.data.models
 
 import java.util.UUID
 
-data class AptekaModel(
+
+/**
+ * Представляет модель аптеки.
+ */
+data class PharmacyModel(
     val uuid: UUID,
     val image: String,
     val title: String,

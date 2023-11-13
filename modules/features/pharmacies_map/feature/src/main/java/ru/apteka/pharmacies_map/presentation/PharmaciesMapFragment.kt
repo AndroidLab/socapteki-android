@@ -1,5 +1,6 @@
 package ru.apteka.pharmacies_map.presentation
 
+import android.util.Log
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.viewModels
 import com.yandex.mapkit.Animation
@@ -16,7 +17,7 @@ import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.pharmacies_map.R
-import ru.apteka.pharmacies_map.data.model.PharmacyModel
+import ru.apteka.components.data.models.PharmacyModel
 import ru.apteka.pharmacies_map.databinding.PharmaciesMapFragmentBinding
 
 
@@ -39,7 +40,11 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
 
     private val pharmacyAdapter by lazy {
         CompositeDelegateAdapter(
-            PharmacyAdapter(::onPharmacyClick)
+            PharmacyAdapter(
+                viewLifecycleOwner,
+                viewModel,
+                ::onPharmacyClick
+            )
         )
     }
 
@@ -128,7 +133,7 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
 
     private val placemarkTapListener = MapObjectTapListener { mapObject, point ->
         val pharmacy = mapObject.userData as PharmacyModel
-        viewModel.searchQuery.value = pharmacy.title
+        viewModel.searchQuery.value = pharmacy.name
         moveMap(
             pharmacy.coordinates.first,
             pharmacy.coordinates.second

@@ -214,7 +214,8 @@
 
                         <include
                             layout="@layout/separator_view"
-                            app:sepMargin="@{16}" />
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
                         <!-- Итоговая стоимость -->
                         <LinearLayout

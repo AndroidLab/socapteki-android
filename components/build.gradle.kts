@@ -16,6 +16,7 @@ dependencies {
     api(libs.decoro)
     api(libs.flexbox)
     api(libs.lottie)
+    api(libs.expansionpanel)
     implementation(libs.material)
     implementation(libs.gson)
     implementation(libs.swiperefreshlayout)

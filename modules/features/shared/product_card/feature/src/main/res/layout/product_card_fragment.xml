@@ -327,7 +327,8 @@
 
                         <include
                             layout="@layout/separator_view"
-                            app:sepMargin="@{16}" />
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
                         <include
                             layout="@layout/product_card_price_page_desc_item"
@@ -336,7 +337,8 @@
 
                         <include
                             layout="@layout/separator_view"
-                            app:sepMargin="@{16}" />
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
                         <include
                             layout="@layout/product_card_price_page_desc_item"
@@ -391,7 +393,8 @@
 
                         <include
                             layout="@layout/separator_view"
-                            app:sepMargin="@{16}" />
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -445,8 +448,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Цена -->
+                <!-- Блок цены -->
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardPrice"
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -608,7 +612,7 @@
 
                 <!-- Аналоги лекарста -->
                 <include
-                    android:id="@+id/pricePageSimilarProducts"
+                    android:id="@+id/productCardAnnalogs"
                     layout="@layout/horizontal_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -826,73 +830,39 @@
 
         </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
 
-        <!-- Табы -->
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/productCardTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
             android:background="@color/white"
-            android:orientation="vertical"
-            app:isVisibleWithInteractionEnabled="@{false}"
-            app:layout_anchor="@id/toolbar"
-            app:layout_anchorGravity="bottom">
+            app:tabMode="scrollable">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="@string/product_card_tab_desc" />
 
-                <!-- Вкладка цена -->
-                <TextView
-                    android:id="@+id/productCardTabDesc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingVertical="8dp"
-                    android:text="@string/product_card_tab_desc" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_price" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp"
-                    android:background="@color/grey" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_analogs" />
 
-                <!-- Вкладка цена -->
-                <TextView
-                    android:id="@+id/productCardTabInstructions"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingVertical="8dp"
-                    android:text="@string/product_card_tab_instruction" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_instruction" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp"
-                    android:background="@color/grey" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_reviews" />
 
-                <!-- Вкладка цена -->
-                <TextView
-                    android:id="@+id/productCardTabReviews"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingVertical="8dp"
-                    android:text="@string/product_card_tab_reviews" />
-
-            </LinearLayout>
-
-            <include layout="@layout/separator_view" />
-
-        </LinearLayout>
+        </com.google.android.material.tabs.TabLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

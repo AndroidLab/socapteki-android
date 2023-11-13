@@ -37,9 +37,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
-                app:lifecycleOwner="@{lifecycle}"
                 app:forItems="@{catalogProductFilterModel.items}"
-                app:useTemplate="@{@layout/catalog_products_filter_active_substance_template}" />
+                app:lifecycleOwner="@{lifecycle}"
+                app:useTemplate="@{@layout/catalog_products_filter_active_substance_template}"
+                app:visibleIf="@{catalogProductFilterModel.mediator}" />
 
         </com.google.android.material.card.MaterialCardView>
 

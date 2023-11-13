@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:textColor="@{context.getColor(messageLevel.color)}"
-                app:setText="@{message}"
+                app:extraText="@{message}"
                 app:visibleIf="@{!message.toString().empty}" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:textColor="@color/white"
-                app:setText="@{subMessage}"
+                app:extraText="@{subMessage}"
                 app:visibleIf="@{!subMessage.toString().empty}" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -71,7 +71,7 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:background="?attr/selectableItemBackground"
-            app:setText="@{actionBtnText}"
+            app:extraText="@{actionBtnText}"
             app:strokeColor="@color/white"
             app:visibleIf="@{!actionBtnText.toString().empty}"
             tools:enabled="true"

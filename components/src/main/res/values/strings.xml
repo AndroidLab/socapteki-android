@@ -26,6 +26,11 @@
     <string name="exit">Выйти</string>
     <string name="create">Создать</string>
     <string name="add">Добавить</string>
+    <string name="address">Адресс</string>
+    <string name="time">Время</string>
+    <string name="recipients">Получатели</string>
+    <string name="fio">ФИО</string>
+    <string name="telephone">Телефон</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>

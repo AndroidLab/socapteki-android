@@ -11,5 +11,6 @@ import androidx.annotation.Keep
 @Keep
 data class Account(
     val phoneNumber: String?,
-    val token: String?
+    val token: String?,
+
 )

@@ -11,7 +11,6 @@ import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
@@ -19,12 +18,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.catalog.R
 import ru.apteka.catalog.data.models.FilterType
@@ -42,6 +37,7 @@ import ru.apteka.components.data.services.message_notice_service.models.MessageM
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.launchAfter
+import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
@@ -115,10 +111,10 @@ class CatalogProductsFragment :
                 }
             )
         }
+
         viewModel.sortModel.editingCompleted.observe(viewLifecycleOwner) {
             viewModel.bottomSheetService.close()
         }
-
 
         viewModel.filterAll.observe(viewLifecycleOwner) {
             it?.apply {
@@ -174,7 +170,10 @@ class CatalogProductsFragment :
     }
 
     private fun initCatalogProducts() {
-        if (viewModel.catalogItemName != SEARCH_MODE) viewModel.getCatalogProducts()
+        if (viewModel.catalogItemName != SEARCH_MODE && viewModel.products.value!!.isEmpty()) {
+            viewModel.getCatalogProducts()
+        }
+
         binding.rvCatalogProducts.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvCatalogProducts.adapter = catalogProductsAdapter
         viewModel.products.observe(viewLifecycleOwner) {
@@ -333,29 +332,37 @@ class CatalogProductsFragment :
         override fun onReadyForSpeech(bundle: Bundle) {
             Log.d("myL", "onReadyForSpeech " + bundle)
         }
+
         override fun onBeginningOfSpeech() {
             Log.d("myL", "onBeginningOfSpeech")
         }
+
         override fun onRmsChanged(v: Float) {
             Log.d("myL", "onRmsChanged " + v)
         }
+
         override fun onBufferReceived(bytes: ByteArray) {
             Log.d("myL", "onBufferReceived " + bytes)
         }
+
         override fun onEndOfSpeech() {
             Log.d("myL", "onEndOfSpeech")
         }
+
         override fun onError(i: Int) {
             Log.d("myL", "onError " + i)
         }
+
         override fun onResults(bundle: Bundle) {
             val matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
             Log.d("myL", "onResults " + matches!![0])
             //if (matches != null) editText.setText(matches[0])
         }
+
         override fun onPartialResults(bundle: Bundle) {
             Log.d("myL", "onPartialResults " + bundle)
         }
+
         override fun onEvent(i: Int, bundle: Bundle) {
             Log.d("myL", "onEvent " + i + " / " + bundle)
         }
@@ -427,17 +434,17 @@ class CatalogProductsFragment :
                             }
 
                             ivSearchToolbarMic.setOnClickListener {
-                                Dexter.withContext(mActivity)
-                                    .withPermission(Manifest.permission.RECORD_AUDIO)
-                                    .withListener(object : PermissionListener {
-                                        override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                                TedPermission.create()
+                                    .setPermissionListener(object : PermissionListener {
+                                        override fun onPermissionGranted() {
+                                            Log.d("myL", "onPermissionGranted")
                                             mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
                                         }
 
-                                        override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
                                             showCommonDialog(
                                                 CommonDialogModel(
-                                                    fragmentManager = childFragmentManager,
+                                                    fragmentManager = mActivity.supportFragmentManager,
                                                     dialogModel = DialogModel(
                                                         message = MessageModel(
                                                             message = ComponentsR.string.access_mic_record
@@ -448,10 +455,10 @@ class CatalogProductsFragment :
                                                         buttonConfirm = DialogButtonModel(
                                                             text = ComponentsR.string.settings
                                                         ) {
-                                                            activity!!.startActivity(
+                                                            mActivity.startActivity(
                                                                 Intent(
                                                                     Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                                    Uri.parse("package:" + activity!!.packageName)
+                                                                    Uri.parse("package:" + mActivity.packageName)
                                                                 )
                                                             )
                                                         }
@@ -459,25 +466,19 @@ class CatalogProductsFragment :
                                                 )
                                             )
                                         }
-
-                                        override fun onPermissionRationaleShouldBeShown(
-                                            permission: PermissionRequest?,
-                                            token: PermissionToken?
-                                        ) {
-                                        }
                                     })
+                                    .setPermissions(Manifest.permission.RECORD_AUDIO)
                                     .check()
                             }
 
                             ivSearchToolbarBarcode.setOnClickListener {
-                                Dexter.withContext(mActivity)
-                                    .withPermission(Manifest.permission.CAMERA)
-                                    .withListener(object : PermissionListener {
-                                        override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                                TedPermission.create()
+                                    .setPermissionListener(object : PermissionListener {
+                                        override fun onPermissionGranted() {
                                             viewModel.barCodeScanService.showBarcodeScan()
                                         }
 
-                                        override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
                                             showCommonDialog(
                                                 CommonDialogModel(
                                                     fragmentManager = childFragmentManager,
@@ -502,13 +503,8 @@ class CatalogProductsFragment :
                                                 )
                                             )
                                         }
-
-                                        override fun onPermissionRationaleShouldBeShown(
-                                            permission: PermissionRequest?,
-                                            token: PermissionToken?
-                                        ) {
-                                        }
                                     })
+                                    .setPermissions(Manifest.permission.CAMERA)
                                     .check()
                             }
 

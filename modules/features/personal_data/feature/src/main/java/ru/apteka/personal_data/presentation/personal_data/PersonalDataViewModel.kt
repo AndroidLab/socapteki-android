@@ -225,7 +225,7 @@ class PersonalDataViewModel @Inject constructor(
     /**
      * Сохраняет персональные данные
      */
-    fun savePersonalData() {
+    fun savePersonalData(success: (PersonalData) -> Unit) {
         _fio = fio.value!!
         _date = date.value!!
         _phone = getPhoneRaw()
@@ -239,21 +239,26 @@ class PersonalDataViewModel @Inject constructor(
         _isReceiveReceipts = isReceiveReceipts.value!!
 
         viewModelScope.launchIO {
+            val personalData = PersonalData(
+                fio = _fio,
+                date = _date,
+                phone = _phone,
+                userMail = PersonalData.UserMail(
+                    mail = _email,
+                    isVerified = isEmailVerified.value!!
+                ),
+                sex = _sex,
+                isReceiveReceipts = _isReceiveReceipts
+            )
+
             requestHandler.handleApiRequest(
                 onRequest = {
                     loginRepository.savePersonalData(
-                        PersonalData(
-                            fio = _fio,
-                            date = _date,
-                            phone = _phone,
-                            userMail = PersonalData.UserMail(
-                                mail = _email,
-                                isVerified = isEmailVerified.value!!
-                            ),
-                            sex = _sex,
-                            isReceiveReceipts = _isReceiveReceipts
-                        )
+                        personalData
                     )
+                },
+                onSuccess = {
+                    success(personalData)
                 },
                 isLoading = _isLoading
             )

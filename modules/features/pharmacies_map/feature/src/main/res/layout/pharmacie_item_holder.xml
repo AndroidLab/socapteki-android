@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="ru.apteka.pharmacies_map_api.api.TypeInteraction" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.pharmacies_map.presentation.PharmaciesMapViewModel" />
+
         <variable
             name="model"
-            type="ru.apteka.pharmacies_map.data.model.PharmacyModel" />
+            type="ru.apteka.components.data.models.PharmacyModel" />
 
     </data>
 
@@ -37,15 +43,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:paddingHorizontal="6dp"
-                    android:paddingVertical="2dp"
-                    android:orientation="horizontal">
+                    android:paddingVertical="2dp">
 
                     <ImageView
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        android:src="@drawable/ic_heart"
                         android:scaleType="fitCenter"
+                        android:src="@drawable/ic_heart"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -65,33 +71,63 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                android:text="@{model.title}"
+                android:text="@{model.name}"
                 android:textColor="@color/dark_black" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{model.desc}"
+                android:text="@{model.address}"
                 android:textColor="@color/light_black" />
 
-            <include
-                layout="@layout/separator_view"
+            <!-- Блок для выбора аптеки -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="8dp"
-                app:sepColor="@{@color/grey}" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Самовывоз"
-                android:textColor="@color/light_black" />
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:visibleIf="@{viewModel.typeInteraction == TypeInteraction.SELECT_PHARMACY}">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{model.pickup}"
-                android:textSize="18sp" />
+                <include
+                    layout="@layout/separator_view"
+                    app:sepColor="@{@color/grey}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Самовывоз"
+                            android:textColor="@color/light_black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{model.pickup}"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.savePharmacy(model)}"
+                        android:text="@string/pharmacies_map_pick_here" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

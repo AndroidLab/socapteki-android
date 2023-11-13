@@ -24,7 +24,7 @@
             android:paddingHorizontal="6dp"
             android:singleLine="true"
             android:textColor="@{bindingItem.getTextColor(context, bindingItem)}"
-            app:setText="@{bindingItem.text}" />
+            app:extraText="@{bindingItem.text}" />
 
     </com.google.android.material.card.MaterialCardView>
 

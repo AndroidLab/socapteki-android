@@ -8,7 +8,19 @@
         <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
 
         <variable
-            name="sepMargin"
+            name="sepMarginStart"
+            type="Integer" />
+
+        <variable
+            name="sepMarginTop"
+            type="Integer" />
+
+        <variable
+            name="sepMarginEnd"
+            type="Integer" />
+
+        <variable
+            name="sepMarginBottom"
             type="Integer" />
 
         <variable
@@ -17,12 +29,14 @@
 
     </data>
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:src="@{sepColor == null ? @color/grey : sepColor}"
-        app:layoutPaddingEnd="@{sepMargin == null ? 0 : sepMargin}"
-        app:layoutPaddingStart="@{sepMargin == null ? 0 : sepMargin}"
+        android:background="@{sepColor == null ? @color/grey : sepColor}"
+        app:layoutMarginBottom="@{sepMarginBottom == null ? 0 : sepMarginBottom}"
+        app:layoutMarginEnd="@{sepMarginEnd == null ? 0 : sepMarginEnd}"
+        app:layoutMarginStart="@{sepMarginStart == null ? 0 : sepMarginStart}"
+        app:layoutMarginTop="@{sepMarginTop == null ? 0 : sepMarginTop}"
         tools:ignore="ContentDescription" />
 
 </layout>

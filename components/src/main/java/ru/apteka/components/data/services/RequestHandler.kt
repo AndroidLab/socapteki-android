@@ -22,13 +22,15 @@ class RequestHandler @Inject constructor(
      * Выполняет запрос [onRequest] с обработкой ответа и ошибок по умолчанию.
      * @param onRequest Запрос.
      * @param onSuccess Callback с результатом выполнения запроса.
-     * @param onFailure Callback возвращающий ошибку.
+     * @param onFailure Callback возвращающий неудачу.
+     * @param onError Callback возвращающий ошибку.
      * @param isLoading Callback изменения флага, отвечающего за состояние загрузки.
      */
     suspend fun <T> handleApiRequest(
         onRequest: suspend () -> T,
         onSuccess: suspend (result: T) -> Unit = {},
-        onFailure: (error: Throwable) -> Unit = {
+        onFailure: suspend (error: Throwable) -> Unit = {},
+        onError: (error: Throwable) -> Unit = {
             errorNoticeService.showError(
                 IRequestError.RequestErrorStringMsg(
                     it.message.toString()
@@ -36,7 +38,7 @@ class RequestHandler @Inject constructor(
             )
         },
         isLoading: MutableLiveData<Boolean>
-    ) = handleApiRequest(onRequest, onSuccess, onFailure) {
+    ) = handleApiRequest(onRequest, onSuccess, onError) {
         isLoading.postValue(it)
     }
 
@@ -45,13 +47,15 @@ class RequestHandler @Inject constructor(
      * Выполняет запрос [onRequest] с обработкой ответа и ошибок по умолчанию.
      * @param onRequest Запрос.
      * @param onSuccess Callback с результатом выполнения запроса.
-     * @param onFailure Callback возвращающий ошибку.
+     * @param onFailure Callback возвращающий неудачу.
+     * @param onError Callback возвращающий ошибку.
      * @param onLoading Callback изменения флага, отвечающего за состояние загрузки.
      */
     suspend fun <T> handleApiRequest(
         onRequest: suspend () -> T,
         onSuccess: suspend (result: T) -> Unit = {},
-        onFailure: (error: Throwable) -> Unit = {
+        onFailure: suspend (error: Throwable) -> Unit = {},
+        onError: (error: Throwable) -> Unit = {
             errorNoticeService.showError(
                 IRequestError.RequestErrorStringMsg(
                     it.message.toString()
@@ -79,7 +83,7 @@ class RequestHandler @Inject constructor(
         } catch (e: SSLException) {
             throw e
         } catch (e: Throwable) {
-            onFailure(e)
+            onError(e)
             Result.failure(e)
         } finally {
             onLoading(false)

@@ -108,7 +108,8 @@
 
             <include
                 layout="@layout/separator_view"
-                app:sepMargin="@{16}"/>
+                app:sepMarginEnd="@{16}"
+                app:sepMarginStart="@{16}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

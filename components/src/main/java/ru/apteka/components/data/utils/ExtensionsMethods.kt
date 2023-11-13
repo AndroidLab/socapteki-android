@@ -17,8 +17,8 @@ import android.view.View
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -39,7 +39,14 @@ import java.util.regex.Pattern
  * Возвращает календарь с указзаной датой.
  * @param unixTime Время в секундах.
  */
-fun Calendar(unixTime: Int) = Calendar.getInstance().apply { timeInMillis = unixTime * 1000L }
+fun Calendar(unixTime: Int) = Calendar.getInstance().apply {
+    timeInMillis = unixTime * 1000L
+}
+
+fun Calendar(timeInMils: Long) = Calendar.getInstance().apply {
+    timeInMillis = timeInMils
+}
+
 
 /**
  * Конвертирует дату в удобный для чтения вид.
@@ -66,6 +73,13 @@ fun Calendar.formatDate(context: Context): String {
         Locale.getDefault()
     ).format(time)
     return publishTime
+}
+
+/**
+ * Конвертирует дату в удобный для чтения вид.
+ */
+fun Calendar.formatDate(format: String): String {
+    return SimpleDateFormat(format, Locale.getDefault()).format(time)
 }
 
 /**
@@ -425,6 +439,12 @@ fun Context.getStringFrom(value: Any): String {
         value.toString()
     }
 }
+
+/**
+ * Преобразует в [LiveData].
+ */
+fun <T> MutableLiveData<T>.asLiveData() = this as LiveData<T>
+
 
 /**
  * Возвращает html текст.

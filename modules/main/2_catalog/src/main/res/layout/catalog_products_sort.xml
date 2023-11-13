@@ -34,8 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:paddingHorizontal="8dp"
                 android:onClick="@{() -> catalogProductSortModel.cancel()}"
+                android:paddingHorizontal="8dp"
                 android:text="@string/cancel"
                 android:textColor="@color/color_primary" />
 
@@ -57,32 +57,32 @@
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/catalog_product_sort_first_popular"
-                    android:checked="@={catalogProductSortModel.popular}" />
+                    android:checked="@={catalogProductSortModel.popular}"
+                    android:text="@string/catalog_product_sort_first_popular" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/catalog_product_sort_first_cheaper"
-                    android:checked="@={catalogProductSortModel.cheaper}" />
+                    android:checked="@={catalogProductSortModel.cheaper}"
+                    android:text="@string/catalog_product_sort_first_cheaper" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/catalog_product_sort_first_expensive"
-                    android:checked="@={catalogProductSortModel.expensive}" />
+                    android:checked="@={catalogProductSortModel.expensive}"
+                    android:text="@string/catalog_product_sort_first_expensive" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/catalog_product_sort_first_stock"
-                    android:checked="@={catalogProductSortModel.stock}" />
+                    android:checked="@={catalogProductSortModel.stock}"
+                    android:text="@string/catalog_product_sort_first_stock" />
 
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/catalog_product_sort_firrst_discount"
-                    android:checked="@={catalogProductSortModel.discount}" />
+                    android:checked="@={catalogProductSortModel.discount}"
+                    android:text="@string/catalog_product_sort_firrst_discount" />
 
             </RadioGroup>
 
@@ -93,17 +93,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@drawable/layer_shadow_top" />
+            <include layout="@layout/shadow_view" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> catalogProductSortModel.apply()}"
                 android:layout_margin="8dp"
                 android:enabled="@{catalogProductSortModel.isChanged}"
+                android:onClick="@{() -> catalogProductSortModel.apply()}"
                 android:text="@string/apply" />
 
         </LinearLayout>

@@ -5,4 +5,5 @@
     <item type="id" name="advantages_graph" />
     <item type="id" name="partners_graph" />
     <item type="id" name="separator" />
+    <item type="id" name="textinput_helper_text" />
 </resources>

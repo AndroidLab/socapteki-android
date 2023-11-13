@@ -153,11 +153,11 @@
 
         </LinearLayout>
 
-        <View
+        <include
+            layout="@layout/shadow_view"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
+            android:layout_height="6dp"
             android:layout_above="@id/flBasketMakingOrder"
-            android:background="@drawable/layer_shadow_top"
             app:visibleIf="@{!viewModel.basketService.products.empty}" />
 
         <!-- Кнопка оформить заказ -->

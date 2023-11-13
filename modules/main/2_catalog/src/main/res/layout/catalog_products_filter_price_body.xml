@@ -85,14 +85,16 @@
         <ru.apteka.components.ui.seek_bar_range.SeekBarRangedView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:minValue="@{catalogProductFilterModel.minPrice}"
-            app:maxValue="@{catalogProductFilterModel.maxPrice}"
-            app:currentMinValue="@={catalogProductFilterModel.selectedMinProgress}"
-            app:currentMaxValue="@={catalogProductFilterModel.selectedMaxProgress}"
             android:layout_margin="16dp"
-            app:progressColor="@color/light_green"
-            app:thumbNormalResource="@drawable/thumb_normal"
-            app:thumbPressedResource="@drawable/thumb_pressed"/>
+            app:currentMaxValue="@={catalogProductFilterModel.selectedMaxProgress}"
+            app:currentMinValue="@={catalogProductFilterModel.selectedMinProgress}"
+            app:maxValue="@{catalogProductFilterModel.maxPrice}"
+            app:minValue="@{catalogProductFilterModel.minPrice}"
+            app:enabled="@{catalogProductFilterModel.productsCount > -1 &amp; catalogProductFilterModel.enabled}"
+            app:onStopTrackingTouch="@{() -> catalogProductFilterModel.onChange()}"
+            app:progressColor="@{catalogProductFilterModel.productsCount >= -1 &amp; catalogProductFilterModel.enabled ? @color/light_green : @color/grey}"
+            app:thumbNormalImageDrawable="@{catalogProductFilterModel.productsCount > -1 &amp; catalogProductFilterModel.enabled ? @drawable/thumb_normal : @drawable/thumb_disable}"
+            app:thumbPressedResource="@drawable/thumb_pressed" />
 
     </LinearLayout>
 

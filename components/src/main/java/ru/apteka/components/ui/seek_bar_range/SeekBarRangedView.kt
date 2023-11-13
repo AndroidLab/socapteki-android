@@ -7,6 +7,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -88,6 +89,16 @@ class SeekBarRangedView @JvmOverloads constructor(
     interface SeekBarRangedChangeCallback {
         fun onChanged(minValue: Float, maxValue: Float)
         fun onChanging(minValue: Float, maxValue: Float)
+    }
+
+    var stopTrackingTouchListener: IStopTrackingTouchListener? = null
+
+    interface IStopTrackingTouchListener {
+        fun onStopTrackingTouch(view: SeekBarRangedView)
+    }
+
+    fun setOnStopTrackingTouchListener(l: IStopTrackingTouchListener?)  {
+        stopTrackingTouchListener = l
     }
 
     init {
@@ -408,6 +419,10 @@ class SeekBarRangedView @JvmOverloads constructor(
 
     fun setThumbNormalImageResource(@DrawableRes resId: Int) {
         val d = resources.getDrawable(resId, null)
+        setThumbNormalImageDrawable(d)
+    }
+
+    fun setThumbNormalImageDrawable(d: Drawable) {
         thumbImage = Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
         d.setBounds(0, 0, d.intrinsicWidth, d.intrinsicHeight)
         d.draw(Canvas(thumbImage))
@@ -795,6 +810,7 @@ class SeekBarRangedView @JvmOverloads constructor(
                 actionCallbacks.forEach { actionCallback ->
                     actionCallback.onChanged(selectedMinValue, selectedMaxValue)
                 }
+                stopTrackingTouchListener?.onStopTrackingTouch(this)
             }
             MotionEvent.ACTION_POINTER_DOWN -> {
                 val index = event.pointerCount - 1
@@ -866,8 +882,8 @@ class SeekBarRangedView @JvmOverloads constructor(
 
 @Suppress("unused")
 inline fun SeekBarRangedView.addActionListener(
-        crossinline onChanged: (minValue: Float, maxValue: Float) -> Unit = { _, _ -> },
-        crossinline onChanging: (minValue: Float, maxValue: Float) -> Unit = { _, _ -> },
+    crossinline onChanged: (minValue: Float, maxValue: Float) -> Unit = { _, _ -> },
+    crossinline onChanging: (minValue: Float, maxValue: Float) -> Unit = { _, _ -> },
 ): SeekBarRangedView.SeekBarRangedChangeCallback {
     val callback = object : SeekBarRangedView.SeekBarRangedChangeCallback {
 
@@ -878,6 +894,7 @@ inline fun SeekBarRangedView.addActionListener(
         override fun onChanging(minValue: Float, maxValue: Float) {
             onChanging.invoke(minValue, maxValue)
         }
+
     }
     actionCallbacks.add(callback)
     return callback
@@ -918,9 +935,11 @@ fun setSelectedMinValueListener(
     listener: InverseBindingListener?
 ) {
     if (listener != null) {
-        seekBar.addActionListener { minValue, maxValue ->
-            listener.onChange()
-        }
+        seekBar.addActionListener(
+            onChanging = { _, _ ->
+                listener.onChange()
+            }
+        )
     }
 }
 
@@ -956,8 +975,18 @@ fun setSelectedMaxValueListener(
     listener: InverseBindingListener?
 ) {
     if (listener != null) {
-        seekBar.addActionListener { minValue, maxValue ->
-            listener.onChange()
-        }
+        seekBar.addActionListener(
+            onChanging = { _, _ ->
+                listener.onChange()
+            }
+        )
     }
+}
+
+@BindingAdapter("app:onStopTrackingTouch")
+fun setOnStopTrackingTouch(
+    seekBar: SeekBarRangedView,
+    onStopTrackingTouch: SeekBarRangedView.IStopTrackingTouchListener
+) {
+    seekBar.setOnStopTrackingTouchListener(onStopTrackingTouch)
 }

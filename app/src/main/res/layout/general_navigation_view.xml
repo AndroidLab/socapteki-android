@@ -23,7 +23,8 @@
 
         <include
             layout="@layout/separator_view"
-            app:sepMargin="@{4}" />
+            app:sepMarginEnd="@{4}"
+            app:sepMarginStart="@{4}" />
 
         <!-- О компании -->
         <include

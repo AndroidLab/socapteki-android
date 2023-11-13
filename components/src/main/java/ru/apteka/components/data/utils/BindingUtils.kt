@@ -3,17 +3,22 @@ package ru.apteka.components.data.utils
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.InputType
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -29,9 +34,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.github.florent37.expansionpanel.ExpansionLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import ru.apteka.components.BR
 import ru.apteka.components.R
 
@@ -50,8 +59,8 @@ fun View.visibleIf(value: Boolean?) {
  * @param value [Any] Значение для преобразования в текст.
  * @param isHtml Флаг является ли текст html.
  */
-@BindingAdapter("app:setText", "app:isHtml", requireAll = false)
-fun TextView.setText(value: Any?, isHtml: Boolean = false) {
+@BindingAdapter("app:extraText", "app:isHtml", requireAll = false)
+fun TextView.setExtraText(value: Any?, isHtml: Boolean = false) {
     val _text = context.getStringFrom(value ?: "")
     text = if (isHtml) {
         getSpannedFromHtml(_text)
@@ -62,12 +71,29 @@ fun TextView.setText(value: Any?, isHtml: Boolean = false) {
 
 /**
  * Устанавливает размер текста.
- * @param view [View] - Отображение.
+ * @param textView [TextView] - Отображение.
  * @param value [Float] - Значение для преобразования в sp.
  */
-@BindingAdapter("app:setTextSize")
-fun setTextSize(textView: TextView, value: Float) {
-    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
+@BindingAdapter("app:extraTextSize")
+fun TextView.setExtraTextSize(value: Float) {
+    setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
+}
+
+/**
+ * Устанавливает стиль текста.
+ * @param textView [TextView] - Отображение.
+ * @param value [Int] - Значение стиля.
+ */
+@BindingAdapter("app:extraTextStyle")
+fun setExtraTextStyle(textView: TextView, value: Int?) {
+    textView.setTypeface(
+        null, when (value) {
+            0 -> Typeface.NORMAL
+            1 -> Typeface.BOLD
+            2 -> Typeface.ITALIC
+            else -> Typeface.NORMAL
+        }
+    )
 }
 
 /**
@@ -215,6 +241,39 @@ fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
     }
     view.layoutParams = lp
 }
+
+/**
+ * Устанавливает адаптер выбора для автокомплита.
+ * @param autoCompleteItems Элементы выбора.
+ * @param onAutoCompleteItemClick Обработчик клика на пункте списка.
+ */
+@BindingAdapter(
+    value = ["app:autoCompleteItems", "app:onAutoCompleteItemClick"],
+    requireAll = false
+)
+fun MaterialAutoCompleteTextView.setAutoCompleteItems(
+    autoCompleteItems: List<String>?,
+    onAutoCompleteItemClick: AdapterView.OnItemClickListener?
+) {
+    setAdapter(
+        ArrayAdapter(context, R.layout.item_auto_complete_holder, autoCompleteItems ?: emptyList())
+    )
+    /*if (inputType != InputType.TYPE_NULL) {
+        showDropDown()
+    }*/
+    onItemClickListener = onAutoCompleteItemClick
+}
+
+/**
+ * Устанавливает SingleLine helper для [TextInputLayout].
+ */
+@BindingAdapter("app:helperTextSingleLine")
+fun TextInputLayout.setHelperTextSingleLine(value: Boolean?) {
+    findViewById<TextView>(R.id.textinput_helper_text)?.let {
+        it.isSingleLine = true
+    }
+}
+
 
 /**
  * Устанавливает ширину бордера CardView.
@@ -439,7 +498,7 @@ fun RecyclerView.circlePagerIndicator(
     requireAll = false
 )
 fun <T> ViewGroup.inflateTemplateByItems(
-    items: List<T>?,
+    items: Collection<T>?,
     @LayoutRes template: Int?,
     lifecycleOwner: LifecycleOwner?
 ) {
@@ -475,7 +534,7 @@ fun <T> ViewGroup.inflateTemplateByItems(
             this.children.forEachIndexed { index, view ->
                 val viewBinding = DataBindingUtil.getBinding<ViewDataBinding>(view)
                 viewBinding?.lifecycleOwner = _lifecycleOwner
-                viewBinding?.setVariable(BR.bindingItem, items[index])
+                viewBinding?.setVariable(BR.bindingItem, items.toList()[index])
                 viewBinding?.executePendingBindings()
             }
             return
@@ -521,15 +580,21 @@ fun AppBarLayout.canScroll(
 /**
  * Возмможность скролла коллапсинг тоол бара.
  */
-/*
-@BindingAdapter("app:bouncyOrientation")
-fun BouncyRecyclerView.bouncyOrientation(
-    orientation: Int?
-) {
-    if (orientation != null) {
-        layoutManager = LinearLayoutManager(context, orientation, false)
+@BindingAdapter("app:expansionIsExpand", "app:expansionIsExpandDelay", requireAll = false)
+fun ExpansionLayout.expansionIsExpand(isExpand: Boolean?, expandDelay: Long?) {
+    if (isExpand == true) {
+        GlobalScope.launchMain {
+            if (expandDelay != null) delay(expandDelay)
+            expand(true)
+        }
+    } else {
+        GlobalScope.launchMain {
+            if (expandDelay != null) delay(expandDelay)
+            collapse(true)
+        }
     }
-}*/
+}
+
 
 /**
  * Устанавливает флаг возможности клика по вью и всем его потомкам.

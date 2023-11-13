@@ -18,17 +18,18 @@
 
         <include
             layout="@layout/catalog_product_filter_header"
-            app:catalogProductFilterModel="@{catalogProductFilterModel}"/>
+            app:catalogProductFilterModel="@{catalogProductFilterModel}" />
 
         <LinearLayout
             android:id="@+id/catalogProductsFilterBodyContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            app:visibleIf="@{catalogProductFilterModel.mediator}" />
 
         <include
             layout="@layout/catalog_product_filter_footer"
-            app:catalogProductFilterModel="@{catalogProductFilterModel}"/>
+            app:catalogProductFilterModel="@{catalogProductFilterModel}" />
 
     </LinearLayout>
 

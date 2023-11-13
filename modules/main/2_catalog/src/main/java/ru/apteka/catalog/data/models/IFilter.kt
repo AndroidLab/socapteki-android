@@ -1,8 +1,10 @@
 package ru.apteka.catalog.data.models
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 
 
@@ -21,6 +23,11 @@ sealed interface IFilter {
     val title: String
 
     /**
+     * Возвращает обработчик изменения фильтра.
+     */
+    val onChanged: (IFilter) -> Unit
+
+    /**
      * Возвращает флаг, что в фильтре есть какие то изменения.
      */
     val anySelected: LiveData<Boolean>
@@ -31,12 +38,33 @@ sealed interface IFilter {
     val isChanged: LiveData<Boolean>
 
     /**
+     * Возвращает флаг доступности выбора фильтров.
+     */
+    val enabled: MutableLiveData<Boolean>
+
+    /**
+     * Возвращает кол-во доступных продуктов.
+     */
+    val productsCount: MutableLiveData<Int>
+
+    /**
+     * Возвращает кол-во уже найденных продуктов с текущими фильтрами.
+     */
+    val foundProducts: LiveData<List<ProductCardModel>>
+
+    /**
      * Возвращает флаг, что работа с фильтром завершена.
      */
     val editingCompleted: SingleLiveEvent<Unit>
 
+    /**
+     * Сбрасывает фильтр на дефолтные настройки.
+     */
     fun reset()
 
+    /**
+     * Отменяет изменения и закрывает диалог фильтров.
+     */
     fun cancel() {
         editingCompleted.call()
     }
@@ -49,6 +77,8 @@ sealed interface IFilter {
     data class FilterPriceModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val minPrice: Int,
         val maxPrice: Int,
     ) : IFilter {
@@ -79,6 +109,10 @@ sealed interface IFilter {
 
         override val editingCompleted = SingleLiveEvent<Unit>()
 
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
+
         override fun reset() {
             _selectedMinPrice = minPrice
             _selectedMaxPrice = maxPrice
@@ -99,16 +133,25 @@ sealed interface IFilter {
             _anySelected.value = _selectedMinPrice != minPrice || _selectedMaxPrice != maxPrice
             super.apply()
         }
+
+        fun onChange() {
+            if (isChanged.value == true) {
+                onChanged(this)
+            }
+        }
     }
 
     data class FilterReleaseFormModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<ReleaseFormModel>
     ) : IFilter {
         data class ReleaseFormModel(
             val title: String,
             val desk: String? = null,
+            val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
             val onItemClick: (ReleaseFormModel) -> Unit = { isSelected.value = !isSelected.value!! }
         )
@@ -123,6 +166,12 @@ sealed interface IFilter {
                     value = items.zip(selectedItems).any {
                         it.first.isSelected.value!! != it.second
                     }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -132,6 +181,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             items.forEachIndexed { index, releaseFormModel ->
@@ -156,15 +209,39 @@ sealed interface IFilter {
 
             super.apply()
         }
+
+        val mediator = MediatorLiveData(true).apply {
+            fun setEnabled() {
+                items.onEach {
+                    it.enabled.value = productsCount.value!! > -1 && enabled.value!!
+                }
+            }
+
+            addSource(productsCount) {
+                setEnabled()
+            }
+            addSource(enabled) {
+                setEnabled()
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterManufacturerModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<ManufacturerModel>
     ) : IFilter {
         data class ManufacturerModel(
             val title: String,
+            val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
             val onItemClick: (ManufacturerModel) -> Unit = {
                 isSelected.value = !isSelected.value!!
@@ -181,6 +258,12 @@ sealed interface IFilter {
                     value = items.zip(selectedItems).any {
                         it.first.isSelected.value!! != it.second
                     }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -190,6 +273,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             items.forEachIndexed { index, releaseFormModel ->
@@ -214,11 +301,34 @@ sealed interface IFilter {
 
             super.apply()
         }
+
+        val mediator = MediatorLiveData(true).apply {
+            fun setEnabled() {
+                items.onEach {
+                    it.enabled.value = productsCount.value!! > -1 && enabled.value!!
+                }
+            }
+
+            addSource(productsCount) {
+                setEnabled()
+            }
+            addSource(enabled) {
+                setEnabled()
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterDiscountsModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val desc: String,
     ) : IFilter {
         private var isSelected = false
@@ -228,6 +338,12 @@ sealed interface IFilter {
         override val isChanged = MediatorLiveData(false).apply {
             addSource(isSelectedLiveData) {
                 value = it != isSelected
+                if (value == true) {
+                    onChange()
+                }
+                else {
+                    productsCount.value = foundProducts.value!!.size
+                }
             }
         }
 
@@ -236,6 +352,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             isSelected = false
@@ -253,11 +373,19 @@ sealed interface IFilter {
             _anySelected.value = isSelected
             super.apply()
         }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterNosologyModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<NosologyModel>,
     ) : IFilter {
         data class NosologyModel(
@@ -280,6 +408,10 @@ sealed interface IFilter {
 
         override val editingCompleted = SingleLiveEvent<Unit>()
 
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(0)
+
+        override val enabled = MutableLiveData(true)
+
         override fun reset() {
             apply()
         }
@@ -296,10 +428,13 @@ sealed interface IFilter {
     data class FilterBrandModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<BrandItemModel>,
     ) : IFilter {
         data class BrandItemModel(
             val title: String,
+            val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
             val onItemClick: (BrandItemModel) -> Unit = { isSelected.value = !isSelected.value!! }
         )
@@ -314,6 +449,12 @@ sealed interface IFilter {
                     value = items.zip(selectedItems).any {
                         it.first.isSelected.value!! != it.second
                     }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -323,6 +464,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             items.forEachIndexed { index, releaseFormModel ->
@@ -347,15 +492,39 @@ sealed interface IFilter {
 
             super.apply()
         }
+
+        val mediator = MediatorLiveData(true).apply {
+            fun setEnabled() {
+                items.onEach {
+                    it.enabled.value = productsCount.value!! > -1 && enabled.value!!
+                }
+            }
+
+            addSource(productsCount) {
+                setEnabled()
+            }
+            addSource(enabled) {
+                setEnabled()
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterCountryModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<CountryItemModel>,
     ) : IFilter {
         data class CountryItemModel(
             val title: String,
+            val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
             val onItemClick: (CountryItemModel) -> Unit = { isSelected.value = !isSelected.value!! }
         )
@@ -370,6 +539,12 @@ sealed interface IFilter {
                     value = items.zip(selectedItems).any {
                         it.first.isSelected.value!! != it.second
                     }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -379,6 +554,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             items.forEachIndexed { index, releaseFormModel ->
@@ -403,15 +582,39 @@ sealed interface IFilter {
 
             super.apply()
         }
+
+        val mediator = MediatorLiveData(true).apply {
+            fun setEnabled() {
+                items.onEach {
+                    it.enabled.value = productsCount.value!! > -1 && enabled.value!!
+                }
+            }
+
+            addSource(productsCount) {
+                setEnabled()
+            }
+            addSource(enabled) {
+                setEnabled()
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterActiveSubstanceModel(
         override val type: FilterType,
         override val title: String,
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
         val items: List<ActiveSubstanceItemModel>,
     ) : IFilter {
         data class ActiveSubstanceItemModel(
             val title: String,
+            val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
             val onItemClick: (ActiveSubstanceItemModel) -> Unit = {
                 isSelected.value = !isSelected.value!!
@@ -428,6 +631,12 @@ sealed interface IFilter {
                     value = items.zip(selectedItems).any {
                         it.first.isSelected.value!! != it.second
                     }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -437,6 +646,10 @@ sealed interface IFilter {
         override val anySelected: LiveData<Boolean> = _anySelected
 
         override val editingCompleted = SingleLiveEvent<Unit>()
+
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
 
         override fun reset() {
             items.forEachIndexed { index, releaseFormModel ->
@@ -461,12 +674,35 @@ sealed interface IFilter {
 
             super.apply()
         }
+
+        val mediator = MediatorLiveData(true).apply {
+            fun setEnabled() {
+                items.onEach {
+                    it.enabled.value = productsCount.value!! > -1 && enabled.value!!
+                }
+            }
+
+            addSource(productsCount) {
+                setEnabled()
+            }
+            addSource(enabled) {
+                setEnabled()
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
     data class FilterAllModel(
         val filters: List<IFilter>,
         override val type: FilterType = FilterType.ALL,
-        override val title: String = "Все фильтры"
+        override val title: String = "Все фильтры",
+        override val foundProducts: LiveData<List<ProductCardModel>>,
+        override val onChanged: (IFilter) -> Unit,
     ) : IFilter {
 
         private val _anySelected = MutableLiveData(false)
@@ -477,6 +713,12 @@ sealed interface IFilter {
             filters.forEach {
                 addSource(it.isChanged) {
                     value = filters.any { it.isChanged.value!! }
+                    if (value == true) {
+                        onChange()
+                    }
+                    else {
+                        productsCount.value = foundProducts.value!!.size
+                    }
                 }
             }
         }
@@ -501,6 +743,10 @@ sealed interface IFilter {
 
         override val editingCompleted = SingleLiveEvent<Unit>()
 
+        override val productsCount: MutableLiveData<Int> = MutableLiveData(55)
+
+        override val enabled = MutableLiveData(true)
+
         override fun reset() {
             filters.onEach {
                 it.reset()
@@ -523,6 +769,19 @@ sealed interface IFilter {
             _anySelected.value = filters.any { it.anySelected.value!! }
         }
 
+        val mediator = MediatorLiveData(true).apply {
+            addSource(productsCount) { count ->
+                filters.onEach {
+                    it.enabled.value = count > -1
+                }
+            }
+        }
+
+        fun onChange() {
+            //if (isChanged.value == true) {
+            onChanged(this)
+            //}
+        }
     }
 
 }

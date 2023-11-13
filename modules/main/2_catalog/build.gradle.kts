@@ -20,5 +20,5 @@ dependencies {
     implementation(project(":modules:features:shared:product_card:api"))
 
     implementation(libs.bundles.navigationDeps)
-    implementation(libs.dexter)
+    implementation(libs.tedpermission)
 }

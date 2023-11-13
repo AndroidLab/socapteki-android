@@ -1,4 +1,4 @@
-package ru.apteka.pharmacies_map.data.model
+package ru.apteka.components.data.models
 
 import java.util.UUID
 
@@ -7,8 +7,8 @@ import java.util.UUID
  */
 data class PharmacyModel(
     val id: UUID,
-    val title: String,
-    val desc: String,
+    val name: String,
+    val address: String,
     val pickup: String,
     val isFavorite: Boolean,
     val coordinates: Pair<Double, Double>

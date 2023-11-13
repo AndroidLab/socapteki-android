@@ -16,6 +16,7 @@ android {
 
 dependencies {
     implementation(project(":components"))
+    implementation(project(":modules:features:personal_data:api"))
 
     implementation(libs.bundles.navigationDeps)
 }

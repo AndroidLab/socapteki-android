@@ -1,6 +1,8 @@
 package ru.apteka.personal_data.presentation.personal_data
 
 import android.app.DatePickerDialog
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
@@ -12,6 +14,8 @@ import ru.apteka.components.ui.FeatureBaseFragment
 import ru.apteka.personal_data.R
 import ru.apteka.personal_data.databinding.PersonalDataFragmentBinding
 import ru.apteka.personal_data.databinding.PersonalDataToolbarMenuBinding
+import ru.apteka.personal_data_api.api.PERSONAL_DATA_CHANGE_RESULT
+import ru.apteka.personal_data_api.api.PERSONAL_DATA_CHANGE_RESULT_DATA
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.slots.Slot
@@ -47,7 +51,8 @@ class PersonalDataFragment :
                 requireContext(),
                 ru.apteka.components.R.style.Theme_Socapteki_DataPicker,
                 { view, year, month, day ->
-                    viewModel.date.value = "${String.format("%02d", day)}.${String.format("%02d", month+1)}.$year"
+                    viewModel.date.value =
+                        "${String.format("%02d", day)}.${String.format("%02d", month + 1)}.$year"
                 },
                 _year,
                 _month,
@@ -63,6 +68,16 @@ class PersonalDataFragment :
                 true
             )
         ).installOnAndFill(binding.etPersonalDataPhone)
+
+        binding.personalDataSave.setOnClickListener {
+            viewModel.savePersonalData { personalData ->
+                setFragmentResult(
+                    PERSONAL_DATA_CHANGE_RESULT, bundleOf(
+                        PERSONAL_DATA_CHANGE_RESULT_DATA to personalData
+                    )
+                )
+            }
+        }
 
     }
 
@@ -89,7 +104,9 @@ class PersonalDataFragment :
                             buttonConfirm = DialogButtonModel(
                                 text = ComponentsR.string.yes,
                             ) {
-                                viewModel.navigationManager.generalNavController.navigateWithAnim(PersonalDataFragmentDirections.toQuestionRemoveFragment())
+                                viewModel.navigationManager.generalNavController.navigateWithAnim(
+                                    PersonalDataFragmentDirections.toQuestionRemoveFragment()
+                                )
                             }
                         )
                     )

@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    app:setText="@{title}"
+                    app:extraText="@{title}"
                     app:visibleIf="@{!title.toString().empty}"
                     tools:text="Заголовок" />
 
@@ -84,19 +84,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
-                    app:visibleIf="@{!dialogMessage.message.toString().empty}"
                     app:isHtml="@{dialogMessage.isHtml}"
                     app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
                     app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
-                    app:setText="@{dialogMessage.message}"
+                    app:extraText="@{dialogMessage.message}"
+                    app:visibleIf="@{!dialogMessage.message.toString().empty}"
                     tools:text="Обычный текст диалога" />
 
                 <FrameLayout
                     android:id="@+id/commonDialogContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:visibleIf="@{isCustomContent}"
-                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }" />
+                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }"
+                    app:visibleIf="@{isCustomContent}" />
 
             </LinearLayout>
 
@@ -115,7 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    app:setText='@{buttonCancel == null ? "" : buttonCancel.text}'
+                    android:maxLines="1"
+                    app:extraText='@{buttonCancel == null ? "" : buttonCancel.text}'
                     app:visibleIf="@{buttonCancel != null}"
                     tools:text="cancel"
                     tools:textColor="@color/color_primary" />
@@ -126,7 +127,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    app:setText='@{buttonConfirm == null ? "" : buttonConfirm.text}'
+                    android:maxLines="1"
+                    app:extraText='@{buttonConfirm == null ? "" : buttonConfirm.text}'
                     app:visibleIf="@{buttonConfirm != null}"
                     tools:text="ok"
                     tools:textColor="@color/color_primary" />

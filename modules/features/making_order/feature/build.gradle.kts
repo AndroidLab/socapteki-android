@@ -18,6 +18,8 @@ dependencies {
     implementation(project(":components"))
     implementation(project(":modules:features:making_order:api"))
     implementation(project(":modules:features:choosing_city:api"))
+    implementation(project(":modules:features:pharmacies_map:api"))
+    implementation(project(":modules:features:personal_data:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
+                app:visibleIf="@{catalogProductFilterModel.mediator}"
                 app:lifecycleOwner="@{lifecycle}"
                 app:forItems="@{catalogProductFilterModel.items}"
                 app:useTemplate="@{@layout/catalog_products_filter_manufacturer_template}" />

@@ -23,5 +23,4 @@ dependencies {
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)
-    implementation(libs.dexter)
 }

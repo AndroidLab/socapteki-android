@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
+            android:clickable="@{bindingItem.enabled}"
             android:onClick="@{() -> bindingItem.onItemClick.invoke(bindingItem)}"
             android:orientation="horizontal">
 
@@ -31,6 +32,7 @@
                 android:background="@android:color/transparent"
                 android:checked="@={bindingItem.isSelected}"
                 android:clickable="false"
+                android:enabled="@{bindingItem.enabled}"
                 android:minWidth="0dp"
                 android:minHeight="0dp" />
 
@@ -48,7 +50,8 @@
         <include
             android:id="@id/separator"
             layout="@layout/separator_view"
-            app:sepMargin="@{16}" />
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
 
     </LinearLayout>
 

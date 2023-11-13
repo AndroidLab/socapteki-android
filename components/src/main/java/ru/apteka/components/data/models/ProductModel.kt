@@ -2,6 +2,7 @@ package ru.apteka.components.data.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.util.UUID
 
 
@@ -27,7 +28,7 @@ data class ProductModel(
     val expirationDate: String? = null,
     val pickupDate: String? = null,
     val homeDeliveryDate: String? = null,
-    val variants: List<ProductVariantModel> = emptyList(),
+    val variants: @RawValue List<ProductVariantModel> = emptyList(),
     val labels: List<Label> = emptyList(),
     val countInBasket: Int = 0,
-): Parcelable
+) : Parcelable

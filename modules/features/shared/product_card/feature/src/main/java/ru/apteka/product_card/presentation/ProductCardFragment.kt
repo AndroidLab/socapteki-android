@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
@@ -60,16 +61,46 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         binding.viewModel = viewModel
 
         binding.rvProductCardImages.adapter = priceImageAdapter
-        binding.pricePageSimilarProducts.rv.adapter = similarProductsAdapter
+        binding.productCardAnnalogs.rv.adapter = similarProductsAdapter
         binding.pricePageWithProduct.rv.adapter = withProductProductsDayAdapter
 
+        var isScrollSelect = false
+        binding.productCardTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (!isScrollSelect) {
+                    when (tab?.position) {
+                        0 -> binding.nsvProductCard.smoothScrollTo(
+                            binding.productCardDesc.x.toInt(),
+                            binding.productCardDesc.y.toInt() - binding.productCardTabs.height
+                        )
 
-        binding.productCardAptekiLocation1.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
-        }
-        binding.productCardAptekiLocation2.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
-        }
+                        1 -> binding.nsvProductCard.smoothScrollTo(
+                            binding.productCardPrice.x.toInt(),
+                            binding.productCardPrice.y.toInt() - binding.productCardTabs.height
+                        )
+
+                        2 -> binding.nsvProductCard.smoothScrollTo(
+                            binding.productCardAnnalogs.horizontalListBlock.x.toInt(),
+                            binding.productCardAnnalogs.horizontalListBlock.y.toInt() - binding.productCardTabs.height
+                        )
+
+                        3 -> binding.nsvProductCard.smoothScrollTo(
+                            binding.productCardInstructions.x.toInt(),
+                            binding.productCardInstructions.y.toInt() - binding.productCardTabs.height
+                        )
+
+                        4 -> binding.nsvProductCard.smoothScrollTo(
+                            binding.productCardComments.x.toInt(),
+                            binding.productCardComments.y.toInt() - binding.productCardTabs.height
+                        )
+                    }
+                }
+                isScrollSelect = false
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
         binding.nsvProductCard.setOnScrollChangeListener { view, i, i2, i3, i4 ->
             if (i2 > binding.productCardDesc1.y && binding.productCardTabs.visibility == View.INVISIBLE) {
@@ -80,47 +111,51 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 binding.productCardTabs.setVisibleWithInteractionEnabled(false)
             }
 
-            val scrollLayoutOffsetTriggerPoint = i2 + screenHeight / 2
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
-                binding.productCardTabDesc.setBackgroundResource(ComponentsR.color.light_grey)
-            } else {
-                binding.productCardTabDesc.setBackgroundColor(Color.WHITE)
+
+            val scrollLayoutOffsetTriggerPoint = i2 + screenHeight / 3
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.productCardPrice.y) {
+                if (!binding.productCardTabs.getTabAt(0)!!.isSelected) {
+                    isScrollSelect = true
+                    binding.productCardTabs.getTabAt(0)?.select()
+                }
+            }
+
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.productCardAnnalogs.horizontalListBlock.y) {
+                if (!binding.productCardTabs.getTabAt(1)!!.isSelected) {
+                    isScrollSelect = true
+                    binding.productCardTabs.getTabAt(1)?.select()
+                }
+            }
+
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardAnnalogs.horizontalListBlock.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
+                if (!binding.productCardTabs.getTabAt(2)!!.isSelected) {
+                    isScrollSelect = true
+                    binding.productCardTabs.getTabAt(2)?.select()
+                }
             }
 
             if (scrollLayoutOffsetTriggerPoint > binding.productCardInstructions.y && scrollLayoutOffsetTriggerPoint < binding.productCardComments.y) {
-                binding.productCardTabInstructions.setBackgroundResource(ComponentsR.color.light_grey)
-            } else {
-                binding.productCardTabInstructions.setBackgroundColor(Color.WHITE)
+                if (!binding.productCardTabs.getTabAt(3)!!.isSelected) {
+                    isScrollSelect = true
+                    binding.productCardTabs.getTabAt(3)?.select()
+                }
             }
 
             if (scrollLayoutOffsetTriggerPoint > binding.productCardComments.y) {
-                binding.productCardTabReviews.setBackgroundResource(ComponentsR.color.light_grey)
-            } else {
-                binding.productCardTabReviews.setBackgroundColor(Color.WHITE)
+                if (!binding.productCardTabs.getTabAt(4)!!.isSelected) {
+                    isScrollSelect = true
+                    binding.productCardTabs.getTabAt(4)?.select()
+                }
             }
+
         }
 
-        binding.productCardTabDesc.setOnClickListener {
-            binding.nsvProductCard.smoothScrollTo(
-                binding.productCardDesc.x.toInt(),
-                binding.productCardDesc.y.toInt() - binding.productCardTabs.height
-            )
+        binding.productCardAptekiLocation1.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
         }
-
-        binding.productCardTabInstructions.setOnClickListener {
-            binding.nsvProductCard.smoothScrollTo(
-                binding.productCardInstructions.x.toInt(),
-                binding.productCardInstructions.y.toInt() - binding.productCardTabs.height
-            )
+        binding.productCardAptekiLocation2.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
         }
-
-        binding.productCardTabReviews.setOnClickListener {
-            binding.nsvProductCard.smoothScrollTo(
-                binding.productCardComments.x.toInt(),
-                binding.productCardComments.y.toInt() - binding.productCardTabs.height
-            )
-        }
-
 
         binding.productCardReleaseForm.setOnClickListener {
             Log.d("myL", "productCardReleaseForm")
@@ -191,8 +226,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         get() {
             binding.productCardTabs.setVisibleWithInteractionEnabled(true)
             return ValueAnimator.ofFloat(
-                -binding.productCardTabs.height / 2f,
-                binding.productCardTabs.height / 2f - 1.dp
+                -binding.productCardTabs.height.toFloat(),
+                binding.productCardTabs.height.toFloat() - 1.dp
             ).apply {
                 addUpdateListener { valueAnimator ->
                     binding.productCardTabs.translationY = valueAnimator.animatedValue as Float
@@ -204,7 +239,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
     override fun onResume() {
         super.onResume()
         binding.productCardTabs.doOnLayout {
-            it.translationY = -binding.productCardTabs.height / 2f
+            it.translationY = -binding.productCardTabs.height.toFloat()
         }
 
 

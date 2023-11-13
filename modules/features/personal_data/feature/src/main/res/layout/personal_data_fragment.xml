@@ -52,6 +52,8 @@
                             android:id="@+id/etPersonalDataFio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLength="64"
+                            android:lines="1"
                             android:background="@drawable/text_input_white_background_unfocused_shape"
                             android:text="@={viewModel.fio}" />
 
@@ -195,11 +197,11 @@
 
                     <!-- Сохранить -->
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/personalDataSave"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:enabled="@{viewModel.isChanged}"
-                        android:onClick="@{() -> viewModel.savePersonalData()}"
                         android:text="@string/save" />
 
                 </LinearLayout>

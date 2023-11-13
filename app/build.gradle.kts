@@ -53,5 +53,4 @@ dependencies {
     implementation(libs.mapsMobile)
     implementation(libs.measured)
     implementation(libs.zbar)
-    implementation(libs.dexter)
 }

@@ -18,11 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:onClick="@{() -> bindingItem.onItemClick.invoke()}"
+        android:onClick="@{() -> bindingItem.onItemClick()}"
         android:text="@{bindingItem.name}"
-        app:chipBackgroundColor="@{bindingItem.isSelected ? @color/color_secondary_container : @color/background_secondary}"
+        app:chipBackgroundColor="@{bindingItem.isItemSelected ? @color/color_secondary_container : @color/background_secondary}"
         app:chipCornerRadius="100dp"
-        app:chipStrokeColor="@{bindingItem.isSelected ? @color/color_primary : @android:color/transparent}"
-        app:chipStrokeWidth="@{bindingItem.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+        app:chipStrokeColor="@{bindingItem.isItemSelected ? @color/color_primary : @android:color/transparent}"
+        app:chipStrokeWidth="@{bindingItem.isItemSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
 
 </layout>
