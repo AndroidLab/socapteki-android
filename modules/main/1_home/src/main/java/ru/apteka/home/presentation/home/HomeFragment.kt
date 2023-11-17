@@ -20,6 +20,8 @@ import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
 import ru.apteka.main_common.ui.MainScreenBaseFragment
+import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
+import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.main_common.R as MainCommonR
@@ -78,7 +80,11 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         binding.homeOther.rv.adapter = othersAdapter
 
         binding.homePharmaciesMap.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(PharmaciesMapApiR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                )
+            )
         }
 
         binding.homePromotions.header.btn.setOnClickListener {

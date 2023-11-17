@@ -15,7 +15,7 @@ import ru.apteka.making_order.R
 import ru.apteka.making_order.data.model.DeliveryDateModel
 import ru.apteka.making_order.databinding.MakingOrderAddressFragmentBinding
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_DELIVERY
-import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_DELIVERY_DATE
+import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_DELIVERY_DATA
 import java.util.Calendar
 import ru.apteka.components.R as ComponentsR
 
@@ -82,7 +82,7 @@ class MakingOrderAddressFragment :
             )
             setFragmentResult(
                 MAKING_ORDER_ARGUMENT_DELIVERY, bundleOf(
-                    MAKING_ORDER_ARGUMENT_DELIVERY_DATE to deliveryDate
+                    MAKING_ORDER_ARGUMENT_DELIVERY_DATA to deliveryDate
                 )
             )
             viewModel.navigationManager.generalNavController.popBackStack()

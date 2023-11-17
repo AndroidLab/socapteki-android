@@ -40,4 +40,15 @@
     <string name="making_order_address_required_field_hint">Обязательное поле</string>
     <string name="making_order_address_date_time_error">Дата не может быть меньше текущей</string>
 
+    <string name="making_order_recipients_title">Получатели</string>
+    <string name="making_order_recipients_phone">Номер телефона</string>
+
+    <string name="making_order_completion_title">Заказ №%s принят</string>
+    <string name="making_order_completion_desc">Мы пришлем вам смс, когда заказ будет готов к выдаче в аптеке.</string>
+    <string name="making_order_completion_address">Адрес доставки:</string>
+    <string name="making_order_completion_will_be_ready">Будет готов:</string>
+    <string name="making_order_completion_recipients">Получатели:</string>
+    <string name="making_order_completion_pay">Оплата:</string>
+    <string name="making_order_completion_back">Вернуться к покупкам</string>
+
 </resources>

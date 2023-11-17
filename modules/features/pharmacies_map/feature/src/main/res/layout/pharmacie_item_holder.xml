@@ -131,6 +131,17 @@
 
         </LinearLayout>
 
+        <!-- Блок для построения навигации -->
+        <ImageView
+            android:id="@+id/pharmacyMapNavigation"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:src="@drawable/ic_yandex_map"
+            tools:ignore="ContentDescription" />
+
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

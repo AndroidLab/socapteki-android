@@ -7,16 +7,48 @@
 
         <variable
             name="bindingItem"
-            type="String" />
+            type="ru.apteka.making_order.data.model.RecipientModel" />
 
     </data>
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{bindingItem}"
-        android:textSize="16sp"
-        android:textColor="@color/dark_black" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{bindingItem.fio}"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{bindingItem.phone}"
+                android:textColor="@color/light_black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> bindingItem.onRemove.invoke()}"
+            android:src="@drawable/ic_close"
+            tools:ignore="ContentDescription"
+            app:visibleIf="@{bindingItem.onRemove != null}"/>
+
+    </LinearLayout>
 
 </layout>

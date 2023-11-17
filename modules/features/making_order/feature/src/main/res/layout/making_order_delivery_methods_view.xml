@@ -74,8 +74,8 @@
                 android:id="@+id/deliveryMethodExpansionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:expansionIsExpandDelay="@{250L}"
-                app:expansionIsExpand="@{model.isItemSelected &amp; model.date != null}">
+                app:expansionIsExpand="@{model.isItemSelected &amp; model.date != null}"
+                app:expansionIsExpandDelay="@{250L}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -93,7 +93,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_location"
+                            android:src="@drawable/ic_city_location"
+                            app:tint="@color/light_black"
                             tools:ignore="ContentDescription" />
 
                         <LinearLayout
@@ -130,7 +131,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_location"
+                            android:src="@drawable/ic_making_order_time"
                             tools:ignore="ContentDescription" />
 
                         <LinearLayout

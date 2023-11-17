@@ -13,10 +13,6 @@
     <string name="remove">Удалить</string>
     <string name="change">Изменить</string>
     <string name="clear">Очистить</string>
-    <string name="orders_in_work_status">В работе</string>
-    <string name="orders_canceled_status">Отменнено</string>
-    <string name="orders_completed_status">Завершено</string>
-    <string name="order_number">Заказ №%s</string>
     <string name="into_basket">В корзину</string>
     <string name="all">Все</string>
     <string name="save">Сохранить</string>
@@ -51,5 +47,13 @@
     <string name="access_phone_camera">Для продолжения необходим доступ к камере телефона. Нажмите кнопку настройки и дайте доступ к камере телефона.</string>
     <string name="access_mic_record">Для продолжения необходим доступ к микрофону телефона. Нажмите кнопку настройки и дайте доступ к микрофону телефона.</string>
 
+    <string name="orders_all">Все</string>
+    <string name="orders_in_work">В работе</string>
+    <string name="orders_canceled">Отмененные</string>
+    <string name="orders_completed">Завершеные</string>
+    <string name="orders_in_work_status">В работе</string>
+    <string name="orders_canceled_status">Отменнено</string>
+    <string name="orders_completed_status">Завершено</string>
+    <string name="order_number">Заказ №%s</string>
 
 </resources>

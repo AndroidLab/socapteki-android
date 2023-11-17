@@ -19,6 +19,8 @@ import ru.apteka.components.data.utils.setVisibleWithInteractionEnabled
 import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
+import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card.R
 import ru.apteka.product_card.databinding.ProductCardFragmentBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
@@ -151,10 +153,18 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.productCardAptekiLocation1.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                )
+            )
         }
         binding.productCardAptekiLocation2.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(pharmaciesMapApiR.id.pharmacies_map_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                )
+            )
         }
 
         binding.productCardReleaseForm.setOnClickListener {

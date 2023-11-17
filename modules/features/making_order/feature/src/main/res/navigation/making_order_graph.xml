@@ -18,6 +18,16 @@
             android:id="@+id/toMakingOrderAddressFragment"
             app:destination="@id/makingOrderAddressFragment" />
 
+        <action
+            android:id="@+id/toMakingOrderRecipientsFragment"
+            app:destination="@id/makingOrderRecipientsFragment" />
+
+        <action
+            android:id="@+id/toMakingOrderCompletionFragment"
+            app:destination="@id/makingOrderCompletionFragment"
+            app:popUpTo="@id/making_order_graph"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment
@@ -30,5 +40,18 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/makingOrderRecipientsFragment"
+        android:name="ru.apteka.making_order.presentation.making_order_recipients.MakingOrderRecipientsFragment" />
+
+    <fragment
+        android:id="@+id/makingOrderCompletionFragment"
+        android:name="ru.apteka.making_order.presentation.making_order_completion.MakingOrderCompletionFragment" >
+
+        <argument
+            android:name="completionData"
+            app:argType="ru.apteka.making_order.data.model.CompletionDataModel" />
+
+    </fragment>
 
 </navigation>

@@ -1,9 +1,12 @@
 package ru.apteka.pharmacies_map.presentation
 
 
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LifecycleOwner
-import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.components.data.models.PharmacyModel
+import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.pharmacies_map.databinding.PharmacieItemHolderBinding
 
 
@@ -13,7 +16,8 @@ import ru.apteka.pharmacies_map.databinding.PharmacieItemHolderBinding
 class PharmacyAdapter(
     private val lifeOwner: LifecycleOwner,
     private val _viewModel: PharmaciesMapViewModel,
-    private val onItemClick: (PharmacyModel) -> Unit
+    private val onItemClick: (PharmacyModel) -> Unit,
+    private val onNavigateClick: (PharmacyModel) -> Unit
 ) :
     ViewBindingDelegateAdapter<PharmacyModel, PharmacieItemHolderBinding>(PharmacieItemHolderBinding::inflate) {
 
@@ -28,6 +32,9 @@ class PharmacyAdapter(
         model = item
         pharmacyItem.setOnClickListener {
             onItemClick(item)
+        }
+        pharmacyMapNavigation.setOnClickListener {
+            onNavigateClick(item)
         }
         executePendingBindings()
     }

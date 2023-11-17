@@ -59,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fillViewport="true"
+                    android:overScrollMode="never"
                     android:scrollbars="none">
 
                     <LinearLayout
@@ -66,41 +67,10 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.filterInWork.onClick.invoke(viewModel.filterInWork)}"
-                            android:text="@{viewModel.filterInWork.text}"
-                            app:chipBackgroundColor="@{viewModel.filterInWork.isSelected ? @color/color_secondary_container : @color/background_secondary}"
-                            app:chipCornerRadius="100dp"
-                            app:chipStrokeColor="@{viewModel.filterInWork.isSelected ? @color/color_primary : @android:color/transparent}"
-                            app:chipStrokeWidth="@{viewModel.filterInWork.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:onClick="@{() -> viewModel.filterCanceled.onClick.invoke(viewModel.filterCanceled)}"
-                            android:text="@{viewModel.filterCanceled.text}"
-                            app:chipBackgroundColor="@{viewModel.filterCanceled.isSelected ? @color/color_secondary_container : @color/background_secondary}"
-                            app:chipCornerRadius="100dp"
-                            app:chipStrokeColor="@{viewModel.filterCanceled.isSelected ? @color/color_primary : @android:color/transparent}"
-                            app:chipStrokeWidth="@{viewModel.filterCanceled.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
-
-                        <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:onClick="@{() -> viewModel.filterCompleted.onClick.invoke(viewModel.filterCompleted)}"
-                            android:text="@{viewModel.filterCompleted.text}"
-                            app:chipBackgroundColor="@{viewModel.filterCompleted.isSelected ? @color/color_secondary_container : @color/background_secondary}"
-                            app:chipCornerRadius="100dp"
-                            app:chipStrokeColor="@{viewModel.filterCompleted.isSelected ? @color/color_primary : @android:color/transparent}"
-                            app:chipStrokeWidth="@{viewModel.filterCompleted.isSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
-
-                    </LinearLayout>
+                        android:padding="16dp"
+                        app:forItems="@{viewModel.orderFilter.items}"
+                        app:useTemplate="@{@layout/order_filter_view}"
+                        app:visibleIf="@{viewModel.orderFilter.mediator}"/>
 
                 </HorizontalScrollView>
 
@@ -125,8 +95,7 @@
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                        <include
-                            layout="@layout/footer_stub" />
+                        <include layout="@layout/footer_stub" />
 
                     </LinearLayout>
 
@@ -136,7 +105,7 @@
 
             <include
                 layout="@layout/progress_bar"
-                app:isLoading="@{viewModel.isLoading}"/>
+                app:isLoading="@{viewModel.isLoading}" />
 
         </FrameLayout>
 

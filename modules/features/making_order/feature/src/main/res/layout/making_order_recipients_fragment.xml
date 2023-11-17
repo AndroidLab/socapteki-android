@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.making_order.presentation.making_order_recipients.MakingOrderRecipientsViewModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/makingOrderRecipientsToolbar"
+            layout="@layout/toolbar" />
+
+        <!-- ФИО -->
+        <ru.apteka.components.ui.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/fio"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMakingOrderRecipientsFio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_white_background_unfocused_shape"
+                android:text="@={viewModel.recipientFio}" />
+
+        </ru.apteka.components.ui.TextInputLayout>
+
+        <!-- Номер телефона -->
+        <ru.apteka.components.ui.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/making_order_recipients_phone"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMakingOrderRecipientsPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_white_background_unfocused_shape"
+                android:inputType="phone"
+                android:text="@={viewModel.recipientNumber}" />
+
+        </ru.apteka.components.ui.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvMakingOrderRecipientsAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:text="@string/add"
+            android:textColor="@{viewModel.isFieldsFilled ? @color/color_primary : @color/grey}"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+</layout>

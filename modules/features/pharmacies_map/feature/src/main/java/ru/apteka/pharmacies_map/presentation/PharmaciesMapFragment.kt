@@ -1,5 +1,7 @@
 package ru.apteka.pharmacies_map.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.viewModels
@@ -11,13 +13,13 @@ import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
 import dagger.hilt.android.AndroidEntryPoint
+import ru.apteka.components.data.models.PharmacyModel
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.pharmacies_map.R
-import ru.apteka.components.data.models.PharmacyModel
 import ru.apteka.pharmacies_map.databinding.PharmaciesMapFragmentBinding
 
 
@@ -43,7 +45,8 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
             PharmacyAdapter(
                 viewLifecycleOwner,
                 viewModel,
-                ::onPharmacyClick
+                ::onPharmacyClick,
+                ::onNavigateClick
             )
         )
     }
@@ -129,6 +132,19 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
             pharmacy.coordinates.first,
             pharmacy.coordinates.second
         )
+    }
+
+    private fun onNavigateClick(pharmacy: PharmacyModel) {
+        val uri = Uri.parse("yandexmaps://maps.yandex.ru/?pt=${pharmacy.coordinates.second},${pharmacy.coordinates.first}&z=14")
+        var intent = Intent(Intent.ACTION_VIEW, uri)
+        val activities = requireContext().packageManager.queryIntentActivities(intent, 0)
+        if (activities.size > 0) {
+            startActivity(intent)
+        } else {
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("market://details?id=ru.yandex.yandexmaps")
+            startActivity(intent)
+        }
     }
 
     private val placemarkTapListener = MapObjectTapListener { mapObject, point ->

@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import ru.apteka.components.data.models.DeliveryAddressModel
+import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.models.PharmacyModel
 import ru.apteka.components.data.utils.PreferencesDelegate
 import ru.apteka.components.data.services.user.models.CityModel
@@ -24,7 +25,7 @@ class UserPreferences @Inject constructor(
 
     companion object {
         private const val CITY = "city"
-        private const val ORDER_FILTERS = "order_filters"
+        private const val ORDER_FILTER = "order_filter"
         private const val SELECTED_PHARMACY = "selected_pharmacy"
         private const val SELECTED_ADDRESS = "selected_address"
     }
@@ -54,13 +55,25 @@ class UserPreferences @Inject constructor(
     )
 
 
+    private val _orderFilterFlow = MutableSharedFlow<OrderStatus>(replay = 1)
+
     /**
-     * Возвращет или устанавливает выбранные фильтры заказов.
+     * Возвращает поток выбранного фильтра заказа.
      */
-    var disabledOrderFilters: Set<String> by PreferencesDelegate<Set<String>, Set<String>>(
+    val orderFilterFlow: SharedFlow<OrderStatus> = _orderFilterFlow
+
+    /**
+     * Возвращет или устанавливает выбранный фильтры заказов.
+     */
+    var orderFilter: OrderStatus by PreferencesDelegate(
         userPref,
-        ORDER_FILTERS,
-        setOf()
+        ORDER_FILTER,
+        OrderStatus.ALL, {
+            it.name
+        }, {
+            OrderStatus.valueOf(it)
+        },
+        _orderFilterFlow
     )
 
 
@@ -91,7 +104,8 @@ class UserPreferences @Inject constructor(
     /**
      * Возвращает поток выбоанного адреса.
      */
-    val selectedDeliveryAddressFlow: SharedFlow<DeliveryAddressModel?> = _selectedDeliveryAddressFlow
+    val selectedDeliveryAddressFlow: SharedFlow<DeliveryAddressModel?> =
+        _selectedDeliveryAddressFlow
 
     /**
      * Возвращет или устанавливает выбранный адрес.

@@ -27,6 +27,7 @@ import ru.apteka.making_order.data.model.DeliveryDateModel
 import ru.apteka.making_order.data.model.DeliveryMethodsModel
 import ru.apteka.making_order.data.model.DeliveryType
 import ru.apteka.making_order.data.model.PaymentsMethodsModel
+import ru.apteka.making_order.data.model.RecipientModel
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
@@ -183,17 +184,43 @@ class MakingOrderViewModel @Inject constructor(
     /**
      * Возвращает список получателей.
      */
-    val recipients = MutableLiveData<Set<String>>(emptySet())
+    val recipients = MutableLiveData<List<RecipientModel>>(emptyList())
 
     /**
      * Устанавливает выбор самого себя в получатели заказа.
      */
     fun setRecipientSameBuyer(b: Boolean) {
-        if (b) {
-            recipients.value = recipients.value!!.plus(personalData.value!!.fio)
-        } else {
-            recipients.value = recipients.value!!.minus(personalData.value!!.fio)
+        val r = RecipientModel(
+            fio = personalData.value!!.fio,
+            phone = personalData.value!!.phone
+        ).apply {
+            onRemove = {
+                removeRecipientOrder(this)
+            }
         }
+        if (b) {
+            recipients.value = recipients.value!!.plus(r)
+        } else {
+            recipients.value = recipients.value!!.minus(r)
+        }
+    }
+
+    /**
+     * Добавляет получателя заказа.
+     */
+    fun addRecipientOrder(recipient: RecipientModel) {
+        recipients.value = recipients.value!!.plus(recipient.apply {
+            onRemove = {
+                removeRecipientOrder(this)
+            }
+        })
+    }
+
+    /**
+     * Удаляет получателя заказа.
+     */
+    fun removeRecipientOrder(recipient: RecipientModel) {
+        recipients.value = recipients.value!!.minus(recipient)
     }
 
     /**
@@ -264,6 +291,24 @@ class MakingOrderViewModel @Inject constructor(
 
         addSource(isBonusesApplyLoading) {
             check()
+        }
+    }
+
+    /**
+     * Возвращает флаг заполнения обязательных полей.
+     */
+    val isFieldsFilled = MediatorLiveData<Boolean>().apply {
+        fun checkFieldFilled() {
+            value = selectedDeliveryDate.value != null && recipients.value!!.isNotEmpty()
+        }
+
+
+        addSource(selectedDeliveryDate) {
+            checkFieldFilled()
+        }
+
+        addSource(recipients) {
+            checkFieldFilled()
         }
     }
 
