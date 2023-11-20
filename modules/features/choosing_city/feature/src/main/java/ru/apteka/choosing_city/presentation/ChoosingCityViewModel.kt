@@ -1,9 +1,11 @@
 package ru.apteka.choosing_city.presentation
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.apteka.choosing_city.data.model.CityCardDetectModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
@@ -29,6 +31,13 @@ class ChoosingCityViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
+
+    /**
+     * Возвращает пункт модель пункта списка для автоопределения города.
+     */
+    val cityDetect = CityCardDetectModel {
+        Log.d("myL", "cityDetect")
+    }
 
     private val _cities = MutableLiveData<List<CityCardModel>>(emptyList())
 

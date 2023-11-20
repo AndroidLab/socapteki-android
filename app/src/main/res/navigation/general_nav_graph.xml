@@ -21,18 +21,40 @@
 
     <include app:graph="@navigation/about_company_graph" />
 
-    <include app:graph="@navigation/brands_graph" />
+    <include app:graph="@navigation/our_partners_graph" />
 
     <include app:graph="@navigation/pharmacies_map_graph" />
-
-    <include app:graph="@navigation/advantages_graph" />
-
-    <include app:graph="@navigation/partners_graph" />
 
     <include app:graph="@navigation/personal_data_graph" />
 
     <include app:graph="@navigation/product_card_graph" />
 
     <include app:graph="@navigation/making_order_graph" />
+
+    <include app:graph="@navigation/about_company_graph" />
+
+    <include app:graph="@navigation/work_with_us_graph" />
+
+    <include app:graph="@navigation/licenses_graph" />
+
+    <include app:graph="@navigation/contacts_graph" />
+
+    <include app:graph="@navigation/reviews_graph" />
+
+    <include app:graph="@navigation/our_partners_graph" />
+
+    <include app:graph="@navigation/cooperation_graph" />
+
+    <include app:graph="@navigation/favorites_graph" />
+
+    <include app:graph="@navigation/faq_graph" />
+
+    <include app:graph="@navigation/charity_graph" />
+
+    <include app:graph="@navigation/feedback_graph" />
+
+    <include app:graph="@navigation/barcode_scanner_graph" />
+
+    <include app:graph="@navigation/brands_graph" />
 
 </navigation>

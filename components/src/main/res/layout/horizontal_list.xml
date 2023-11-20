@@ -55,21 +55,38 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="200dp">
+                android:minHeight="150dp">
 
-                <ru.apteka.components.ui.boundcy.BouncyRecyclerView
-                    android:id="@+id/rv"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                    app:circlePagerIndicator="@{circlePagerIndicator}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
-                    app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
-                    app:linearSnapHelper="@{linearSnapHelper}"
-                    app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}"
-                    app:recyclerviewOverscrollAnimationSize="0.5" />
+                    android:orientation="horizontal">
+
+                    <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                        app:circlePagerIndicator="@{circlePagerIndicator}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
+                        app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
+                        app:linearSnapHelper="@{linearSnapHelper}"
+                        app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/vForvward"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="10dp"
+                        app:lottie_colorFilter="@color/dark_grey"
+                        app:lottie_progress=".75"
+                        app:lottie_rawRes="@raw/forward"
+                        app:lottie_repeatMode="restart" />
+
+                </LinearLayout>
 
                 <include
                     layout="@layout/progress_bar"

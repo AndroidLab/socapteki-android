@@ -86,13 +86,13 @@
                     app:text="@{@string/profile_orders}" />
 
                 <include
-                    android:id="@+id/userProfileApteki"
+                    android:id="@+id/userProfilePharmacy"
                     layout="@layout/user_profile_card"
                     android:layout_width="0dp"
                     android:layout_height="64dp"
                     android:layout_weight="1"
                     app:color="@{@color/color_surface_variant}"
-                    app:icon="@{@drawable/ic_profile_apteki}"
+                    app:icon="@{@drawable/ic_profile_pharmacy}"
                     app:text="@{@string/profile_pharmacies}" />
 
             </LinearLayout>

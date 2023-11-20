@@ -1,5 +1,6 @@
 package ru.apteka.components.ui.boundcy
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,15 +9,15 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EdgeEffect
+import androidx.annotation.IdRes
 import androidx.dynamicanimation.animation.FloatPropertyCompat
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.apteka.components.R
-import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.setPaddingBottom
 import ru.apteka.components.data.utils.setPaddingLeft
 import ru.apteka.components.data.utils.setPaddingRight
@@ -26,6 +27,8 @@ import ru.apteka.components.ui.boundcy.util.BouncyViewHolder
 import ru.apteka.components.ui.boundcy.util.DragDropAdapter
 import ru.apteka.components.ui.boundcy.util.DragDropCallBack
 import ru.apteka.components.ui.boundcy.util.OnOverPullListener
+import ru.apteka.components.ui.boundcy.util.OnOverScrollOffsetListener
+import kotlin.math.abs
 
 
 /**
@@ -40,9 +43,15 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
     var onOverPullListener: OnOverPullListener? = null
 
     /**
+     * Слушатель событий оверскролла.
+     */
+    var onOverScrollOffsetListener: OnOverScrollOffsetListener? = null
+
+    /**
      * Величина эффекта оверскролла.
      */
-    var overscrollAnimationSize: Float
+    var overscrollStartAnimationSize: Float
+    var overscrollEndAnimationSize: Float
 
     /**
      * Величина анимации эффекта оверскролла при автопрокрутке.
@@ -120,6 +129,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                 _direction = null
                 currentTouchX = -1f
                 currentTouchY = -1f
+                onOverScrollOffsetListener?.onOverScrollRelease()
                 false
             }
 
@@ -130,18 +140,34 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                         if (_direction == EdgeEffectFactory.DIRECTION_LEFT && e.x < currentTouchX && this.translationX > 0) {
                             offset = e.x - currentTouchX
                             this.translationX += offset
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_START,
+                                translationX.toInt()
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_TOP && e.y < currentTouchY && this.translationY > 0) {
                             offset = e.y - currentTouchY
                             this.translationY += offset
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_START,
+                                translationY.toInt()
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_RIGHT && e.x > currentTouchX && this.translationX < 0) {
                             offset = e.x - currentTouchX
                             this.translationX += offset
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_END,
+                                abs(translationX).toInt()
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_BOTTOM && e.y > currentTouchY && this.translationY < 0) {
                             offset = e.y - currentTouchY
                             this.translationY += offset
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_END,
+                                abs(translationY).toInt()
+                            )
                         }
                     }
                     currentTouchX = e.x - offset
@@ -150,15 +176,31 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                     if (_direction != null) {
                         if (_direction == EdgeEffectFactory.DIRECTION_LEFT && e.x < currentTouchX && this.paddingLeft > _paddingLeft) {
                             this.setPaddingLeft(this.paddingLeft - (currentTouchX - e.x).toInt())
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_START,
+                                paddingLeft - _paddingLeft
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_TOP && e.y < currentTouchY && this.paddingTop > _paddingTop) {
                             this.setPaddingTop(this.paddingTop - (currentTouchY - e.y).toInt())
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_START,
+                                paddingTop - _paddingTop
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_RIGHT && e.x > currentTouchX && this.paddingRight > _paddingRight) {
                             this.setPaddingRight(this.paddingRight - (e.x - currentTouchX).toInt())
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_END,
+                                paddingRight - _paddingRight
+                            )
                         }
                         if (_direction == EdgeEffectFactory.DIRECTION_BOTTOM && e.y > currentTouchY && this.paddingBottom > _paddingBottom) {
                             this.setPaddingBottom(this.paddingBottom - (e.y - currentTouchY).toInt())
+                            onOverScrollOffsetListener?.onOverScrollOffset(
+                                Bouncy.OVERSCROLL_END,
+                                paddingBottom - _paddingBottom
+                            )
                         }
                     }
                     currentTouchX = e.x
@@ -186,6 +228,45 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
         for (i in 0 until childCount) action(getChildViewHolder(getChildAt(i)) as T)
     }
 
+    private fun updateOverScrollOffset(direction: Int) {
+        when (direction) {
+            EdgeEffectFactory.DIRECTION_LEFT -> onOverScrollOffsetListener?.onOverScrollOffset(
+                Bouncy.OVERSCROLL_START,
+                if (bouncyOverscrollType == Bouncy.OVERSCROLL_TRANSLATION) {
+                    translationX.toInt()
+                } else {
+                    paddingLeft - _paddingLeft
+                }
+            )
+
+            EdgeEffectFactory.DIRECTION_TOP -> onOverScrollOffsetListener?.onOverScrollOffset(
+                Bouncy.OVERSCROLL_START,
+                if (bouncyOverscrollType == Bouncy.OVERSCROLL_TRANSLATION) {
+                    translationY.toInt()
+                } else {
+                    paddingTop - _paddingTop
+                }
+            )
+
+            EdgeEffectFactory.DIRECTION_RIGHT -> onOverScrollOffsetListener?.onOverScrollOffset(
+                Bouncy.OVERSCROLL_END,
+                if (bouncyOverscrollType == Bouncy.OVERSCROLL_TRANSLATION) {
+                    abs(translationX).toInt()
+                } else {
+                    paddingRight - _paddingRight
+                }
+            )
+
+            EdgeEffectFactory.DIRECTION_BOTTOM -> onOverScrollOffsetListener?.onOverScrollOffset(
+                Bouncy.OVERSCROLL_END,
+                if (bouncyOverscrollType == Bouncy.OVERSCROLL_TRANSLATION) {
+                    abs(translationY).toInt()
+                } else {
+                    paddingBottom - _paddingBottom
+                }
+            )
+        }
+    }
 
     private fun createSpring(): SpringAnimation? {
         fun createSpring(property: FloatPropertyCompat<View>) = SpringAnimation(this, property)
@@ -194,7 +275,9 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                     .setFinalPosition(0f)
                     .setDampingRatio(dampingRatio)
                     .setStiffness(stiffness)
-            )
+            ).addUpdateListener { animation, value, velocity ->
+                _direction?.let { updateOverScrollOffset(it) }
+            }
 
         return if (stiffness > 0) {
             when (_direction) {
@@ -207,6 +290,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                     createSpring(SpringAnimation.TRANSLATION_Y).also {
                         spring = it
                     }
+
                 else -> throw NotImplementedError()
             }
         } else {
@@ -217,24 +301,42 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
     private fun createAnimator(): ValueAnimator {
         fun createAnimator(direction: Int, fromValue: Int, toValue: Int) =
             ValueAnimator.ofInt(fromValue, toValue).apply {
+                addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(p0: Animator) {}
+                    override fun onAnimationEnd(p0: Animator) {
+                        onOverScrollOffsetListener?.onOverScrollStart()
+                    }
+
+                    override fun onAnimationCancel(p0: Animator) {}
+                    override fun onAnimationRepeat(p0: Animator) {}
+                })
                 addUpdateListener { valueAnimator ->
                     when (direction) {
-                        EdgeEffectFactory.DIRECTION_LEFT -> this@BouncyRecyclerView.setPaddingLeft(
-                            valueAnimator.animatedValue as Int
-                        )
+                        EdgeEffectFactory.DIRECTION_LEFT -> {
+                            this@BouncyRecyclerView.setPaddingLeft(
+                                valueAnimator.animatedValue as Int
+                            )
+                        }
 
-                        EdgeEffectFactory.DIRECTION_TOP -> this@BouncyRecyclerView.setPaddingTop(
-                            valueAnimator.animatedValue as Int
-                        )
+                        EdgeEffectFactory.DIRECTION_TOP -> {
+                            this@BouncyRecyclerView.setPaddingTop(
+                                valueAnimator.animatedValue as Int
+                            )
+                        }
 
-                        EdgeEffectFactory.DIRECTION_RIGHT -> this@BouncyRecyclerView.setPaddingRight(
-                            valueAnimator.animatedValue as Int
-                        )
+                        EdgeEffectFactory.DIRECTION_RIGHT -> {
+                            this@BouncyRecyclerView.setPaddingRight(
+                                valueAnimator.animatedValue as Int
+                            )
+                        }
 
-                        EdgeEffectFactory.DIRECTION_BOTTOM -> this@BouncyRecyclerView.setPaddingBottom(
-                            valueAnimator.animatedValue as Int
-                        )
+                        EdgeEffectFactory.DIRECTION_BOTTOM -> {
+                            this@BouncyRecyclerView.setPaddingBottom(
+                                valueAnimator.animatedValue as Int
+                            )
+                        }
                     }
+                    updateOverScrollOffset(direction)
                 }
                 duration = backAnimDuration
             }
@@ -292,10 +394,15 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                 itemSwipeEnabled =
                     getBoolean(R.styleable.BouncyRecyclerView_allowItemSwipe, false)
 
-                overscrollAnimationSize = getFloat(
-                    R.styleable.BouncyRecyclerView_recyclerviewOverscrollAnimationSize,
+                overscrollStartAnimationSize = getFloat(
+                    R.styleable.BouncyRecyclerView_recyclerviewOverscrollStartAnimationSize,
                     0.5f
                 )
+                overscrollEndAnimationSize = getFloat(
+                    R.styleable.BouncyRecyclerView_recyclerviewOverscrollEndAnimationSize,
+                    0.5f
+                )
+
                 flingAnimationSize =
                     getFloat(R.styleable.BouncyRecyclerView_recyclerview_fling_animation_size, 0.5f)
 
@@ -315,6 +422,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                     R.styleable.BouncyRecyclerView_bouncyRecyclerviewOverscrollMode,
                     bouncyOverscrollMode
                 )) {
+                    -1 -> bouncyOverscrollMode = Bouncy.OVERSCROLL_NEVER
                     0 -> bouncyOverscrollMode = Bouncy.OVERSCROLL_ALL
                     1 -> bouncyOverscrollMode = Bouncy.OVERSCROLL_START
                     2 -> bouncyOverscrollMode = Bouncy.OVERSCROLL_END
@@ -344,16 +452,24 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                     @SuppressLint("SwitchIntDef")
                     override fun onPull(deltaDistance: Float, displacement: Float) {
                         super.onPull(deltaDistance, displacement)
-                        if (_direction == null) {
-                            _direction = direction
-                        }
-                        onPullAnimation(deltaDistance)
+                        if (bouncyOverscrollMode != Bouncy.OVERSCROLL_NEVER) {
+                            if (_direction == null) {
+                                _direction = direction
+                                onOverScrollOffsetListener?.onOverScrollStart()
+                            }
+                            onPullAnimation(deltaDistance)
 
-                        when (direction) {
-                            DIRECTION_LEFT -> onOverPullListener?.onOverPulledLeft(deltaDistance)
-                            DIRECTION_TOP -> onOverPullListener?.onOverPulledTop(deltaDistance)
-                            DIRECTION_RIGHT -> onOverPullListener?.onOverPulledRight(deltaDistance)
-                            DIRECTION_BOTTOM -> onOverPullListener?.onOverPulledBottom(deltaDistance)
+                            when (direction) {
+                                DIRECTION_LEFT -> onOverPullListener?.onOverPulledLeft(deltaDistance)
+                                DIRECTION_TOP -> onOverPullListener?.onOverPulledTop(deltaDistance)
+                                DIRECTION_RIGHT -> onOverPullListener?.onOverPulledRight(
+                                    deltaDistance
+                                )
+
+                                DIRECTION_BOTTOM -> onOverPullListener?.onOverPulledBottom(
+                                    deltaDistance
+                                )
+                            }
                         }
                     }
 
@@ -364,7 +480,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                             DIRECTION_LEFT -> {
                                 val delta =
                                     if (bouncyOverscrollMode == Bouncy.OVERSCROLL_ALL || bouncyOverscrollMode == Bouncy.OVERSCROLL_START) {
-                                        recyclerView.width * deltaDistance * overscrollAnimationSize
+                                        recyclerView.width * deltaDistance * overscrollStartAnimationSize
                                     } else {
                                         0f
                                     }
@@ -378,7 +494,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                             DIRECTION_TOP -> {
                                 val delta =
                                     if (bouncyOverscrollMode == Bouncy.OVERSCROLL_ALL || bouncyOverscrollMode == Bouncy.OVERSCROLL_START) {
-                                        recyclerView.width * deltaDistance * overscrollAnimationSize
+                                        recyclerView.width * deltaDistance * overscrollStartAnimationSize
                                     } else {
                                         0f
                                     }
@@ -386,13 +502,17 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                                     translationY += delta
                                 } else {
                                     setPaddingTop(paddingTop + delta.toInt())
+                                    onOverScrollOffsetListener?.onOverScrollOffset(
+                                        Bouncy.OVERSCROLL_START,
+                                        paddingTop - _paddingTop
+                                    )
                                 }
                             }
 
                             DIRECTION_RIGHT -> {
                                 val delta =
                                     if (bouncyOverscrollMode == Bouncy.OVERSCROLL_ALL || bouncyOverscrollMode == Bouncy.OVERSCROLL_END) {
-                                        recyclerView.width * deltaDistance * overscrollAnimationSize
+                                        recyclerView.width * deltaDistance * overscrollEndAnimationSize
                                     } else {
                                         0f
                                     }
@@ -406,7 +526,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                             DIRECTION_BOTTOM -> {
                                 val delta =
                                     if (bouncyOverscrollMode == Bouncy.OVERSCROLL_ALL || bouncyOverscrollMode == Bouncy.OVERSCROLL_END) {
-                                        recyclerView.width * deltaDistance * overscrollAnimationSize
+                                        recyclerView.width * deltaDistance * overscrollEndAnimationSize
                                     } else {
                                         0f
                                     }
@@ -417,6 +537,7 @@ class BouncyRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(
                                 }
                             }
                         }
+                        updateOverScrollOffset(direction)
 
                         forEachVisibleHolder { holder: ViewHolder? ->
                             if (holder is BouncyViewHolder) holder.onPulled(

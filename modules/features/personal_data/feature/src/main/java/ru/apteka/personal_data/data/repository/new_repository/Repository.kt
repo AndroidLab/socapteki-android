@@ -1,4 +1,4 @@
-package ru.apteka.new_module.data.repository.new_repository
+package ru.apteka.personal_data.data.repository.new_repository
 
 import kotlinx.coroutines.delay
 import javax.inject.Inject

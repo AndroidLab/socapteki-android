@@ -3,6 +3,6 @@
     <item type="id" name="home_graph" />
     <item type="id" name="catalog_graph" />
     <item type="id" name="orders_graph" />
-    <item type="id" name="favorites_graph" />
+    <item type="id" name="stocks_graph" />
     <item type="id" name="basket_graph" />
 </resources>

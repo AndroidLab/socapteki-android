@@ -6,10 +6,13 @@ import ru.apteka.components.data.services.message_notice_service.models.CommonDi
 import ru.apteka.components.data.services.message_notice_service.models.SnackBarModel
 import ru.apteka.components.data.services.message_notice_service.models.ToastModel
 import com.google.android.material.snackbar.Snackbar
+import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
+import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
 import ru.apteka.components.data.utils.getSpannedFromHtml
 import ru.apteka.components.data.utils.getStringFrom
 import ru.apteka.components.ui.CommonDialogFragment
 import ru.apteka.components.databinding.SnackbarLayoutBinding
+import ru.apteka.components.ui.BottomSheet
 
 /**
  * Показывает Snackbar.
@@ -52,4 +55,15 @@ fun showToast(toastModel: ToastModel) {
     } else {
         _text
     }, toastModel.duration).show()
+}
+
+/**
+ * Показывает BottomSheet.
+ */
+fun showBottomSheet(commonBottomSheet: CommonBottomSheetModel) {
+    BottomSheet.newInstance(
+        commonBottomSheet.bottomSheetModel
+    ).apply {
+        show(commonBottomSheet.fragmentManager, BottomSheet.TAG)
+    }
 }

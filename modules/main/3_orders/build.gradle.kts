@@ -18,8 +18,8 @@ dependencies {
     implementation(project(":components"))
     implementation(project(":modules:main:main_common"))
     implementation(project(":modules:features:order_search:api"))
-    implementation(project(":modules:features:shared:order_details:api"))
-    implementation(project(":modules:features:shared:product_card:api"))
+    implementation(project(":modules:features:order_details:api"))
+    implementation(project(":modules:features:product_card:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

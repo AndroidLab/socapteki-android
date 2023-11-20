@@ -8,7 +8,7 @@
 
         <variable
             name="bindingItem"
-            type="ru.apteka.orders.data.OrderFilterModel.Item" />
+            type="ru.apteka.orders.data.models.OrderFilterModel.Item" />
 
     </data>
 

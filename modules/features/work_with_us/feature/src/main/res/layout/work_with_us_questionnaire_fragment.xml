@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.work_with_us.presentation.work_with_us_questionnaire.WorkWithUsQuestionnaireViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svWorkWithUsQuestionnaire"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flWorkWithUsQuestionnaireSend"
+            android:layout_below="@id/workWithUsQuestionnaireToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <ru.apteka.components.ui.LoaderLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isLoading="@{viewModel.isLoading}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <!-- Выбор города -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_city_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnaireCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:maxLength="64"
+                            android:maxLines="1"
+                            android:text="@={viewModel.city}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Выбор ФИО -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_fio_hint"
+                        app:startIconDrawable="@drawable/ic_fio">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnaireFio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:maxLength="64"
+                            android:maxLines="1"
+                            android:text="@={viewModel.fio}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Дата рождения -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_padding"
+                        android:layout_marginTop="16dp">
+
+                        <ru.apteka.components.ui.TextInputLayout
+                            style="@style/TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{!viewModel.isLoading}"
+                            android:hint="@string/work_with_us_questionnaire_birthday_hint"
+                            app:endIconDrawable="@drawable/ic_drop"
+                            app:endIconMode="custom"
+                            app:startIconDrawable="@drawable/ic_date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etWorkWithUsQuestionnaireBirthday"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/text_input_white_background_unfocused_shape"
+                                android:digits=" .,_0,1,2,3,4,5,6,7,8,9"
+                                android:inputType="number"
+                                android:text="@={viewModel.birthday}" />
+
+                        </ru.apteka.components.ui.TextInputLayout>
+
+                        <View
+                            android:id="@+id/vPersonalDataDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@android:color/transparent" />
+
+                    </FrameLayout>
+
+                    <!-- Телефон -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_padding"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_phone_hint"
+                        app:startIconDrawable="@drawable/ic_phone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnairePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:inputType="phone"
+                            android:text="@={viewModel.phone}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Емайл -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_padding"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_email_hint"
+                        app:errorText="@{viewModel.isEmailValid == null ? `` : context.getString(viewModel.isEmailValid)}"
+                        app:startIconDrawable="@drawable/ic_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnaireEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:text="@={viewModel.email}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Выбор вакансии -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_job_opening_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnaireJobOpening"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:maxLength="64"
+                            android:maxLines="1"
+                            android:text="@={viewModel.jobOpening}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Прикрепить резюмэ -->
+                    <Button
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:text="@string/work_with_us_job_openings_attach_resume" />
+
+
+                    <!-- Дополнительная информация -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/work_with_us_questionnaire_additional_info_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etWorkWithUsQuestionnaireAdditionalInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:gravity="top"
+                            android:maxLines="4"
+                            android:text="@={viewModel.additionalInfo}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Согласие на обработку пер. данных -->
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cbWorkWithUsQuestionnairePersonalData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:checked="@={viewModel.isPersonalDataChecked}"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:paddingStart="12dp" />
+
+                </LinearLayout>
+
+            </ru.apteka.components.ui.LoaderLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/workWithUsQuestionnaireToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flWorkWithUsQuestionnaireSend" />
+
+        <!-- Кнопка заполнить анкету -->
+        <FrameLayout
+            android:id="@+id/flWorkWithUsQuestionnaireSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/workWithUsQuestionnaireSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:enabled="@{viewModel.isSendAccess}"
+                android:onClick="@{() -> viewModel.sendQuestionnaire()}"
+                android:text="@string/send" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

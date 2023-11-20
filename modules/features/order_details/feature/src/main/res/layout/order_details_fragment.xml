@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <import type="ru.apteka.components.data.models.OrderStatus" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.order_details.presentation.OrderDetailsViewModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/orderDetailsToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isLoading="@{viewModel.isLoading}">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_secondary"
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:visibleIf="@{viewModel.orderDetail != null}">
+
+                    <!-- Данные по заказу -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bottom_corners_shape"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <!-- Статус заказа -->
+                                <include
+                                    layout="@layout/label_view"
+                                    app:backgroundColor="@{viewModel.orderDetail.status.getBackgroundColor(context, viewModel.orderDetail.status)}"
+                                    app:text="@{viewModel.orderDetail.status.title}"
+                                    app:textColor="@{viewModel.orderDetail.status.getTextColor(context, viewModel.orderDetail.status)}" />
+
+                                <!-- Номер заказа -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{String.format(@string/order_number, viewModel.orderDetail.number)}"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <!-- Дата заказа -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:text="@{viewModel.orderDetail.getFormatDate(context)}"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="12sp" />
+
+                        </FrameLayout>
+
+                        <include layout="@layout/separator_view" />
+
+                        <!-- Способ доставки -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/order_details_method_delivery"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.orderDetail.methodDelivery}"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+
+                        <!-- Адресс доставки -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/order_details_address"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.orderDetail.address}"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+
+                        <!-- Всего товаров -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_details_total_products"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{String.valueOf(viewModel.orderDetail.totalProducts)}"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+
+                        <!-- Бонусов начислено -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_details_bonus_count"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.orderDetail.bonusCount}"
+                                android:textColor="@color/color_primary"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <!-- Способ оплаты -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_details_payment_method"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.orderDetail.paymentMethod}"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
+
+                        <!-- Итоговая стоимость -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/order_details_total_cost"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.orderDetail.totalCost}"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Список товаров -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical"
+                        app:forItems="@{viewModel.orderDetail.products}"
+                        app:useTemplate="@{@layout/order_detail_product_template}" />
+
+
+                    <!-- Продлить бронирование -->
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:text="@string/order_details_extend_booking" />
+
+                    <!-- Кнопки отменить/повторить -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <Button
+                            style="@style/Theme.Socapteki.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/order_details_cancel_btn" />
+
+                        <Space
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/order_details_repeat_btn" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
+
+
+</layout>

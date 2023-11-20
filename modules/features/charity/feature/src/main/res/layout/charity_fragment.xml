@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.charity.presentation.CharityViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/charityToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svCharity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Благотворительный фонд -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/charity_banner"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/charity_foundation"
+                        android:textColor="@color/dark_black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/charity_foundation_desc" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbCharityFoundation"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/charity_foundation" />
+
+                </LinearLayout>
+
+                <!-- Мастерская -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/charity_banner"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/charity_workshop"
+                            android:textColor="@color/dark_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/charity_workshop_desc" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/mbCharityWorkshop"
+                            style="@style/Theme.Socapteki.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/charity_workshop" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+    </LinearLayout>
+
+</layout>

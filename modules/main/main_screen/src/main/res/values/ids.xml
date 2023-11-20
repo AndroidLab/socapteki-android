@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="id" name="home_graph" />
-    <item type="id" name="catalog_graph" />
-    <item type="id" name="orders_graph" />
-    <item type="id" name="favorites_graph" />
-    <item type="id" name="basket_graph" />
-</resources>

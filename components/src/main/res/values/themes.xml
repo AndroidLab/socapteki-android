@@ -16,7 +16,6 @@
         <item name="colorSecondaryVariant">@color/grey</item>-->
         <item name="colorOnSecondary">@color/dark_black</item>
         <item name="colorSecondaryContainer">@color/color_secondary_container</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.Socapteki" parent="Base.Theme.Socapteki" />
@@ -41,7 +40,7 @@
     </style>
 
     <style name="Theme.Socapteki.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="strokeColor">@color/color_primary</item>
+        <item name="strokeColor">@drawable/outline_button_selector</item>
         <item name="backgroundTint">@color/white</item>
     </style>
 
@@ -116,18 +115,6 @@
         <item name="android:buttonBarNeutralButtonStyle">@style/DataPicker.Button.Neutral</item>
 
     </style>
-
-
-    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
-    </style>
-
-    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="backgroundTint">@color/white</item>
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">12dp</item>
-    </style>
-
 
     <style name="DataPicker.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/color_primary</item>

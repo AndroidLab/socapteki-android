@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.barcode_scanner.presentation.BarcodeScannerViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/barcodeScannerToolbar"
+            layout="@layout/toolbar" />
+
+        <me.dm7.barcodescanner.zbar.ZBarScannerView
+            android:id="@+id/zbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:laserEnabled="@{!viewModel.isLoading}"
+            app:maskColor="#cc101323" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="32dp"
+            android:gravity="center"
+            android:text="@string/scan_desc"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:translationY="-155dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="32dp"
+            android:gravity="center"
+            android:text="@string/scan_error"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:translationY="155dp"
+            app:visibleIf="@{viewModel.isScanError}" />
+
+        <ProgressBar
+            style="@style/Theme.Socapteki.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateOnly="true"
+            app:visibleIf="@{viewModel.isLoading}" />
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.choosing_city.data.model.CityCardDetectModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/svChoosingCityDetect"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> model.onItemClick.invoke()}"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="24dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosing_city_detect"
+                android:textColor="@color/color_primary"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_city_detect"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <include
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
+
+    </LinearLayout>
+
+</layout>

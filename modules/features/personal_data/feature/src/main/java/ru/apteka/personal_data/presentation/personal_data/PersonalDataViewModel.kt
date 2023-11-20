@@ -17,6 +17,7 @@ import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.DownTimer
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
+import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.personal_data.R
 import java.text.DecimalFormat
@@ -38,11 +39,6 @@ class PersonalDataViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
-    companion object {
-        private val VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
-    }
-
     private val downTimer = DownTimer(60)
     private val _leftTime = MutableLiveData<String?>(null)
 
@@ -103,7 +99,7 @@ class PersonalDataViewModel @Inject constructor(
         fun checkMailValidAndVerified() {
             postValue(
                 when (true) {
-                    !emailValidate(email.value!!) -> R.string.personal_data_mail_not_valid
+                    !validateEmail(email.value!!) -> ru.apteka.components.R.string.email_not_valid
                     isEmailVerified.value!! -> R.string.personal_data_mail_not_ferified
                     else -> null
                 }
@@ -143,7 +139,7 @@ class PersonalDataViewModel @Inject constructor(
     val isChanged = MediatorLiveData<Boolean>().apply {
         fun checkChange() {
             postValue(
-                !isLoading.value!! && emailValidate(email.value!!) && (fio.value!! != _fio || date.value!! != _date || getPhoneRaw() != _phone || email.value!! != _email ||
+                !isLoading.value!! && validateEmail(email.value!!) && (fio.value!! != _fio || date.value!! != _date || getPhoneRaw() != _phone || email.value!! != _email ||
                         (male.value!! && (_sex == 0 || _sex == 2)) || (female.value!! && (_sex == 0 || _sex == 1)) ||
                         isReceiveReceipts.value!! != _isReceiveReceipts
                         )
@@ -279,7 +275,4 @@ class PersonalDataViewModel @Inject constructor(
             }
         }
     }
-
-    private fun emailValidate(email: String) =
-        if (email.isEmpty()) true else VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()
 }

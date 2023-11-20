@@ -40,13 +40,6 @@
             app:icon="@{@drawable/ic_work_with_us}"
             app:title="@{@string/work_with_us}" />
 
-        <!-- Производители -->
-        <include
-            android:id="@+id/appMenuItemManufacturers"
-            layout="@layout/app_menu_item"
-            app:icon="@{@drawable/ic_manufacturers}"
-            app:title="@{@string/manufacturers}" />
-
         <!-- Контакты -->
         <include
             android:id="@+id/appMenuItemContacts"
@@ -95,6 +88,20 @@
             layout="@layout/app_menu_item"
             app:icon="@{@drawable/ic_brands}"
             app:title="@{@string/brands}" />
+
+        <!-- FAQ -->
+        <include
+            android:id="@+id/appMenuItemFaq"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_brands}"
+            app:title="@{@string/faq}" />
+
+        <!-- Благотворительность -->
+        <include
+            android:id="@+id/appMenuItemCharity"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_brands}"
+            app:title="@{@string/charity}" />
 
     </LinearLayout>
 

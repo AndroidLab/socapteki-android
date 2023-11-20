@@ -30,6 +30,7 @@ import ru.apteka.catalog.databinding.CatalogProductsSortBinding
 import ru.apteka.components.BR
 import ru.apteka.components.data.models.FilterChipModel
 import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
@@ -37,7 +38,6 @@ import ru.apteka.components.data.services.message_notice_service.models.MessageM
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.launchAfter
-import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
@@ -105,10 +105,13 @@ class CatalogProductsFragment :
 
         binding.catalogProductsSort.setOnClickListener {
             viewModel.bottomSheetService.show(
-                CatalogProductsSortBinding.inflate(layoutInflater, null, false).apply {
-                    lifecycleOwner = viewLifecycleOwner
-                    catalogProductSortModel = viewModel.sortModel
-                }
+                BottomSheetModel(
+                    binding = CatalogProductsSortBinding.inflate(layoutInflater, null, false)
+                        .apply {
+                            lifecycleOwner = viewLifecycleOwner
+                            catalogProductSortModel = viewModel.sortModel
+                        }
+                )
             )
         }
 
@@ -125,16 +128,19 @@ class CatalogProductsFragment :
         }
         binding.catalogProductAllFilters.setOnClickListener {
             viewModel.bottomSheetService.show(
-                getFilterBinding(viewModel.filterAll.value!!).apply {
-                    root.findViewById<ViewGroup>(R.id.catalogProductsFilterBodyContainer).apply {
-                        removeAllViews()
-                        viewModel.filterAll.value!!.filters.forEach { filter ->
-                            addView(
-                                getFilterBodyBinding(filter).root
-                            )
-                        }
+                BottomSheetModel(
+                    binding = getFilterBinding(viewModel.filterAll.value!!).apply {
+                        root.findViewById<ViewGroup>(R.id.catalogProductsFilterBodyContainer)
+                            .apply {
+                                removeAllViews()
+                                viewModel.filterAll.value!!.filters.forEach { filter ->
+                                    addView(
+                                        getFilterBodyBinding(filter).root
+                                    )
+                                }
+                            }
                     }
-                }
+                )
             )
         }
 
@@ -147,7 +153,9 @@ class CatalogProductsFragment :
                     text = filter.title,
                     onClick = {
                         viewModel.bottomSheetService.show(
-                            getFilterBinding(filter)
+                            BottomSheetModel(
+                                binding = getFilterBinding(filter)
+                            )
                         )
                     },
                     onClickClose = {
@@ -437,7 +445,6 @@ class CatalogProductsFragment :
                                 TedPermission.create()
                                     .setPermissionListener(object : PermissionListener {
                                         override fun onPermissionGranted() {
-                                            Log.d("myL", "onPermissionGranted")
                                             mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
                                         }
 
@@ -475,7 +482,9 @@ class CatalogProductsFragment :
                                 TedPermission.create()
                                     .setPermissionListener(object : PermissionListener {
                                         override fun onPermissionGranted() {
-                                            viewModel.barCodeScanService.showBarcodeScan()
+                                            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                                                ru.apteka.barcode_scaner_api.R.id.barcode_scanner_graph
+                                            )
                                         }
 
                                         override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {

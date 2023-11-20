@@ -5,26 +5,38 @@
     <data>
 
         <variable
-            name="bindingItem"
-            type="ru.apteka.components.data.models.Label" />
+            name="text"
+            type="Integer" />
+
+        <variable
+            name="textColor"
+            type="Integer" />
+
+        <variable
+            name="backgroundColor"
+            type="Integer" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardBackgroundColor="@{bindingItem.getBackgroundColor(context, bindingItem)}"
-        app:cardCornerRadius="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        app:cardBackgroundColor="@{backgroundColor}"
+        app:cardCornerRadius="12dp"
         app:strokeWidth="0dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="6dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
             android:singleLine="true"
-            android:textColor="@{bindingItem.getTextColor(context, bindingItem)}"
-            app:extraText="@{bindingItem.text}" />
+            android:textColor="@{textColor}"
+            app:extraText="@{text}" />
 
     </com.google.android.material.card.MaterialCardView>
 

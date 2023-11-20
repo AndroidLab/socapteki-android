@@ -98,6 +98,7 @@ expansionpanel = { module = "com.github.florent37:expansionpanel", version = "1.
 measured = { module = "io.nacular.measured:measured", version = "0.3.3" }
 zbar = { module = "me.dm7.barcodescanner:zbar", version = "1.9.8" }
 tedpermission = { module = "io.github.ParkSangGwon:tedpermission-normal", version = "3.3.0" }
+pdfViewer = { module = "com.github.AndroidLab:AndroidPdfViewer", version = "3.3.0-beta.1" }
 
 
 # Dependencies of the included build-logic

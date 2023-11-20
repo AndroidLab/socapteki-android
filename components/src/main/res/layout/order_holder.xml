@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -33,14 +34,11 @@
                 android:orientation="vertical">
 
                 <!-- Статус заказа -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@{model.status == OrderStatus.IN_WORK ? @drawable/order_in_work_shape : model.status == OrderStatus.CANCELED ? @drawable/order_canceled_shape : @drawable/order_completed_shape}"
-                    android:paddingHorizontal="4dp"
-                    android:text="@{model.status == OrderStatus.IN_WORK ? @string/orders_in_work_status : model.status == OrderStatus.CANCELED ? @string/orders_canceled_status : @string/orders_completed_status}"
-                    android:textColor="@{model.status == OrderStatus.IN_WORK ? @color/dark_black : model.status == OrderStatus.CANCELED ? @color/red : @color/color_primary}"
-                    android:textSize="12sp" />
+                <include
+                    layout="@layout/label_view"
+                    app:backgroundColor="@{model.status.getBackgroundColor(context, model.status)}"
+                    app:text="@{model.status.title}"
+                    app:textColor="@{model.status.getTextColor(context, model.status)}" />
 
                 <!-- Номер заказа -->
                 <TextView
@@ -68,8 +66,7 @@
 
         </LinearLayout>
 
-        <include
-            layout="@layout/separator_view" />
+        <include layout="@layout/separator_view" />
 
     </LinearLayout>
 

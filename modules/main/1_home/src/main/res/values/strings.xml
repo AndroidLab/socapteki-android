@@ -21,7 +21,7 @@
     <string name="profile_personal_data">Личные данные</string>
     <string name="profile_favorites">Избранное</string>
     <string name="profile_orders">Заказы</string>
-    <string name="profile_pharmacies">Аптеки</string>
+    <string name="profile_pharmacies">Мои аптеки</string>
     <string name="profile_bonus_program">Бонусная программа</string>
     <string name="profile_referral_program">Реферальная программа</string>
     <string name="profile_comments_reviews">Комментарии и отзывы</string>
@@ -34,7 +34,9 @@
     <string name="my_subscriptions_mail_notice_desc">Получать уведомления на e-mail</string>
     <string name="my_subscriptions_save">Сохранить изменения</string>
 
-    <string name="apteki_title">Аптеки</string>
+    <string name="pharmacies_title">Мои аптеки</string>
+    <string name="pharmacies_not_found_title">Вы пока ничего не добавили</string>
+    <string name="pharmacies_not_found_desc">Нажмите ❤️ на аптеке, которую хотите сохранить</string>
 
     <string name="bonus_program_title">Бонусная программа</string>
     <string name="bonus_program_virtual_card">Виртуальная карта</string>

@@ -1,22 +1,21 @@
 package ru.apteka.orders.presentation.orders
 
-import android.content.Context
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.repository.orders.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.main_common.ui.MainScreenBaseViewModel
-import ru.apteka.orders.data.OrderFilterModel
+import ru.apteka.orders.data.models.OrderFilter
+import ru.apteka.orders.data.models.OrderFilterModel
+import ru.apteka.orders.data.services.OrdersPreferences
 import javax.inject.Inject
 
 
@@ -27,10 +26,9 @@ import javax.inject.Inject
 class OrdersViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val ordersRepository: OrdersRepository,
-    private val userPreferences: UserPreferences,
+    private val ordersPreferences: OrdersPreferences,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService,
-    @ApplicationContext context: Context
 ) : MainScreenBaseViewModel(
     navigationManager,
     messageNoticeService
@@ -42,20 +40,20 @@ class OrdersViewModel @Inject constructor(
     val orderFilter = OrderFilterModel(
         _items = listOf(
             OrderFilterModel.Item(
-                status = OrderStatus.ALL
+                status = OrderFilter.ALL
             ),
             OrderFilterModel.Item(
-                status = OrderStatus.IN_WORK
+                status = OrderFilter.IN_WORK
             ),
             OrderFilterModel.Item(
-                status = OrderStatus.CANCELED
+                status = OrderFilter.CANCELED
             ),
             OrderFilterModel.Item(
-                status = OrderStatus.COMPLETED
+                status = OrderFilter.COMPLETED
             ),
         )
     ) {
-        userPreferences.orderFilter = it.status
+        ordersPreferences.orderFilter = it.status
     }.apply {
         setItemSelected(0)
     }
@@ -75,11 +73,11 @@ class OrdersViewModel @Inject constructor(
 
         fun filterOrders() {
             postValue(
-                when(userPreferences.orderFilter) {
-                    OrderStatus.ALL -> _orders.value
-                    OrderStatus.IN_WORK -> _orders.value!!.filter { it.status == OrderStatus.IN_WORK }
-                    OrderStatus.CANCELED -> _orders.value!!.filter { it.status == OrderStatus.CANCELED }
-                    OrderStatus.COMPLETED -> _orders.value!!.filter { it.status == OrderStatus.COMPLETED }
+                when (ordersPreferences.orderFilter) {
+                    OrderFilter.ALL -> _orders.value
+                    OrderFilter.IN_WORK -> _orders.value!!.filter { it.status != OrderStatus.CANCELED && it.status != OrderStatus.RECEIVED}
+                    OrderFilter.CANCELED -> _orders.value!!.filter { it.status == OrderStatus.CANCELED }
+                    OrderFilter.COMPLETED -> _orders.value!!.filter { it.status == OrderStatus.RECEIVED }
                 }?.sortedByDescending { it.date }
             )
         }
@@ -88,7 +86,7 @@ class OrdersViewModel @Inject constructor(
             filterOrders()
         }
 
-        addSource(userPreferences.orderFilterFlow.asLiveData()) {
+        addSource(ordersPreferences.orderFilterFlow.asLiveData()) {
             filterOrders()
         }
 

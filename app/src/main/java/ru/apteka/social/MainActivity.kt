@@ -1,23 +1,20 @@
 package ru.apteka.social
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.barcode_scan.BarCodeScanService
-import ru.apteka.components.data.services.bottom_sheet_service.BottomSheetService
-import ru.apteka.components.data.services.error_notice_service.ErrorNoticeService
-import ru.apteka.components.data.services.error_notice_service.models.IRequestError
+import ru.apteka.components.data.services.message_notice_service.BottomSheetService
 import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
@@ -32,17 +29,18 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.home.presentation.home.HomeFragmentDirections
+import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
+import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.social.databinding.ActivityMainBinding
 import ru.apteka.social.databinding.GeneralNavigationViewBinding
 import ru.apteka.social.presentation.auth.AuthActivity
-import ru.apteka.social.presentation.scan.ScanActivity
 import javax.inject.Inject
 import ru.apteka.basket.R as BasketR
 import ru.apteka.catalog.R as CatalogR
-import ru.apteka.favorites.R as FavoritesR
 import ru.apteka.home.R as HomeR
-import ru.apteka.main.R as MainR
+import ru.apteka.main_common.R as MainCommonR
 import ru.apteka.orders.R as OrdersR
+import ru.apteka.stocks.R as StocksR
 
 
 @AndroidEntryPoint
@@ -52,16 +50,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigationManager: NavigationManager
 
     @Inject
-    lateinit var errorNoticeService: ErrorNoticeService
-
-    @Inject
     lateinit var messageNoticeService: MessageNoticeService
 
     @Inject
     lateinit var bottomSheetService: BottomSheetService
-
-    @Inject
-    lateinit var barCodeScanService: BarCodeScanService
 
     @Inject
     lateinit var accountsPreferences: AccountsPreferences
@@ -91,136 +83,154 @@ class MainActivity : AppCompatActivity() {
 
         navigationManager.showAppMenu = {
             bottomSheetService.show(
-                GeneralNavigationViewBinding.inflate(layoutInflater, null, false).also { binding ->
-                    fun navigate(graphId: Int) {
-                        navigationManager.generalNavController.navigateWithAnim(graphId)
-                    }
+                BottomSheetModel(
+                    binding = GeneralNavigationViewBinding.inflate(layoutInflater, null, false).also { binding ->
+                        fun navigate(graphId: Int) {
+                            navigationManager.generalNavController.navigateWithAnim(graphId)
+                        }
 
-                    if (accountsPreferences.account == null) {
-                        binding.appMenuItemAuth.icon =
-                            ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_login)
-                        binding.appMenuItemAuth.title = getString(R.string.main_menu_login)
-                    } else {
-                        binding.appMenuItemAuth.icon =
-                            ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account)
-                        binding.appMenuItemAuth.title = getString(R.string.main_menu_profile)
-                    }
-
-                    binding.appMenuItemAuth.item.setOnClickListener {
                         if (accountsPreferences.account == null) {
-                            startActivity(Intent(this@MainActivity, AuthActivity::class.java))
+                            binding.appMenuItemAuth.icon =
+                                ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_login)
+                            binding.appMenuItemAuth.title = getString(R.string.main_menu_login)
                         } else {
-                            fun navigateProfile() {
-                                navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
-                                    HomeFragmentDirections.toProfileFragment()
-                                )
-                            }
+                            binding.appMenuItemAuth.icon =
+                                ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account)
+                            binding.appMenuItemAuth.title = getString(R.string.main_menu_profile)
+                        }
 
-                            fun navigateBackToProfile() {
-                                navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(
-                                    HomeR.id.homeFragment, false
-                                )
-                                lifecycleScope.launchIO {
-                                    delay(100)
-                                    launchMain {
-                                        navigateProfile()
-                                    }
-                                }
-                            }
-                            if (navigationManager.currentBottomNavControllerLiveData.value!!.graph.id == MainR.id.home_graph) {
-                                navigateProfile()
+                        binding.appMenuItemAuth.item.setOnClickListener {
+                            if (accountsPreferences.account == null) {
+                                startActivity(Intent(this@MainActivity, AuthActivity::class.java))
                             } else {
-                                navigationManager.onSelectItemId(MainR.id.home_graph)
-                                lifecycleScope.launchIO {
-                                    delay(100)
-                                    if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id == HomeR.id.homeFragment) {
+                                fun navigateProfile() {
+                                    navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+                                        HomeFragmentDirections.toProfileFragment()
+                                    )
+                                }
+
+                                fun navigateBackToProfile() {
+                                    navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(
+                                        HomeR.id.homeFragment, false
+                                    )
+                                    lifecycleScope.launchIO {
+                                        delay(100)
                                         launchMain {
                                             navigateProfile()
                                         }
-                                    } else {
-                                        if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != HomeR.id.profileFragment) {
-                                            mainThread {
-                                                navigateBackToProfile()
+                                    }
+                                }
+                                if (navigationManager.currentBottomNavControllerLiveData.value!!.graph.id == MainCommonR.id.home_graph) {
+                                    navigateProfile()
+                                } else {
+                                    navigationManager.onSelectItemId(MainCommonR.id.home_graph)
+                                    lifecycleScope.launchIO {
+                                        delay(100)
+                                        if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id == HomeR.id.homeFragment) {
+                                            launchMain {
+                                                navigateProfile()
+                                            }
+                                        } else {
+                                            if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != HomeR.id.profileFragment) {
+                                                mainThread {
+                                                    navigateBackToProfile()
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+                            bottomSheetService.close()
                         }
-                        bottomSheetService.close()
-                    }
 
-                    binding.appMenuItemCity.title = userPreferences.city?.name
-                        ?: getString(R.string.main_menu_city_not_selected)
-                    binding.appMenuItemCity.item.setOnClickListener {
-                        navigationManager.generalNavController.navigateWithAnim(
-                            ru.apteka.choosing_city_api.R.id.choosing_city_graph,
-                        )
-                        bottomSheetService.close()
-                    }
+                        binding.appMenuItemCity.title = userPreferences.city?.name
+                            ?: getString(R.string.main_menu_city_not_selected)
+                        binding.appMenuItemCity.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.choosing_city_api.R.id.choosing_city_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemAboutCompany.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemAboutCompany.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.about_company_api.R.id.about_company_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemWorkWithUs.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemWorkWithUs.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.work_with_us_api.R.id.work_with_us_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemManufacturers.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemContacts.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.contacts_api.R.id.contacts_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemContacts.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemPharmacies.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.pharmacies_map_api.R.id.pharmacies_map_graph, bundleOf(
+                                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                                )
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemPharmacies.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemReviews.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.reviews_api.R.id.reviews_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemReviews.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemCooperation.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.cooperation_api.R.id.cooperation_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemCooperation.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemLicensesAndPermits.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.licenses_api.R.id.licenses_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemLicensesAndPermits.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemPartners.item.setOnClickListener {
+                            //navigate()
+                        }
 
-                    binding.appMenuItemPartners.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemBrands.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.brands_api.R.id.brands_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                    binding.appMenuItemBrands.item.setOnClickListener {
-                        //navigate()
-                    }
+                        binding.appMenuItemFaq.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.faq_api.R.id.faq_graph,
+                            )
+                            bottomSheetService.close()
+                        }
 
-                }
+                        binding.appMenuItemCharity.item.setOnClickListener {
+                            navigationManager.generalNavController.navigateWithAnim(
+                                ru.apteka.charity_api.R.id.charity_graph,
+                            )
+                            bottomSheetService.close()
+                        }
+                    }
+                )
             )
 
-        }
-
-        lifecycleScope.launchIO {
-            errorNoticeService.error.collect {
-                showCommonDialog(
-                    CommonDialogModel(
-                        fragmentManager = supportFragmentManager,
-                        dialogModel = DialogModel(
-                            title = it.title,
-                            message = MessageModel(
-                                message = when (it) {
-                                    is IRequestError.RequestErrorResMsg -> it.msg
-                                    is IRequestError.RequestErrorStringMsg -> it.msg
-                                }
-                            )
-                        )
-                    )
-                )
-            }
         }
 
         lifecycleScope.launchIO {
@@ -250,33 +260,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launchIO {
-            bottomSheetService.bottomSheet.collect { bottomSheetBinding ->
+            bottomSheetService.bottomSheet.collect { bottomSheet ->
                 mainThread {
                     bottomSheetService.bottomSheetDialog = BottomSheet.newInstance(
-                        BottomSheet.BottomSheetModel(
-                            bottomSheetBinding
-                        )
+                        bottomSheet
                     ).apply {
                         show(supportFragmentManager, BottomSheet.TAG)
                     }
-                }
-            }
-        }
-
-        val resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data = result.data!!.extras!!.getString(ScanActivity.BARCODE_SCAN)!!
-                    barCodeScanService.sendBarcodeResult(data)
-                }
-            }
-
-        lifecycleScope.launchIO {
-            barCodeScanService.scanStart.collect {
-                mainThread {
-                    resultLauncher.launch(
-                        Intent(this@MainActivity, ScanActivity::class.java)
-                    )
                 }
             }
         }
@@ -301,10 +291,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             if (currentMainDestinationId == CatalogR.id.catalogFragment
                 || currentMainDestinationId == OrdersR.id.ordersFragment
-                || currentMainDestinationId == FavoritesR.id.favoritesFragment
+                || currentMainDestinationId == StocksR.id.stocksFragment
                 || currentMainDestinationId == BasketR.id.basketFragment
             ) {
-                navigationManager.onSelectItemId(MainR.id.home_graph)
+                navigationManager.onSelectItemId(MainCommonR.id.home_graph)
             } else {
                 if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
                     super.onBackPressed()

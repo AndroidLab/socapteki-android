@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.work_with_us.data.model.JobOpeningsFilterModel.Item" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> bindingItem.onItemClick()}"
+            android:text="@{bindingItem.title}"
+            app:chipBackgroundColor="@{bindingItem.isItemSelected ? @color/color_secondary_container : @color/background_secondary}"
+            app:chipCornerRadius="100dp"
+            app:chipStrokeColor="@{bindingItem.isItemSelected ? @color/color_primary : @android:color/transparent}"
+            app:chipStrokeWidth="@{bindingItem.isItemSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+
+        <Space
+            android:id="@id/separator"
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</layout>

@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/pharmaciesFragment"
-        android:name="ru.apteka.home.presentation.apteki.PharmaciesFragment"/>
+        android:name="ru.apteka.home.presentation.pharmacies.PharmaciesFragment"/>
 
     <fragment
         android:id="@+id/bonusProgramFragment"

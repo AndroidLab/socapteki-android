@@ -50,7 +50,7 @@ class LoginRepository @Inject constructor(
      * Получает личные данные.
      */
     suspend fun getPersonalData(): PersonalData? {
-        delay(1500)
+        delay(2500)
         return _personalData
     }
 

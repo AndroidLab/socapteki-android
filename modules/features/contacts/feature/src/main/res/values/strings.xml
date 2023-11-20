@@ -1,0 +1,24 @@
+<resources>
+
+    <string name="contacts_title">Контакты</string>
+
+    <string name="contacts_map">Аптеки на карте</string>
+    <string name="contacts_reception">Приемная</string>
+    <string name="contacts_drug_reference">Справочная лекарств</string>
+    <string name="contacts_requisites">Реквизиты</string>
+    <string name="contacts_requisites_company_name">Наименование предприятия</string>
+    <string name="contacts_requisites_inn">ИНН</string>
+    <string name="contacts_requisites_ogrn">ОГРН</string>
+    <string name="contacts_requisites_legal_address">Юридический адрес</string>
+    <string name="contacts_requisites_postal_address">Почтовый адрес</string>
+    <string name="contacts_requisites_license_number">Номер лицензии</string>
+    <string name="contacts_requisites_date_license">Дата выдачи лицензии</string>
+    <string name="contacts_write_to_us">Пишите нам:</string>
+    <string name="contacts_write_to_us_common_question">Общие вопросы</string>
+    <string name="contacts_write_to_us_work_in_company">Работа в компании</string>
+    <string name="contacts_write_to_us_claims">Претензии</string>
+
+    <string name="contacts_social_networks">Мы в социальных сетях:</string>
+    <string name="contacts_write">Написать нам</string>
+
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.components.data.models.ReviewItem" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/commentItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{bindingItem.name}"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/commentItemDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@{ExtensionsMethodsKt.formatDate(ExtensionsMethodsKt.Calendar(bindingItem.date), context)}" />
+
+        <RatingBar
+            android:id="@+id/commentItemRating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentItemName"
+            android:isIndicator="true"
+            android:progressTint="@color/gold"
+            android:rating="@{bindingItem.rating}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentItemRating"
+            android:layout_marginTop="8dp"
+            android:text="@{bindingItem.text}" />
+
+    </RelativeLayout>
+
+</layout>

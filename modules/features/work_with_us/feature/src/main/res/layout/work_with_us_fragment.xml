@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.work_with_us.presentation.work_with_us.WorkWithUsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svWorkWithUs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flWorkWithUsQuestionnaire"
+            android:layout_below="@id/workWithUsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Заголовок -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_with_us_title"
+                        android:textColor="@color/dark_black"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/work_with_us_desc"
+                        android:textColor="@color/dark_black" />
+
+                </LinearLayout>
+
+                <!-- Преимущества 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <include
+                            layout="@layout/work_with_us_advantages_1_view"
+                            app:desc="@{@string/work_with_us_advantages_1_1_desc}"
+                            app:title="@{@string/work_with_us_advantages_1_1_title}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginBottom="@{8}"
+                            app:sepMarginTop="@{8}" />
+
+                        <include
+                            layout="@layout/work_with_us_advantages_1_view"
+                            app:desc="@{@string/work_with_us_advantages_1_2_desc}"
+                            app:title="@{@string/work_with_us_advantages_1_2_title}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginBottom="@{8}"
+                            app:sepMarginTop="@{8}" />
+
+                        <include
+                            layout="@layout/work_with_us_advantages_1_view"
+                            app:desc="@{@string/work_with_us_advantages_1_3_desc}"
+                            app:title="@{@string/work_with_us_advantages_1_3_title}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- Преимущества 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <include
+                                layout="@layout/work_with_us_advantages_2_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                app:desc="@{@string/work_with_us_advantages_2_1_desc}"
+                                app:title="@{@string/work_with_us_advantages_2_1_title}" />
+
+                            <include
+                                layout="@layout/work_with_us_advantages_2_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                app:desc="@{@string/work_with_us_advantages_2_2_desc}"
+                                app:title="@{@string/work_with_us_advantages_2_2_title}" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <include
+                                layout="@layout/work_with_us_advantages_2_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                app:desc="@{@string/work_with_us_advantages_2_3_desc}"
+                                app:title="@{@string/work_with_us_advantages_2_3_title}" />
+
+                            <include
+                                layout="@layout/work_with_us_advantages_2_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                app:desc="@{@string/work_with_us_advantages_2_4_desc}"
+                                app:title="@{@string/work_with_us_advantages_2_4_title}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- Баннер -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="190dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:text="@string/work_with_us_mission" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- Вакансии -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/workWithUsJobOpenings"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_job_openings"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="16dp"
+                            android:text="@string/work_with_us_job_openings" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/workWithUsToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flWorkWithUsQuestionnaire" />
+
+        <!-- Кнопка заполнить анкету -->
+        <FrameLayout
+            android:id="@+id/flWorkWithUsQuestionnaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/workWithUsQuestionnaire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/work_with_us_questionnaire" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

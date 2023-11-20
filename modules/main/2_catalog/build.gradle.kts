@@ -17,7 +17,8 @@ android {
 dependencies {
     implementation(project(":components"))
     implementation(project(":modules:main:main_common"))
-    implementation(project(":modules:features:shared:product_card:api"))
+    implementation(project(":modules:features:product_card:api"))
+    implementation(project(":modules:features:barcode_scanner:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.tedpermission)

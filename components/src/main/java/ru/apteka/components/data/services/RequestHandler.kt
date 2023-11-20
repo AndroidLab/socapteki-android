@@ -1,8 +1,8 @@
 package ru.apteka.components.data.services
 
 import androidx.lifecycle.MutableLiveData
-import ru.apteka.components.data.services.error_notice_service.IErrorNoticeService
-import ru.apteka.components.data.services.error_notice_service.models.IRequestError
+import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import java.net.ConnectException
 import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
@@ -12,10 +12,10 @@ import javax.net.ssl.SSLException
 
 /**
  * Представляет методы для обработки запросов.
- * @param errorNoticeService Сервис уведомлений об ошибке.
+ * @param messageNoticeService Сервис уведомлений.
  */
 class RequestHandler @Inject constructor(
-    private val errorNoticeService: IErrorNoticeService
+    private val messageNoticeService: IMessageNoticeService
 ) {
 
     /**
@@ -31,9 +31,9 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: suspend (error: Throwable) -> Unit = {},
         onError: (error: Throwable) -> Unit = {
-            errorNoticeService.showError(
-                IRequestError.RequestErrorStringMsg(
-                    it.message.toString()
+            messageNoticeService.showCommonToast(
+                message = MessageModel(
+                    message = it.message.toString()
                 )
             )
         },
@@ -56,9 +56,9 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: suspend (error: Throwable) -> Unit = {},
         onError: (error: Throwable) -> Unit = {
-            errorNoticeService.showError(
-                IRequestError.RequestErrorStringMsg(
-                    it.message.toString()
+            messageNoticeService.showCommonToast(
+                message = MessageModel(
+                    message = it.message.toString()
                 )
             )
         },

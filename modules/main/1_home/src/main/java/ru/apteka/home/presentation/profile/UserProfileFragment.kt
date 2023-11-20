@@ -39,14 +39,16 @@ class UserProfileFragment : BaseFragment<Nothing, UserProfileFragmentBinding>() 
         }
 
         binding.userProfileFavorite.profileCard.setOnClickListener {
-            navigationManager.onSelectItemId(MainCommonR.id.favorites_graph)
+            navigationManager.generalNavController.navigateWithAnim(
+                ru.apteka.favorites_api.R.id.favorites_graph,
+            )
         }
 
         binding.userProfileOrders.profileCard.setOnClickListener {
             navigationManager.onSelectItemId(MainCommonR.id.orders_graph)
         }
 
-        binding.userProfileApteki.profileCard.setOnClickListener {
+        binding.userProfilePharmacy.profileCard.setOnClickListener {
             navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 UserProfileFragmentDirections.toPharmaciesFragment()
             )

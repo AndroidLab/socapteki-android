@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.work_with_us.presentation.work_with_us_job_openings_details.WorkWithUsJobOpeningsDetailsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svWorkWithUsJobOpeningsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flWorkWithUsJobOpeningsDetails"
+            android:layout_below="@id/workWithUsJobOpeningsDetailsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Фармацевт-провизор"
+                    android:textColor="@color/dark_black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="г. Новосибирск, ул. Красный проспект 319"
+                    android:textColor="@color/light_black" />
+
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_desk_view"
+                    app:title="@{`Опыт`}"
+                    app:desc="@{`от 1 года до 3 лет`}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_desk_view"
+                    app:title="@{`Образование`}"
+                    app:desc="@{`Фармацевтическое образование (средне-профессиональное, высшее)`}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_desk_view"
+                    app:title="@{`Рабочий день`}"
+                    app:desc="@{`5/2`}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_desk_view"
+                    app:title="@{`Зарплата`}"
+                    app:desc="@{`от 50 000 руб.`}" />
+
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_requirement_view"
+                    app:title="@{`Обязанности`}"
+                    app:desc="@{viewModel.responsibilities}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_requirement_view"
+                    app:title="@{`Требования`}"
+                    app:desc="@{viewModel.requirements}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_requirement_view"
+                    app:title="@{`Условия`}"
+                    app:desc="@{viewModel.conditions}" />
+
+                <include
+                    layout="@layout/work_with_us_job_openings_details_requirement_view"
+                    app:title="@{`Ключевые навыки`}"
+                    app:desc="@{viewModel.skills}" />
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/workWithUsJobOpeningsDetailsToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flWorkWithUsJobOpeningsDetails" />
+
+        <!-- Кнопка заполнить анкету -->
+        <FrameLayout
+            android:id="@+id/flWorkWithUsJobOpeningsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbWorkWithUsJobOpeningsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/work_with_us_questionnaire" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

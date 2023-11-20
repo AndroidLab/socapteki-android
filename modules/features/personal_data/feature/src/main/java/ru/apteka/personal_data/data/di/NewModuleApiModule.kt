@@ -1,11 +1,11 @@
-package ru.apteka.new_module.data.di
+package ru.apteka.personal_data.data.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import ru.apteka.new_module.data.repository.new_repository.IApi
+import ru.apteka.personal_data.data.repository.new_repository.IApi
 
 
 @Module

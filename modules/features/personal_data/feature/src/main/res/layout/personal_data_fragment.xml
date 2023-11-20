@@ -72,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="@{!viewModel.isLoading}"
                             android:hint="@string/personal_data_date_hint"
-                            app:endIconDrawable="@drawable/ic_date_drop"
+                            app:endIconDrawable="@drawable/ic_drop"
                             app:endIconMode="custom"
                             app:startIconDrawable="@drawable/ic_date">
 

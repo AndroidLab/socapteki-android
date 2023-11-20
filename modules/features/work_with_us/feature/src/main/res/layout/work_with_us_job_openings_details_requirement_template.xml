@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="8dp"
+                android:src="@color/dark_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="@{bindingItem}"
+                android:textColor="@color/dark_black" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/separator"
+            layout="@layout/separator_view"
+            app:sepMarginBottom="@{4}"
+            app:sepMarginTop="@{4}" />
+
+    </LinearLayout>
+
+
+</layout>

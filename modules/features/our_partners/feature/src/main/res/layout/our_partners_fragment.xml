@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.our_partners.presentation.OurPartnersViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svReviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/flOurPartners"
+            android:layout_below="@id/ourPartnersToolbar"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bottom_corners_shape"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvOurPartner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/our_partners_desc"
+                    android:textColor="@color/dark_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/our_partners_advantages"
+                    android:textColor="@color/dark_black"
+                    android:textSize="20sp" />
+
+                <include
+                    layout="@layout/our_partner_advantages_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:desc="@{`по технологичности среди всех аптечных сетей России`}"
+                    app:title="@{`Вошли в 10-ку`}" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}"
+                    app:sepMarginTop="@{8}" />
+
+                <include
+                    layout="@layout/our_partner_advantages_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:desc="@{`в рейтинге аптечных сетей России`}"
+                    app:title="@{`37 место`}" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}"
+                    app:sepMarginTop="@{8}" />
+
+                <include
+                    layout="@layout/our_partner_advantages_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:desc="@{`аптек на октябрь 2022 года`}"
+                    app:title="@{`Более 190`}" />
+
+            </LinearLayout>
+
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/ourPartnersToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flOurPartners" />
+
+        <!-- Кнопка 'Стать партнером' -->
+        <FrameLayout
+            android:id="@+id/flOurPartners"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbOurPartners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/our_partners_become_partner" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

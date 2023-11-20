@@ -1,13 +1,11 @@
 package ru.apteka.choosing_city.presentation
 
-import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.choosing_city.R
 import ru.apteka.choosing_city.databinding.ChoosingCityFragmentBinding
-import ru.apteka.components.data.utils.bitmap
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
@@ -27,7 +25,8 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
 
     private val choosingCityAdapter by lazy {
         CompositeDelegateAdapter(
-            ChoosingCityAdapter(this)
+            ChoosingCityAdapter(this),
+            ChoosingCityDetectAdapter(this)
         )
     }
 
@@ -36,7 +35,12 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
         binding.rvChoosingCity.adapter = choosingCityAdapter
 
         viewModel.citiesFilteredMediator.observe(viewLifecycleOwner) {
-            choosingCityAdapter.swapData(it)
+            choosingCityAdapter.swapData(
+                buildList {
+                    add(viewModel.cityDetect)
+                    addAll(it)
+                }
+            )
         }
     }
 

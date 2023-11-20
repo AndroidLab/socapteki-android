@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.home.presentation.apteki.PharmaciesViewModel" />
+            type="ru.apteka.home.presentation.pharmacies.PharmaciesViewModel" />
 
     </data>
 
@@ -37,16 +37,29 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ru.apteka.components.ui.boundcy.BouncyRecyclerView
-                        android:id="@+id/rvPharmacies"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:marginItemVertical="@{6}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:layout_height="match_parent">
 
-                    <include
-                        layout="@layout/footer_stub" />
+                        <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                            android:id="@+id/rvPharmacies"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:marginItemVertical="@{6}"
+                            app:visibleIf="@{!viewModel.isLoading &amp; !viewModel.pharmacies.empty}" />
+
+                        <include
+                            layout="@layout/no_element_view"
+                            app:desc="@{@string/pharmacies_not_found_desc}"
+                            app:icon="@{@drawable/ic_profile_pharmacy}"
+                            app:title="@{@string/pharmacies_not_found_title}"
+                            app:visibleIf="@{!viewModel.isLoading &amp; viewModel.pharmacies.empty}" />
+
+                    </FrameLayout>
+
+                    <include layout="@layout/footer_stub" />
 
                 </LinearLayout>
 

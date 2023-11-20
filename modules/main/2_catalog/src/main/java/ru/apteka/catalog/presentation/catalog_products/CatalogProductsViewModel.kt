@@ -22,9 +22,8 @@ import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.barcode_scan.BarCodeScanService
 import ru.apteka.components.data.services.basket_service.BasketService
-import ru.apteka.components.data.services.bottom_sheet_service.IBottomSheetService
+import ru.apteka.components.data.services.message_notice_service.IBottomSheetService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -47,7 +46,6 @@ class CatalogProductsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     val searchProductPreferences: SearchProductPreferences,
     val bottomSheetService: IBottomSheetService,
-    val barCodeScanService: BarCodeScanService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.favorites.presentation.FavoritesViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flFavorites"
+            android:layout_below="@id/favoritesToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <ru.apteka.components.ui.LoaderLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isLoading="@{viewModel.isLoading}">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                        android:id="@+id/rvFavorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:marginItemVertical="@{16}"
+                        app:visibleIf="@{!viewModel.favoriteService.products.empty}" />
+
+                    <include
+                        layout="@layout/no_element_view"
+                        app:desc="@{@string/favorites_no_favorites_desc}"
+                        app:icon="@{@drawable/no_favorites}"
+                        app:title="@{@string/favorites_no_favorites_title}"
+                        app:visibleIf="@{viewModel.favoriteService.products.empty}" />
+
+                </FrameLayout>
+
+            </ru.apteka.components.ui.LoaderLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <include
+            android:id="@+id/favoritesToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flFavorites" />
+
+        <!-- Кнопка -->
+        <FrameLayout
+            android:id="@+id/flFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@{viewModel.favoriteService.products.empty ? @string/favorites_to_catalog : @string/favorites_bye_all}" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+</layout>

@@ -1,0 +1,73 @@
+<resources>
+
+    <string name="work_with_us_title">Построй карьеру в «Социальной Аптеке»</string>
+    <string name="work_with_us_desc">«Социальная Аптека» — лучшее место как для старта карьеры, так и для ее развития. Это не просто слова:</string>
+    <string name="work_with_us_advantages_1_1_title">За 23 года работы</string>
+    <string name="work_with_us_advantages_1_1_desc">было открыто более 600 аптек сети в 9 регионах. Мы развиваемся сами и создаем условия для развития сотрудников.</string>
+    <string name="work_with_us_advantages_1_2_title">Более 2500 фармацевтов и провизоров</string>
+    <string name="work_with_us_advantages_1_2_desc">Более 2500 фармацевтов и провизоров — это единая команда, профессионализмом которой мы гордимся.</string>
+    <string name="work_with_us_advantages_1_3_title">Почти 400 сотрудников</string>
+    <string name="work_with_us_advantages_1_3_desc">начинавших работу первостольниками, смогли продвинуться по карьерной лестнице.</string>
+
+    <string name="work_with_us_advantages_2_1_title">2500+</string>
+    <string name="work_with_us_advantages_2_1_desc">Сотрудников</string>
+    <string name="work_with_us_advantages_2_2_title">23</string>
+    <string name="work_with_us_advantages_2_2_desc">Года работы</string>
+    <string name="work_with_us_advantages_2_3_title">9</string>
+    <string name="work_with_us_advantages_2_3_desc">Регионов</string>
+    <string name="work_with_us_advantages_2_4_title">600+</string>
+    <string name="work_with_us_advantages_2_4_desc">Аптек</string>
+
+    <string name="work_with_us_mission">Наша миссия - обеспечить наличие качественной продукции и квалифицированную фармацевтическую помощь населению.
+                                        \nМы заинтересованы в ответственных и профессиональных сотрудниках, нацеленных на результат!
+                                        Хотите внести свой личный вклад в развитие нашей сети ? Мы будем рады видеть вас в нашей команде профессионалов!</string>
+
+    <string name="work_with_us_job_openings">Вакансии</string>
+    <string name="work_with_us_questionnaire">Заполнить анкету</string>
+
+    <string name="work_with_us_job_openings_title">Вакансии</string>
+    <string name="work_with_us_job_openings_not_found">Вакансий нет</string>
+    <string name="work_with_us_job_openings_suitable_not_found_title">Не нашли подходящую вакансию?</string>
+    <string name="work_with_us_job_openings_suitable_not_found_desc">Но хотите работать у нас — отправьте свое резюме</string>
+    <string name="work_with_us_job_openings_attach_resume">Прикрепить резюме</string>
+    <string name="work_with_us_job_openings_career_new">Приглашаем начать свою карьеру в нашей компании выпускников и студентов последних курсов фармацевтических отделений!</string>
+    <string name="work_with_us_job_openings_career_item_1">Программа наставничества для молодых сотрудников</string>
+    <string name="work_with_us_job_openings_career_item_2">Оплачиваемая стажировка с официальным трудоустройствомс 1-го дня работы</string>
+    <string name="work_with_us_job_openings_career_item_3">Регулярное профессиональное обучение</string>
+    <string name="work_with_us_job_openings_career_item_4">Возможности для карьерного роста</string>
+
+    <string name="work_with_us_job_openings_guarantees">Мы ценим наших сотрудников и готовы поддерживать каждого, поэтому гарантируем:</string>
+    <string name="work_with_us_job_openings_guarantees_item_1_title">Полный соцпакет</string>
+    <string name="work_with_us_job_openings_guarantees_item_1_desc">Оформление трудовых отношений в полном соответствии с законодательством с 1-го дня</string>
+    <string name="work_with_us_job_openings_guarantees_item_2_title">Доход безограничений</string>
+    <string name="work_with_us_job_openings_guarantees_item_2_desc">Сколько вы будете зарабатывать зависит только от вас. Даже, если вы без опыта работы.</string>
+    <string name="work_with_us_job_openings_guarantees_item_3_title">Работа рядом с домом</string>
+    <string name="work_with_us_job_openings_guarantees_item_3_desc">Вы сможете работать недалеко от дома благодаря большому количеству наших аптек в городах присутствия.</string>
+    <string name="work_with_us_job_openings_guarantees_item_4_title">Насыщенная корпоративная жизнь</string>
+    <string name="work_with_us_job_openings_guarantees_item_4_desc">Награждение по итогам работы лучших сотрудников, профессиональные праздники, социальные программы.</string>
+    <string name="work_with_us_job_openings_guarantees_item_5_title">Развитие внутри компании</string>
+    <string name="work_with_us_job_openings_guarantees_item_5_desc">Все возможности для профессионального развития и личного роста.</string>
+    <string name="work_with_us_job_openings_guarantees_item_6_title">Релокация сотрудников</string>
+    <string name="work_with_us_job_openings_guarantees_item_6_desc">В случае вашего переезда в другой город, где представлена наша аптечная сеть, мы всегда поможем найти работу.</string>
+    <string name="work_with_us_job_openings_guarantees_item_7_title">Забота о каждом сотруднике</string>
+    <string name="work_with_us_job_openings_guarantees_item_7_desc">Аккредитация специалиста, медицинские книжки, мед. форма за счет компании.</string>
+    <string name="work_with_us_job_openings_our_events">Наши мероприятия</string>
+    <string name="work_with_us_job_openings_fill_questionnaire">Заполнить анкету</string>
+
+    <string name="work_with_us_job_openings_employee_reviews">Отзывы работников</string>
+    <string name="work_with_us_job_openings_respond">Откликнуться</string>
+
+    <string name="work_with_us_job_openings_details_title">Описание вакансии</string>
+
+    <string name="work_with_us_questionnaire_title">Анкета соискателя</string>
+    <string name="work_with_us_questionnaire_city_hint">Город</string>
+    <string name="work_with_us_questionnaire_fio_hint">ФИО</string>
+    <string name="work_with_us_questionnaire_birthday_hint">Дата рождения</string>
+    <string name="work_with_us_questionnaire_phone_hint">Контактный телефон</string>
+    <string name="work_with_us_questionnaire_email_hint">Email</string>
+    <string name="work_with_us_questionnaire_job_opening_hint">Вакансия</string>
+    <string name="work_with_us_questionnaire_additional_info_hint">Дополнительная информация</string>
+    <string name="work_with_us_questionnaire_dialog_success">Ваша заявка успешно отправлена!</string>
+    <string name="work_with_us_questionnaire_dialog_success_to_home">На главную</string>
+
+</resources>

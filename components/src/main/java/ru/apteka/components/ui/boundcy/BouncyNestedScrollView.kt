@@ -27,12 +27,9 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import ru.apteka.components.ui.boundcy.util.Bouncy
 import ru.apteka.components.ui.boundcy.util.BouncyEdgeEffect
 import ru.apteka.components.R
-import ru.apteka.components.data.utils.launchIO
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -77,7 +74,7 @@ class BouncyNestedScrollView @JvmOverloads constructor(
     var isSmoothScrollingEnabled = true
     var overscrollAnimationSize = 0.5f
     var flingAnimationSize = 0.5f
-    var canScrolling = true
+    var canScroll = true
 
     var dampingRatio = SpringForce.DAMPING_RATIO_NO_BOUNCY
         set(value) {
@@ -487,7 +484,7 @@ class BouncyNestedScrollView @JvmOverloads constructor(
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        return if (canScrolling) {
+        return if (canScroll) {
             val action = ev.action
 
             if (action == MotionEvent.ACTION_MOVE && mIsBeingDragged)
@@ -558,7 +555,7 @@ class BouncyNestedScrollView @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent): Boolean {
-        return if (canScrolling) {
+        return if (canScroll) {
             initVelocityTrackerIfNotExists()
             val actionMasked = ev.actionMasked
 
@@ -1697,7 +1694,7 @@ class BouncyNestedScrollView @JvmOverloads constructor(
         //1 - Начат скролл, 0 - Скролл завершен, 2 - Отпущен
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            canScrolling = newState != 1
+            canScroll = newState != 1
         }
     }
 

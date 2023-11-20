@@ -9,7 +9,6 @@
     <string name="personal_data_male">Мужской</string>
     <string name="personal_data_female">Женский</string>
     <string name="personal_data_receive_receipts">Получать электронные чеки</string>
-    <string name="personal_data_mail_not_valid">Не верный формат почты</string>
     <string name="personal_data_mail_not_ferified">Почта не верифицирована</string>
     <string name="personal_data_account_remove_title">Удаление аккаунта</string>
     <string name="personal_data_account_remove_message">Вы действительно хотите удалить ваш аккаунт? Все ваши данные будут удалены без возможности восстановления.</string>

@@ -36,6 +36,14 @@ class OrdersFragment : MainScreenBaseFragment<OrdersViewModel, OrdersFragmentBin
         binding.viewModel = viewModel
         binding.rvOrders.adapter = ordersAdapter
 
+        binding.mbOrdersToCatalog.setOnClickListener {
+            viewModel.navigationManager.onSelectItemId(ru.apteka.main_common.R.id.catalog_graph)
+        }
+
+        binding.mbOrdersToStocks.setOnClickListener {
+            viewModel.navigationManager.onSelectItemId(ru.apteka.main_common.R.id.stocks_graph)
+        }
+
         viewModel.ordersFiltered.observe(viewLifecycleOwner) {
             ordersAdapter.swapData(it)
         }

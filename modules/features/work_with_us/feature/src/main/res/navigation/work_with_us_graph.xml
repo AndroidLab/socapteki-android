@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/work_with_us_graph"
+    app:startDestination="@id/workWithUsFragment">
+
+    <fragment
+        android:id="@+id/workWithUsFragment"
+        android:name="ru.apteka.work_with_us.presentation.work_with_us.WorkWithUsFragment">
+
+        <action
+            android:id="@+id/toWorkWithUsJobOpeningsFragment"
+            app:destination="@id/workWithUsJobOpeningsFragment" />
+
+        <action
+            android:id="@+id/toWorkWithUsQuestionnaireFragment"
+            app:destination="@id/workWithUsQuestionnaireFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/workWithUsJobOpeningsFragment"
+        android:name="ru.apteka.work_with_us.presentation.work_with_us_job_openings.WorkWithUsJobOpeningsFragment">
+
+        <action
+            android:id="@+id/toWorkWithUsJobOpeningsDetailsFragment"
+            app:destination="@id/workWithUsJobOpeningsDetailsFragment" />
+
+        <action
+            android:id="@+id/toWorkWithUsQuestionnaireFragment"
+            app:destination="@id/workWithUsQuestionnaireFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/workWithUsJobOpeningsDetailsFragment"
+        android:name="ru.apteka.work_with_us.presentation.work_with_us_job_openings_details.WorkWithUsJobOpeningsDetailsFragment">
+
+        <action
+            android:id="@+id/toWorkWithUsQuestionnaireFragment"
+            app:destination="@id/workWithUsQuestionnaireFragment" />
+
+        <argument
+            android:name="jobOpening"
+            app:argType="ru.apteka.work_with_us.data.model.JobOpeningModel" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/workWithUsQuestionnaireFragment"
+        android:name="ru.apteka.work_with_us.presentation.work_with_us_questionnaire.WorkWithUsQuestionnaireFragment" />
+
+</navigation>

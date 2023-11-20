@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.cooperation.presentation.cooperation_request.CooperationRequestViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svCooperation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/flCooperation"
+            android:layout_below="@id/cooperationToolbar"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="190dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="32dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cooperation_to_partners"
+                                android:textColor="@color/dark_black"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cooperation_to_partnersDesc"
+                                android:textColor="@color/dark_black" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="@string/cooperation_desc"
+                        android:textColor="@color/dark_black" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/cooperation_advantages"
+                            android:textColor="@color/dark_black"
+                            android:textSize="20sp" />
+
+                        <include
+                            layout="@layout/cooperation_advantages_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            app:desc="@{`по технологичности среди всех аптечных сетей России`}"
+                            app:title="@{`Вошли в 10-ку`}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginBottom="@{8}"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}"
+                            app:sepMarginTop="@{8}" />
+
+                        <include
+                            layout="@layout/cooperation_advantages_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            app:desc="@{`в рейтинге аптечных сетей России`}"
+                            app:title="@{`37 место`}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginBottom="@{8}"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}"
+                            app:sepMarginTop="@{8}" />
+
+                        <include
+                            layout="@layout/cooperation_advantages_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginBottom="16dp"
+                            app:desc="@{`аптек на октябрь 2022 года`}"
+                            app:title="@{`Более 190`}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/cooperationToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flCooperation" />
+
+        <!-- Кнопка 'Отправить заявку' -->
+        <FrameLayout
+            android:id="@+id/flCooperation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbCooperation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/cooperation_send_requestr" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

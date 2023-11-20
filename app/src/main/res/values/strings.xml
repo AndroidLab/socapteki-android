@@ -20,15 +20,14 @@
     <!-- Drawer -->
     <string name="about_company">О компании</string>
     <string name="work_with_us">Работа у нас</string>
-    <string name="manufacturers">Производители</string>
     <string name="contacts">Контакты</string>
     <string name="reviews">Отзывы</string>
     <string name="cooperation">Сотрудничество</string>
     <string name="licenses_and_permits">Лицензии и разрешения</string>
     <string name="partners">Партнерам</string>
     <string name="mobile_application">Мобильное приложение</string>
-    <string name="brands">Бренды</string>
-
-    <string name="scan_desc">Наведите смартфон на штрихкод для поиска товара</string>
+    <string name="brands">Бренды и производители</string>
+    <string name="faq">Вопрос-ответ</string>
+    <string name="charity">Благотворительность</string>
 
 </resources>

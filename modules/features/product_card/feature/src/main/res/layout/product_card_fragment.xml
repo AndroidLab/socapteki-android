@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.product_card.presentation.ProductCardViewModel" />
+
+        <variable
+            name="fragment"
+            type="ru.apteka.product_card.presentation.ProductCardFragment" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:background="@color/white"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <!-- Картинки продукции -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProductCardImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="245dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:circlePagerIndicator="@{8}"
+                    app:colorActive="@{@color/color_primary}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_collapseMode="parallax"
+                    app:linearSnapHelper="@{true}" />
+
+                <!-- Лэйблы -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/productCardFlexboxLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="120dp"
+                    android:translationY="-50dp"
+                    app:flexWrap="wrap"
+                    app:forItems="@{viewModel.product.labels}"
+                    app:layout_collapseMode="parallax"
+                    app:useTemplate="@{@layout/label_template}" />
+
+                <!-- Рэйтинг / Комменты -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/separator_view" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp">
+
+                        <!-- Рэйтинг -->
+                        <include
+                            layout="@layout/icon_value_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="8dp"
+                            app:background="@{@drawable/shape_circle_grey_icon}"
+                            app:icon="@{@drawable/ic_star}"
+                            app:value="@{viewModel.product.rating}" />
+
+                        <!-- Комментарии -->
+                        <include
+                            layout="@layout/icon_value_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="8dp"
+                            app:background="@{@drawable/shape_circle_grey_icon}"
+                            app:icon="@{@drawable/ic_comment}"
+                            app:value="@{String.valueOf(viewModel.product.comments)}" />
+
+                        <!-- Ссылка -->
+                        <include
+                            layout="@layout/shared_link_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:layout_marginVertical="8dp"
+                            app:link="@{`https://social-apteka.ru/`}" />
+
+                        <!-- Избранное -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="4dp"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/shape_circle_grey_icon"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_favorite_off"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_height"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{null}"
+                    app:layout_collapseMode="pin">
+
+                    <!-- Описание продукции -->
+                    <TextView
+                        android:id="@+id/tvProductCardDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/toolbar_height"
+                        android:layout_marginEnd="80dp"
+                        android:alpha="0"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:text="@{viewModel.product.desc}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:translationY="@{-@dimen/toolbar_height}" />
+
+                </com.google.android.material.appbar.MaterialToolbar>
+
+                <!-- Кнопка показа карты -->
+                <FrameLayout
+                    android:id="@+id/flProductCardAptekiLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:translationX="-16dp"
+                    android:translationY="-50dp"
+                    app:layout_collapseMode="none">
+
+                    <ImageView
+                        android:id="@+id/productCardAptekiLocation1"
+                        android:layout_width="@dimen/toolbar_height"
+                        android:layout_height="@dimen/toolbar_height"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_location"
+                        app:tint="@color/color_primary"
+                        tools:ignore="ContentDescription" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/productCardAptekiLocation2"
+                        style="@style/Widget.MaterialComponents.FloatingActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location"
+                        app:backgroundTint="@color/color_primary"
+                        app:fabCustomSize="@dimen/toolbar_height"
+                        app:maxImageSize="32dp"
+                        app:tint="@color/white"
+                        tools:ignore="ContentDescription" />
+
+
+                </FrameLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/nsvProductCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_secondary"
+            android:fillViewport="true"
+            app:bouncyScrollviewOverscrollMode="OVERSCROLL_END"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardDesc"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="4dp">
+
+                        <!-- Форма выпуска -->
+                        <LinearLayout
+                            android:id="@+id/productCardReleaseForm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="4dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/shape_circle_surface_variant_icon"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/ic_release_phorm"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/product_card_release_form"
+                                android:textSize="18sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                        <!-- Наличие в аптеках -->
+                        <LinearLayout
+                            android:id="@+id/productCardPharmaciesInMap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="4dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/shape_circle_surface_variant_icon"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/ic_pharmacies_in_map"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/product_card_availability_pharmacies"
+                                android:textSize="18sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Описание -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardDesc1"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{viewModel.product.manufacturer}"
+                            app:title="@{@string/product_card_manufacturer}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
+
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{viewModel.product.manufacturer}"
+                            app:title="@{@string/product_card_active_substance}" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
+
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{viewModel.product.expirationDate}"
+                            app:title="@{@string/product_card_expiration_date}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--  -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_bonuses_x2"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_weight="1"
+                                android:text="Двойные бонусы при заказе через приложение"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_nothing"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_weight="1"
+                                android:text="Узнать больше о программе производителя"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Блок выбора параметров товара -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:forItems="@{viewModel.product.variants}"
+                        app:useTemplate="@{@layout/product_card_variant_view}" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Блок цены -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardPrice"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/price" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="От +20 бонусов"
+                                android:textColor="@color/color_primary" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Текущая цена -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.product.price}"
+                                android:textSize="22sp" />
+
+                            <!-- Процент скидки -->
+                            <include
+                                layout="@layout/discount_percentage_view"
+                                app:discount="@{viewModel.product.discount}" />
+
+                        </LinearLayout>
+
+                        <!-- Старая цена -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.product.discount.oldPrice}"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="16sp"
+                            app:isStrikethrough="@{true}" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            app:cardBackgroundColor="@color/pink"
+                            app:cardCornerRadius="8dp"
+                            app:contentPaddingBottom="4dp"
+                            app:contentPaddingLeft="8dp"
+                            app:contentPaddingRight="8dp"
+                            app:contentPaddingTop="4dp"
+                            app:strokeWidth="0dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-1000 ₽ при покупке второй упаковки"
+                                android:textColor="@color/red" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <include layout="@layout/separator_view" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_product_info"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:text="Цена действует только при заказе на сайте" />
+
+                        </LinearLayout>
+
+                        <include layout="@layout/separator_view" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_product_info"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:text="В наличии: 140 аптеках" />
+
+                        </LinearLayout>
+
+                        <include layout="@layout/separator_view" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="8dp"
+                            android:orientation="horizontal">
+
+                            <include
+                                layout="@layout/product_card_delivery_desc_view"
+                                app:date="@{viewModel.product.pickupDate}"
+                                app:desc="@{@string/product_card_pickup}"
+                                app:icon="@{@drawable/ic_pickup}" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <include
+                                layout="@layout/product_card_delivery_desc_view"
+                                app:date="@{viewModel.product.homeDeliveryDate}"
+                                app:desc="@{@string/product_card_home_delivery}"
+                                app:icon="@{@drawable/ic_home_delivery}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Аналоги лекарста -->
+                <include
+                    android:id="@+id/productCardAnnalogs"
+                    layout="@layout/horizontal_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:isLoading="@{viewModel.isSimilarProductsLoading}"
+                    app:marginItemHorizontal="@{0}"
+                    app:textBtn="@{@string/all}"
+                    app:title="@{@string/similar_products}" />
+
+                <!-- С этим товаром покупают -->
+                <include
+                    android:id="@+id/pricePageWithProduct"
+                    layout="@layout/horizontal_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:isLoading="@{viewModel.isWithProductProductsLoading}"
+                    app:marginItemHorizontal="@{0}"
+                    app:textBtn="@{@string/all}"
+                    app:title="@{@string/with_products}" />
+
+                <!-- Блок с инструкциями -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardInstructions"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/product_card_instruction"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            app:forItems="@{viewModel.productInstruction}"
+                            app:useTemplate="@{@layout/product_card_instruction_template}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Блок с комментариями -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardComments"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="12dp"
+                                android:text="@string/product_card_tab_reviews"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/tvProductCardSendComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="12dp"
+                                android:text="@string/product_card_send_comment"
+                                android:textColor="@color/color_primary" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/productCardPopularSort"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:gravity="center_vertical"
+                                android:onClick="@{() -> viewModel.popularCommentsSort()}"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/product_card_comments_popular" />
+
+                                <ImageView
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_arrow_down"
+                                    tools:ignore="ContentDescription" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <!-- Рейтинг -->
+                            <include
+                                layout="@layout/icon_value_view"
+                                app:icon="@{@drawable/ic_star}"
+                                app:value="@{String.valueOf(viewModel.productComments.rating)}" />
+
+                            <!-- Комментрии -->
+                            <include
+                                layout="@layout/icon_value_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="16dp"
+                                app:icon="@{@drawable/ic_comment}"
+                                app:value="@{String.valueOf(viewModel.productComments.commentCount)}" />
+
+                        </LinearLayout>
+
+                        <include layout="@layout/separator_view" />
+
+                        <!-- Список комментариев -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:forItems="@{viewModel.productComments.comments}"
+                            app:useTemplate="@{@layout/product_card_comment_item_view}" />
+
+                        <!-- Показать еще -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="@{() -> viewModel.showMoreComments()}"
+                            android:paddingVertical="10dp"
+                            android:text="@string/product_card_comments_show_more"
+                            android:textColor="@color/color_primary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnProductCardSendComment"
+                            style="@style/Theme.Socapteki.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/product_card_send_comment" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Цена и положить в корзину -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@{viewModel.product.price}"
+                        android:textSize="22sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/basketToPromotion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="4dp"
+                        android:text="@string/price_page_add_basket" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/productCardTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabMode="scrollable">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_desc" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_price" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_analogs" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_instruction" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_card_tab_reviews" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

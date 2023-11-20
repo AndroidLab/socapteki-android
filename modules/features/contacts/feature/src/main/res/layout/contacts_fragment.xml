@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.contacts.presentation.ContactsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/flContacts"
+            android:layout_below="@id/contactsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical">
+
+                    <!-- На карту -->
+                    <LinearLayout
+                        android:id="@+id/contactsPharmacyMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_contcts_map"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/contacts_map"
+                            android:textColor="@color/light_black"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Адрес -->
+                    <LinearLayout
+                        android:id="@+id/contactsAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_city_location"
+                            app:tint="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/address"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="344065, Ростовская обл., г. Ростов-на-Дону, ул.Киргизская, дом № 14Б, офис 31"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <include layout="@layout/separator_view" />
+
+                    <!-- Телефон - приемная -->
+                    <LinearLayout
+                        android:id="@+id/llContactsReception"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_contacts_phone"
+                            app:tint="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/contacts_reception"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:id="@+id/tvContactsReception"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="4dp"
+                                android:text="8 (863) 310-55-60"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Телефон - справочная лекарств -->
+                    <LinearLayout
+                        android:id="@+id/llContactsDrugReference"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_contacts_phone"
+                            app:tint="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/contacts_drug_reference"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:id="@+id/tvContactsDrugReference"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="4dp"
+                                android:text="8 (800) 100-01-03"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Реквизиты -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contacts_requisites"
+                            android:textColor="@color/dark_black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- Наименование предпрятия -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`ООО «Социальная Аптека Ростов»`}"
+                            app:title="@{@string/contacts_requisites_company_name}" />
+
+                        <!-- ИНН -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`6166125005`}"
+                            app:title="@{@string/contacts_requisites_inn}" />
+
+                        <!-- ОГРН -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`1226100010421`}"
+                            app:title="@{@string/contacts_requisites_ogrn}" />
+
+                        <!-- Юридический адрес -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`344065, г. Ростов-на-Дону, ул. Киргизская, 14Б, офис 3`}"
+                            app:title="@{@string/contacts_requisites_legal_address}" />
+
+                        <!-- Почтовый адрес -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`344065, г. Ростов-на-Дону, ул. Киргизская, 14Б, офис 31`}"
+                            app:title="@{@string/contacts_requisites_postal_address}" />
+
+                        <!-- Номер лицензии -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`Л042-01050-61/00285660`}"
+                            app:title="@{@string/contacts_requisites_license_number}" />
+
+                        <!-- Дата выдачи лицензии -->
+                        <include
+                            layout="@layout/contacts_requisites_view"
+                            app:desc="@{`18 августа 2020 г.`}"
+                            app:title="@{@string/contacts_requisites_date_license}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/contacts_write_to_us"
+                            android:textColor="@color/dark_black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- Общие вопросы -->
+                        <include
+                            android:id="@+id/contactsWriteToUsCommonQuestion"
+                            layout="@layout/contacts_write_to_us_view"
+                            app:desc="@{`assist@farmp.ru`}"
+                            app:icon="@{@drawable/ic_contacts_mail}"
+                            app:title="@{@string/contacts_write_to_us_common_question}" />
+
+                        <!-- Работа в компании -->
+                        <include
+                            android:id="@+id/contactsWriteToUsWorkInCompany"
+                            layout="@layout/contacts_write_to_us_view"
+                            app:desc="@{`personal@social-apteka.ru`}"
+                            app:icon="@{@drawable/ic_contacts_mail}"
+                            app:title="@{@string/contacts_write_to_us_work_in_company}" />
+
+                        <!-- Претензии -->
+                        <include
+                            android:id="@+id/contactsWriteToUsClaims"
+                            layout="@layout/contacts_write_to_us_view"
+                            app:desc="@{`assist@farmp.ru`}"
+                            app:icon="@{@drawable/ic_contacts_mail}"
+                            app:title="@{@string/contacts_write_to_us_claims}" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Соц сети -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/contacts_social_networks"
+                            android:textColor="@color/dark_black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="8dp"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp">
+
+                            <ImageView
+                                android:id="@+id/contactsTelegram"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_contacts_telegram"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageView
+                                android:id="@+id/contactsVk"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_contacts_vk"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageView
+                                android:id="@+id/contactsOk"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_contscts_ok"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/contactsToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flContacts" />
+
+        <!-- Кнопка 'написать нам' -->
+        <FrameLayout
+            android:id="@+id/flContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbContacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/contacts_write" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

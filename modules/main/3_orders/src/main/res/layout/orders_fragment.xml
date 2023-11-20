@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -28,23 +29,60 @@
 
             <!-- Уведомление отсутствия заказов -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp"
                 app:visibleIf="@{!viewModel.isLoading &amp; viewModel.orders.empty}">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/orders_not_found" />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/no_orders"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/orders_not_found_title"
+                    android:textColor="@color/dark_black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
                     android:text="@string/orders_not_found_desc"
-                    android:textColor="@color/dark_grey" />
+                    android:textColor="@color/light_black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbOrdersToCatalog"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/orders_to_catalog" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbOrdersToStocks"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/orders_to_stocks" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -70,7 +108,7 @@
                         android:padding="16dp"
                         app:forItems="@{viewModel.orderFilter.items}"
                         app:useTemplate="@{@layout/order_filter_view}"
-                        app:visibleIf="@{viewModel.orderFilter.mediator}"/>
+                        app:visibleIf="@{viewModel.orderFilter.mediator}" />
 
                 </HorizontalScrollView>
 

@@ -1,18 +1,15 @@
 package ru.apteka.home.presentation.home
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.recyclerAutoScroll
-import ru.apteka.components.ui.boundcy.BouncyNestedScrollView
-import ru.apteka.components.ui.boundcy.util.OnOverPullListener
+import ru.apteka.components.data.utils.setPullForward
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.home.R
 import ru.apteka.home.databinding.HomeFragmentBinding
@@ -23,7 +20,6 @@ import ru.apteka.main_common.ui.MainScreenBaseFragment
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
-import ru.apteka.components.R as ComponentsR
 import ru.apteka.main_common.R as MainCommonR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.product_card_api.R as productCardApiR
@@ -87,6 +83,10 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
             )
         }
 
+        binding.homeProductsDay.rv.setPullForward(binding.homeProductsDay.vForvward) {
+            binding.homePromotions.header.btn.performClick()
+        }
+
         binding.homePromotions.header.btn.setOnClickListener {
 
         }
@@ -100,11 +100,13 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         }
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.brands_graph)
+            //viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.brands_graph)
         }
 
         binding.homeMenuPartners.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.partners_graph)
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ru.apteka.our_partners_api.R.id.our_partners_graph
+            )
         }
 
 

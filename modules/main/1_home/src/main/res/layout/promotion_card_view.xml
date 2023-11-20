@@ -30,7 +30,7 @@
                 android:layout_margin="4dp"
                 app:flexWrap="wrap"
                 app:forItems="@{model.labels}"
-                app:useTemplate="@{@layout/label_view}" />
+                app:useTemplate="@{@layout/label_template}" />
 
             <LinearLayout
                 android:layout_width="match_parent"

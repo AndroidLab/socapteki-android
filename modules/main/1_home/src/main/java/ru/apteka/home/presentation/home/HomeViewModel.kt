@@ -2,22 +2,17 @@ package ru.apteka.home.presentation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.barcode_scan.IBarCodeScanService
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.home.data.models.AdvertModel
@@ -45,7 +40,6 @@ class HomeViewModel @Inject constructor(
     private val otherRepository: OtherRepository,
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
-    val barCodeScanService: IBarCodeScanService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
@@ -212,15 +206,6 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-        viewModelScope.launchIO {
-            barCodeScanService.barcodeResult.collect {
-                messageNoticeService.showCommonToast(
-                    MessageModel(
-                        message = "Code $it"
-                    )
-                )
-            }
-        }
     }
 
 

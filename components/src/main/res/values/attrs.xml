@@ -57,7 +57,8 @@
 
     <!-- Параметры для BouncyRecyclerScrollView -->
     <declare-styleable name="BouncyRecyclerView">
-        <attr name="recyclerviewOverscrollAnimationSize" format="float" />
+        <attr name="recyclerviewOverscrollStartAnimationSize" format="float" />
+        <attr name="recyclerviewOverscrollEndAnimationSize" format="float" />
         <attr name="recyclerview_fling_animation_size" format="float" />
 
         <attr name="allowDragReorder" format="boolean" />
@@ -77,6 +78,7 @@
             <enum name="STIFFNESS_HIGH" value="3" />
         </attr>
         <attr name="bouncyRecyclerviewOverscrollMode" format="integer">
+            <enum name="OVERSCROLL_NEVER" value="-1" />
             <enum name="OVERSCROLL_ALL" value="0" />
             <enum name="OVERSCROLL_START" value="1" />
             <enum name="OVERSCROLL_END" value="2" />

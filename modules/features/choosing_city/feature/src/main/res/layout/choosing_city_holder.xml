@@ -11,48 +11,60 @@
 
     </data>
 
-
     <LinearLayout
-        android:id="@+id/svChoosingCity"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="24dp"
-        android:gravity="center_vertical"
-        android:onClick="@{() -> model.onItemClick.invoke(model)}"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:id="@+id/svChoosingCity"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> model.onItemClick.invoke(model)}"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="24dp">
 
-            <!-- Город -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{model.city.name}"
-                android:textColor="@color/color_primary"
-                android:textSize="16sp" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <!-- Subtitle -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{model.city.subtitle}"
-                android:textColor="@color/dark_grey" />
+                <!-- Город -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.city.name}"
+                    android:textColor="@color/color_primary"
+                    android:textSize="16sp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.city.subtitle}"
+                    android:textColor="@color/dark_grey" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_selected"
+                app:visibleIf="@{model.isSelected}"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_selected"
-            app:visibleIf="@{model.isSelected}"
-            tools:ignore="ContentDescription" />
+        <include
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
 
     </LinearLayout>
+
 
 </layout>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.licenses.presentation.LicensesViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/licensesToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svLicenses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <!-- Общая информация -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.github.florent37.expansionpanel.ExpansionHeader
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
+                            app:expansion_headerIndicator="@id/commonInfoHeaderIndicator"
+                            app:expansion_layout="@id/commonInfoExpansionLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:tag="title"
+                                android:text="@string/licenses_common_info_title"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/commonInfoHeaderIndicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:src="@drawable/ic_arrow_expand"
+                                android:tag="indicator"
+                                tools:ignore="ContentDescription" />
+
+                        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                        <com.github.florent37.expansionpanel.ExpansionLayout
+                            android:id="@+id/commonInfoExpansionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expansion_expanded="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <include
+                                    layout="@layout/separator_view"
+                                    app:sepMarginEnd="@{16}"
+                                    app:sepMarginStart="@{16}" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="16dp"
+                                    android:layout_marginVertical="12dp"
+                                    android:text="@string/licenses_common_info_desc" />
+
+                            </LinearLayout>
+
+                        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Лицензии -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.github.florent37.expansionpanel.ExpansionHeader
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
+                            app:expansion_headerIndicator="@id/licensesHeaderIndicator"
+                            app:expansion_layout="@id/licensesExpansionLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:tag="title"
+                                android:text="@string/licenses"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/licensesHeaderIndicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                        <com.github.florent37.expansionpanel.ExpansionLayout
+                            android:id="@+id/licensesExpansionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expansion_expanded="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:forItems="@{viewModel.licenses}"
+                                    app:useTemplate="@{@layout/licenses_template}" />
+
+                            </LinearLayout>
+
+                        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Разрешения -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.github.florent37.expansionpanel.ExpansionHeader
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
+                            app:expansion_headerIndicator="@id/licensesPermissionsHeaderIndicator"
+                            app:expansion_layout="@id/licensesPermissionsExpansionLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:tag="title"
+                                android:text="@string/licenses_permissions"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/licensesPermissionsHeaderIndicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                        <com.github.florent37.expansionpanel.ExpansionLayout
+                            android:id="@+id/licensesPermissionsExpansionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expansion_expanded="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:forItems="@{viewModel.licenses}"
+                                    app:useTemplate="@{@layout/licenses_template}" />
+
+                            </LinearLayout>
+
+                        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Условия продажи товаров -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.github.florent37.expansionpanel.ExpansionHeader
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
+                            app:expansion_headerIndicator="@id/termsSaleHeaderIndicator"
+                            app:expansion_layout="@id/termsSaleExpansionLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:tag="title"
+                                android:text="@string/licenses_terms_sale"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/termsSaleHeaderIndicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                        <com.github.florent37.expansionpanel.ExpansionLayout
+                            android:id="@+id/termsSaleExpansionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expansion_expanded="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <include
+                                    layout="@layout/separator_view"
+                                    app:sepMarginEnd="@{16}"
+                                    app:sepMarginStart="@{16}" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="16dp"
+                                    android:layout_marginVertical="12dp"
+                                    android:text="@string/licenses_terms_sale_desc" />
+
+                            </LinearLayout>
+
+                        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+    </LinearLayout>
+
+</layout>

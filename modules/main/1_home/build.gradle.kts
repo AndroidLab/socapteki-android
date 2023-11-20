@@ -19,7 +19,9 @@ dependencies {
     implementation(project(":modules:features:personal_data:api"))
     implementation(project(":modules:features:choosing_city:api"))
     implementation(project(":modules:features:pharmacies_map:api"))
-    implementation(project(":modules:features:shared:product_card:api"))
+    implementation(project(":modules:features:product_card:api"))
+    implementation(project(":modules:features:our_partners:api"))
+    implementation(project(":modules:features:favorites:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

@@ -1,0 +1,7 @@
+<resources>
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_no_favorites_title">Вы пока ничего не добавили</string>
+    <string name="favorites_no_favorites_desc">Нажмите  ❤️ на товаре, который часто покупаете или хотите сохранить на потом</string>
+    <string name="favorites_bye_all">Купить все товары</string>
+    <string name="favorites_to_catalog">В каталог</string>
+</resources>

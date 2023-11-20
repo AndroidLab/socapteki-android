@@ -18,6 +18,7 @@ object Bouncy
     const val STIFFNESS_HIGH = SpringForce.STIFFNESS_HIGH
 
     //overscroll mode
+    const val OVERSCROLL_NEVER = -1
     const val OVERSCROLL_ALL = 0
     const val OVERSCROLL_START = 1
     const val OVERSCROLL_END = 2

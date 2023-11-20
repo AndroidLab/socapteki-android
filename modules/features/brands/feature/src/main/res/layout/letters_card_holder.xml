@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.brands.data.model.BrandModel" />
+
+        <variable
+            name="model"
+            type="ru.apteka.brands.data.model.LettersCardModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Theme.Socapteki.BackgroundCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="@{model.title}"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{16}"
+                app:sepMarginStart="@{16}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:forItems="@{model.items}"
+                app:useTemplate="@{@layout/letters_item_template}" />
+
+            <TextView
+                android:id="@+id/allBrandsByLetter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:text="@{model instanceof BrandModel ? String.format(@string/brands_all_brands_by_letter, model.title) : String.format(@string/brands_all_manufactures_by_letter, model.title)}"
+                android:textColor="@color/color_primary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

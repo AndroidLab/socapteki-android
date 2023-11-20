@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.apteka.main.R
+import ru.apteka.main_common.R as MainCommonR
 
 
 /**
@@ -13,7 +14,7 @@ import ru.apteka.main.R
  */
 class BottomAppBarModel {
     val item_1 = MenuItemModel(
-        itemId = R.id.home_graph,
+        itemId = MainCommonR.id.home_graph,
         icon = R.drawable.ic_home,
         title = R.string.menu_label_1,
         onItemClick = {
@@ -23,7 +24,7 @@ class BottomAppBarModel {
     )
 
     val item_2 = MenuItemModel(
-        itemId = R.id.catalog_graph,
+        itemId = MainCommonR.id.catalog_graph,
         icon = R.drawable.ic_catalog,
         title = R.string.menu_label_2,
         onItemClick = {
@@ -33,7 +34,7 @@ class BottomAppBarModel {
     )
 
     val item_3 = MenuItemModel(
-        itemId = R.id.orders_graph,
+        itemId = MainCommonR.id.orders_graph,
         icon = R.drawable.ic_orders,
         title = R.string.menu_label_3,
         onItemClick = {
@@ -43,7 +44,7 @@ class BottomAppBarModel {
     )
 
     val item_4 = MenuItemModel(
-        itemId = R.id.favorites_graph,
+        itemId = MainCommonR.id.stocks_graph,
         icon = R.drawable.ic_stocks,
         title = R.string.menu_label_4,
         onItemClick = {
@@ -53,7 +54,7 @@ class BottomAppBarModel {
     )
 
     val item_5 = MenuItemModel(
-        itemId = R.id.basket_graph,
+        itemId = MainCommonR.id.basket_graph,
         icon = R.drawable.ic_basket,
         title = R.string.menu_label_5,
         onItemClick = {
@@ -66,7 +67,7 @@ class BottomAppBarModel {
 
     private var onItemSelectedListener: OnItemSelectedListener? = null
 
-    private val _selectedItemId = MutableLiveData(R.id.home_graph)
+    private val _selectedItemId = MutableLiveData(MainCommonR.id.home_graph)
 
     /**
      * Возвращает индентификатор выбранного пункта.
@@ -78,11 +79,11 @@ class BottomAppBarModel {
      */
     val onSelectItemId: (itemId: Int) -> Unit = { itemId ->
         when (itemId) {
-            R.id.home_graph -> item_1.onItemClick(itemId)
-            R.id.catalog_graph -> item_2.onItemClick(itemId)
-            R.id.orders_graph -> item_3.onItemClick(itemId)
-            R.id.favorites_graph -> item_4.onItemClick(itemId)
-            R.id.basket_graph -> item_5.onItemClick(itemId)
+            MainCommonR.id.home_graph -> item_1.onItemClick(itemId)
+            MainCommonR.id.catalog_graph -> item_2.onItemClick(itemId)
+            MainCommonR.id.orders_graph -> item_3.onItemClick(itemId)
+            MainCommonR.id.stocks_graph -> item_4.onItemClick(itemId)
+            MainCommonR.id.basket_graph -> item_5.onItemClick(itemId)
             else -> throw IllegalArgumentException("Пункт меню с идентификатором $itemId не найден.")
         }
     }

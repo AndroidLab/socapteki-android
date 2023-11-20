@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="cooperation_title">Сотрудничество</string>
+    <string name="cooperation_to_partners">Партнерам</string>
+    <string name="cooperation_to_partnersDesc">Наша аптечная сеть быстро развиваетсяи растет, и мы будем рады сотрудничеству с вами!</string>
+
+    <string name="cooperation_desc">
+        Фарм Дисконт - аптеки дискаунтеры. Аптеки с минимальной ценой на товар,
+        отличающиеся жесткой ценовой политикой в отношении конкурентов.
+        Наличие редких и специализированных препаратов.
+        \nВаш доктор - аптеки у дома. Расположены в жилых массивах и сетевых продуктовых магазинах.
+    </string>
+
+    <string name="cooperation_advantages">Преимущества быть нашим партнером</string>
+
+    <string name="cooperation_send_requestr">Отправить заявку</string>
+
+</resources>

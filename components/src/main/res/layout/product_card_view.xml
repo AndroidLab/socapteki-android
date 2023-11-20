@@ -42,7 +42,7 @@
                     android:layout_margin="4dp"
                     app:flexWrap="wrap"
                     app:forItems="@{model.product.labels}"
-                    app:useTemplate="@{@layout/label_view}" />
+                    app:useTemplate="@{@layout/label_template}" />
 
                 <!-- Иконка избранного -->
                 <FrameLayout

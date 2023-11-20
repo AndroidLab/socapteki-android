@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.feedback.presentation.FeedbackViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+            android:id="@+id/svContactsFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/flContactsFeedback"
+            android:layout_below="@id/contactsToolbarFeedback"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <ru.apteka.components.ui.LoaderLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isLoading="@{viewModel.isLoading}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/feedback_desc"
+                        android:textColor="@color/light_black" />
+
+                    <!-- Выбор ФИО -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/fio"
+                        app:startIconDrawable="@drawable/ic_fio">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContactsFeedbackFio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:maxLength="64"
+                            android:maxLines="1"
+                            android:text="@={viewModel.fio}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Емайл -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/mail"
+                        app:errorText="@{viewModel.isEmailValid == null ? `` : context.getString(viewModel.isEmailValid)}"
+                        app:startIconDrawable="@drawable/ic_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContactsFeedbackEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:text="@={viewModel.email}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Выбор причины -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayoutDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/feedback_subject_appeal">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/etContactsFeedbackReason"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:inputType="none"
+                            app:autoCompleteItems="@{viewModel.reasons}"
+                            app:onAutoCompleteItemClick="@{(i0, i1, i2, i3) -> viewModel.onReasonSelect(i2)}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Текст обращения -->
+                    <ru.apteka.components.ui.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/feedback_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContactsFeedbackText"
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:gravity="top"
+                            android:maxLines="4"
+                            android:text="@={viewModel.message}" />
+
+                    </ru.apteka.components.ui.TextInputLayout>
+
+                    <!-- Загрузить файл -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbFeedbackAttachFile"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:text="@string/feedback_attach_file"
+                        app:icon="@drawable/ic_attach"
+                        app:iconGravity="textStart" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feedback_attach_file_desc"
+                        android:textColor="@color/light_black" />
+
+                    <!-- Согласие на обработку пер. данных -->
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cbContactsFeedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:checked="@={viewModel.isPersonalDataChecked}"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:paddingStart="8dp" />
+
+                </LinearLayout>
+
+            </ru.apteka.components.ui.LoaderLayout>
+
+        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/contactsToolbarFeedback"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flContactsFeedback" />
+
+        <!-- Кнопка 'Отправить' -->
+        <FrameLayout
+            android:id="@+id/flContactsFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:enabled="@{viewModel.isMessageSendEnabled}"
+                android:onClick="@{() -> viewModel.sendMessage()}"
+                android:text="@string/send" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

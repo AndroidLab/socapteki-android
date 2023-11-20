@@ -21,6 +21,8 @@
             android:id="@+id/choosingCityToolbar"
             layout="@layout/toolbar" />
 
+        <include layout="@layout/separator_view" />
+
         <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

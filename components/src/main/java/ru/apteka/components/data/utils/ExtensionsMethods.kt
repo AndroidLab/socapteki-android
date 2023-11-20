@@ -1,5 +1,7 @@
 package ru.apteka.components.data.utils
 
+import android.animation.Animator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -10,21 +12,31 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
+import android.view.animation.Animation
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import kotlinx.coroutines.*
 import ru.apteka.components.R
+import ru.apteka.components.ui.boundcy.BouncyRecyclerView
+import ru.apteka.components.ui.boundcy.util.OnOverScrollOffsetListener
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -484,4 +496,76 @@ fun View.setPaddingRight(paddingRight: Int) {
  */
 fun View.setPaddingBottom(paddingBottom: Int) {
     setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+}
+
+/**
+ * Устанавливает слушатель обновления через оверскролл.
+ */
+fun BouncyRecyclerView.setPullForward(
+    view: LottieAnimationView,
+    release: () -> Unit
+) {
+    this.overscrollEndAnimationSize = 1f
+    this.onOverScrollOffsetListener = object : OnOverScrollOffsetListener {
+        private var isAnimating = false
+
+        override fun onOverScrollStart() {}
+
+        @SuppressLint("MissingPermission")
+        override fun onOverScrollOffset(mode: Int, offset: Int) {
+            if (offset < view.width) {
+                view.translationX = offset * -1f
+                val delta = (offset * 100 / view.width) / 100f
+                view.alpha = delta
+                view.scale(delta)
+                view.cancelAnimation()
+                isAnimating = false
+            } else {
+                view.translationX = -view.width.toFloat()
+                if (!isAnimating) {
+                    fun playAnim() {
+                        view.playAnimation(.38f, 0.73f)
+                    }
+                    isAnimating = true
+                    view.addAnimatorListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(p0: Animator) {}
+                        override fun onAnimationEnd(p0: Animator) {
+                            playAnim()
+                        }
+
+                        override fun onAnimationCancel(p0: Animator) {}
+                        override fun onAnimationRepeat(p0: Animator) {}
+                    })
+                    playAnim()
+                    val vibrator = getSystemService(context, Vibrator::class.java)!!
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(
+                            50,
+                            1
+                        )
+                    )
+                }
+            }
+        }
+
+        override fun onOverScrollRelease() {
+            release()
+        }
+
+        override fun onOverScrollEnd() {}
+    }
+}
+
+/**
+ * Устанавливает режим открытия клавиатуры со сдвигом контента.
+ */
+fun Fragment.setSoftInputModeAdjustPan() {
+    requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+}
+
+/**
+ * Устанавливает режим открытия клавиатуры без здвига контента.
+ */
+fun Fragment.setSoftInputModeNothing() {
+    requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 }

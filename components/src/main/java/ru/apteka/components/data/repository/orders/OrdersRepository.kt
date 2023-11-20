@@ -3,6 +3,7 @@ package ru.apteka.components.data.repository.orders
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.DiscountModel
+import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.models.ProductModel
 import java.util.UUID
 import javax.inject.Inject
@@ -25,74 +26,99 @@ class OrdersRepository @Inject constructor(
         return listOf(
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.NEW,
                 date = 1697711146
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                status = OrderStatus.NEW,
                 date = 1697624746
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                status = OrderStatus.IN_PROCESSING,
                 date = 1677711395
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.IN_PROCESSING,
                 date = 1680389795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.READY_TO_RECEIVE,
                 date = 1682981795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.READY_TO_RECEIVE,
                 date = 1685660195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.TRANSFERRED_TO_COURIER,
                 date = 1688252195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.TRANSFERRED_TO_COURIER,
                 date = 1690930595
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                status = OrderStatus.CANCELED,
                 date = 1677711395
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.DELIVERY_POSTPONED,
                 date = 1680389795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.DELIVERY_POSTPONED,
                 date = 1682981795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.BOOKING_EXTENDED,
                 date = 1685660195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.BOOKING_EXTENDED,
                 date = 1688252195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = Random.nextInt(99999),
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.RECEIVED,
                 date = 1690930595
-            )
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = OrderStatus.RECEIVED,
+                date = 1690930595
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = OrderStatus.CANCELED,
+                date = 1690930595
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = OrderStatus.CANCELED,
+                date = 1690930595
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = OrderStatus.AWAITING_PAYMENT,
+                date = 1690930595
+            ),
+            ru.apteka.components.data.models.OrderModel(
+                number = Random.nextInt(99999),
+                status = OrderStatus.AWAITING_PAYMENT,
+                date = 1690930595
+            ),
         )
     }
 
@@ -151,42 +177,42 @@ class OrdersRepository @Inject constructor(
         return listOf(
             ru.apteka.components.data.models.OrderModel(
                 number = 123,
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.TRANSFERRED_TO_COURIER,
                 date = 1697711146
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 1234,
-                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                status = OrderStatus.CANCELED,
                 date = 1697624746
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 12345,
-                status = ru.apteka.components.data.models.OrderStatus.CANCELED,
+                status = OrderStatus.CANCELED,
                 date = 1677711395
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 123456,
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.READY_TO_RECEIVE,
                 date = 1680389795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 1234567,
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.TRANSFERRED_TO_COURIER,
                 date = 1682981795
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 12345678,
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.DELIVERY_POSTPONED,
                 date = 1685660195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 123456789,
-                status = ru.apteka.components.data.models.OrderStatus.COMPLETED,
+                status = OrderStatus.BOOKING_EXTENDED,
                 date = 1688252195
             ),
             ru.apteka.components.data.models.OrderModel(
                 number = 1234567890,
-                status = ru.apteka.components.data.models.OrderStatus.IN_WORK,
+                status = OrderStatus.RECEIVED,
                 date = 1690930595
             )
         ).filter { it.number.toString().contains(number.toString()) }

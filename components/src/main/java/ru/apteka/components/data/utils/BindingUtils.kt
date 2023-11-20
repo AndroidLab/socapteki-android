@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.text.InputType
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +16,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -34,6 +31,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.github.florent37.expansionpanel.ExpansionHeader
 import com.github.florent37.expansionpanel.ExpansionLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
@@ -616,4 +614,42 @@ fun View.setUserInteractionEnabled(enabled: Boolean) {
 fun View.setVisibleWithInteractionEnabled(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     setUserInteractionEnabled(isVisible)
+}
+
+/**
+ * Устанавливает цвет для заголовка и индикатора.
+ */
+@BindingAdapter("app:expansionChangeColor")
+fun ExpansionHeader.setChangeSelectionColor(
+    expansionChangeColor: Boolean?
+) {
+    if (expansionChangeColor == true) {
+        val title = findViewWithTag<TextView>("title")
+
+        addListener { expansionLayout, expanded ->
+            title?.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    if (expanded) R.color.color_primary else R.color.dark_black
+                )
+            )
+            headerIndicator?.let {
+                (it as? ImageView)?.setImageTint(
+                    ContextCompat.getColor(
+                        context,
+                        if (expanded) R.color.color_primary else R.color.dark_grey
+                    )
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Маштабирует отображение по оси X и Y.
+ */
+@BindingAdapter("app:scale")
+fun View.scale(value: Float) {
+    scaleX = value
+    scaleY = value
 }

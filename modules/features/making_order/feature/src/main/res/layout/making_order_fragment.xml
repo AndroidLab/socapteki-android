@@ -48,13 +48,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
                             app:expansion_headerIndicator="@id/headerIndicator"
                             app:expansion_layout="@id/expansionLayout">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/making_order_your_order" />
+                                android:tag="title"
+                                android:text="@string/making_order_your_order"
+                                android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/headerIndicator"

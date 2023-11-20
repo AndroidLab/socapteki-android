@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/making_order_banner"
+                    android:src="@drawable/banner"
                     tools:ignore="ContentDescription" />
 
                 <TextView

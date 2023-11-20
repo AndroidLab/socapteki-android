@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import ru.apteka.components.R
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.data.utils.setSoftInputModeNothing
 
 /**
  * Представляет базовый класс для фрагмента экрана.
@@ -78,6 +78,7 @@ abstract class BaseFragment<TViewModel : ViewModel, TDataBinding : ViewDataBindi
     override fun onStop() {
         super.onStop()
         keyBoardClose()
+        //setSoftInputModeNothing()
     }
 
     override fun onDestroyView() {

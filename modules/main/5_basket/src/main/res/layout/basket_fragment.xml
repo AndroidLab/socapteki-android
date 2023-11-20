@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
             android:id="@+id/svHome"
             android:layout_width="match_parent"
