@@ -15,6 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,9 +28,11 @@ import ru.apteka.catalog.data.models.IFilter
 import ru.apteka.catalog.data.models.SearchResultModel
 import ru.apteka.catalog.databinding.CatalogProductsFragmentBinding
 import ru.apteka.catalog.databinding.CatalogProductsSortBinding
+import ru.apteka.catalog.databinding.CatalogSpeechDialogBinding
 import ru.apteka.components.BR
 import ru.apteka.components.data.models.FilterChipModel
 import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.services.message_notice_service.models.BodyContentModel
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
@@ -336,9 +339,34 @@ class CatalogProductsFragment :
     }
 
 
+    private var _speechDialog: DialogFragment? = null
+    private var _speechDialogBinding: CatalogSpeechDialogBinding? = null
+
     private val micListener = object : RecognitionListener {
         override fun onReadyForSpeech(bundle: Bundle) {
             Log.d("myL", "onReadyForSpeech " + bundle)
+            showCommonDialog(
+                CommonDialogModel(
+                    fragmentManager = parentFragmentManager,
+                    dialogModel = DialogModel(
+                        bodyContent = BodyContentModel(
+                            layoutId = R.layout.catalog_speech_dialog
+                        ) { dialog, binding ->
+                            _speechDialog = dialog
+                            _speechDialogBinding = binding as CatalogSpeechDialogBinding
+                            binding.mbCatalogSpeech.setOnClickListener {
+                                mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
+                                binding.isError = false
+                            }
+                        },
+                        onDismiss = {
+                            mSpeechRecognizer.stopListening()
+                            _speechDialog = null
+                            _speechDialogBinding = null
+                        }
+                    ),
+                )
+            )
         }
 
         override fun onBeginningOfSpeech() {
@@ -346,7 +374,7 @@ class CatalogProductsFragment :
         }
 
         override fun onRmsChanged(v: Float) {
-            Log.d("myL", "onRmsChanged " + v)
+            //Log.d("myL", "onRmsChanged " + v)
         }
 
         override fun onBufferReceived(bytes: ByteArray) {
@@ -359,12 +387,18 @@ class CatalogProductsFragment :
 
         override fun onError(i: Int) {
             Log.d("myL", "onError " + i)
+            _speechDialogBinding?.isError = true
         }
 
         override fun onResults(bundle: Bundle) {
             val matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-            Log.d("myL", "onResults " + matches!![0])
-            //if (matches != null) editText.setText(matches[0])
+            if (matches != null) {
+                Log.d("myL", "onResults " + matches[0])
+                _speechDialog?.dismiss()
+                viewModel.searchText.value = matches[0]
+            } else {
+                _speechDialogBinding?.isError = true
+            }
         }
 
         override fun onPartialResults(bundle: Bundle) {

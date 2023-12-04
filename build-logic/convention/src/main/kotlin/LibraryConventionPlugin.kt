@@ -1,5 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
-import ru.google.samples.apps.nowinandroid.configureModule
+import ru.apteka.social.apps.configureModule
 import ru.google.samples.apps.nowinandroid.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -98,7 +98,7 @@ fun BottomAppBar.setupWithNavController(
                         setPrimaryNavigationFragment(newSelectedFragment)
 
                         // Отсоедините все остальные фрагменты.
-                        graphIdToTagMap.forEach { _, fragmentTag ->
+                        graphIdToTagMap.forEach { (_, fragmentTag) ->
                             if (fragmentTag != newSelectedItemTag) {
                                 detach(fragmentManager.findFragmentByTag(firstFragmentTag)!!)
                             }

@@ -1,4 +1,4 @@
-package ru.google.samples.apps.nowinandroid
+package ru.apteka.social.apps
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
@@ -8,6 +8,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import ru.google.samples.apps.nowinandroid.libs
 
 
 /**
