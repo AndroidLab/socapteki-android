@@ -16,11 +16,9 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.text.Html
 import android.text.Spanned
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.Animation
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
@@ -32,11 +30,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
+import com.alab.extra_bouncy.BouncyRecyclerView
+import com.alab.extra_bouncy.util.OnOverScrollOffsetListener
 import kotlinx.coroutines.*
 import ru.apteka.components.R
-import ru.apteka.components.ui.boundcy.BouncyRecyclerView
-import ru.apteka.components.ui.boundcy.util.OnOverScrollOffsetListener
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -509,10 +506,10 @@ fun BouncyRecyclerView.setPullForward(
     this.onOverScrollOffsetListener = object : OnOverScrollOffsetListener {
         private var isAnimating = false
 
-        override fun onOverScrollStart() {}
+        override fun onOverScrollStart(overscrollMode: Int) {}
 
         @SuppressLint("MissingPermission")
-        override fun onOverScrollOffset(mode: Int, offset: Int) {
+        override fun onOverScrollOffset(overscrollMode: Int, offset: Int) {
             if (offset < view.width) {
                 view.translationX = offset * -1f
                 val delta = (offset * 100 / view.width) / 100f
@@ -548,7 +545,7 @@ fun BouncyRecyclerView.setPullForward(
             }
         }
 
-        override fun onOverScrollRelease() {
+        override fun onOverScrollRelease(overscrollMode: Int) {
             release()
         }
 

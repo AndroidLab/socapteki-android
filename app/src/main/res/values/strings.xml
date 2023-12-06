@@ -18,8 +18,19 @@
 
 
     <!-- Drawer -->
+    <string name="my_orders">Мои заказы</string>
+    <string name="notifications">Уведомления</string>
+    <string name="loyalty_program">Программа лояльности</string>
+    <string name="referral_program">Реферальная программа</string>
+    <string name="pharmacies">Адреса аптек</string>
     <string name="about_company">О компании</string>
     <string name="work_with_us">Работа у нас</string>
+    <string name="customers">Покупателям</string>
+    <string name="symptoms_and_diseases">Симптомы и болезни</string>
+    <string name="legal_documents">Юридические документы</string>
+    <string name="rate_app">Оценить приложение</string>
+
+
     <string name="contacts">Контакты</string>
     <string name="reviews">Отзывы</string>
     <string name="cooperation">Сотрудничество</string>

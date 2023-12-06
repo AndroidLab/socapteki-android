@@ -10,14 +10,14 @@ class HiltConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("dagger.hilt.android").get().get().pluginId)
-                apply(libs.findPlugin("kotlin.kapt").get().get().pluginId)
+                apply(libs.findPlugin("daggerHiltAndroid").get().get().pluginId)
+                apply(libs.findPlugin("kotlinKapt").get().get().pluginId)
             }
 
             dependencies {
-                "implementation"(libs.findLibrary("hilt.android").get())
-                "kapt"(libs.findLibrary("hilt.android.compiler").get())
-                "kapt"(libs.findLibrary("dagger.android.processor").get())
+                "implementation"(libs.findLibrary("hiltAndroid").get())
+                "kapt"(libs.findLibrary("hiltAndroidCompiler").get())
+                "kapt"(libs.findLibrary("daggerAndroidProcessor").get())
             }
         }
     }

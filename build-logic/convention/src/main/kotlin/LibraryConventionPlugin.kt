@@ -14,7 +14,7 @@ class LibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("android.library").get().get().pluginId)
+                apply(libs.findPlugin("androidLibrary").get().get().pluginId)
             }
             extensions.configure<LibraryExtension> {
                 configureModule(this)

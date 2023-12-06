@@ -1,4 +1,4 @@
-package ru.apteka.main.presentation.bottomnavigation
+package ru.apteka.components.ui.badge
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -14,9 +14,9 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import ru.apteka.components.data.utils.dp
-import ru.apteka.main.R
+import ru.apteka.components.R
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.main.databinding.NotificationBadgeViewBinding
+import ru.apteka.components.databinding.NotificationBadgeViewBinding
 
 
 /**
@@ -128,14 +128,14 @@ class NotificationBadge @JvmOverloads constructor(
     private val slideOutLeftAnimation: Animation by lazy {
         AnimationUtils.loadAnimation(
             context,
-            R.anim.slide_out_left
+            R.anim.badge_slide_out_left
         )
     }
 
     private val slideInRightAnimation: Animation by lazy {
         AnimationUtils.loadAnimation(
             context,
-            R.anim.slide_in_right
+            R.anim.badge_slide_in_right
         )
     }
 

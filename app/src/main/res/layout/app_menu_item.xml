@@ -17,6 +17,11 @@
             name="desc"
             type="String" />
 
+        <variable
+            name="count"
+            type="Integer" />
+
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -45,7 +50,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:text="@{title}" />
+
+            <ru.apteka.components.ui.badge.NotificationBadge
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                app:number="@{count}"
+                app:visibleIf="@{count != null}" />
 
             <TextView
                 android:layout_width="wrap_content"

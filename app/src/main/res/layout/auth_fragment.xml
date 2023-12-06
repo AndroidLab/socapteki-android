@@ -54,7 +54,7 @@
                 android:text="@string/auth_desc"
                 android:textColor="@color/dark_grey" />
 
-            <ru.apteka.components.ui.TextInputLayout
+            <com.alab.input_layout_inner_hint.TextInputLayout
                 android:id="@+id/tilPhone"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:inputType="phone"
                     android:text="@={viewModel.phoneNumber}" />
 
-            </ru.apteka.components.ui.TextInputLayout>
+            </com.alab.input_layout_inner_hint.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"

@@ -39,7 +39,7 @@
                     android:orientation="vertical"
                     app:visibleIf="@{!viewModel.reviews.empty}">
 
-                    <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                    <com.alab.extra_bouncy.BouncyRecyclerView
                         android:id="@+id/rvReviews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

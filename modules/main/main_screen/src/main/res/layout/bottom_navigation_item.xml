@@ -24,7 +24,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
             android:clickable="@{menuItem.itemId == @id/home_graph ? false : true}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
@@ -32,10 +31,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:alpha="@{menuItem.itemId == @id/home_graph ? 0f : 1f}"
+                android:scaleType="centerInside"
                 android:src="@{context.getDrawable(menuItem.icon)}"
                 app:imageTint="@{isSelected ? @color/color_primary : @color/light_black}"
                 tools:ignore="ContentDescription" />
@@ -43,6 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@{context.getString(menuItem.title)}"
                 android:textColor="@{isSelected ? @color/color_primary : @color/light_black}" />
 

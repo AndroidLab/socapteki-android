@@ -10,11 +10,11 @@ class NavigationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("androidx.navigation.safeargs").get().get().pluginId)
+                apply(libs.findPlugin("androidxNavigationSafeargs").get().get().pluginId)
             }
             dependencies {
-                "implementation"(libs.findLibrary("navigation.fragment.ktx").get())
-                "implementation"(libs.findLibrary("navigation.ui.ktx").get())
+                "implementation"(libs.findLibrary("navigationFragmentKtx").get())
+                "implementation"(libs.findLibrary("navigationUiKtx").get())
             }
         }
     }

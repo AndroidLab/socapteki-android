@@ -21,7 +21,7 @@
             android:id="@+id/charityToolbar"
             layout="@layout/toolbar" />
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svCharity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
 
             </LinearLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
     </LinearLayout>
 

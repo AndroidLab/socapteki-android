@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_secondary">
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svWorkWithUsQuestionnaire"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,7 +37,7 @@
                     android:orientation="vertical">
 
                     <!-- Выбор города -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -55,10 +55,10 @@
                             android:maxLines="1"
                             android:text="@={viewModel.city}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Выбор ФИО -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                             android:maxLines="1"
                             android:text="@={viewModel.fio}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Дата рождения -->
                     <FrameLayout
@@ -86,7 +86,7 @@
                         android:layout_marginHorizontal="@dimen/base_padding"
                         android:layout_marginTop="16dp">
 
-                        <ru.apteka.components.ui.TextInputLayout
+                        <com.alab.input_layout_inner_hint.TextInputLayout
                             style="@style/TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                                 android:inputType="number"
                                 android:text="@={viewModel.birthday}" />
 
-                        </ru.apteka.components.ui.TextInputLayout>
+                        </com.alab.input_layout_inner_hint.TextInputLayout>
 
                         <View
                             android:id="@+id/vPersonalDataDate"
@@ -116,7 +116,7 @@
                     </FrameLayout>
 
                     <!-- Телефон -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,10 +134,10 @@
                             android:inputType="phone"
                             android:text="@={viewModel.phone}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Емайл -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -155,10 +155,10 @@
                             android:background="@drawable/text_input_white_background_unfocused_shape"
                             android:text="@={viewModel.email}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Выбор вакансии -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                             android:maxLines="1"
                             android:text="@={viewModel.jobOpening}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Прикрепить резюмэ -->
                     <Button
@@ -190,7 +190,7 @@
 
 
                     <!-- Дополнительная информация -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                             android:maxLines="4"
                             android:text="@={viewModel.additionalInfo}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Согласие на обработку пер. данных -->
                     <com.google.android.material.checkbox.MaterialCheckBox
@@ -224,7 +224,7 @@
 
             </ru.apteka.components.ui.LoaderLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <!-- Туул бар -->
         <include

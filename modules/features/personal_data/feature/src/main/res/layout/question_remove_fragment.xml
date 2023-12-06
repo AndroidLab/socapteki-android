@@ -123,7 +123,7 @@
                         app:visibleIf="@{viewModel.rb5}" />
 
                     <!-- Поле ввода пинкода -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                             android:inputType="number"
                             android:text="@={viewModel.code}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Отпраить код повторно -->
                     <include

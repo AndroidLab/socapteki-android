@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_secondary">
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svMakingOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -546,7 +546,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
 
-                                <ru.apteka.components.ui.TextInputLayout
+                                <com.alab.input_layout_inner_hint.TextInputLayout
                                     style="@style/TextInputLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -565,7 +565,7 @@
                                         android:maxLength="64"
                                         android:text="@={viewModel.promoCodeValue}" />
 
-                                </ru.apteka.components.ui.TextInputLayout>
+                                </com.alab.input_layout_inner_hint.TextInputLayout>
 
                                 <ProgressBar
                                     style="@style/Theme.Socapteki.ProgressBar"
@@ -626,7 +626,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
 
-                                <ru.apteka.components.ui.TextInputLayout
+                                <com.alab.input_layout_inner_hint.TextInputLayout
                                     style="@style/TextInputLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -645,7 +645,7 @@
                                         android:maxLength="64"
                                         android:text="@={viewModel.bonusesValue}" />
 
-                                </ru.apteka.components.ui.TextInputLayout>
+                                </com.alab.input_layout_inner_hint.TextInputLayout>
 
                                 <ProgressBar
                                     style="@style/Theme.Socapteki.ProgressBar"
@@ -804,7 +804,7 @@
 
             </LinearLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <include
             android:id="@+id/makingOrderToolbar"

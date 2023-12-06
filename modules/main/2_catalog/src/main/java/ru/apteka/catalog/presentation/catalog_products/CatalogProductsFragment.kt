@@ -1,21 +1,20 @@
 package ru.apteka.catalog.presentation.catalog_products
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.provider.Settings
-import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,17 +27,17 @@ import ru.apteka.catalog.data.models.IFilter
 import ru.apteka.catalog.data.models.SearchResultModel
 import ru.apteka.catalog.databinding.CatalogProductsFragmentBinding
 import ru.apteka.catalog.databinding.CatalogProductsSortBinding
-import ru.apteka.catalog.databinding.CatalogSpeechDialogBinding
 import ru.apteka.components.BR
 import ru.apteka.components.data.models.FilterChipModel
 import ru.apteka.components.data.models.ProductModel
-import ru.apteka.components.data.services.message_notice_service.models.BodyContentModel
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
+import ru.apteka.components.data.services.message_notice_service.models.ToastModel
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
+import ru.apteka.components.data.services.message_notice_service.showToast
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -48,9 +47,9 @@ import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
-import java.util.Locale
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.product_card_api.R as ProductCardApiR
+
 
 /**
  * Представляет фрагмент "Товары каталога".
@@ -325,90 +324,15 @@ class CatalogProductsFragment :
         setVariable(BR.lifecycle, viewLifecycleOwner)
     }
 
-
-    private val mSpeechRecognizer: SpeechRecognizer by lazy {
-        SpeechRecognizer.createSpeechRecognizer(requireContext()).apply {
-            setRecognitionListener(micListener)
-        }
-    }
-
-
-    private val mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-    }
-
-
-    private var _speechDialog: DialogFragment? = null
-    private var _speechDialogBinding: CatalogSpeechDialogBinding? = null
-
-    private val micListener = object : RecognitionListener {
-        override fun onReadyForSpeech(bundle: Bundle) {
-            Log.d("myL", "onReadyForSpeech " + bundle)
-            showCommonDialog(
-                CommonDialogModel(
-                    fragmentManager = parentFragmentManager,
-                    dialogModel = DialogModel(
-                        bodyContent = BodyContentModel(
-                            layoutId = R.layout.catalog_speech_dialog
-                        ) { dialog, binding ->
-                            _speechDialog = dialog
-                            _speechDialogBinding = binding as CatalogSpeechDialogBinding
-                            binding.mbCatalogSpeech.setOnClickListener {
-                                mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
-                                binding.isError = false
-                            }
-                        },
-                        onDismiss = {
-                            mSpeechRecognizer.stopListening()
-                            _speechDialog = null
-                            _speechDialogBinding = null
-                        }
-                    ),
-                )
-            )
-        }
-
-        override fun onBeginningOfSpeech() {
-            Log.d("myL", "onBeginningOfSpeech")
-        }
-
-        override fun onRmsChanged(v: Float) {
-            //Log.d("myL", "onRmsChanged " + v)
-        }
-
-        override fun onBufferReceived(bytes: ByteArray) {
-            Log.d("myL", "onBufferReceived " + bytes)
-        }
-
-        override fun onEndOfSpeech() {
-            Log.d("myL", "onEndOfSpeech")
-        }
-
-        override fun onError(i: Int) {
-            Log.d("myL", "onError " + i)
-            _speechDialogBinding?.isError = true
-        }
-
-        override fun onResults(bundle: Bundle) {
-            val matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-            if (matches != null) {
-                Log.d("myL", "onResults " + matches[0])
-                _speechDialog?.dismiss()
-                viewModel.searchText.value = matches[0]
-            } else {
-                _speechDialogBinding?.isError = true
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val results = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                if (results != null) {
+                    viewModel.searchText.value = results[0]
+                }
             }
         }
-
-        override fun onPartialResults(bundle: Bundle) {
-            Log.d("myL", "onPartialResults " + bundle)
-        }
-
-        override fun onEvent(i: Int, bundle: Bundle) {
-            Log.d("myL", "onEvent " + i + " / " + bundle)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -476,40 +400,22 @@ class CatalogProductsFragment :
                             }
 
                             ivSearchToolbarMic.setOnClickListener {
-                                TedPermission.create()
-                                    .setPermissionListener(object : PermissionListener {
-                                        override fun onPermissionGranted() {
-                                            mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
-                                        }
+                                val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                                i.putExtra(
+                                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                                )
+                                try {
+                                    resultLauncher.launch(i)
+                                } catch (e: Exception) {
+                                    showToast(
+                                        ToastModel(
+                                            requireContext(),
+                                            MessageModel(e.toString())
+                                        )
+                                    )
+                                }
 
-                                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                                            showCommonDialog(
-                                                CommonDialogModel(
-                                                    fragmentManager = mActivity.supportFragmentManager,
-                                                    dialogModel = DialogModel(
-                                                        message = MessageModel(
-                                                            message = ComponentsR.string.access_mic_record
-                                                        ),
-                                                        buttonCancel = DialogButtonModel(
-                                                            text = ComponentsR.string.cancel
-                                                        ),
-                                                        buttonConfirm = DialogButtonModel(
-                                                            text = ComponentsR.string.settings
-                                                        ) {
-                                                            mActivity.startActivity(
-                                                                Intent(
-                                                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                                    Uri.parse("package:" + mActivity.packageName)
-                                                                )
-                                                            )
-                                                        }
-                                                    )
-                                                )
-                                            )
-                                        }
-                                    })
-                                    .setPermissions(Manifest.permission.RECORD_AUDIO)
-                                    .check()
                             }
 
                             ivSearchToolbarBarcode.setOnClickListener {

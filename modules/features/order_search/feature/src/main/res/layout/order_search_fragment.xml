@@ -28,7 +28,7 @@
             app:isLoading="@{viewModel.isLoading}">
 
             <!-- Выбор заказа -->
-            <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+            <com.alab.extra_bouncy.BouncyRecyclerView
                 android:id="@+id/rvOrderSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

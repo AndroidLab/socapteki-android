@@ -1,10 +1,11 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id(libs.plugins.apteka.application.convention.plugin.get().pluginId)
-    id(libs.plugins.apteka.kotlin.convention.plugin.get().pluginId)
-    id(libs.plugins.apteka.hilt.convention.plugin.get().pluginId)
-    id(libs.plugins.apteka.navigation.convention.plugin.get().pluginId)
-    id(libs.plugins.apteka.retrofit.convention.plugin.get().pluginId)
+    id(libs.plugins.applicationConventionPlugin.get().pluginId)
+    id(libs.plugins.kotlinConventionPlugin.get().pluginId)
+    id(libs.plugins.hiltConventionPlugin.get().pluginId)
+    id(libs.plugins.navigationConventionPlugin.get().pluginId)
+    id(libs.plugins.retrofitConventionPlugin.get().pluginId)
+    id(libs.plugins.googleServicesConventionPlugin.get().pluginId)
 }
 
 private val major = 0
@@ -52,7 +53,7 @@ dependencies {
     implementation(project(":modules:features:brands:feature"))
 
     //Google & Android
-    implementation(libs.core.ktx)
+    implementation(libs.coreKtx)
     implementation(libs.constraintlayout)
     implementation(libs.material)
     implementation(libs.gson)

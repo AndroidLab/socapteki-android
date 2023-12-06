@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svContactsFeedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                         android:textColor="@color/light_black" />
 
                     <!-- Выбор ФИО -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
                             android:maxLines="1"
                             android:text="@={viewModel.fio}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Емайл -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -82,10 +82,10 @@
                             android:background="@drawable/text_input_white_background_unfocused_shape"
                             android:text="@={viewModel.email}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Выбор причины -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayoutDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -102,10 +102,10 @@
                             app:autoCompleteItems="@{viewModel.reasons}"
                             app:onAutoCompleteItemClick="@{(i0, i1, i2, i3) -> viewModel.onReasonSelect(i2)}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Текст обращения -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                             android:maxLines="4"
                             android:text="@={viewModel.message}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Загрузить файл -->
                     <com.google.android.material.button.MaterialButton
@@ -155,7 +155,7 @@
 
             </ru.apteka.components.ui.LoaderLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <!-- Туул бар -->
         <include

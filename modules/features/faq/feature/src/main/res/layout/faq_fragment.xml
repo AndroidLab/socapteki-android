@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_secondary">
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,7 +39,7 @@
 
             </ru.apteka.components.ui.LoaderLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <!-- Туул бар -->
         <include

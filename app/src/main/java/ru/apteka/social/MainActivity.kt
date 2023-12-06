@@ -27,6 +27,7 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
+import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.home.presentation.home.HomeFragmentDirections
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
@@ -84,153 +85,181 @@ class MainActivity : AppCompatActivity() {
         navigationManager.showAppMenu = {
             bottomSheetService.show(
                 BottomSheetModel(
-                    binding = GeneralNavigationViewBinding.inflate(layoutInflater, null, false).also { binding ->
-                        fun navigate(graphId: Int) {
-                            navigationManager.generalNavController.navigateWithAnim(graphId)
-                        }
+                    binding = GeneralNavigationViewBinding.inflate(layoutInflater, null, false)
+                        .also { binding ->
+                            fun navigate(graphId: Int, bundle: Bundle = bundleOf()) {
+                                navigationManager.generalNavController.navigateWithAnim(
+                                    graphId,
+                                    bundle
+                                )
+                                bottomSheetService.close()
+                            }
 
-                        if (accountsPreferences.account == null) {
-                            binding.appMenuItemAuth.icon =
-                                ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_login)
-                            binding.appMenuItemAuth.title = getString(R.string.main_menu_login)
-                        } else {
-                            binding.appMenuItemAuth.icon =
-                                ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account)
-                            binding.appMenuItemAuth.title = getString(R.string.main_menu_profile)
-                        }
-
-                        binding.appMenuItemAuth.item.setOnClickListener {
                             if (accountsPreferences.account == null) {
-                                startActivity(Intent(this@MainActivity, AuthActivity::class.java))
+                                binding.appMenuItemAuth.icon =
+                                    ContextCompat.getDrawable(
+                                        this@MainActivity,
+                                        R.drawable.ic_login
+                                    )
+                                binding.appMenuItemAuth.title = getString(R.string.main_menu_login)
                             } else {
-                                fun navigateProfile() {
-                                    navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
-                                        HomeFragmentDirections.toProfileFragment()
+                                binding.appMenuItemAuth.icon =
+                                    ContextCompat.getDrawable(
+                                        this@MainActivity,
+                                        R.drawable.ic_account
                                     )
-                                }
+                                binding.appMenuItemAuth.title =
+                                    getString(R.string.main_menu_profile)
+                            }
 
-                                fun navigateBackToProfile() {
-                                    navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(
-                                        HomeR.id.homeFragment, false
+                            binding.appMenuItemAuth.item.setOnClickListener {
+                                if (accountsPreferences.account == null) {
+                                    startActivity(
+                                        Intent(
+                                            this@MainActivity,
+                                            AuthActivity::class.java
+                                        )
                                     )
-                                    lifecycleScope.launchIO {
-                                        delay(100)
-                                        launchMain {
-                                            navigateProfile()
-                                        }
-                                    }
-                                }
-                                if (navigationManager.currentBottomNavControllerLiveData.value!!.graph.id == MainCommonR.id.home_graph) {
-                                    navigateProfile()
                                 } else {
-                                    navigationManager.onSelectItemId(MainCommonR.id.home_graph)
-                                    lifecycleScope.launchIO {
-                                        delay(100)
-                                        if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id == HomeR.id.homeFragment) {
+                                    fun navigateProfile() {
+                                        navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+                                            HomeFragmentDirections.toProfileFragment()
+                                        )
+                                    }
+
+                                    fun navigateBackToProfile() {
+                                        navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(
+                                            HomeR.id.homeFragment, false
+                                        )
+                                        lifecycleScope.launchIO {
+                                            delay(100)
                                             launchMain {
                                                 navigateProfile()
                                             }
-                                        } else {
-                                            if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != HomeR.id.profileFragment) {
-                                                mainThread {
-                                                    navigateBackToProfile()
+                                        }
+                                    }
+                                    if (navigationManager.currentBottomNavControllerLiveData.value!!.graph.id == MainCommonR.id.home_graph) {
+                                        navigateProfile()
+                                    } else {
+                                        navigationManager.onSelectItemId(MainCommonR.id.home_graph)
+                                        lifecycleScope.launchIO {
+                                            delay(100)
+                                            if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id == HomeR.id.homeFragment) {
+                                                launchMain {
+                                                    navigateProfile()
+                                                }
+                                            } else {
+                                                if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != HomeR.id.profileFragment) {
+                                                    mainThread {
+                                                        navigateBackToProfile()
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                bottomSheetService.close()
                             }
-                            bottomSheetService.close()
-                        }
 
-                        binding.appMenuItemCity.title = userPreferences.city?.name
-                            ?: getString(R.string.main_menu_city_not_selected)
-                        binding.appMenuItemCity.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.choosing_city_api.R.id.choosing_city_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemCity.title = userPreferences.city?.name
+                                ?: getString(R.string.main_menu_city_not_selected)
+                            binding.appMenuItemCity.item.setOnClickListener {
+                                navigate(ru.apteka.choosing_city_api.R.id.choosing_city_graph)
+                            }
 
-                        binding.appMenuItemAboutCompany.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.about_company_api.R.id.about_company_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemMyOrders.apply {
+                                root.visibleIf(accountsPreferences.account != null)
+                                count = 10
+                                item.setOnClickListener {
+                                    //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                }
+                            }
 
-                        binding.appMenuItemWorkWithUs.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.work_with_us_api.R.id.work_with_us_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemNotifications.apply {
+                                root.visibleIf(accountsPreferences.account != null)
+                                count = 33
+                                item.setOnClickListener {
+                                    //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                }
+                            }
 
-                        binding.appMenuItemContacts.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.contacts_api.R.id.contacts_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemLoyaltyProgram.item.setOnClickListener {
+                                //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                            }
 
-                        binding.appMenuItemPharmacies.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.pharmacies_map_api.R.id.pharmacies_map_graph, bundleOf(
-                                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                            binding.appMenuItemReferralProgram.item.setOnClickListener {
+                                //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                            }
+
+                            binding.appMenuItemPharmacies.item.setOnClickListener {
+                                navigate(
+                                    ru.apteka.pharmacies_map_api.R.id.pharmacies_map_graph,
+                                    bundleOf(
+                                        PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                                    )
                                 )
-                            )
-                            bottomSheetService.close()
-                        }
+                            }
 
-                        binding.appMenuItemReviews.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.reviews_api.R.id.reviews_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemAboutCompany.item.setOnClickListener {
+                                navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                            }
 
-                        binding.appMenuItemCooperation.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.cooperation_api.R.id.cooperation_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemWorkWithUs.item.setOnClickListener {
+                                navigate(ru.apteka.work_with_us_api.R.id.work_with_us_graph)
+                            }
 
-                        binding.appMenuItemLicensesAndPermits.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.licenses_api.R.id.licenses_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemCustomers.item.setOnClickListener {
+                                //(ru.apteka.contacts_api.R.id.contacts_graph)
+                            }
 
-                        binding.appMenuItemPartners.item.setOnClickListener {
-                            //navigate()
-                        }
+                            binding.appMenuItemSymptomsAndDiseases.item.setOnClickListener {
+                                //navigate(ru.apteka.contacts_api.R.id.contacts_graph)
+                            }
 
-                        binding.appMenuItemBrands.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.brands_api.R.id.brands_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemBrands.item.setOnClickListener {
+                                navigate(ru.apteka.brands_api.R.id.brands_graph)
+                            }
 
-                        binding.appMenuItemFaq.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.faq_api.R.id.faq_graph,
-                            )
-                            bottomSheetService.close()
-                        }
+                            binding.appMenuItemCharity.item.setOnClickListener {
+                                navigate(ru.apteka.charity_api.R.id.charity_graph)
+                            }
 
-                        binding.appMenuItemCharity.item.setOnClickListener {
-                            navigationManager.generalNavController.navigateWithAnim(
-                                ru.apteka.charity_api.R.id.charity_graph,
-                            )
-                            bottomSheetService.close()
+                            binding.appMenuItemContacts.item.setOnClickListener {
+                                navigate(ru.apteka.contacts_api.R.id.contacts_graph)
+                            }
+
+                            binding.appMenuItemLegalDocuments.item.setOnClickListener {
+                                //navigate(ru.apteka.contacts_api.R.id.contacts_graph)
+                            }
+
+                            binding.appMenuItemRateApp.item.setOnClickListener {
+                                //navigate(ru.apteka.contacts_api.R.id.contacts_graph)
+                            }
+
+
+                            binding.appMenuItemReviews.item.setOnClickListener {
+                                navigate(ru.apteka.reviews_api.R.id.reviews_graph)
+                            }
+
+                            binding.appMenuItemCooperation.item.setOnClickListener {
+                                navigate(ru.apteka.cooperation_api.R.id.cooperation_graph)
+                            }
+
+                            binding.appMenuItemLicensesAndPermits.item.setOnClickListener {
+                                navigate(ru.apteka.licenses_api.R.id.licenses_graph)
+                            }
+
+                            binding.appMenuItemPartners.item.setOnClickListener {
+                                //navigate()
+                            }
+
+                            binding.appMenuItemFaq.item.setOnClickListener {
+                                navigate(ru.apteka.faq_api.R.id.faq_graph)
+                            }
+
                         }
-                    }
                 )
             )
-
         }
 
         lifecycleScope.launchIO {

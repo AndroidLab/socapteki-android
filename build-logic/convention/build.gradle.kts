@@ -17,44 +17,48 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
-    compileOnly(libs.android.gradle)
-    compileOnly(libs.kotlin.gradle)
-    compileOnly(libs.ksp.gradle)
+    compileOnly(libs.androidGradle)
+    compileOnly(libs.kotlinGradle)
+    compileOnly(libs.kspGradle)
 }
 
 gradlePlugin {
     plugins {
-        register(libs.plugins.apteka.application.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.application.convention.plugin.get().pluginId
-            implementationClass = "ApplicationConventionPlugin"
+        register(libs.plugins.applicationConventionPlugin.get().pluginId) {
+            id = libs.plugins.applicationConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.applicationConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.library.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.library.convention.plugin.get().pluginId
-            implementationClass = "LibraryConventionPlugin"
+        register(libs.plugins.libraryConventionPlugin.get().pluginId) {
+            id = libs.plugins.libraryConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.libraryConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.hilt.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.hilt.convention.plugin.get().pluginId
-            implementationClass = "HiltConventionPlugin"
+        register(libs.plugins.hiltConventionPlugin.get().pluginId) {
+            id = libs.plugins.hiltConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.hiltConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.kotlin.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.kotlin.convention.plugin.get().pluginId
-            implementationClass = "KotlinConventionPlugin"
+        register(libs.plugins.kotlinConventionPlugin.get().pluginId) {
+            id = libs.plugins.kotlinConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.kotlinConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.navigation.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.navigation.convention.plugin.get().pluginId
-            implementationClass = "NavigationConventionPlugin"
+        register(libs.plugins.navigationConventionPlugin.get().pluginId) {
+            id = libs.plugins.navigationConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.navigationConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.retrofit.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.retrofit.convention.plugin.get().pluginId
-            implementationClass = "RetrofitConventionPlugin"
+        register(libs.plugins.retrofitConventionPlugin.get().pluginId) {
+            id = libs.plugins.retrofitConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.retrofitConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.room.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.room.convention.plugin.get().pluginId
-            implementationClass = "RoomConventionPlugin"
+        register(libs.plugins.roomConventionPlugin.get().pluginId) {
+            id = libs.plugins.roomConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.roomConventionPlugin.get().pluginId
         }
-        register(libs.plugins.apteka.glide.convention.plugin.get().pluginId) {
-            id = libs.plugins.apteka.glide.convention.plugin.get().pluginId
-            implementationClass = "GlideConventionPlugin"
+        register(libs.plugins.glideConventionPlugin.get().pluginId) {
+            id = libs.plugins.glideConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.glideConventionPlugin.get().pluginId
+        }
+        register(libs.plugins.googleServicesConventionPlugin.get().pluginId) {
+            id = libs.plugins.googleServicesConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.googleServicesConventionPlugin.get().pluginId
         }
     }
 }

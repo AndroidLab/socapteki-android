@@ -10,7 +10,7 @@ class GlideConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("kotlin.ksp").get().get().pluginId)
+                apply(libs.findPlugin("kotlinKsp").get().get().pluginId)
             }
             dependencies {
                 "implementation"(libs.findLibrary("glideGlide").get())

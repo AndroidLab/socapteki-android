@@ -1,23 +1,28 @@
 package ru.apteka.main.presentation.main
 
+import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.apteka.catalog.presentation.catalog.CatalogFragmentDirections
 import ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
+import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.setImageTint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.main.R
+import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.main.databinding.MainFragmentBinding
 import ru.apteka.basket.R as BasketR
@@ -44,6 +49,26 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
         }
         setFragmentResultListener(NAVIGATE_REQUEST_KEY_TO_HOME) { _, _ ->
             viewModel.navigationManager.onSelectItemId(ru.apteka.main_common.R.id.home_graph)
+        }
+
+        binding.bottomAppBar.apply {
+            background = MaterialShapeDrawable(
+                (background as MaterialShapeDrawable).shapeAppearanceModel
+                    .toBuilder()
+                    .setTopRightCorner(CornerFamily.ROUNDED, 12.dp.toFloat())
+                    .setTopLeftCorner(CornerFamily.ROUNDED, 12.dp.toFloat())
+                    .setTopEdge(CircleEdgeTreatment(36.dp.toFloat()))
+                    .build()
+            ).apply {
+                elevation = 8.dp.toFloat()
+                setTint(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        ru.apteka.components.R.color.white
+                    )
+                )
+                paintStyle = Paint.Style.FILL
+            }
         }
 
         viewModel.navigationManager.topLevelMainDestinationIds = setOf(

@@ -4,59 +4,64 @@ target_sdk = "34"
 compile_sdk = "34"
 application_minify_enabled = "true"
 library_minify_enabled = "true"
-agp = "8.1.1"
+agp = "8.1.4"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
 lifecycle = "2.6.2"
 retrofit = "2.9.0"
 glide = "4.16.0"
-room = "2.5.2"
-kotlinx_coroutines_android = "1.6.4"
+room = "2.6.1"
+kotlinx_coroutines_android = "1.7.1"
 hilt = "2.48"
-navigation = "2.7.3"
+navigation = "2.7.5"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
 
 [plugins]
-apteka-application-convention-plugin = { id = "apteka.application.convention.plugin" }
-apteka-library-convention-plugin = { id = "apteka.library.convention.plugin" }
-apteka-hilt-convention-plugin = { id = "apteka.hilt.convention.plugin" }
-apteka-kotlin-convention-plugin = { id = "apteka.kotlin.convention.plugin" }
-apteka-navigation-convention-plugin = { id = "apteka.navigation.convention.plugin" }
-apteka-retrofit-convention-plugin = { id = "apteka.retrofit.convention.plugin" }
-apteka-room-convention-plugin = { id = "apteka.room.convention.plugin" }
-apteka-glide-convention-plugin = { id = "apteka.glide.convention.plugin" }
+applicationConventionPlugin = { id = "ApplicationConventionPlugin" }
+libraryConventionPlugin = { id = "LibraryConventionPlugin" }
+hiltConventionPlugin = { id = "HiltConventionPlugin" }
+kotlinConventionPlugin = { id = "KotlinConventionPlugin" }
+navigationConventionPlugin = { id = "NavigationConventionPlugin" }
+retrofitConventionPlugin = { id = "RetrofitConventionPlugin" }
+roomConventionPlugin = { id = "RoomConventionPlugin" }
+glideConventionPlugin = { id = "GlideConventionPlugin" }
+googleServicesConventionPlugin = { id = "GoogleServicesConventionPlugin" }
 
-android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlin-parcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinParcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
+daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+androidxNavigationSafeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+googleServices = { id = "com.google.gms.google-services", version = "4.4.0" }
 
 
 [libraries]
 #Google & Android
-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
+coreKtx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0-alpha01" }
-material = { group = "com.google.android.material", name = "material", version = "1.9.0" }
+material = { module = "com.google.android.material:material", version = "1.10.0" }
 gson = { module = "com.google.code.gson:gson", version = "2.10.1" }
-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version = "2.8.1" }
+workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version = "2.9.0" }
 coreSplashscreen = { module = "androidx.core:core-splashscreen", version = "1.1.0-alpha02" }
+firebaseBom = { module = "com.google.firebase:firebase-bom", version = "32.6.0" }
+firebaseMessaging = { module = "com.google.firebase:firebase-messaging", version = "23.3.1" }
+firebaseAnalytics = { module = "com.google.firebase:firebase-analytics", version = "21.5.0" }
 
 #Kotlin
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx_coroutines_android" }
+kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinxCoroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx_coroutines_android" }
 
 #Lifecycle
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycleLivedataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 
 #Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -67,30 +72,30 @@ converterScalars = { module = "com.squareup.retrofit2:converter-scalars", versio
 loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version = "5.0.0-alpha.2" }
 
 #Hilt
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-dagger-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "hilt" }
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+daggerAndroidProcessor = { module = "com.google.dagger:dagger-android-processor", version.ref = "hilt" }
 
 #Room
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 #Navigation
-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 
 #Animation
-lottie = { group = "com.airbnb.android", name = "lottie", version = "5.2.0" }
+lottie = { module = "com.airbnb.android:lottie", version = "5.2.0" }
 
 #Image loading
 glideGlide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glideCompiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 
 #Other
-uploadservice = { group = "net.gotev", name = "uploadservice", version = "4.7.0" }
-circleimageview = { group = "de.hdodenhof", name = "circleimageview", version = "3.1.0" }
-xfetch2 = { group = "androidx.tonyodev.fetch2", name = "xfetch2", version =  "3.1.6" }
+uploadservice = { module = "net.gotev:uploadservice", version = "4.7.0" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version = "3.1.0" }
+xfetch2 = { module = "androidx.tonyodev.fetch2:xfetch2", version =  "3.1.6" }
 decoro = { module = "ru.tinkoff.decoro:decoro", version = "1.5.2" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version = "3.0.0" }
 mapsMobile = { module = "com.yandex.android:maps.mobile", version = "4.4.0-lite" }
@@ -98,19 +103,20 @@ expansionpanel = { module = "com.github.florent37:expansionpanel", version = "1.
 measured = { module = "io.nacular.measured:measured", version = "0.3.3" }
 zbar = { module = "me.dm7.barcodescanner:zbar", version = "1.9.8" }
 tedpermission = { module = "io.github.ParkSangGwon:tedpermission-normal", version = "3.3.0" }
+extraBouncy = { module = "com.github.AndroidLab:ExtraBouncy", version = "1.0.0" }
+inputLayoutInnerHint = { module = "com.github.AndroidLab:InputLayoutInnerHint", version = "1.0.0" }
 pdfViewer = { module = "com.github.AndroidLab:AndroidPdfViewer", version = "3.3.0-beta.1" }
 
 
 # Dependencies of the included build-logic
-android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
-kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-
+androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kspGradle = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidxTestExtJunit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 
 
 [bundles]
-lifecycleDeps = ["lifecycle-runtime-ktx", "lifecycle-livedata-ktx"]
-navigationDeps = ["navigation-fragment-ktx", "navigation-ui-ktx"]
+lifecycleDeps = ["lifecycleRuntimeKtx", "lifecycleLivedataKtx"]
+navigationDeps = ["navigationFragmentKtx", "navigationUiKtx"]

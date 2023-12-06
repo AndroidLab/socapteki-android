@@ -14,7 +14,7 @@ class ApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("android.application").get().get().pluginId)
+                apply(libs.findPlugin("androidApplication").get().get().pluginId)
             }
             extensions.configure<ApplicationExtension> {
                 configureModule(this)

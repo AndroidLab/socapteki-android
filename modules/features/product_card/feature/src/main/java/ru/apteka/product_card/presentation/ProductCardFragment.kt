@@ -152,14 +152,14 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         }
 
-        binding.productCardAptekiLocation1.setOnClickListener {
+        binding.productCardPharmaciesLocation1.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
         }
-        binding.productCardAptekiLocation2.setOnClickListener {
+        binding.productCardPharmaciesLocation2.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
@@ -304,12 +304,12 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 }
 
                 if (maxOffsetForFab!! - absVerticalOffset > binding.toolbar.height) {
-                    binding.productCardAptekiLocation2.show()
+                    binding.productCardPharmaciesLocation2.show()
                     val fabOffsetTranslationX = 1 - absVerticalOffset * 1f / maxOffsetForRecycler!!
                     binding.flProductCardAptekiLocation.translationX =
                         fabStartTranslationX!! * fabOffsetTranslationX
                 } else {
-                    binding.productCardAptekiLocation2.hide()
+                    binding.productCardPharmaciesLocation2.hide()
                 }
 
             }

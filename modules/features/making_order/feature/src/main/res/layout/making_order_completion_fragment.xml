@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svMakingOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -216,7 +216,7 @@
 
             </LinearLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <include
             android:id="@+id/makingOrderCompletionToolbar"

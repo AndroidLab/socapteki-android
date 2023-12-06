@@ -30,7 +30,7 @@
             app:isLoading="@{viewModel.isLoading}">
 
             <!-- Выбор города -->
-            <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+            <com.alab.extra_bouncy.BouncyRecyclerView
                 android:id="@+id/rvChoosingCity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

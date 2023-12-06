@@ -98,7 +98,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp">
 
-                <ru.apteka.components.ui.TextInputLayout
+                <com.alab.input_layout_inner_hint.TextInputLayout
                     android:id="@+id/tilPharmaciesMap"
                     style="@style/TextInputLayout"
                     android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                         android:background="@drawable/text_input_white_background_unfocused_shape"
                         android:text="@={viewModel.searchQuery}" />
 
-                </ru.apteka.components.ui.TextInputLayout>
+                </com.alab.input_layout_inner_hint.TextInputLayout>
 
                 <FrameLayout
                     android:layout_width="54dp"
@@ -155,7 +155,7 @@
                 android:layout_marginTop="32dp"
                 app:isLoading="@{viewModel.isLoading}" />
 
-            <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+            <com.alab.extra_bouncy.BouncyRecyclerView
                 android:id="@+id/rvPharmaciesMap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

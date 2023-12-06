@@ -125,7 +125,7 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                        <com.alab.extra_bouncy.BouncyRecyclerView
                             android:id="@+id/rvOrders"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

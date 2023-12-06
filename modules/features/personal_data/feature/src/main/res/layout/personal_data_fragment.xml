@@ -38,7 +38,7 @@
                     android:orientation="vertical">
 
                     <!-- ФИО -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                             android:background="@drawable/text_input_white_background_unfocused_shape"
                             android:text="@={viewModel.fio}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Дата рождения -->
                     <FrameLayout
@@ -66,7 +66,7 @@
                         android:layout_marginHorizontal="@dimen/base_padding"
                         android:layout_marginTop="16dp">
 
-                        <ru.apteka.components.ui.TextInputLayout
+                        <com.alab.input_layout_inner_hint.TextInputLayout
                             style="@style/TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                                 android:inputType="number"
                                 android:text="@={viewModel.date}" />
 
-                        </ru.apteka.components.ui.TextInputLayout>
+                        </com.alab.input_layout_inner_hint.TextInputLayout>
 
                         <View
                             android:id="@+id/vPersonalDataDate"
@@ -96,7 +96,7 @@
                     </FrameLayout>
 
                     <!-- Телефон -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,10 +114,10 @@
                             android:inputType="phone"
                             android:text="@={viewModel.phone}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Емайл -->
-                    <ru.apteka.components.ui.TextInputLayout
+                    <com.alab.input_layout_inner_hint.TextInputLayout
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                             android:background="@drawable/text_input_white_background_unfocused_shape"
                             android:text="@={viewModel.email}" />
 
-                    </ru.apteka.components.ui.TextInputLayout>
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
                     <!-- Отправить повторно -->
                     <include

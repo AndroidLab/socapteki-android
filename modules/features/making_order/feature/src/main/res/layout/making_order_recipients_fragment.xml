@@ -23,7 +23,7 @@
             layout="@layout/toolbar" />
 
         <!-- ФИО -->
-        <ru.apteka.components.ui.TextInputLayout
+        <com.alab.input_layout_inner_hint.TextInputLayout
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,10 +38,10 @@
                 android:background="@drawable/text_input_white_background_unfocused_shape"
                 android:text="@={viewModel.recipientFio}" />
 
-        </ru.apteka.components.ui.TextInputLayout>
+        </com.alab.input_layout_inner_hint.TextInputLayout>
 
         <!-- Номер телефона -->
-        <ru.apteka.components.ui.TextInputLayout
+        <com.alab.input_layout_inner_hint.TextInputLayout
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:inputType="phone"
                 android:text="@={viewModel.recipientNumber}" />
 
-        </ru.apteka.components.ui.TextInputLayout>
+        </com.alab.input_layout_inner_hint.TextInputLayout>
 
         <TextView
             android:id="@+id/tvMakingOrderRecipientsAdd"

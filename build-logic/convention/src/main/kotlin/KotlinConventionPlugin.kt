@@ -10,14 +10,14 @@ class KotlinConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("kotlin.android").get().get().pluginId)
-                apply(libs.findPlugin("kotlin.kapt").get().get().pluginId)
-                apply(libs.findPlugin("kotlin.ksp").get().get().pluginId)
-                apply(libs.findPlugin("kotlin.parcelize").get().get().pluginId)
+                apply(libs.findPlugin("kotlinAndroid").get().get().pluginId)
+                apply(libs.findPlugin("kotlinKapt").get().get().pluginId)
+                apply(libs.findPlugin("kotlinKsp").get().get().pluginId)
+                apply(libs.findPlugin("kotlinParcelize").get().get().pluginId)
             }
             dependencies {
-                "implementation"(libs.findLibrary("kotlin.stdlib").get())
-                "implementation"(libs.findLibrary("kotlinx.coroutines.android").get())
+                "implementation"(libs.findLibrary("kotlinStdlib").get())
+                "implementation"(libs.findLibrary("kotlinxCoroutinesAndroid").get())
             }
         }
     }

@@ -10,12 +10,12 @@ class RoomConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("kotlin.ksp").get().get().pluginId)
+                apply(libs.findPlugin("kotlinKsp").get().get().pluginId)
             }
             dependencies {
-                "implementation"(libs.findLibrary("room.runtime").get())
-                "implementation"(libs.findLibrary("room.ktx").get())
-                "ksp"(libs.findLibrary("room.compiler").get())
+                "implementation"(libs.findLibrary("roomRuntime").get())
+                "implementation"(libs.findLibrary("roomKtx").get())
+                "ksp"(libs.findLibrary("roomCompiler").get())
             }
         }
     }

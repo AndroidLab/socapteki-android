@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ru.apteka.components.ui.boundcy.BouncyRecyclerView
+                    <com.alab.extra_bouncy.BouncyRecyclerView
                         android:id="@+id/rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

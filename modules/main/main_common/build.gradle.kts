@@ -1,9 +1,9 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(libs.plugins.apteka.library.convention.plugin.get().pluginId)
-    id(libs.plugins.kotlin.android.get().pluginId)
-	id(libs.plugins.kotlin.parcelize.get().pluginId)
-    id(libs.plugins.apteka.hilt.convention.plugin.get().pluginId)
+    id(libs.plugins.libraryConventionPlugin.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
+	id(libs.plugins.kotlinParcelize.get().pluginId)
+    id(libs.plugins.hiltConventionPlugin.get().pluginId)
 }
 
 android {

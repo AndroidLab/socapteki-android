@@ -174,7 +174,7 @@
                     app:layout_collapseMode="none">
 
                     <ImageView
-                        android:id="@+id/productCardAptekiLocation1"
+                        android:id="@+id/productCardPharmaciesLocation1"
                         android:layout_width="@dimen/toolbar_height"
                         android:layout_height="@dimen/toolbar_height"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -184,7 +184,7 @@
                         tools:ignore="ContentDescription" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/productCardAptekiLocation2"
+                        android:id="@+id/productCardPharmaciesLocation2"
                         style="@style/Widget.MaterialComponents.FloatingActionButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <ru.apteka.components.ui.boundcy.BouncyNestedScrollView
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/nsvProductCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -828,7 +828,7 @@
 
             </LinearLayout>
 
-        </ru.apteka.components.ui.boundcy.BouncyNestedScrollView>
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/productCardTabs"
