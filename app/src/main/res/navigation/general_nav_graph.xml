@@ -15,11 +15,7 @@
 
     <include app:graph="@navigation/choosing_city_graph" />
 
-    <include app:graph="@navigation/order_search_graph" />
-
-    <include app:graph="@navigation/order_details_graph" />
-
-    <include app:graph="@navigation/about_company_graph" />
+    <include app:graph="@navigation/orders_graph" />
 
     <include app:graph="@navigation/our_partners_graph" />
 
@@ -31,14 +27,6 @@
 
     <include app:graph="@navigation/making_order_graph" />
 
-    <include app:graph="@navigation/about_company_graph" />
-
-    <include app:graph="@navigation/work_with_us_graph" />
-
-    <include app:graph="@navigation/licenses_graph" />
-
-    <include app:graph="@navigation/contacts_graph" />
-
     <include app:graph="@navigation/reviews_graph" />
 
     <include app:graph="@navigation/our_partners_graph" />
@@ -49,12 +37,8 @@
 
     <include app:graph="@navigation/faq_graph" />
 
-    <include app:graph="@navigation/charity_graph" />
-
     <include app:graph="@navigation/feedback_graph" />
 
     <include app:graph="@navigation/barcode_scanner_graph" />
-
-    <include app:graph="@navigation/brands_graph" />
 
 </navigation>

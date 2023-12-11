@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.pharmacies.PharmaciesViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/pharmaciesToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isLoading="@{viewModel.isLoading}">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pharmaciesNestedScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.alab.extra_bouncy.BouncyRecyclerView
+                            android:id="@+id/rvPharmacies"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:marginItemVertical="@{6}"
+                            app:visibleIf="@{!viewModel.isLoading &amp; !viewModel.pharmacies.empty}" />
+
+                        <include
+                            layout="@layout/no_element_view"
+                            app:desc="@{@string/pharmacies_not_found_desc}"
+                            app:icon="@{@drawable/ic_profile_pharmacy}"
+                            app:title="@{@string/pharmacies_not_found_title}"
+                            app:visibleIf="@{!viewModel.isLoading &amp; viewModel.pharmacies.empty}" />
+
+                    </FrameLayout>
+
+                    <include layout="@layout/footer_stub" />
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Выбор авторизации/профиля -->
+        <include
+            android:id="@+id/appMenuItemAuth"
+            layout="@layout/app_menu_item" />
+
+        <!-- Выбор города -->
+        <include
+            android:id="@+id/appMenuItemCity"
+            layout="@layout/app_menu_item"
+            app:desc="@{@string/change}"
+            app:icon="@{@drawable/ic_city_location}" />
+
+        <include
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{4}"
+            app:sepMarginStart="@{4}" />
+
+        <!-- Мои заказы -->
+        <include
+            android:id="@+id/appMenuItemMyOrders"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_my_orders}"
+            app:title="@{@string/menu_my_orders}"/>
+
+        <!-- Уведомления -->
+        <include
+            android:id="@+id/appMenuItemNotifications"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_notifications}"
+            app:title="@{@string/menu_notifications}" />
+
+        <!-- Программа лояльности -->
+        <include
+            android:id="@+id/appMenuItemLoyaltyProgram"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_loyalty_program}"
+            app:title="@{@string/menu_loyalty_program}" />
+
+        <!-- Реферальная программа -->
+        <include
+            android:id="@+id/appMenuItemReferralProgram"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_referral_program}"
+            app:title="@{@string/menu_referral_program}" />
+
+        <!-- Адреса аптек -->
+        <include
+            android:id="@+id/appMenuItemPharmacies"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_pharmacies}"
+            app:title="@{@string/menu_pharmacies}" />
+
+        <!-- О компании -->
+        <include
+            android:id="@+id/appMenuItemAboutCompany"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_about_company}"
+            app:title="@{@string/menu_about_company}" />
+
+        <!-- Работа у нас -->
+        <include
+            android:id="@+id/appMenuItemWorkWithUs"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_work_with_us}"
+            app:title="@{@string/menu_work_with_us}" />
+
+        <!-- Покупателям -->
+        <include
+            android:id="@+id/appMenuItemCustomers"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_customers}"
+            app:title="@{@string/menu_customers}" />
+
+        <!-- Симптомы и болезни -->
+        <include
+            android:id="@+id/appMenuItemSymptomsAndDiseases"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_symptoms_and_diseases}"
+            app:title="@{@string/menu_symptoms_and_diseases}" />
+
+        <!-- Бренды -->
+        <include
+            android:id="@+id/appMenuItemBrands"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_brands}"
+            app:title="@{@string/menu_brands}" />
+
+        <!-- Благотворительность -->
+        <include
+            android:id="@+id/appMenuItemCharity"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_charity}"
+            app:title="@{@string/menu_charity}" />
+
+        <!-- Контакты -->
+        <include
+            android:id="@+id/appMenuItemContacts"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_contacts}"
+            app:title="@{@string/menu_contacts}" />
+
+        <!-- Юридические документы -->
+        <include
+            android:id="@+id/appMenuItemLegalDocuments"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_legal_documents}"
+            app:title="@{@string/menu_legal_documents}" />
+
+        <!-- Оценить приложение -->
+        <include
+            android:id="@+id/appMenuItemRateApp"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_rate_app}"
+            app:title="@{@string/menu_rate_app}" />
+
+
+        <!-- Отзывы -->
+        <include
+            android:id="@+id/appMenuItemReviews"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_reviews}"
+            app:title="@{@string/menu_reviews}" />
+
+        <!-- Сотрудничество -->
+        <include
+            android:id="@+id/appMenuItemCooperation"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_cooperation}"
+            app:title="@{@string/menu_cooperation}" />
+
+        <!-- Партнерам -->
+        <include
+            android:id="@+id/appMenuItemPartners"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_partners}"
+            app:title="@{@string/menu_partners}" />
+
+        <!-- FAQ -->
+        <include
+            android:id="@+id/appMenuItemFaq"
+            layout="@layout/app_menu_item"
+            app:icon="@{@drawable/ic_menu_brands}"
+            app:title="@{@string/menu_faq}" />
+
+
+    </LinearLayout>
+
+
+</layout>

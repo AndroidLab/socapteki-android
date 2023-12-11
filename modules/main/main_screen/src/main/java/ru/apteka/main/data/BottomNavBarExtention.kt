@@ -130,7 +130,7 @@ fun BottomAppBar.setupWithNavController(
     fragmentManager.addOnBackStackChangedListener {
         //Если это не первый фрагмент и это не первый экран домашней вкладки
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag!!)) {
-            bottomAppBarModel.onSelectItemId(firstFragmentGraphId)
+            bottomAppBarModel.onItemSelected(firstFragmentGraphId)
         }
 
         // Сброс графика, если текущее назначение недействительно (происходит, когда

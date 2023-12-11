@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/profile_graph"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.apteka.profile.presentation.profile.ProfileFragment">
+
+        <action
+            android:id="@+id/toPharmaciesFragment"
+            app:destination="@id/pharmaciesFragment" />
+
+        <action
+            android:id="@+id/toCommentsReviewsFragment"
+            app:destination="@id/commentsReviewsFragment" />
+
+        <action
+            android:id="@+id/toSettingNotificationsFragment"
+            app:destination="@id/settingNotificationsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pharmaciesFragment"
+        android:name="ru.apteka.profile.presentation.pharmacies.PharmaciesFragment" />
+
+    <fragment
+        android:id="@+id/settingNotificationsFragment"
+        android:name="ru.apteka.profile.presentation.setting_notifications.SettingNotificationsFragment" />
+
+    <fragment
+        android:id="@+id/commentsReviewsFragment"
+        android:name="ru.apteka.profile.presentation.comments_reviews.CommentsReviewsFragment" />
+
+</navigation>

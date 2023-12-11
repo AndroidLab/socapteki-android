@@ -23,10 +23,6 @@ abstract class MainScreenBaseFragment<TViewModel : MainScreenBaseViewModel, TDat
         onSearchClick: (() -> Unit)? = null
     ) {
         toolbarBinding.apply {
-            toolbar.setNavigationIcon(R.drawable.ic_navigation_menu)
-            toolbar.setNavigationOnClickListener {
-                viewModel!!.navigationManager.showAppMenu()
-            }
             toolbarBinding.toolbarCustomViewContainer.removeAllViews()
             toolbarCustomViewContainer.addView(
                 DataBindingUtil.inflate<ToolbarMenuBinding>(

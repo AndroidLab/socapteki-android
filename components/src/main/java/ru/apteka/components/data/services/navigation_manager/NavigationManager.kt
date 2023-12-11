@@ -16,6 +16,11 @@ import kotlin.properties.Delegates
 class NavigationManager @Inject constructor() {
 
     /**
+     * Навигирует к авторизации.
+     */
+    var onAuthNavigate: () -> Unit by Delegates.notNull()
+
+    /**
      * Возвращает или устанавливает идентификаторы пунктов назначения основного экрана.
      */
     var topLevelMainDestinationIds: Set<Int> by Delegates.notNull()
@@ -39,11 +44,6 @@ class NavigationManager @Inject constructor() {
      * Возвращает событие необходимости установить конфигурацию для нижнего навигационного бара.
      */
     val isBottomNavigationBarNeedUpdateSingleEvent = SingleLiveEvent<Unit>()
-
-    /**
-     * Показывает меню приложения.
-     */
-    var showAppMenu: () -> Unit by Delegates.notNull()
 
     /**
      * Показывает экран поиска продукции.

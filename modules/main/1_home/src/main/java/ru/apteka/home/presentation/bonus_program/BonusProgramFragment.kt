@@ -5,7 +5,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.home.R
 import ru.apteka.home.databinding.BonusProgramFragmentBinding
-import ru.apteka.home.databinding.MySubscriptionsFragmentBinding
 import ru.apteka.components.R as ComponentsR
 
 

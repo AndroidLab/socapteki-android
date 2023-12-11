@@ -16,54 +16,40 @@ class BottomAppBarModel {
     val item_1 = MenuItemModel(
         itemId = MainCommonR.id.home_graph,
         icon = R.drawable.ic_home,
-        title = R.string.menu_label_1,
-        onItemClick = {
-            _selectedItemId.value = it
-            onItemSelectedListener?.onClick(it)
-        }
+        title = R.string.menu_label_1
     )
 
     val item_2 = MenuItemModel(
         itemId = MainCommonR.id.catalog_graph,
         icon = R.drawable.ic_catalog,
-        title = R.string.menu_label_2,
-        onItemClick = {
-            _selectedItemId.value = it
-            onItemSelectedListener?.onClick(it)
-        }
+        title = R.string.menu_label_2
     )
 
     val item_3 = MenuItemModel(
-        itemId = MainCommonR.id.orders_graph,
-        icon = R.drawable.ic_orders,
-        title = R.string.menu_label_3,
-        onItemClick = {
-            _selectedItemId.value = it
-            onItemSelectedListener?.onClick(it)
-        }
+        itemId = MainCommonR.id.stocks_graph,
+        icon = R.drawable.ic_stocks,
+        title = R.string.menu_label_3
     )
 
     val item_4 = MenuItemModel(
-        itemId = MainCommonR.id.stocks_graph,
-        icon = R.drawable.ic_stocks,
+        itemId = MainCommonR.id.basket_graph,
+        icon = R.drawable.ic_basket,
         title = R.string.menu_label_4,
-        onItemClick = {
-            _selectedItemId.value = it
-            onItemSelectedListener?.onClick(it)
-        }
     )
 
     val item_5 = MenuItemModel(
-        itemId = MainCommonR.id.basket_graph,
-        icon = R.drawable.ic_basket,
-        title = R.string.menu_label_5,
-        onItemClick = {
-            _selectedItemId.value = it
-            onItemSelectedListener?.onClick(it)
-        }
+        itemId = MainCommonR.id.menu_graph,
+        icon = MainCommonR.drawable.ic_menu,
+        title = R.string.menu_label_5
     )
 
-
+    /**
+     * Обработчик клика по вкладке.
+     */
+    fun onItemSelected(itemId: Int) {
+        _selectedItemId.value = itemId
+        onItemSelectedListener?.onClick(itemId)
+    }
 
     private var onItemSelectedListener: OnItemSelectedListener? = null
 
@@ -77,16 +63,9 @@ class BottomAppBarModel {
     /**
      * Возвращает обработчик выбора пункта нижнего навигационного меню.
      */
-    val onSelectItemId: (itemId: Int) -> Unit = { itemId ->
-        when (itemId) {
-            MainCommonR.id.home_graph -> item_1.onItemClick(itemId)
-            MainCommonR.id.catalog_graph -> item_2.onItemClick(itemId)
-            MainCommonR.id.orders_graph -> item_3.onItemClick(itemId)
-            MainCommonR.id.stocks_graph -> item_4.onItemClick(itemId)
-            MainCommonR.id.basket_graph -> item_5.onItemClick(itemId)
-            else -> throw IllegalArgumentException("Пункт меню с идентификатором $itemId не найден.")
-        }
-    }
+    /*val onSelectItemId: (itemId: Int) -> Unit = { itemId ->
+        onItemClick(itemId)
+    }*/
 
     /**
      * Устанавливает слушатель выбора пункта меню.
@@ -103,7 +82,6 @@ class BottomAppBarModel {
     data class MenuItemModel(
         @IdRes val itemId: Int,
         @DrawableRes val icon: Int,
-        @StringRes val title: Int,
-        val onItemClick: (Int) -> Unit
+        @StringRes val title: Int
     )
 }

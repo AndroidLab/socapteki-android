@@ -6,8 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import ru.apteka.home.data.repository.advert.IAdvertApi
-import ru.apteka.home.data.repository.apteki.IAptekiApi
-import ru.apteka.home.data.repository.bonus.IBonusApi
 import ru.apteka.home.data.repository.other.IOtherApi
 import ru.apteka.home.data.repository.products_day.IProductsDayApi
 import ru.apteka.home.data.repository.products_discount.IProductsDiscountApi
@@ -53,17 +51,4 @@ class HomeApiModule {
     fun provideOtherApi(retrofitClient: Retrofit): IOtherApi =
         retrofitClient.create(IOtherApi::class.java)
 
-    /**
-     * Предоставляет экземпляр [IAptekiApi].
-     */
-    @Provides
-    fun provideAptekiApi(retrofitClient: Retrofit): IAptekiApi =
-        retrofitClient.create(IAptekiApi::class.java)
-
-    /**
-     * Предоставляет экземпляр [IBonusApi].
-     */
-    @Provides
-    fun provideBonusApi(retrofitClient: Retrofit): IBonusApi =
-        retrofitClient.create(IBonusApi::class.java)
 }

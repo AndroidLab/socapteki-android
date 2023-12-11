@@ -1,20 +1,15 @@
 package ru.apteka.home.presentation.bonus_program
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.models.SubscriptionsModel
-import ru.apteka.components.data.repository.kogin.LoginRepository
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.mainThread
 import ru.apteka.home.data.models.BonusModel
-import ru.apteka.home.data.repository.bonus.BonusRepository
 import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import javax.inject.Inject
 
@@ -25,13 +20,44 @@ import javax.inject.Inject
 @HiltViewModel
 class BonusProgramViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    private val bonusRepository: BonusRepository,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : MainScreenBaseViewModel(
     navigationManager,
     messageNoticeService
 ) {
+    private val fakeBonuses = listOf(
+        BonusModel(
+            title = "Начисление",
+            date = 1697711146,
+            value = 320,
+            desc = "Интернет заказ"
+        ),
+        BonusModel(
+            title = "Начисление",
+            date = 1697711146,
+            value = 320,
+            desc = "Интернет заказ"
+        ),
+        BonusModel(
+            title = "Начисление",
+            date = 1697711146,
+            value = -320,
+            desc = "Покупка в розницу"
+        ),
+        BonusModel(
+            title = "Начисление",
+            date = 1697711146,
+            value = 320,
+            desc = "Интернет заказ"
+        ),
+        BonusModel(
+            title = "Списание",
+            date = 1697711146,
+            value = -320,
+            desc = "Покупка в розницу"
+        ),
+    )
 
     private val _bonuses = MutableLiveData<List<BonusModel>>(emptyList())
 
@@ -42,13 +68,10 @@ class BonusProgramViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { bonusRepository.getBonusHistory() },
-                onSuccess = { bonuses ->
-                    _bonuses.postValue(bonuses)
-                },
-                isLoading = _isLoading
-            )
+            _isLoading.postValue(true)
+            delay(1500)
+            _bonuses.postValue(fakeBonuses)
+            _isLoading.postValue(false)
         }
     }
 

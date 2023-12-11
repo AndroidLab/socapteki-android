@@ -53,7 +53,7 @@
                     app:menuItem="@{bottomAppBarModel.item_2}" />
 
                 <include
-                    android:id="@+id/bottomNavigationFavoriteItem"
+                    android:id="@+id/bottomNavigationStocksItem"
                     layout="@layout/bottom_navigation_item"
                     app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_3.itemId}"
                     app:menuItem="@{bottomAppBarModel.item_3}" />
@@ -65,13 +65,13 @@
                     app:menuItem="@{bottomAppBarModel.item_1}" />
 
                 <include
-                    android:id="@+id/bottomNavigationOrdersItem"
+                    android:id="@+id/bottomNavigationBasketItem"
                     layout="@layout/bottom_navigation_item"
                     app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_4.itemId}"
                     app:menuItem="@{bottomAppBarModel.item_4}" />
 
                 <include
-                    android:id="@+id/bottomNavigationBasketItem"
+                    android:id="@+id/bottomNavigationMenuItem"
                     layout="@layout/bottom_navigation_item"
                     app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_5.itemId}"
                     app:menuItem="@{bottomAppBarModel.item_5}" />

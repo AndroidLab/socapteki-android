@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/profileToolbar"
+            layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_corners_shape"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
+
+            <!-- Личные данные -->
+            <LinearLayout
+                android:id="@+id/llProfilePersonalData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile_personal_data"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/Theme.Socapteki.HeaderH4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/profile_personal_data" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_arrow_expand"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{16}"
+                app:sepMarginStart="@{16}" />
+
+            <!-- Блок с карточками -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/base_padding">
+
+                <include
+                    android:id="@+id/userProfileFavorite"
+                    layout="@layout/profile_card"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    app:color="@{@color/pink}"
+                    app:icon="@{@drawable/ic_profile_favorites}"
+                    app:text="@{@string/profile_favorites}" />
+
+                <include
+                    android:id="@+id/userProfileOrders"
+                    layout="@layout/profile_card"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    app:color="@{@color/light_blue}"
+                    app:icon="@{@drawable/ic_profile_orders}"
+                    app:text="@{@string/profile_orders}" />
+
+                <include
+                    android:id="@+id/userProfilePharmacy"
+                    layout="@layout/profile_card"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    app:color="@{@color/color_surface_variant}"
+                    app:icon="@{@drawable/ic_profile_pharmacy}"
+                    app:text="@{@string/profile_pharmacies}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Меню -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Theme.Socapteki.BackgroundCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Комментарии и отзывы -->
+                <include
+                    android:id="@+id/userProfileCommentsReviews"
+                    layout="@layout/profile_menu_item"
+                    app:icon="@{@drawable/ic_profile_comments_reviews}"
+                    app:text="@{@string/profile_comments_reviews}" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
+
+                <!-- Настройка уведомлений -->
+                <include
+                    android:id="@+id/userProfileSettingNotifications"
+                    layout="@layout/profile_menu_item"
+                    app:icon="@{@drawable/ic_profile_setting_notifications}"
+                    app:text="@{@string/profile_setting_notifications}" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
+
+                <!-- Уведомления о товарах -->
+                <include
+                    android:id="@+id/userProfileReferralProgram"
+                    layout="@layout/profile_menu_item"
+                    app:icon="@{@drawable/ic_product_notifications}"
+                    app:text="@{@string/profile_product_notifications}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userProfileLogout"
+            style="@style/Theme.Socapteki.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            android:text="@string/exit" />
+
+    </LinearLayout>
+
+</layout>

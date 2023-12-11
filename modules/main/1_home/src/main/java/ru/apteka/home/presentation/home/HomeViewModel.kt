@@ -11,7 +11,6 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
-import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread

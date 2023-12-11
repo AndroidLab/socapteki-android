@@ -7,53 +7,10 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ru.apteka.home.presentation.home.HomeFragment"
-        tools:layout="@layout/home_fragment">
-
-        <action
-            android:id="@+id/toProfileFragment"
-            app:destination="@id/profileFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="ru.apteka.home.presentation.profile.UserProfileFragment">
-
-        <action
-            android:id="@+id/toPharmaciesFragment"
-            app:destination="@id/pharmaciesFragment" />
-
-        <action
-            android:id="@+id/toBonusProgramFragment"
-            app:destination="@id/bonusProgramFragment" />
-
-        <action
-            android:id="@+id/toCommentsReviewsFragment"
-            app:destination="@id/commentsReviewsFragment" />
-
-        <action
-            android:id="@+id/toSubscriptionsFragment"
-            app:destination="@id/mySubscriptionsFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/pharmaciesFragment"
-        android:name="ru.apteka.home.presentation.pharmacies.PharmaciesFragment"/>
+        android:name="ru.apteka.home.presentation.home.HomeFragment" />
 
     <fragment
         android:id="@+id/bonusProgramFragment"
-        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"
-        android:label="@string/bonus_program_title"/>
-
-    <fragment
-        android:id="@+id/commentsReviewsFragment"
-        android:name="ru.apteka.home.presentation.comments_reviews.CommentsReviewsFragment"/>
-
-    <fragment
-        android:id="@+id/mySubscriptionsFragment"
-        android:name="ru.apteka.home.presentation.my_subscriptions.MySubscriptionsFragment"/>
-
+        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"/>
 
 </navigation>
