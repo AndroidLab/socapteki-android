@@ -14,13 +14,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary">
+        android:background="@color/white">
 
         <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svWorkWithUsJobOpeningsDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/flWorkWithUsJobOpeningsDetails"
             android:layout_below="@id/workWithUsJobOpeningsDetailsToolbar"
             android:fillViewport="true"
             android:scrollbars="none">
@@ -29,62 +28,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16sp"
+                    android:layout_marginTop="16dp"
                     android:text="Фармацевт-провизор"
                     android:textColor="@color/dark_black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16sp"
                     android:text="г. Новосибирск, ул. Красный проспект 319"
                     android:textColor="@color/light_black" />
 
+                <include
+                    layout="@layout/work_with_us_job_openings_details_desk_view"
+                    app:desc="@{`от 1 года до 3 лет`}"
+                    app:title="@{`Опыт`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_desk_view"
-                    app:title="@{`Опыт`}"
-                    app:desc="@{`от 1 года до 3 лет`}" />
+                    app:desc="@{`Фармацевтическое образование (средне-профессиональное, высшее)`}"
+                    app:title="@{`Образование`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_desk_view"
-                    app:title="@{`Образование`}"
-                    app:desc="@{`Фармацевтическое образование (средне-профессиональное, высшее)`}" />
+                    app:desc="@{`5/2`}"
+                    app:title="@{`Рабочий день`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_desk_view"
-                    app:title="@{`Рабочий день`}"
-                    app:desc="@{`5/2`}" />
-
-                <include
-                    layout="@layout/work_with_us_job_openings_details_desk_view"
-                    app:title="@{`Зарплата`}"
-                    app:desc="@{`от 50 000 руб.`}" />
+                    app:desc="@{`от 50 000 руб.`}"
+                    app:title="@{`Зарплата`}" />
 
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_requirement_view"
-                    app:title="@{`Обязанности`}"
-                    app:desc="@{viewModel.responsibilities}" />
+                    app:desc="@{viewModel.responsibilities}"
+                    app:title="@{`Обязанности`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_requirement_view"
-                    app:title="@{`Требования`}"
-                    app:desc="@{viewModel.requirements}" />
+                    app:desc="@{viewModel.requirements}"
+                    app:title="@{`Требования`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_requirement_view"
-                    app:title="@{`Условия`}"
-                    app:desc="@{viewModel.conditions}" />
+                    app:desc="@{viewModel.conditions}"
+                    app:title="@{`Условия`}" />
 
                 <include
                     layout="@layout/work_with_us_job_openings_details_requirement_view"
-                    app:title="@{`Ключевые навыки`}"
-                    app:desc="@{viewModel.skills}" />
+                    app:desc="@{viewModel.skills}"
+                    app:title="@{`Ключевые навыки`}" />
+
+                <include
+                    layout="@layout/shadow_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Кнопка заполнить анкету -->
+                <FrameLayout
+                    android:id="@+id/flWorkWithUsJobOpeningsDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/footer_stub_height">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbWorkWithUsJobOpeningsDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/work_with_us_questionnaire" />
+
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -95,28 +118,6 @@
             android:id="@+id/workWithUsJobOpeningsDetailsToolbar"
             layout="@layout/toolbar" />
 
-        <include
-            layout="@layout/shadow_view"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_above="@id/flWorkWithUsJobOpeningsDetails" />
-
-        <!-- Кнопка заполнить анкету -->
-        <FrameLayout
-            android:id="@+id/flWorkWithUsJobOpeningsDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mbWorkWithUsJobOpeningsDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/work_with_us_questionnaire" />
-
-        </FrameLayout>
 
     </RelativeLayout>
 

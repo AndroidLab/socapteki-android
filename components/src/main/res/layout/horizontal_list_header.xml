@@ -23,12 +23,13 @@
         app:visibleIf="@{title != null | textBtn != null}">
 
         <TextView
-            style="@style/Theme.Socapteki.HeaderH2"
+            style="@style/Theme.Socapteki.HeaderH4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="@{title}" />
+            android:text="@{title}"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/btn"

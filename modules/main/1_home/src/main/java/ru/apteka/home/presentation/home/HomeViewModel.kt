@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
@@ -12,9 +13,11 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.home.data.models.AdvertModel
+import ru.apteka.home.data.models.OrderCardModel
 import ru.apteka.home.data.models.OtherModel
 import ru.apteka.home.data.models.PromotionModel
 import ru.apteka.home.data.repository.advert.AdvertRepository
@@ -23,6 +26,7 @@ import ru.apteka.home.data.repository.products_day.ProductsDayRepository
 import ru.apteka.home.data.repository.products_discount.ProductsDiscountRepository
 import ru.apteka.home.data.repository.promotion.PromotionRepository
 import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import java.util.UUID
 import javax.inject.Inject
 
 
@@ -45,6 +49,34 @@ class HomeViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
+
+    private val fakeOrdersCard = buildList<OrderCardModel> {
+        repeat(3) {
+            add(
+                OrderCardModel(
+                    type = "Самовывоз",
+                    status = "Принят",
+                    number = "№789290",
+                    desc = "1 товар - 495 ₽ | Создан: 23.11.2023 10:32",
+                )
+            )
+        }
+    }
+
+    private val _ordersCard = MutableLiveData<List<OrderCardModel>>(emptyList())
+
+    /**
+     * Возвращает список заказоы.
+     */
+    val ordersCard: LiveData<List<OrderCardModel>> = _ordersCard
+
+    private val _ordersCardIsLoading = MutableLiveData(false)
+
+    /**
+     * Возвращает фллг загрузки заказов.
+     */
+    val  ordersCardIsLoading: LiveData<Boolean> = _ordersCardIsLoading
+
 
     private val _adverts = MutableLiveData<List<AdvertModel>>(emptyList())
 
@@ -123,6 +155,13 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
+            launchIO {
+                _ordersCardIsLoading.postValue(true)
+                delay(1500)
+                _ordersCard.postValue(fakeOrdersCard)
+                _ordersCardIsLoading.postValue(false)
+            }
+
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { advertRepository.getAdvert() },

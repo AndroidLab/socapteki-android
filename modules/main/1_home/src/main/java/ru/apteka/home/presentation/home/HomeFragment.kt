@@ -12,8 +12,10 @@ import ru.apteka.components.data.utils.recyclerAutoScroll
 import ru.apteka.components.data.utils.setPullForward
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.home.R
+import ru.apteka.home.data.models.OrderCardModel
 import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
+import ru.apteka.home.presentation.home.adapters.OrderCardAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
 import ru.apteka.main_common.ui.MainScreenBaseFragment
@@ -33,6 +35,12 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
 
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_fragment
+
+    private val ordersAdapter by lazy {
+        CompositeDelegateAdapter(
+            OrderCardAdapter(::onOrderCardClick)
+        )
+    }
 
     private val advertsAdapter by lazy {
         CompositeDelegateAdapter(
@@ -69,6 +77,7 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
 
     override fun onViewBindingInflated(binding: HomeFragmentBinding) {
         binding.viewModel = viewModel
+        binding.rvOrders.adapter = ordersAdapter
         binding.homeAdvert.rv.adapter = advertsAdapter
         binding.homePromotions.rv.adapter = promotionsAdapter
         binding.homeProductsDay.rv.adapter = productsDayAdapter
@@ -100,15 +109,13 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         }
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
-            //viewModel.navigationManager.generalNavController.navigateWithAnim(ComponentsR.id.brands_graph)
+            viewModel.navigationManager.onSelectItemMenu(MainCommonR.id.brands_graph, bundleOf())
         }
 
-        binding.homeMenuPartners.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ru.apteka.our_partners_api.R.id.our_partners_graph
-            )
-        }
 
+        viewModel.ordersCard.observe(viewLifecycleOwner) {
+            ordersAdapter.swapData(it)
+        }
 
         viewModel.adverts.observe(viewLifecycleOwner) {
             advertsAdapter.swapData(it)
@@ -132,6 +139,10 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         viewModel.others.observe(viewLifecycleOwner) {
             othersAdapter.swapData(it)
         }
+    }
+
+    private fun onOrderCardClick(item: OrderCardModel) {
+
     }
 
     private fun onAdvertCardClick() {

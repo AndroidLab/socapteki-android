@@ -500,6 +500,8 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <include layout="@layout/footer_stub" />
+
             </LinearLayout>
 
         </com.alab.extra_bouncy.BouncyNestedScrollView>

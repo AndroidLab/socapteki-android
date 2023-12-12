@@ -14,15 +14,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary">
+        android:background="@color/white">
 
         <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svAboutCompany"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/flAboutCompany"
             android:layout_below="@id/aboutCompanyToolbar"
             android:fillViewport="true"
+            android:background="@color/background_secondary"
             android:scrollbars="none">
 
             <LinearLayout
@@ -266,6 +266,22 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Кнопка 'Наши благотворительные проекты' -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/footer_stub_height">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/workWithUsQuestionnaire"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/about_company_charity_projects" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
         </com.alab.extra_bouncy.BouncyNestedScrollView>
@@ -274,29 +290,6 @@
         <include
             android:id="@+id/aboutCompanyToolbar"
             layout="@layout/toolbar" />
-
-        <include
-            layout="@layout/shadow_view"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_above="@id/flAboutCompany" />
-
-        <!-- Кнопка 'Наши благотворительные проекты' -->
-        <FrameLayout
-            android:id="@+id/flAboutCompany"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/workWithUsQuestionnaire"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/about_company_charity_projects" />
-
-        </FrameLayout>
 
     </RelativeLayout>
 

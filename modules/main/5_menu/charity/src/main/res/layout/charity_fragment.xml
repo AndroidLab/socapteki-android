@@ -10,21 +10,15 @@
 
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_secondary"
-        android:orientation="vertical">
-
-        <!-- Туул бар -->
-        <include
-            android:id="@+id/charityToolbar"
-            layout="@layout/toolbar" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svCharity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/charityToolbar"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -118,11 +112,17 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <include layout="@layout/footer_stub" />
 
             </LinearLayout>
 
         </com.alab.extra_bouncy.BouncyNestedScrollView>
 
-    </LinearLayout>
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/charityToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
 
 </layout>

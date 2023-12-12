@@ -28,6 +28,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Инфо по заказам -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/horizontalListBlock"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <ru.apteka.components.ui.LoaderLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isLoading="@{viewModel.ordersCardIsLoading}">
+
+                        <com.alab.extra_bouncy.BouncyRecyclerView
+                            android:id="@+id/rvOrders"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layoutPaddingBottom="@{16}"
+                            app:layoutPaddingTop="@{16}"
+                            app:marginItemHorizontal="@{16}" />
+
+                    </ru.apteka.components.ui.LoaderLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <!-- Реклама -->
                 <include
                     android:id="@+id/homeAdvert"
@@ -75,7 +103,7 @@
                     app:textBtn="@{@string/home_products_all}"
                     app:title="@{@string/home_products_discount}" />
 
-                <!-- Остальное -->
+                <!-- Категории -->
                 <include
                     android:id="@+id/homeOther"
                     layout="@layout/horizontal_list"
@@ -83,7 +111,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     app:isLoading="@{viewModel.othersIsLoading}"
-                    app:linearSnapHelper="@{true}" />
+                    app:linearSnapHelper="@{true}"
+                    app:title="@{@string/home_categories}" />
 
                 <!-- Преимущества -->
                 <com.google.android.material.card.MaterialCardView
@@ -95,22 +124,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginVertical="4dp"
+                        android:layout_margin="16dp"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
                             android:text="@string/home_advantages"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <include
                             layout="@layout/home_advantages_item"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="16dp"
                             app:desc="@{@string/home_advantages_around_clock_desc}"
                             app:icon="@{@drawable/ic_home_advantages_around_clock}"
                             app:title="@{@string/home_advantages_around_clock_title}" />
@@ -158,14 +186,6 @@
                             android:layout_height="wrap_content"
                             app:icon="@{@drawable/ic_brands}"
                             app:text="@{@string/home_menu_brands}" />
-
-                        <include
-                            android:id="@+id/homeMenuPartners"
-                            layout="@layout/bottom_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:icon="@{@drawable/ic_partners}"
-                            app:text="@{@string/home_menu_partners}" />
 
                     </LinearLayout>
 

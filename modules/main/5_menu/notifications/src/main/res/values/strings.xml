@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_mark_as_read">Отметить как прочитанные</string>
+    <string name="notifications_filter_all">Все %s</string>
+    <string name="notifications_filter_orders">Заказы %s</string>
+    <string name="notifications_filter_stocks">Акции %s</string>
+
+</resources>

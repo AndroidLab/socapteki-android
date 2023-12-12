@@ -5,6 +5,7 @@
     <string name="home_products_day">Товары дня</string>
     <string name="home_products_discount">Товары со скидкой</string>
     <string name="home_products_all">Все товары</string>
+    <string name="home_categories">Категории</string>
 
     <string name="home_advantages">Преимущества</string>
     <string name="home_advantages_around_clock_title">Круглосуточно и без выходных</string>
@@ -13,7 +14,7 @@
     <string name="home_advantages_more_products_desc">Редкие лекарства доступны в одном месте</string>
     <string name="home_advantages_no_queue_title">Обслуживание без очереди</string>
     <string name="home_advantages_no_queue_desc">Получение товара в аптеке без очереди после поступления СМС уведомления о готовности заказа</string>
-    <string name="home_menu_brands">Бренды</string>
+    <string name="home_menu_brands">Бренды и производители</string>
     <string name="home_menu_pharmacies_map">Аптеки на карте</string>
     <string name="home_menu_partners">Наши партнеры</string>
 

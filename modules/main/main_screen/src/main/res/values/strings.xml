@@ -4,7 +4,6 @@
     <string name="menu_label_3">Акции</string>
     <string name="menu_label_4">Корзина</string>
     <string name="menu_label_5">Меню</string>
-    <string name="menu_login">Авторизация</string>
     <string name="menu_profile">Профиль</string>
     <string name="menu_city_not_selected">Город не выбран</string>
 
@@ -21,6 +20,7 @@
     <string name="menu_charity">Благотворительность</string>
     <string name="menu_legal_documents">Юридические документы</string>
     <string name="menu_rate_app">Оценить приложение</string>
+    <string name="menu_enter">Войти</string>
 
     <string name="menu_contacts">Контакты</string>
     <string name="menu_reviews">Отзывы</string>

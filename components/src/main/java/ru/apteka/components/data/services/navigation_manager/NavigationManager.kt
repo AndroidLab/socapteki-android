@@ -1,5 +1,6 @@
 package ru.apteka.components.data.services.navigation_manager
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,6 +40,11 @@ class NavigationManager @Inject constructor() {
      * Возвращает или устанавливает обработчик выбора пункта нижнего навигационного меню.
      */
     var onSelectItemId: (itemId: Int) -> Unit by Delegates.notNull()
+
+    /**
+     * Возвращает или устанавливает обработчик выбора пункта меню.
+     */
+    var onSelectItemMenu: (Int, Bundle) -> Unit by Delegates.notNull()
 
     /**
      * Возвращает событие необходимости установить конфигурацию для нижнего навигационного бара.

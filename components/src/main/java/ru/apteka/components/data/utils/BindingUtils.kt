@@ -57,9 +57,17 @@ fun View.visibleIf(value: Boolean?) {
  * @param value [Any] Значение для преобразования в текст.
  * @param isHtml Флаг является ли текст html.
  */
-@BindingAdapter("app:extraText", "app:isHtml", requireAll = false)
-fun TextView.setExtraText(value: Any?, isHtml: Boolean = false) {
-    val _text = context.getStringFrom(value ?: "")
+@BindingAdapter("app:extraText", "app:extraTextArg", "app:isHtml", requireAll = false)
+fun TextView.setExtraText(
+    value: Any?,
+    extraTextArg: List<Any>?,
+    isHtml: Boolean = false
+) {
+    val _text = if (extraTextArg == null) {
+        context.getStringFrom(value ?: "")
+    } else {
+        String.format(context.getStringFrom(value ?: ""), *extraTextArg.toTypedArray())
+    }
     text = if (isHtml) {
         getSpannedFromHtml(_text)
     } else {

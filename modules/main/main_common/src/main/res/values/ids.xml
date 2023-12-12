@@ -6,6 +6,7 @@
     <item type="id" name="basket_graph" />
     <item type="id" name="menu_graph" />
 
+    <item type="id" name="notifications_graph" />
     <item type="id" name="about_company_graph" />
     <item type="id" name="work_with_us_graph" />
     <item type="id" name="profile_graph" />

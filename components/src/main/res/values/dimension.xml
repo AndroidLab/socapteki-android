@@ -5,4 +5,5 @@
     <dimen name="order_status_corner">2dp</dimen>
     <dimen name="toolbar_height">50dp</dimen>
     <dimen name="bottom_bar_height">70dp</dimen>
+    <dimen name="footer_stub_height">100dp</dimen>
 </resources>

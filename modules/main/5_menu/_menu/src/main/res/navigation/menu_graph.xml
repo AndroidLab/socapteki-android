@@ -9,6 +9,8 @@
         android:id="@+id/menuFragment"
         android:name="ru.apteka.menu.presentation.MenuFragment"/>
 
+    <include app:graph="@navigation/notifications_graph" />
+
     <include app:graph="@navigation/about_company_graph" />
 
     <include app:graph="@navigation/work_with_us_graph" />

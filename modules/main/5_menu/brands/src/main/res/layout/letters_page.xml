@@ -17,56 +17,66 @@
         android:layout_height="match_parent"
         app:isLoading="@{viewModel.isLoading}">
 
-        <LinearLayout
+        <com.alab.extra_bouncy.BouncyNestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bottom_corners_shape"
-                android:padding="16dp">
+                android:orientation="vertical">
 
-                <com.alab.input_layout_inner_hint.TextInputLayout
-                    style="@style/TextInputLayout"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="@{!viewModel.isLoading}"
-                    android:hint="@string/search"
-                    app:endIconMode="@{viewModel.isSearchProgress ? 0 : 2}"
-                    app:startIconDrawable="@drawable/ic_search">
+                    android:background="@drawable/bottom_corners_shape"
+                    android:padding="16dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etBrands"
+                    <com.alab.input_layout_inner_hint.TextInputLayout
+                        style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_input_white_background_unfocused_shape"
-                        android:lines="1"
-                        android:maxLength="64" />
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/search"
+                        app:endIconMode="@{viewModel.isSearchProgress ? 0 : 2}"
+                        app:startIconDrawable="@drawable/ic_search">
 
-                </com.alab.input_layout_inner_hint.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etBrands"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:lines="1"
+                            android:maxLength="64" />
 
-                <ProgressBar
-                    style="@style/Theme.Socapteki.ProgressBar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="16dp"
-                    android:indeterminateOnly="true"
-                    app:visibleIf="@{viewModel.isSearchProgress()}" />
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
 
-            </FrameLayout>
+                    <ProgressBar
+                        style="@style/Theme.Socapteki.ProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="16dp"
+                        android:indeterminateOnly="true"
+                        app:visibleIf="@{viewModel.isSearchProgress()}" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLetters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                </FrameLayout>
 
-        </LinearLayout>
+                <com.alab.extra_bouncy.BouncyRecyclerView
+                    android:id="@+id/rvLetters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <include layout="@layout/footer_stub" />
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
 
     </ru.apteka.components.ui.LoaderLayout>
 

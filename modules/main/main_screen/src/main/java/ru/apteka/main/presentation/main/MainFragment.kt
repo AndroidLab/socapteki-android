@@ -89,6 +89,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             MenuR.id.menuFragment
         )
 
+        viewModel.navigationManager.onSelectItemMenu = { graphId, bundle ->
+            navigate(graphId, bundle)
+        }
+
         binding.mainFab.setOnClickListener {
             val controller = viewModel.navigationManager.currentBottomNavControllerLiveData.value!!
             if (controller.graph.id == MainCommonR.id.home_graph) {
@@ -153,46 +157,13 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 BottomSheetModel(
                     binding = MenuNavigationViewBinding.inflate(layoutInflater, null, false)
                         .also { binding ->
-                            fun navigate(graphId: Int, bundle: Bundle = bundleOf()) {
-                                if (viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.currentBackStackEntry!!.destination.parent!!.id != graphId) {
-                                    viewModel.navigationManager.onSelectItemId(viewModel.bottomAppBar.item_5.itemId)
-                                    lifecycleScope.launchMain {
-                                        delay(100)
-                                        if (viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.currentBackStackEntry!!.destination.id != MenuR.id.menuFragment) {
-                                            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(MenuR.id.menuFragment, false)
-                                        }
-                                        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
-                                            graphId, bundle
-                                        )
-                                    }
-                                }
-                                viewModel.bottomSheetService.close()
-                            }
+                            binding.account = viewModel.accountsPreferences.account
 
-                            if (viewModel.accountsPreferences.account == null) {
-                                binding.appMenuItemAuth.icon =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.ic_menu_login
-                                    )
-                                binding.appMenuItemAuth.title = getString(R.string.menu_login)
-                            } else {
-                                binding.appMenuItemAuth.icon =
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.ic_menu_account
-                                    )
-                                binding.appMenuItemAuth.title =
-                                    getString(R.string.menu_profile)
-                            }
-
-                            binding.appMenuItemAuth.item.setOnClickListener {
-                                if (viewModel.accountsPreferences.account == null) {
-                                    viewModel.navigationManager.onAuthNavigate()
-                                } else {
-                                    navigate(MainCommonR.id.profile_graph)
-                                }
-                                viewModel.bottomSheetService.close()
+                            binding.appMenuItemProfile.item.setOnClickListener {
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.profile_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemCity.title = viewModel.userPreferences.city?.name
@@ -202,7 +173,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemMyOrders.apply {
-                                root.visibleIf(viewModel.accountsPreferences.account != null)
                                 count = 10
                                 item.setOnClickListener {
                                     //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
@@ -210,10 +180,12 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemNotifications.apply {
-                                root.visibleIf(viewModel.accountsPreferences.account != null)
                                 count = 33
                                 item.setOnClickListener {
-                                    //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                    viewModel.navigationManager.onSelectItemMenu(
+                                        MainCommonR.id.notifications_graph,
+                                        bundleOf()
+                                    )
                                 }
                             }
 
@@ -236,11 +208,17 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemAboutCompany.item.setOnClickListener {
-                                navigate(MainCommonR.id.about_company_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.about_company_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemWorkWithUs.item.setOnClickListener {
-                                navigate(MainCommonR.id.work_with_us_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.work_with_us_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemCustomers.item.setOnClickListener {
@@ -252,19 +230,31 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemBrands.item.setOnClickListener {
-                                navigate(MainCommonR.id.brands_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.brands_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemCharity.item.setOnClickListener {
-                                navigate(MainCommonR.id.charity_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.charity_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemContacts.item.setOnClickListener {
-                                navigate(MainCommonR.id.contacts_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.contacts_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemLegalDocuments.item.setOnClickListener {
-                                navigate(MainCommonR.id.licenses_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.licenses_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemRateApp.item.setOnClickListener {
@@ -288,7 +278,11 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                                 //navigate(ru.apteka.faq_api.R.id.faq_graph)
                             }
 
-                        }
+                            binding.mbMenuAuth.setOnClickListener {
+                                viewModel.navigationManager.onAuthNavigate()
+                            }
+                        },
+                    useScrollableContainer = false
                 )
             )
         }
@@ -348,6 +342,25 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 }
             }
         }
+    }
+
+    private fun navigate(graphId: Int, bundle: Bundle) {
+        if (viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.currentBackStackEntry!!.destination.parent!!.id != graphId) {
+            viewModel.navigationManager.onSelectItemId(viewModel.bottomAppBar.item_5.itemId)
+            lifecycleScope.launchMain {
+                delay(100)
+                if (viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.currentBackStackEntry!!.destination.id != MenuR.id.menuFragment) {
+                    viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack(
+                        MenuR.id.menuFragment,
+                        false
+                    )
+                }
+                viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
+                    graphId, bundle
+                )
+            }
+        }
+        viewModel.bottomSheetService.close()
     }
 
     private fun setupBottomNavigationBar() {

@@ -31,6 +31,9 @@ include(":modules:main:4_basket")
 include(":modules:main:5_menu:_menu")
 
 //Модуль 'О компании'.
+include(":modules:main:5_menu:notifications")
+
+//Модуль 'О компании'.
 include(":modules:main:5_menu:about_company")
 
 //Модуль 'Работа у нас'.

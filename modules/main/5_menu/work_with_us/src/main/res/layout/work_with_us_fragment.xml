@@ -11,16 +11,17 @@
 
     </data>
 
-    <RelativeLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary">
+        android:background="@color/white">
 
         <com.alab.extra_bouncy.BouncyNestedScrollView
             android:id="@+id/svWorkWithUs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/flWorkWithUsQuestionnaire"
+            android:background="@color/background_secondary"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -237,33 +238,28 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Кнопка заполнить анкету -->
+                <FrameLayout
+                    android:id="@+id/flWorkWithUsQuestionnaire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/footer_stub_height">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/workWithUsQuestionnaire"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/work_with_us_questionnaire" />
+
+                </FrameLayout>
+
             </LinearLayout>
 
         </com.alab.extra_bouncy.BouncyNestedScrollView>
 
-        <include
-            layout="@layout/shadow_view"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_above="@id/flWorkWithUsQuestionnaire" />
+    </FrameLayout>
 
-        <!-- Кнопка заполнить анкету -->
-        <FrameLayout
-            android:id="@+id/flWorkWithUsQuestionnaire"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/workWithUsQuestionnaire"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/work_with_us_questionnaire" />
-
-        </FrameLayout>
-
-    </RelativeLayout>
 
 </layout>

@@ -16,6 +16,7 @@ android {
 dependencies {
     implementation(project(":components"))
     implementation(project(":modules:main:main_common"))
+    implementation(project(":modules:main:5_menu:notifications"))
     implementation(project(":modules:main:5_menu:about_company"))
     implementation(project(":modules:main:5_menu:work_with_us"))
     implementation(project(":modules:main:5_menu:profile"))
