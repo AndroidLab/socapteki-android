@@ -169,13 +169,19 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             binding.appMenuItemCity.title = viewModel.userPreferences.city?.name
                                 ?: getString(R.string.menu_city_not_selected)
                             binding.appMenuItemCity.item.setOnClickListener {
-                                //navigate(ru.apteka.choosing_city_api.R.id.choosing_city_graph)
+                                viewModel.navigationManager.generalNavController.navigateWithAnim(
+                                    ru.apteka.choosing_city_api.R.id.choosing_city_graph,
+                                )
+                                viewModel.bottomSheetService.close()
                             }
 
                             binding.appMenuItemMyOrders.apply {
                                 count = 10
                                 item.setOnClickListener {
-                                    //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                    viewModel.navigationManager.generalNavController.navigateWithAnim(
+                                        ru.apteka.orders_api.R.id.orders_graph,
+                                    )
+                                    viewModel.bottomSheetService.close()
                                 }
                             }
 
@@ -194,7 +200,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemReferralProgram.item.setOnClickListener {
-                                //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.referral_program_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemPharmacies.item.setOnClickListener {
@@ -226,7 +235,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemSymptomsAndDiseases.item.setOnClickListener {
-                                //navigate()
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    MainCommonR.id.symptoms_diseases_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemBrands.item.setOnClickListener {

@@ -14,4 +14,7 @@
     <item type="id" name="licenses_graph" />
     <item type="id" name="brands_graph" />
     <item type="id" name="charity_graph" />
+    <item type="id" name="referral_program_graph" />
+    <item type="id" name="symptoms_diseases_graph" />
+
 </resources>

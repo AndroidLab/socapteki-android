@@ -24,6 +24,8 @@ dependencies {
     implementation(project(":modules:main:5_menu:licenses"))
     implementation(project(":modules:main:5_menu:brands"))
     implementation(project(":modules:main:5_menu:charity"))
+    implementation(project(":modules:main:5_menu:referral_program"))
+    implementation(project(":modules:main:5_menu:symptoms_diseases"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

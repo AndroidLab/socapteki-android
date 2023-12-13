@@ -2,7 +2,7 @@
 plugins {
     id(libs.plugins.libraryConventionPlugin.get().pluginId)
     id(libs.plugins.kotlinAndroid.get().pluginId)
-	id(libs.plugins.kotlinParcelize.get().pluginId)
+    id(libs.plugins.kotlinParcelize.get().pluginId)
     id(libs.plugins.hiltConventionPlugin.get().pluginId)
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.apteka.licenses"
+    namespace = "ru.apteka.symptoms_diseases"
 }
 
 dependencies {
@@ -19,5 +19,4 @@ dependencies {
     implementation(project(":modules:main:main_common"))
 
     implementation(libs.bundles.navigationDeps)
-    implementation(libs.pdfViewer)
 }

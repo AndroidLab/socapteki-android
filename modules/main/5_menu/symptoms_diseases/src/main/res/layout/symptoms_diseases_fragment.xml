@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.symptoms_diseases.presentation.SymptomsDiseasesViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/flSymptomsSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/symptomsDiseasesToolbar"
+            android:background="@drawable/bottom_corners_shape"
+            android:padding="16dp">
+
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.isLoading}"
+                android:hint="@string/search"
+                app:endIconMode="@{viewModel.isSearchProgress ? 0 : 2}"
+                app:startIconDrawable="@drawable/ic_search">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSymptoms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:lines="1"
+                    android:maxLength="64" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+            <ProgressBar
+                style="@style/Theme.Socapteki.ProgressBar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
+                android:indeterminateOnly="true"
+                app:visibleIf="@{viewModel.isSearchProgress()}" />
+
+        </FrameLayout>
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svSymptoms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/flSymptomsSearch"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ru.apteka.components.ui.LoaderLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:isLoading="@{viewModel.isLoading || viewModel.isSearchProgress}">
+
+                    <com.alab.extra_bouncy.BouncyRecyclerView
+                        android:id="@+id/rvSymptoms"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </ru.apteka.components.ui.LoaderLayout>
+
+                <include layout="@layout/footer_stub" />
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/symptomsDiseasesToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>

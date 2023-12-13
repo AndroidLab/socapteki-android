@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/symptoms_diseases_graph"
+    app:startDestination="@id/symptomsDiseasesFragment">
+
+    <fragment
+        android:id="@+id/symptomsDiseasesFragment"
+        android:name="ru.apteka.symptoms_diseases.presentation.SymptomsDiseasesFragment">
+
+    </fragment>
+
+</navigation>

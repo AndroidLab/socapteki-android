@@ -30,14 +30,20 @@ include(":modules:main:3_stocks")
 include(":modules:main:4_basket")
 include(":modules:main:5_menu:_menu")
 
-//Модуль 'О компании'.
+//Модуль 'Уведомления'.
 include(":modules:main:5_menu:notifications")
 
 //Модуль 'О компании'.
 include(":modules:main:5_menu:about_company")
 
+//Модуль 'Симптомы и болезни'.
+include(":modules:main:5_menu:symptoms_diseases")
+
 //Модуль 'Работа у нас'.
 include(":modules:main:5_menu:work_with_us")
+
+//Модуль 'Реферальная программа'.
+include(":modules:main:5_menu:referral_program")
 
 //Модуль 'Профиль'.
 include(":modules:main:5_menu:profile")
