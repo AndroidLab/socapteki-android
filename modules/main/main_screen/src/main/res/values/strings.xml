@@ -27,4 +27,7 @@
     <string name="menu_cooperation">Сотрудничество</string>
     <string name="menu_partners">Партнерам</string>
     <string name="menu_faq">Вопрос-ответ</string>
+    <string name="rate_app_desc">Ваше мнение важно для нас, поскольку оно помогает нам предоставлять вам лучший пользовательский опыт.</string>
+    <string name="rate_app_cancel">Не сейчас</string>
+    <string name="rate_app_confirm">Отправить</string>
 </resources>

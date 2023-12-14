@@ -84,10 +84,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
+                    app:extraText="@{dialogMessage.message}"
                     app:isHtml="@{dialogMessage.isHtml}"
                     app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
                     app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
-                    app:extraText="@{dialogMessage.message}"
                     app:visibleIf="@{!dialogMessage.message.toString().empty}"
                     tools:text="Обычный текст диалога" />
 
@@ -95,7 +95,6 @@
                     android:id="@+id/commonDialogContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 0 : 16 }"
                     app:visibleIf="@{isCustomContent}" />
 
             </LinearLayout>

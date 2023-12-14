@@ -25,4 +25,5 @@ dependencies {
     implementation(project(":modules:features:choosing_city:api"))
     implementation(project(":modules:features:orders:api"))
 
+    implementation(libs.andRatingBar)
 }

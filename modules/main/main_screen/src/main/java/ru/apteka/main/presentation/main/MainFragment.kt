@@ -1,8 +1,13 @@
 package ru.apteka.main.presentation.main
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.drawable.LayerDrawable
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
@@ -12,11 +17,15 @@ import androidx.navigation.NavOptions
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import ru.apteka.catalog.presentation.catalog.CatalogFragmentDirections
 import ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment
+import ru.apteka.components.data.services.message_notice_service.models.BodyContentModel
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
+import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
 import ru.apteka.components.data.utils.dp
@@ -25,13 +34,13 @@ import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.setImageTint
-import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.main.R
 import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.main.databinding.MainFragmentBinding
 import ru.apteka.main.databinding.MenuNavigationViewBinding
+import ru.apteka.main.databinding.RateDialogBinding
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.basket.R as BasketR
@@ -270,7 +279,41 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                             }
 
                             binding.appMenuItemRateApp.item.setOnClickListener {
-                                //navigate()
+                                showCommonDialog(
+                                    CommonDialogModel(
+                                        fragmentManager = parentFragmentManager,
+                                        dialogModel = DialogModel(
+                                            bodyContent = BodyContentModel(
+                                                layoutId = R.layout.rate_dialog
+                                            ) { dialog, binding -> },
+                                            buttonCancel = DialogButtonModel(
+                                                text = R.string.rate_app_cancel
+                                            ),
+                                            buttonConfirm = DialogButtonModel(
+                                                text = R.string.rate_app_confirm
+                                            ) {
+                                                val uri: Uri =
+                                                    Uri.parse("market://details?id=${it.applicationContext.packageName}")
+                                                val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+                                                goToMarket.addFlags(
+                                                    Intent.FLAG_ACTIVITY_NO_HISTORY or
+                                                            Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                                                )
+                                                try {
+                                                    startActivity(goToMarket)
+                                                } catch (e: ActivityNotFoundException) {
+                                                    startActivity(
+                                                        Intent(
+                                                            Intent.ACTION_VIEW,
+                                                            Uri.parse("http://play.google.com/store/apps/details?id=${it.applicationContext.packageName}")
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                        )
+                                    )
+                                )
                             }
 
 
