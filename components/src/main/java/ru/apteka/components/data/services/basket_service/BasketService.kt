@@ -1,5 +1,6 @@
 package ru.apteka.components.data.services.basket_service
 
+import androidx.annotation.ColorRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -50,10 +51,13 @@ class BasketService @Inject constructor(
                             message = R.string.dialog_remove_product_desk
                         ),
                         buttonCancel = DialogButtonModel(
-                            text = R.string.cancel
+                            text = R.string.cancel,
+                            textColor = R.color.light_black,
+                            borderColor = R.color.grey,
                         ),
                         buttonConfirm = DialogButtonModel(
                             text = R.string.remove,
+                            backgroundColor = R.color.red
                         ) {
                             productCardModel.itemCounter.clear()
                         }
@@ -89,10 +93,13 @@ class BasketService @Inject constructor(
                     message = R.string.dialog_remove_product_all_desk
                 ),
                 buttonCancel = DialogButtonModel(
-                    text = R.string.cancel
+                    text = R.string.cancel,
+                    textColor = R.color.light_black,
+                    borderColor = R.color.grey,
                 ),
                 buttonConfirm = DialogButtonModel(
                     text = R.string.remove,
+                    backgroundColor = R.color.red
                 ) {
                     _products.value!!.forEach {
                         it.productCard.itemCounter.clear()
@@ -105,7 +112,9 @@ class BasketService @Inject constructor(
     /**
      * Возвращает флаг содержания продукции в корзине.
      */
-    fun isContainsInBasket(uuid: UUID) = _products.value!!.contains { it.productCard.product.id == uuid }
+    fun isContainsInBasket(uuid: UUID) =
+        _products.value!!.contains { it.productCard.product.id == uuid }
 
-    private fun getTotalCount() = _products.value!!.sumOf { it.productCard.itemCounter.counterLiveData.value!! }
+    private fun getTotalCount() =
+        _products.value!!.sumOf { it.productCard.itemCounter.counterLiveData.value!! }
 }

@@ -817,7 +817,7 @@
                         android:textSize="22sp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/basketToPromotion"
+                        android:id="@+id/basket_to_stocks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"

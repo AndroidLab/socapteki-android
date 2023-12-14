@@ -23,20 +23,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <!-- Фото товара -->
-                <include
-                    layout="@layout/image_card"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:layout_margin="16dp"
-                    app:imageUrl="@{bindingItem.productCard.product.image}"
-                    app:isBorderNotShow="@{true}" />
+                <FrameLayout
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="8dp">
+
+                    <include
+                        layout="@layout/image_card"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_gravity="center"
+                        app:imageUrl="@{bindingItem.productCard.product.image}"
+                        app:isBorderNotShow="@{false}" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end|bottom"
+                        android:background="@drawable/circle_secondary_container_shape"
+                        android:src="@drawable/ic_delivery"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
+
 
                 <!-- Описание товара -->
                 <LinearLayout
@@ -51,14 +66,16 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="@{bindingItem.productCard.product.desc}" />
+                        android:text="@{bindingItem.productCard.product.desc}"
+                        android:textColor="@color/dark_black"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="Активный компонент диклофенак – нестероидный препарат."
+                        android:text="Синтез ОАО, Россия"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>
@@ -83,23 +100,42 @@
                     android:id="@+id/basketProductCardRelease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Отпускается"
-                    android:textColor="@color/light_black" />
+                    android:text="Отпускается:"
+                    android:textColor="@color/dark_black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/basketProductCardPrescription"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_below="@id/basketProductCardRelease"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_without_prescription"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/basketProductCardRelease"
-                    android:text="Рецептурный"
-                    android:textColor="@color/dark_black"
-                    android:textSize="16dp" />
+                    android:layout_marginStart="6dp"
+                    android:layout_toEndOf="@id/basketProductCardPrescription"
+                    android:text="Без рецепта"
+                    android:textColor="@color/dark_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="Годен до: 05.10.26"
+                    android:text="Годен до:"
+                    android:textColor="@color/dark_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="05.10.26"
                     android:textColor="@color/light_black" />
 
             </RelativeLayout>
@@ -110,78 +146,104 @@
                 app:sepMarginStart="@{16}" />
 
             <!-- Цена -->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/basketProductCardPriceTitle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textColor="@color/light_black" />
+                    android:orientation="horizontal">
 
-                <!-- Кол-во бонусов -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="От +20 бонусов"
-                    android:textColor="@color/color_primary" />
+                    <TextView
+                        android:id="@+id/basketProductCardPriceTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/price"
+                        android:textColor="@color/light_black" />
 
-                <!-- Цена -->
-                <TextView
-                    android:id="@+id/basketProductCardPrice"
-                    style="@style/Theme.Socapteki.Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/basketProductCardPriceTitle"
-                    android:text="@{bindingItem.productCard.product.price}"
-                    android:textColor="@color/dark_black" />
+                    <!-- Кол-во бонусов -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="От +20 бонусов"
+                        android:textColor="@color/color_primary" />
 
-                <!-- Процент скидки -->
-                <include
-                    layout="@layout/discount_percentage_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/basketProductCardPriceTitle"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@id/basketProductCardPrice"
-                    app:discount="@{bindingItem.productCard.product.discount}" />
+                </LinearLayout>
 
-                <!-- Старая цена -->
-                <TextView
-                    android:id="@+id/basketProductCardOldPrice"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/basketProductCardPrice"
-                    android:text="@{bindingItem.productCard.product.discount.oldPrice}"
-                    android:textColor="@color/light_black"
-                    app:isStrikethrough="@{true}" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Старая цена -->
+                    <TextView
+                        android:id="@+id/basketProductCardOldPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{bindingItem.productCard.product.discount.oldPrice}"
+                        android:textColor="@color/light_black"
+                        app:isStrikethrough="@{true}" />
+
+                    <!-- Цена -->
+                    <TextView
+                        android:id="@+id/basketProductCardPrice"
+                        style="@style/Theme.Socapteki.Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@{bindingItem.productCard.product.price}"
+                        android:textColor="@color/dark_black" />
+
+                    <!-- Процент скидки -->
+                    <include
+                        layout="@layout/discount_percentage_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:discount="@{bindingItem.productCard.product.discount}" />
+
+                </LinearLayout>
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/basketProductCardOldPrice"
-                    android:layout_marginTop="4dp"
-                    app:cardBackgroundColor="@color/pink"
-                    app:cardCornerRadius="8dp"
-                    app:contentPaddingBottom="4dp"
-                    app:contentPaddingLeft="8dp"
-                    app:contentPaddingRight="8dp"
-                    app:contentPaddingTop="4dp"
+                    android:layout_marginTop="6dp"
+                    app:cardBackgroundColor="@color/color_secondary_container"
+                    app:cardCornerRadius="10dp"
                     app:strokeWidth="0dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="-1000 ₽ при покупке второй упаковки"
-                        android:textColor="@color/red" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_use_stocks"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="Ура! Вы воспользовались акцией"
+                            android:textColor="@color/color_primary" />
+
+                    </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <include
                 layout="@layout/separator_view"
@@ -191,6 +253,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp">
@@ -224,25 +287,40 @@
                 android:paddingVertical="8dp">
 
                 <!-- Сердечко -->
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                <FrameLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> bindingItem.productCard.favorite.onFavoriteClick.invoke(bindingItem.productCard)}"
-                    android:padding="8dp"
-                    android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                    app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
-                    tools:ignore="ContentDescription" />
+                    android:onClick="@{() -> bindingItem.productCard.favorite.onFavoriteClick.invoke(bindingItem.productCard)}">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_circle_grey_icon"
+                        android:padding="6dp"
+                        android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                        app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
 
                 <!-- Удалить -->
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                <FrameLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> bindingItem.onRemoveProducts.invoke(bindingItem.productCard)}"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_remove"
-                    tools:ignore="ContentDescription" />
+                    android:onClick="@{() -> bindingItem.onRemoveProducts.invoke(bindingItem.productCard)}">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_circle_grey_icon"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_remove"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
 
                 <View
                     android:layout_width="0dp"

@@ -42,18 +42,33 @@
                         android:orientation="vertical"
                         app:visibleIf="@{viewModel.basketService.products.empty}">
 
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/basket_empty"
+                            tools:ignore="ContentDescription" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginTop="8dp"
+                            android:gravity="center_horizontal"
                             android:text="@string/basket_there_nothing"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_horizontal"
+                            android:paddingHorizontal="32dp"
                             android:text="@string/basket_there_nothing_desc"
                             android:textColor="@color/light_black" />
 
@@ -66,21 +81,25 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/basketToPromotion"
-                                style="@style/Theme.Socapteki.OutlinedButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
-                                android:layout_weight="1"
-                                android:text="@string/basket_to_promotion" />
-
-                            <com.google.android.material.button.MaterialButton
                                 android:id="@+id/basketToCatalog"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
                                 android:layout_weight="1"
                                 android:text="@string/basket_to_catalog" />
+
+                            <Space
+                                android:layout_width="8dp"
+                                android:layout_height="wrap_content" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/basketToStocks"
+                                style="@style/Theme.Socapteki.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                android:text="@string/basket_to_promotion" />
 
                         </LinearLayout>
 
@@ -104,6 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
                     app:isLoading="@{viewModel.watchedRecentlyIsLoading}"
                     app:marginItemHorizontal="@{0}"
                     app:textBtn="@{@string/basket_always_useful_all_products}"
@@ -123,34 +143,25 @@
             layout="@layout/toolbar" />
 
         <!-- Очистить все -->
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/basketClearAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/basketToolbar"
-            android:orientation="vertical"
-            app:visibleIf="@{!viewModel.basketService.products.empty}">
+            android:background="@color/white">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{() -> viewModel.basketService.removeAll()}"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:text="@string/basket_clear_all"
+                android:textColor="@color/red"
+                app:visibleIf="@{!viewModel.basketService.products.empty}" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> viewModel.basketService.removeAll()}"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:text="@{String.format(@string/basket_clear_all, viewModel.basketService.products.size())}"
-                    android:textColor="@color/color_primary" />
-
-            </FrameLayout>
-
-            <include layout="@layout/separator_view" />
-
-        </LinearLayout>
+        </FrameLayout>
 
         <include
             layout="@layout/shadow_view"
@@ -163,7 +174,7 @@
         <FrameLayout
             android:id="@+id/flBasketMakingOrder"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             app:visibleIf="@{!viewModel.basketService.products.empty}">

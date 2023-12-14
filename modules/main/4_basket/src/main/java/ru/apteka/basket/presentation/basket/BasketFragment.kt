@@ -1,14 +1,16 @@
 package ru.apteka.basket.presentation.basket
 
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.basket.R
 import ru.apteka.basket.databinding.BasketFragmentBinding
+import ru.apteka.basket.databinding.BasketMenuBinding
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
-import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.components.databinding.ToolbarMenuBinding
 import ru.apteka.main_common.ui.MainScreenBaseFragment
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
@@ -33,13 +35,13 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
 
     override fun onViewBindingInflated(binding: BasketFragmentBinding) {
         binding.viewModel = viewModel
-        binding.basketToPromotion.setOnClickListener {
-
-        }
 
         binding.basketToCatalog.setOnClickListener {
             viewModel.navigationManager.onSelectItemId(MainCommonR.id.catalog_graph)
+        }
 
+        binding.basketToStocks.setOnClickListener {
+            viewModel.navigationManager.onSelectItemId(MainCommonR.id.stocks_graph)
         }
 
         binding.basketWatchedRecently.header.btn.setOnClickListener {
@@ -59,6 +61,24 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
                 )
             )
         }
+
+        viewModel.basketService.totalCount.observe(viewLifecycleOwner) {
+            binding.basketToolbar.toolbarCustomViewContainer.removeAllViews()
+            if (it > 0) {
+                binding.basketToolbar.toolbarCustomViewContainer.addView(
+                    DataBindingUtil.inflate<BasketMenuBinding>(
+                        layoutInflater,
+                        R.layout.basket_menu,
+                        null,
+                        false
+                    ).apply {
+                        ivMenuShare.setOnClickListener {
+
+                        }
+                    }.root
+                )
+            }
+        }
     }
 
     private fun onProductsCardClick(product: ProductModel) {
@@ -71,10 +91,6 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(
-            toolbarBinding = binding.basketToolbar,
-            onSearchClick = viewModel.navigationManager.showSearchProduct
-        )
         binding.basketToolbar.tvToolbarTitle.text = getString(R.string.basket_title)
     }
 

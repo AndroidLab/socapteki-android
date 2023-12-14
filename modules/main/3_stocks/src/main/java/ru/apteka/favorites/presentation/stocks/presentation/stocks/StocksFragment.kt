@@ -23,10 +23,6 @@ class StocksFragment : MainScreenBaseFragment<StocksViewModel, StocksFragmentBin
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(
-            toolbarBinding = binding.favoritesToolbar,
-            onSearchClick = viewModel.navigationManager.showSearchProduct
-        )
         binding.favoritesToolbar.tvToolbarTitle.text = getString(R.string.stocks_title)
     }
 }

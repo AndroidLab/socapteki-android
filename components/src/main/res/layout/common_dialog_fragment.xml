@@ -87,7 +87,7 @@
                     app:extraText="@{dialogMessage.message}"
                     app:isHtml="@{dialogMessage.isHtml}"
                     app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
-                    app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 16 : 0 }"
+                    app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 24 : 0 }"
                     app:visibleIf="@{!dialogMessage.message.toString().empty}"
                     tools:text="Обычный текст диалога" />
 
@@ -115,10 +115,11 @@
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
                     android:maxLines="1"
+                    app:extraBorderTint="@{buttonCancel.borderColor}"
                     app:extraText='@{buttonCancel == null ? "" : buttonCancel.text}'
-                    app:visibleIf="@{buttonCancel != null}"
-                    tools:text="cancel"
-                    tools:textColor="@color/color_primary" />
+                    app:extraTextColor="@{buttonCancel.textColor}"
+                    app:rippleColor="@color/grey"
+                    app:visibleIf="@{buttonCancel != null}" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/commonDialogConfirmButton"
@@ -127,10 +128,9 @@
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
                     android:maxLines="1"
+                    app:extraBackgroundTint="@{buttonConfirm.backgroundColor}"
                     app:extraText='@{buttonConfirm == null ? "" : buttonConfirm.text}'
-                    app:visibleIf="@{buttonConfirm != null}"
-                    tools:text="ok"
-                    tools:textColor="@color/color_primary" />
+                    app:visibleIf="@{buttonConfirm != null}" />
 
             </LinearLayout>
 

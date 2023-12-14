@@ -23,4 +23,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.swiperefreshlayout)
     implementation(libs.measured)
+    implementation(libs.circleimageview)
 }
