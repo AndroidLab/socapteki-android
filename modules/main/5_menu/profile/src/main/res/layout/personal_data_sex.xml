@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.profile.data.models.SexModel" />
+
+        <variable
+            name="isLoading"
+            type="androidx.lifecycle.LiveData&lt;Boolean&gt;" />
+
+    </data>
+
+    <ru.apteka.components.ui.LoaderLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isLoading="@{isLoading}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="24dp"
+                    android:text="@string/personal_data_sex_title"
+                    android:textColor="@color/dark_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/personalDataSexCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:enabled="@{!isLoading}"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="24dp"
+                    android:text="@string/cancel"
+                    android:textColor="@{isLoading ? @color/dark_grey : @color/color_primary}" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Theme.Socapteki.BackgroundCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/light_grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:orientation="vertical"
+                    app:visibleIf="@{model.mediator}">
+
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@{model.items.get(0).isItemSelected}"
+                        android:enabled="@{!isLoading}"
+                        android:onClick="@{() -> model.items.get(0).onItemClick()}"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/personal_data_sex_male" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{8}"
+                        app:sepMarginStart="@{8}" />
+
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@{model.items.get(1).isItemSelected}"
+                        android:enabled="@{!isLoading}"
+                        android:onClick="@{() -> model.items.get(1).onItemClick()}"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/personal_data_sex_female" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ru.apteka.components.ui.LoaderLayout>
+
+</layout>

@@ -554,10 +554,17 @@ fun BouncyRecyclerView.setPullForward(
 }
 
 /**
- * Устанавливает режим открытия клавиатуры со сдвигом контента.
+ * Устанавливает режим открытия клавиатуры со сдвигом текстового поля.
  */
 fun Fragment.setSoftInputModeAdjustPan() {
     requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+}
+
+/**
+ * Устанавливает режим открытия клавиатуры со сдвигом контента.
+ */
+fun Fragment.setSoftInputModeResize() {
+    requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 }
 
 /**

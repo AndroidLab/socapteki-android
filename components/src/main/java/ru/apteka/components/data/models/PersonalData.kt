@@ -9,16 +9,16 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class PersonalData(
-    val fio: String,
-    val date: String,
-    val phone: String,
-    val userMail: UserMail,
-    val sex: Int,
+    val fio: String?,
+    val date: String?,
+    val phone: String?,
+    val userMail: UserMail?,
+    val sex: Int?,
     val isReceiveReceipts: Boolean
 ): Parcelable {
     @Parcelize
     data class UserMail(
-        val mail: String,
+        val mail: String?,
         val isVerified: Boolean
     ): Parcelable
 }

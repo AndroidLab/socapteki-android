@@ -115,26 +115,15 @@
 
                     </FrameLayout>
 
-                    <!-- Телефон -->
-                    <com.alab.input_layout_inner_hint.TextInputLayout
-                        style="@style/TextInputLayout"
+                    <!-- Номер телефона -->
+                    <include
+                        layout="@layout/phone_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/base_padding"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:hint="@string/work_with_us_questionnaire_phone_hint"
-                        app:startIconDrawable="@drawable/ic_phone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etWorkWithUsQuestionnairePhone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/text_input_white_background_unfocused_shape"
-                            android:inputType="phone"
-                            android:text="@={viewModel.phone}" />
-
-                    </com.alab.input_layout_inner_hint.TextInputLayout>
+                        app:enabled="@{!viewModel.isLoading}"
+                        app:model="@{viewModel.phoneInput}" />
 
                     <!-- Емайл -->
                     <com.alab.input_layout_inner_hint.TextInputLayout
@@ -153,6 +142,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:inputType="textEmailAddress"
                             android:text="@={viewModel.email}" />
 
                     </com.alab.input_layout_inner_hint.TextInputLayout>

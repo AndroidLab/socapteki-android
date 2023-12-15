@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.profile_personal_data_phone.PersonalDataPhoneViewModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/personalDataPhoneToolbar"
+            layout="@layout/toolbar" />
+
+        <ru.apteka.components.ui.LoaderLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isLoading="@{viewModel.confirmationCode.isLoading}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Номер телефона -->
+                <include
+                    layout="@layout/phone_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:model="@{viewModel.phoneInput}" />
+
+                <!-- Отображение запроса пинкода -->
+                <include
+                    android:id="@+id/confirmationCode"
+                    layout="@layout/confirmation_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:model="@{viewModel.confirmationCode}"
+                    app:visibleIf="@{viewModel.confirmationCode.isCodeRequested()}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Получить смс / Изменить -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginHorizontal="8dp"
+                        android:enabled="@{!viewModel.confirmationCode.isLoading &amp; viewModel.isPhoneNumberChanged}"
+                        android:onClick="@{() -> viewModel.confirmationCode.requestCode()}"
+                        android:text="@string/personal_data_phone_receive_code"
+                        app:visibleIf="@{!viewModel.confirmationCode.isCodeRequested()}" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbPersonalDataPhoneSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginHorizontal="8dp"
+                        android:enabled="@{!viewModel.confirmationCode.isLoading &amp; viewModel.isPhoneNumberChanged &amp; viewModel.confirmationCode.codeRaw.length == 4}"
+                        android:text="@string/change"
+                        app:visibleIf="@{viewModel.confirmationCode.isCodeRequested()}" />
+
+                </FrameLayout>
+
+                <include layout="@layout/footer_stub" />
+
+            </LinearLayout>
+
+        </ru.apteka.components.ui.LoaderLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -6,7 +6,6 @@ import ru.apteka.components.data.services.message_notice_service.models.CommonDi
 import ru.apteka.components.data.services.message_notice_service.models.SnackBarModel
 import ru.apteka.components.data.services.message_notice_service.models.ToastModel
 import com.google.android.material.snackbar.Snackbar
-import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
 import ru.apteka.components.data.utils.getSpannedFromHtml
 import ru.apteka.components.data.utils.getStringFrom

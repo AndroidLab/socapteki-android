@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.apteka.components.R
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.utils.screenHeight
+import java.lang.IllegalArgumentException
 
 
 /**
@@ -41,16 +42,37 @@ class BottomSheet private constructor() : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = getBottomSheetContainer(inflater).root.also {
-        it.findViewById<ViewGroup>(R.id.bottomSheet).addView(
-            bottomSheetModel.binding.root
-        )
+    ): View = getBottomSheetContainer(inflater).root.also { view ->
+        val binding = (bottomSheetModel.layoutId?.let { layoutId ->
+            DataBindingUtil.inflate(
+                inflater,
+                layoutId,
+                view.findViewById(R.id.bottomSheet),
+                true
+            )
+        } ?: view.findViewById<ViewGroup>(R.id.bottomSheet).run {
+            bottomSheetModel.binding?.let {
+                it.apply {
+                    addView(
+                        it.root
+                    )
+                }
+            }
+                ?: throw IllegalArgumentException("Необходимо передать параметр 'layoutId' или 'binding'")
+        }).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+
         dialog?.setOnShowListener { dialog ->
             val bottomSheetInternal = (dialog as BottomSheetDialog)
                 .findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             val behavior = BottomSheetBehavior.from(bottomSheetInternal!!)
             behavior.peekHeight = screenHeight
-            bottomSheetModel.onBottomSheetBehavior(behavior)
+            bottomSheetModel.onLayoutInflate?.invoke(
+                binding,
+                this,
+                behavior
+            )
             /*BottomSheetBehavior.from(bottomSheetInternal!!).state =
                 BottomSheetBehavior.STATE_EXPANDED*/
         }

@@ -60,8 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:hint="@string/auth_phone_hint"
-                app:errorText="@{viewModel.isError ? @string/auth_phone_error : ``}"
+                android:hint="@string/phone_number"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_phone">
 
@@ -96,10 +95,10 @@
                 android:layout_weight="1" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/authConfirmPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="@{viewModel.isPersonalDataLiveData &amp; viewModel.phoneNumberRaw.length() == 10 &amp; !viewModel.isLoading}"
-                android:onClick="@{() -> viewModel.sendPhoneNumber()}"
                 android:text="@string/auth_send_btn" />
 
         </LinearLayout>

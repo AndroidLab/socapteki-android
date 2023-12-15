@@ -27,14 +27,10 @@ import ru.apteka.licenses.databinding.LicensesPdfBinding
  * Представляет фрагмент "Лицензии и соглашения".
  */
 @AndroidEntryPoint
-class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding>(),
-    OnPageChangeListener,
-    OnLoadCompleteListener,
-    OnPageErrorListener {
+class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding>() {
     override val viewModel: LicensesViewModel by viewModels()
     override val layoutId: Int = R.layout.licenses_fragment
 
-    private var _behavior: BottomSheetBehavior<View>? = null
 
     override fun onViewBindingInflated(binding: LicensesFragmentBinding) {
         binding.viewModel = viewModel
@@ -45,40 +41,39 @@ class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding
                     CommonBottomSheetModel(
                         fragmentManager = parentFragmentManager,
                         bottomSheetModel = BottomSheetModel(
-                            binding = LicensesPdfBinding.inflate(layoutInflater, null, false).also {
-                                it.pdfView.fromAsset("sample.pdf")
+                            layoutId = R.layout.licenses_pdf,
+                            onLayoutInflate =
+                            { binding, dialog, behavior ->
+                                binding as LicensesPdfBinding
+                                binding.pdfView.fromAsset("sample.pdf")
                                     .defaultPage(0)
-                                    .onPageChange(this@LicensesFragment)
+                                    .onPageChange { page, pageCount ->
+                                        behavior.isDraggable = page == 0 || page == 1
+                                    }
                                     .enableAnnotationRendering(true)
-                                    .onLoad(this@LicensesFragment)
+                                    .onLoad {
+
+                                    }
                                     .scrollHandle(DefaultScrollHandle(requireContext()))
                                     .spacing(10) // in dp
-                                    .onPageError(this@LicensesFragment)
+                                    .onPageError { page, t ->
+
+                                    }
                                     .pageFitPolicy(FitPolicy.BOTH)
                                     .load()
-                                it.pdfView.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, screenHeight - 75.dp)
+                                binding.pdfView.layoutParams = FrameLayout.LayoutParams(
+                                    FrameLayout.LayoutParams.MATCH_PARENT,
+                                    screenHeight - 75.dp
+                                )
                             },
                             useScrollableContainer = false
-                        ) { behavior ->
-                            _behavior = behavior
-                        }
+                        )
                     )
                 )
             }
         }
     }
 
-    override fun onPageChanged(page: Int, pageCount: Int) {
-        _behavior?.isDraggable = page == 0 || page == 1
-    }
-
-    override fun loadComplete(nbPages: Int) {
-
-    }
-
-    override fun onPageError(page: Int, t: Throwable?) {
-
-    }
 
     override fun onResume() {
         super.onResume()

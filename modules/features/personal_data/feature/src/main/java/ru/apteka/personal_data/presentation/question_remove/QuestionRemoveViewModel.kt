@@ -1,7 +1,6 @@
 package ru.apteka.personal_data.presentation.question_remove
 
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -9,23 +8,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
-import ru.apteka.components.data.models.ConfirmCodeStatus
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
-import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.DownTimer
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
-import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.personal_data.R
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -86,10 +78,10 @@ class QuestionRemoveViewModel @Inject constructor(
     /**
      * Возвращает код без маски.
      */
-    val codeRaw = code.map {
+    /*val codeRaw = code.map {
         _confirmCodeStatus.postValue(null)
         it.replace(" ", "")
-    }
+    }*/
 
 
     private val _pinCodeVisible = MutableLiveData(false)
@@ -125,12 +117,12 @@ class QuestionRemoveViewModel @Inject constructor(
      */
     val leftTime: LiveData<String?> = _leftTime
 
-    private val _confirmCodeStatus = MutableLiveData<ConfirmCodeStatus?>(null)
+    //private val _confirmCodeStatus = MutableLiveData<ConfirmCodeStatus?>(null)
 
     /**
      * Возвращает статус подтверждения кода.
      */
-    val confirmCodeStatus: LiveData<ConfirmCodeStatus?> = _confirmCodeStatus
+    //val confirmCodeStatus: LiveData<ConfirmCodeStatus?> = _confirmCodeStatus
 
     /**
      * Получает код повторно.
@@ -140,7 +132,7 @@ class QuestionRemoveViewModel @Inject constructor(
         if (leftTime.value == null) {
             viewModelScope.launchIO {
                 requestHandler.handleApiRequest(
-                    onRequest = { loginRepository.getNewCode("kkhghk") },
+                    onRequest = { /*loginRepository.getNewCode("kkhghk")*/ },
                     isLoading = _isLoading
                 )
             }
@@ -151,7 +143,7 @@ class QuestionRemoveViewModel @Inject constructor(
     /**
      * Проверяет код.
      */
-    fun checkCode(success: () -> Unit) {
+    /*fun checkCode(success: () -> Unit) {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = { loginRepository.checkCode(codeRaw.value!!) },
@@ -169,7 +161,7 @@ class QuestionRemoveViewModel @Inject constructor(
                 isLoading = _isLoading
             )
         }
-    }
+    }*/
 
     private fun startDownTime() {
         viewModelScope.launchIO {

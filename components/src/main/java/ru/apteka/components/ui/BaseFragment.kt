@@ -78,7 +78,7 @@ abstract class BaseFragment<TViewModel : ViewModel, TDataBinding : ViewDataBindi
     override fun onStop() {
         super.onStop()
         keyBoardClose()
-        //setSoftInputModeNothing()
+        setSoftInputModeNothing()
     }
 
     override fun onDestroyView() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import ru.apteka.components.data.models.PhoneInputModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
@@ -53,22 +54,12 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
      */
     val birthday = MutableLiveData("")
 
-
     /**
-     * Устанавливает или возвращает номер.
+     * Возвращает модель поля ввода номера телефона.
      */
-    val phone = MutableLiveData("")
-
-    /**
-     * Возвращает номер телефона без маски.
-     */
-    private fun getPhoneRaw() = phone.value!!
-        .replace("+7", "")
-        .replace("(", "")
-        .replace(")", "")
-        .replace("-", "")
-        .replace(" ", "")
-
+    val phoneInput = PhoneInputModel().apply {
+        phone.postValue(accountsPreferences.account?.phoneNumber)
+    }
 
     /**
      * Устанавливает или возвращает емайл.
@@ -105,7 +96,7 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
     val isSendAccess = MediatorLiveData<Boolean>().apply {
         fun checkChange() {
             value = !isLoading.value!! && city.value!!.isNotEmpty() && validateEmail(email.value!!)
-                    && fio.value!!.isNotEmpty() && birthday.value!!.isNotEmpty() && getPhoneRaw().isNotEmpty()
+                    && fio.value!!.isNotEmpty() && birthday.value!!.isNotEmpty() && phoneInput.getPhoneRaw().isNotEmpty()
                     && email.value!!.isNotEmpty() && isPersonalDataChecked.value!!
         }
 
@@ -121,7 +112,7 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
         addSource(birthday) {
             checkChange()
         }
-        addSource(phone) {
+        addSource(phoneInput.phone) {
             checkChange()
         }
         addSource(email) {
@@ -161,10 +152,10 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
                 onSuccess = {
                     launchMain {
                         city.value = userPreferences.city?.name ?: ""
-                        fio.value = it?.fio ?: ""
-                        birthday.value = it?.date ?: ""
-                        phone.value = it?.phone ?: accountsPreferences.account?.phoneNumber ?: ""
-                        email.value = it?.userMail?.mail ?: ""
+                        fio.value = it.fio ?: ""
+                        birthday.value = it.date ?: ""
+                        phoneInput.phone.value = it.phone ?: accountsPreferences.account?.phoneNumber ?: ""
+                        email.value = it.userMail?.mail ?: ""
                     }
                 },
                 isLoading = _isLoading

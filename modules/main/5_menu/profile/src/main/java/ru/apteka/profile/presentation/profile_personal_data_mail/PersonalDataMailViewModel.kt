@@ -1,45 +1,45 @@
-package ru.apteka.social.presentation.auth.auth_confirm
+package ru.apteka.profile.presentation.profile_personal_data_mail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.ConfirmationCodeModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.account.models.Account
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.mainThread
-import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 
 /**
- * Представляет модель представления "Подтверждение авторизации".
+ * Представляет модель представления "Персональные данныеб ищменить почту".
  */
 @HiltViewModel
-class AuthConfirmViewModel @Inject constructor(
+class PersonalDataMailViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
-    private val accountsPreferences: AccountsPreferences,
+    messageNoticeService: IMessageNoticeService,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {
     /**
-     * Возвращает или устанавливает номер телефона.
+     * Возвращает или устанавливает адрес почты.
      */
-    var phoneNumber: String by Delegates.notNull()
+    val mail = MutableLiveData("")
+
+    private val _isMailFormatValid = MutableLiveData(true)
 
     /**
-     * Возвращает событие навигации к главному экрану.
+     * Возвращает флаг ошибки формата почты.
      */
-    val isNavigationToMain = SingleLiveEvent<Unit>()
+    val isMailFormatValid: LiveData<Boolean> = _isMailFormatValid
+
 
     /**
      * Возвращает модель подтверждения кода.
@@ -49,34 +49,32 @@ class AuthConfirmViewModel @Inject constructor(
         requestHandler = requestHandler,
         scope = viewModelScope,
         getPhoneRaw = {
-            phoneNumber
+            mail.value!!
         },
     )
+
+    init {
+        viewModelScope.launchIO {
+            mail.asFlow().collect {
+                _isMailFormatValid.postValue(true)
+            }
+        }
+    }
 
     /**
      * Сохраняет персональные данные.
      */
-    fun savePersonalData() {
+    fun savePersonalData(success: () -> Unit) {
         viewModelScope.launchIO {
             confirmationCode.confirmCode(
                 request = { code ->
-                    loginRepository.savePersonalDataPhone(
-                        phoneNumber
+                    loginRepository.savePersonalDataMail(
+                        mail.value!!
                     )
                 },
-                success = {
-                    accountsPreferences.account = Account(
-                        phoneNumber = phoneNumber,
-                        token = "12345"
-                    )
-                    isNavigationToMain.call()
-                }
+                success = success
             )
         }
-    }
-
-    init {
-        confirmationCode.requestCode()
     }
 
 }

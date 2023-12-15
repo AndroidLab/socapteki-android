@@ -61,7 +61,7 @@ class AuthFragment : BaseFragment<AuthViewModel, AuthFragmentBinding>() {
             )
         ).installOnAndFill(binding.etPhone)
 
-        viewModel.isNavigationToConfirmCode.observe(viewLifecycleOwner) {
+        binding.authConfirmPhone.setOnClickListener {
             findNavController().navigateWithAnim(
                 AuthFragmentDirections.toAuthConfirmFragment(viewModel.phoneNumberRaw.value!!)
             )

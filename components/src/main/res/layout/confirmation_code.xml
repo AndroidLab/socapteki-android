@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.components.data.models.ConfirmationCodeModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmation_code_desc"
+            android:textColor="@color/light_black" />
+
+        <!-- Поле ввода пинкода -->
+        <com.alab.input_layout_inner_hint.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="24dp"
+            android:enabled="@{!model.isLoading}"
+            android:hint="@string/confirm_code_hint"
+            app:errorText="@{model.isCodeConfirmError() ? @string/confirm_code_error : ``}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etConfirmCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_white_background_unfocused_shape"
+                android:digits=" ,_0,1,2,3,4,5,6,7,8,9"
+                android:inputType="number"
+                app:codeMask="@{`_ _ _ _`}"
+                android:text="@={model.code}" />
+
+        </com.alab.input_layout_inner_hint.TextInputLayout>
+
+        <!-- Отпраить код повторно -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_code_is_missing"
+            android:textColor="@color/dark_grey" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm_code_repeat"
+                android:onClick="@{() -> model.requestCode()}"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{String.format(@string/confirm_code_repeat_left_time, model.leftTime)}"
+                android:textColor="@color/dark_grey"
+                app:visibleIf="@{model.leftTime != null}"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

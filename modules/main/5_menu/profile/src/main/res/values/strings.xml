@@ -28,4 +28,34 @@
     <string name="my_subscriptions_mail_notice_desc">Получать уведомления на e-mail</string>
     <string name="my_subscriptions_save">Сохранить изменения</string>
 
+    <string name="personal_data">Личные данные</string>
+    <string name="personal_data_not_specified">Не указан</string>
+    <string name="personal_data_fio">ФИО</string>
+    <string name="personal_data_date">Дата рождения</string>
+    <string name="personal_data_phone">Телефон</string>
+    <string name="personal_data_email">Электронная почта</string>
+    <string name="personal_data_sex">Пол</string>
+    <string name="personal_data_mail_not_ferified">Почта не верифицирована</string>
+    <string name="personal_data_profile_management">Управление профилем</string>
+    <string name="personal_data_mail_e_receipt_title">Получать электронный чек вместо бумажного на e-mail</string>
+    <string name="personal_data_mail_e_receipt_desc">при оплате на кассе в аптеке, на сайте, в мобильном приложении</string>
+    <string name="personal_data_date_dialog_info_title">Получайте бонусные баллы на день рождения!</string>
+    <string name="personal_data_date_dialog_info_desc">Дату рождения, которую Вы указали, нельзя изменить.\nРедактировать или изменить данные Вы сможете, обратившись в службу технической поддержки.</string>
+    <string name="personal_data_mail_question_1">Электронный чек является аналогом бумажного чека и имеет ряд преимуществ:\n- не нужно ждать, когда напечатается чек;\n- всегда под рукой;\n- нельзя потерять;\n- уменьшает количество отходов.\n\nДавая согласие, вы будете получать все чеки на электронную почту. Для этого заполните и подтвердите вашу электронную почту.</string>
+    <string name="personal_data_mail_question_2">Подтвердите e-mail для получения электронных чеков</string>
+
+    <string name="personal_data_fio_title">Изменить ФИО</string>
+
+    <string name="personal_data_phone_title">Изменить номер</string>
+    <string name="personal_data_phone_receive_code">Получить смс</string>
+    <string name="personal_data_phone_receive_code_desc">Введите последние 4 цифры номера, который вам сейчас позвонит.\nВведите его ниже:</string>
+    <string name="personal_data_sex_title">Изменить пол</string>
+    <string name="personal_data_sex_male">Мужской</string>
+    <string name="personal_data_sex_female">Женский</string>
+
+    <string name="personal_data_mail_title">Изменить почту</string>
+    <string name="personal_data_mail_invalid_format">Не верный формат почты</string>
+    <string name="personal_data_mail_receive_code">Отправить код</string>
+    <string name="personal_data_mail_receive_code_desc">Введите код, отправленный на указанную электронную почту\nВведите его ниже:</string>
+
 </resources>

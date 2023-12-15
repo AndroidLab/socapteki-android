@@ -1,10 +1,7 @@
 <resources>
     <string name="personal_data">Личные данные</string>
 
-    <string name="personal_data_fio_hint">ФИО</string>
-    <string name="personal_data_date_hint">Дата рождения</string>
-    <string name="personal_data_phone_hint">Телефон</string>
-    <string name="personal_data_email_hint">Почта</string>
+
     <string name="personal_data_resend"><u>Отправить повторно</u></string>
     <string name="personal_data_male">Мужской</string>
     <string name="personal_data_female">Женский</string>

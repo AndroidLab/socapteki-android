@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class RecipientModel(
-    val fio: String,
+    val fio: String?,
     val phone: String,
 ): Parcelable {
     @IgnoredOnParcel

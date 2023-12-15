@@ -1,18 +1,11 @@
 package ru.apteka.social.presentation.auth.auth_login
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
-import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.mainThread
-import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -21,8 +14,6 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val requestHandler: RequestHandler,
-    private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(
@@ -38,8 +29,7 @@ class AuthViewModel @Inject constructor(
     /**
      * Возвращает номер телефона без маски.
      */
-    val phoneNumberRaw = phoneNumber.map {   //TODO сделать от маски.
-        _isError.value = false
+    val phoneNumberRaw = phoneNumber.map {
         it
             .replace("+7", "")
             .replace("(", "")
@@ -57,38 +47,5 @@ class AuthViewModel @Inject constructor(
      * Возвращает или устанавливает флаг 'Обработку персональных данных'.
      */
     val isPersonalDataLiveData = MutableLiveData(false)
-
-    private val _isError = MutableLiveData(false)
-
-    /**
-     * Возвращает флаг ошиибки отправки номера.
-     */
-    val isError: LiveData<Boolean> = _isError
-
-    /**
-     * Возвращает событие навигации к подтверждению кода.
-     */
-    val isNavigationToConfirmCode = SingleLiveEvent<Unit>()
-
-    /**
-     * Отправляет телефонный номер.
-     */
-    fun sendPhoneNumber() {
-        viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { loginRepository.sendNumber(phoneNumberRaw.value!!) },
-                onSuccess = {
-                    mainThread {
-                        if (it.success) {
-                            isNavigationToConfirmCode.call()
-                        } else {
-                            _isError.value = true
-                        }
-                    }
-                },
-                isLoading = _isLoading
-            )
-        }
-    }
 
 }

@@ -3,11 +3,9 @@
     <string name="app_name">СоцАптека</string>
     <string name="auth_title">Вход</string>
     <string name="auth_desc">Введите свой номер телефона для входа в приложение</string>
-    <string name="auth_phone_hint">Номер телефона</string>
     <string name="auth_remember_me">Запомнить меня</string>
     <string name="auth_personal_data">Нажимая на кнопку «Войти» я даю свое согласие на обработку персональных данных</string>
     <string name="auth_send_btn">Отправить</string>
-    <string name="auth_phone_error">Номер введен не правильно</string>
     <string name="auth_confirm_title">Подтвердить вход</string>
     <string name="auth_confirm_phone_change">Изменить</string>
     <string name="auth_confirm_phone_desc">На ваш номер отправлено СМС с кодом для подтверждения входа в аккаунт.</string>

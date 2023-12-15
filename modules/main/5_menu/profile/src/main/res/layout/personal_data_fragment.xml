@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.profile_personal_data.PersonalDataViewModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/personalDataToolbar"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <ru.apteka.components.ui.LoaderLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isLoading="@{viewModel.isLoading}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- ФИО -->
+                    <include
+                        android:id="@+id/personalDataFio"
+                        layout="@layout/personal_data_view"
+                        app:title="@{@string/personal_data_fio}"
+                        app:value="@{viewModel.fio}" />
+
+                    <!-- Дата рождения -->
+                    <include
+                        android:id="@+id/personalDataDate"
+                        layout="@layout/personal_data_view"
+                        app:title="@{@string/personal_data_date}"
+                        app:value="@{viewModel.date}" />
+
+                    <!-- Телефон -->
+                    <include
+                        android:id="@+id/personalDataPhone"
+                        layout="@layout/personal_data_view"
+                        app:title="@{@string/personal_data_phone}"
+                        app:value="@{viewModel.phone}" />
+
+                    <!-- Электронная почта -->
+                    <include
+                        android:id="@+id/personalDataEmail"
+                        layout="@layout/personal_data_view"
+                        app:title="@{@string/personal_data_email}"
+                        app:value="@{viewModel.email}" />
+
+                    <!-- Пол -->
+                    <include
+                        android:id="@+id/personalDataSex"
+                        layout="@layout/personal_data_view"
+                        app:title="@{@string/personal_data_sex}"
+                        app:value="@{viewModel.sex == null ? null : viewModel.sex == 1 ? `Мужской` : `Женский`}" />
+
+                    <!-- Управление профилем -->
+                    <include
+                        android:id="@+id/personalDataProfileManagement"
+                        layout="@layout/personal_data_view"
+                        app:value="@{@string/personal_data_profile_management}" />
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="8dp"
+                        app:cardBackgroundColor="@{viewModel.isEmailVerified ? @color/color_secondary_container : @color/light_grey}">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="16dp"
+                            android:paddingEnd="16dp">
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="@{viewModel.isReceiveReceipts &amp; viewModel.isEmailVerified}"
+                                android:enabled="@{viewModel.isEmailVerified}"
+                                android:translationY="-10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="@string/personal_data_mail_e_receipt_title"
+                                    android:textColor="@color/dark_black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="@string/personal_data_mail_e_receipt_desc"
+                                    android:textColor="@color/light_black" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/personalDataMailQuestion"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_question"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </ru.apteka.components.ui.LoaderLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

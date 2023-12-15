@@ -1,11 +1,9 @@
 package ru.apteka.components.data.repository.kogin
 
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.CheckCodeResult
-import ru.apteka.components.data.models.NewCodeResult
 import ru.apteka.components.data.models.PersonalData
-import ru.apteka.components.data.models.SendPhoneResult
 import ru.apteka.components.data.models.SubscriptionsModel
+import ru.apteka.components.data.services.account.AccountsPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,41 +14,41 @@ import javax.inject.Singleton
  */
 @Singleton
 class LoginRepository @Inject constructor(
-    private val loginApi: ILoginApi
+    private val loginApi: ILoginApi,
+    private val accountsPreferences: AccountsPreferences
 ) {
-    /**
-     * Отправляет номер.
-     * @param phoneNumber
-     */
-    suspend fun sendNumber(phoneNumber: String): SendPhoneResult {
-        delay(1500)
-        return SendPhoneResult(true)
-    }
 
     /**
-     * Получить новый код.
+     * Запрашивает новый код.
      */
-    suspend fun getNewCode(phoneNumber: String): NewCodeResult {
+    suspend fun requestCode(phoneNumber: String): Boolean {
         delay(1500)
-        return NewCodeResult(true)
+        return true
     }
 
     /**
      * Провверяет код.
      */
-    suspend fun checkCode(code: String): CheckCodeResult {
+    suspend fun checkCode(code: String): Boolean {
         delay(1500)
-        return CheckCodeResult(true)
+        return true
     }
 
 
-    private var _personalData: PersonalData? = null
+    private var _personalData: PersonalData = PersonalData(
+        fio = null,
+        date = null,
+        phone = accountsPreferences.account?.phoneNumber,
+        userMail = null,
+        sex = null,
+        isReceiveReceipts = false
+    )
 
     /**
      * Получает личные данные.
      */
-    suspend fun getPersonalData(): PersonalData? {
-        delay(2500)
+    suspend fun getPersonalData(): PersonalData {
+        delay(1500)
         return _personalData
     }
 
@@ -62,6 +60,27 @@ class LoginRepository @Inject constructor(
         _personalData = personalData
     }
 
+    suspend fun savePersonalDataFio(fio: String) {
+        delay(1500)
+        _personalData = _personalData.copy(fio = fio)
+    }
+
+    suspend fun savePersonalDataPhone(phone: String): Boolean {
+        delay(1500)
+        _personalData = _personalData.copy(phone = phone)
+        return true
+    }
+
+    suspend fun savePersonalDataSex(sex: Int) {
+        delay(1500)
+        _personalData = _personalData.copy(sex = sex)
+    }
+
+    suspend fun savePersonalDataMail(mail: String): Boolean {
+        delay(1500)
+        _personalData = _personalData.copy(userMail = PersonalData.UserMail(mail, true))
+        return true
+    }
 
     private var _subscriptions: SubscriptionsModel = SubscriptionsModel(false, false)
 

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="value"
+            type="String" />
+
+        <variable
+            name="verified"
+            type="String" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/personalDataItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/personalDataTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{title}"
+                android:textColor="@color/light_black"
+                app:visibleIf="@{title != null}"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/personalDataDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/personalDataTitle"
+                android:text="@{value ?? @string/personal_data_not_specified}"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/personalDataDesc"
+                android:text="@{verified}"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                app:visibleIf="@{verified != null}" />
+
+            <ImageView
+                android:id="@+id/personalDataInfo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/personalDataArrow"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_info"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/personalDataArrow"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_arrow_expand"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/separator_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.components.data.models.PhoneInputModel" />
+
+        <variable
+            name="enabled"
+            type="Boolean" />
+
+    </data>
+
+    <com.alab.input_layout_inner_hint.TextInputLayout
+        android:id="@+id/tilPhone"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_number"
+        android:enabled="@{enabled}"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_phone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_input_white_background_unfocused_shape"
+            android:inputType="phone"
+            android:text="@={model.phone}"
+            app:phoneMask="@{`phone`}" />
+
+    </com.alab.input_layout_inner_hint.TextInputLayout>
+
+</layout>

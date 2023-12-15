@@ -13,6 +13,7 @@
     <string name="remove">Удалить</string>
     <string name="change">Изменить</string>
     <string name="clear">Очистить</string>
+    <string name="confirm">Подтвердить</string>
     <string name="into_basket">В корзину</string>
     <string name="all">Все</string>
     <string name="save">Сохранить</string>
@@ -28,7 +29,9 @@
     <string name="recipients">Получатели</string>
     <string name="fio">ФИО</string>
     <string name="telephone">Телефон</string>
+    <string name="phone_number">Номер телефона</string>
     <string name="mail">Почта</string>
+    <string name="email">Электронная почта</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
@@ -38,6 +41,7 @@
     <string name="dialog_remove_product_all_desk">Вы уверены, что хотите удалить все товары?</string>
     <string name="email_not_valid">Не верный формат почты</string>
     <string name="consent_personal_data">Нажимая кнопку “Отправить”, я даю согласие на обработку персональных данных</string>
+    <string name="confirmation_code_desc">Введите СМС код, отправленный на указанный номер телефона.\nВведите его ниже:</string>
 
     <string name="label_hit_sales">Хит продаж</string>
     <string name="label_product_day">Товар дня</string>

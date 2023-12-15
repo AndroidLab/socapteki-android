@@ -22,4 +22,5 @@ dependencies {
 	implementation(project(":modules:features:personal_data:api"))
 
     implementation(libs.bundles.navigationDeps)
+    implementation(libs.bundles.lifecycleDeps)
 }

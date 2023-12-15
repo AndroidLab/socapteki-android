@@ -69,15 +69,6 @@ class WorkWithUsQuestionnaireFragment :
             ).show()
         }
 
-        MaskFormatWatcher(
-            MaskImpl(
-                Slot.copySlotArray(PredefinedSlots.RUS_PHONE_NUMBER).apply {
-                    this[3].flags = this[3].flags or Slot.RULE_FORBID_CURSOR_MOVE_LEFT
-                },
-                true
-            )
-        ).installOnAndFill(binding.etWorkWithUsQuestionnairePhone)
-
         binding.cbWorkWithUsQuestionnairePersonalData.apply {
             text = getPersonalDataSpan(requireContext())
             movementMethod = LinkMovementMethod.getInstance()

@@ -8,7 +8,6 @@ import ru.apteka.components.data.services.account.AccountRemoveService
 import ru.apteka.components.ui.FeatureBaseFragment
 import ru.apteka.personal_data.R
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.personal_data.databinding.PersonalDataFragmentBinding
 import ru.apteka.personal_data.databinding.QuestionRemoveFragmentBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
@@ -35,7 +34,7 @@ class QuestionRemoveFragment :
             viewModel.navigationManager.generalNavController.popBackStack()
         }
 
-        viewModel.codeRaw.observe(viewLifecycleOwner) {
+        /*viewModel.codeRaw.observe(viewLifecycleOwner) {
             if (it.length == 4) {
                 viewModel.checkCode {
                     accountRemoveService.isAccountRemove.call()
@@ -44,7 +43,7 @@ class QuestionRemoveFragment :
                     )
                 }
             }
-        }
+        }*/
 
         MaskFormatWatcher(
             MaskImpl.createTerminated(
@@ -55,12 +54,12 @@ class QuestionRemoveFragment :
 
     override fun onResume() {
         super.onResume()
-        binding.questionRemoveToolbar.apply {
+        /*binding.questionRemoveToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_close)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.generalNavController.popBackStack()
             }
-        }
+        }*/
     }
 
 }

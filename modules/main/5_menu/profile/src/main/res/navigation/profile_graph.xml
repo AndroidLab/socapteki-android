@@ -10,6 +10,10 @@
         android:name="ru.apteka.profile.presentation.profile.ProfileFragment">
 
         <action
+            android:id="@+id/toPersonalDataFragment"
+            app:destination="@id/personalDataFragment" />
+
+        <action
             android:id="@+id/toPharmaciesFragment"
             app:destination="@id/pharmaciesFragment" />
 
@@ -24,6 +28,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="ru.apteka.profile.presentation.profile_personal_data.PersonalDataFragment">
+
+        <action
+            android:id="@+id/toPersonalDataFioFragment"
+            app:destination="@id/personalDataFioFragment" />
+
+        <action
+            android:id="@+id/toPersonalDataPhoneFragment"
+            app:destination="@id/personalDataPhoneFragment" />
+
+        <action
+            android:id="@+id/toPersonalDataMailFragment"
+            app:destination="@id/personalDataMailFragment" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/pharmaciesFragment"
         android:name="ru.apteka.profile.presentation.pharmacies.PharmaciesFragment" />
 
@@ -34,5 +56,31 @@
     <fragment
         android:id="@+id/commentsReviewsFragment"
         android:name="ru.apteka.profile.presentation.comments_reviews.CommentsReviewsFragment" />
+
+    <fragment
+        android:id="@+id/personalDataFioFragment"
+        android:name="ru.apteka.profile.presentation.profile_personal_data_fio.PersonalDataFioFragment">
+
+        <argument
+            android:name="fio"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/personalDataPhoneFragment"
+        android:name="ru.apteka.profile.presentation.profile_personal_data_phone.PersonalDataPhoneFragment" />
+
+    <fragment
+        android:id="@+id/personalDataMailFragment"
+        android:name="ru.apteka.profile.presentation.profile_personal_data_mail.PersonalDataMailFragment">
+
+        <argument
+            android:name="mail"
+            app:argType="ru.apteka.components.data.models.PersonalData$UserMail"
+            app:nullable="true" />
+
+    </fragment>
 
 </navigation>

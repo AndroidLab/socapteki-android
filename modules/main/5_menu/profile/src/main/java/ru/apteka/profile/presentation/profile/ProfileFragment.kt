@@ -34,8 +34,8 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
         }
 
         binding.llProfilePersonalData.setOnClickListener {
-            navigationManager.generalNavController.navigateWithAnim(
-                UserProfileApiR.id.personal_data_graph
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ProfileFragmentDirections.toPersonalDataFragment()
             )
         }
 
@@ -75,7 +75,8 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
 
         binding.userProfileLogout.setOnClickListener {
             accountsPreferences.account = null
-            navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
+            //navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
+            navigationManager.onSelectItemId(ru.apteka.main_common.R.id.home_graph)
         }
     }
 

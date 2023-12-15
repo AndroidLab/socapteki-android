@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="ru.apteka.components.data.models.ConfirmCodeStatus" />
-
         <variable
             name="viewModel"
             type="ru.apteka.social.presentation.auth.auth_confirm.AuthConfirmViewModel" />
@@ -21,7 +19,7 @@
     <ru.apteka.components.ui.LoaderLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isLoading="@{viewModel.isLoading}">
+        app:isLoading="@{viewModel.confirmationCode.isLoading}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,42 +69,14 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/auth_confirm_phone_desc"
-                android:textColor="@color/dark_grey" />
-
-            <!-- Поле ввода пинкода -->
-            <com.alab.input_layout_inner_hint.TextInputLayout
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:enabled="@{!viewModel.isLoading}"
-                android:hint="@string/confirm_code_hint"
-                app:errorText="@{viewModel.confirmCodeStatus == ConfirmCodeStatus.ERROR ? @string/confirm_code_error : ``}">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAuthConfirmCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/text_input_white_background_unfocused_shape"
-                    android:digits=" ,_0,1,2,3,4,5,6,7,8,9"
-                    android:inputType="number"
-                    android:text="@={viewModel.code}" />
-
-            </com.alab.input_layout_inner_hint.TextInputLayout>
-
-            <!-- Отпраить код повторно -->
+            <!-- Отображение запроса пинкода -->
             <include
-                layout="@layout/code_did_not_come"
-                android:layout_width="wrap_content"
+                android:id="@+id/confirmationCode"
+                layout="@layout/confirmation_code"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:leftTime="@{viewModel.leftTime}"
-                app:onClick="@{viewModel.onNewCode}" />
+                android:layout_marginTop="16dp"
+                app:model="@{viewModel.confirmationCode}" />
 
             <View
                 android:layout_width="wrap_content"
@@ -116,8 +86,8 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="@{viewModel.codeRaw.length == 4 &amp; !viewModel.isLoading}"
-                android:onClick="@{() -> viewModel.checkCodeNumber()}"
+                android:enabled="@{viewModel.confirmationCode.codeRaw.length == 4 &amp; !viewModel.confirmationCode.isLoading}"
+                android:onClick="@{() -> viewModel.savePersonalData()}"
                 android:text="@string/auth_confirm_login" />
 
         </LinearLayout>

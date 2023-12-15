@@ -4,18 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/personal_data_graph"
-    app:startDestination="@id/personalDataFragment">
-
-    <fragment
-        android:id="@+id/personalDataFragment"
-        android:name="ru.apteka.personal_data.presentation.personal_data.PersonalDataFragment"
-        tools:layout="@layout/personal_data_fragment">
-
-        <action
-            android:id="@+id/toQuestionRemoveFragment"
-            app:destination="@id/questionRemoveFragment" />
-
-    </fragment>
+    app:startDestination="@id/questionRemoveFragment">
 
     <fragment
         android:id="@+id/questionRemoveFragment"

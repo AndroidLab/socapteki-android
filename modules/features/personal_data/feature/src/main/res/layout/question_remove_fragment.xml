@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="ru.apteka.components.data.models.ConfirmCodeStatus" />
-
         <variable
             name="viewModel"
             type="ru.apteka.personal_data.presentation.question_remove.QuestionRemoveViewModel" />
@@ -130,7 +128,6 @@
                         android:layout_marginTop="24dp"
                         android:enabled="@{!viewModel.isLoading}"
                         android:hint="@string/confirm_code_hint"
-                        app:errorText="@{viewModel.confirmCodeStatus == ConfirmCodeStatus.ERROR ? @string/confirm_code_error : ``}"
                         app:visibleIf="@{viewModel.isPinCodeVisible}">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -144,15 +141,7 @@
 
                     </com.alab.input_layout_inner_hint.TextInputLayout>
 
-                    <!-- Отпраить код повторно -->
-                    <include
-                        layout="@layout/code_did_not_come"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        app:leftTime="@{viewModel.leftTime}"
-                        app:onClick="@{viewModel.onNewCode}"
-                        app:visibleIf="@{viewModel.isPinCodeVisible}" />
+
 
                     <!-- Кнопки -->
                     <LinearLayout

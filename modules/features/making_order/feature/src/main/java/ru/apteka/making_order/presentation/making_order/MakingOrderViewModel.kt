@@ -192,7 +192,7 @@ class MakingOrderViewModel @Inject constructor(
     fun setRecipientSameBuyer(b: Boolean) {
         val r = RecipientModel(
             fio = personalData.value!!.fio,
-            phone = personalData.value!!.phone
+            phone = personalData.value!!.phone!!
         ).apply {
             onRemove = {
                 removeRecipientOrder(this)
