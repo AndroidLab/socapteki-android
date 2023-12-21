@@ -37,11 +37,7 @@ dependencies {
     implementation(project(":modules:features:pharmacies_map:api"))
     implementation(project(":modules:features:pharmacies_map:feature"))
     implementation(project(":modules:features:making_order:feature"))
-    implementation(project(":modules:features:reviews:feature"))
-    implementation(project(":modules:features:our_partners:feature"))
-    implementation(project(":modules:features:cooperation:feature"))
     implementation(project(":modules:features:favorites:feature"))
-    implementation(project(":modules:features:faq:feature"))
     implementation(project(":modules:features:feedback:feature"))
     implementation(project(":modules:features:barcode_scanner:feature"))
 

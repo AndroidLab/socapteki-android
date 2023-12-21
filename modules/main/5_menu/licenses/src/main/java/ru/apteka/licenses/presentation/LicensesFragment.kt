@@ -1,15 +1,10 @@
 package ru.apteka.licenses.presentation
 
-import android.view.View
 import android.widget.FrameLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener
-import com.github.barteksc.pdfviewer.listener.OnPageErrorListener
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
@@ -37,6 +32,8 @@ class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding
 
         lifecycleScope.launchMain {
             viewModel.documentFlow.collect {
+                var prevPage = 2
+                var isJumpTo = false
                 showBottomSheet(
                     CommonBottomSheetModel(
                         fragmentManager = parentFragmentManager,
@@ -48,11 +45,23 @@ class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding
                                 binding.pdfView.fromAsset("sample.pdf")
                                     .defaultPage(0)
                                     .onPageChange { page, pageCount ->
-                                        behavior.isDraggable = page == 0 || page == 1
+                                        if (!isJumpTo) {
+                                            if (page > prevPage) {
+                                                binding.pdfAppBar.performHide()
+                                            } else {
+                                                binding.pdfAppBar.performShow()
+                                            }
+                                        }
+                                        isJumpTo = false
+                                        prevPage = page
                                     }
                                     .enableAnnotationRendering(true)
-                                    .onLoad {
-
+                                    .onLoad { count ->
+                                        behavior.isDraggable = false
+                                        binding.rvPdf.adapter = PdfAdapter(count) {
+                                            isJumpTo = true
+                                            binding.pdfView.jumpTo(it, false)
+                                        }
                                     }
                                     .scrollHandle(DefaultScrollHandle(requireContext()))
                                     .spacing(10) // in dp
@@ -61,7 +70,8 @@ class LicensesFragment : BaseFragment<LicensesViewModel, LicensesFragmentBinding
                                     }
                                     .pageFitPolicy(FitPolicy.BOTH)
                                     .load()
-                                binding.pdfView.layoutParams = FrameLayout.LayoutParams(
+
+                                binding.llLicensesPdfView.layoutParams = FrameLayout.LayoutParams(
                                     FrameLayout.LayoutParams.MATCH_PARENT,
                                     screenHeight - 75.dp
                                 )

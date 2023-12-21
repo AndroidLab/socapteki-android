@@ -90,14 +90,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             }
         }
 
-        viewModel.navigationManager.topLevelMainDestinationIds = setOf(
-            HomeR.id.homeFragment,
-            CatalogR.id.catalogFragment,
-            StocksR.id.stocksFragment,
-            BasketR.id.basketFragment,
-            MenuR.id.menuFragment
-        )
-
         viewModel.navigationManager.onSelectItemMenu = { graphId, bundle ->
             navigate(graphId, bundle)
         }
@@ -314,23 +306,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                                         )
                                     )
                                 )
-                            }
-
-
-                            binding.appMenuItemReviews.item.setOnClickListener {
-                                //navigate(ru.apteka.reviews_api.R.id.reviews_graph)
-                            }
-
-                            binding.appMenuItemCooperation.item.setOnClickListener {
-                                //navigate(ru.apteka.cooperation_api.R.id.cooperation_graph)
-                            }
-
-                            binding.appMenuItemPartners.item.setOnClickListener {
-                                //navigate()
-                            }
-
-                            binding.appMenuItemFaq.item.setOnClickListener {
-                                //navigate(ru.apteka.faq_api.R.id.faq_graph)
                             }
 
                             binding.mbMenuAuth.setOnClickListener {

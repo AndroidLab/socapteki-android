@@ -7,14 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <fragment
-                android:id="@+id/general_nav_host"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/general_nav_graph" />
+        <fragment
+            android:id="@+id/general_nav_host"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/general_nav_graph" />
 
     </FrameLayout>
 

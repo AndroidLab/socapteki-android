@@ -67,8 +67,7 @@ include(":modules:main:5_menu:charity")
 include(":modules:features:orders:api")
 include(":modules:features:orders:feature")
 
-
-//Модуль 'Профиль'.
+//Модуль 'Персональные данные'.
 include(":modules:features:personal_data:feature")
 include(":modules:features:personal_data:api")
 
@@ -92,27 +91,9 @@ include(":modules:features:feedback:api")
 include(":modules:features:making_order:feature")
 include(":modules:features:making_order:api")
 
-
-//Модуль 'Отзывы'.
-include(":modules:features:reviews:feature")
-include(":modules:features:reviews:api")
-
-//Модуль 'Нашим партнерам'.
-include(":modules:features:our_partners:feature")
-include(":modules:features:our_partners:api")
-
-//Модуль 'Сотрудничество'.
-include(":modules:features:cooperation:feature")
-include(":modules:features:cooperation:api")
-
 //Модуль 'Избранное'.
 include(":modules:features:favorites:feature")
 include(":modules:features:favorites:api")
-
-//Модуль 'FAQ'.
-include(":modules:features:faq:feature")
-include(":modules:features:faq:api")
-
 
 //Модуль 'Сканировани баркода'.
 include(":modules:features:barcode_scanner:feature")

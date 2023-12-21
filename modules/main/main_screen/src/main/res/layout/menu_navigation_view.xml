@@ -150,35 +150,6 @@
                     app:icon="@{@drawable/ic_menu_rate_app}"
                     app:title="@{@string/menu_rate_app}" />
 
-
-                <!-- Отзывы -->
-                <include
-                    android:id="@+id/appMenuItemReviews"
-                    layout="@layout/app_menu_item"
-                    app:icon="@{@drawable/ic_menu_reviews}"
-                    app:title="@{@string/menu_reviews}" />
-
-                <!-- Сотрудничество -->
-                <include
-                    android:id="@+id/appMenuItemCooperation"
-                    layout="@layout/app_menu_item"
-                    app:icon="@{@drawable/ic_menu_cooperation}"
-                    app:title="@{@string/menu_cooperation}" />
-
-                <!-- Партнерам -->
-                <include
-                    android:id="@+id/appMenuItemPartners"
-                    layout="@layout/app_menu_item"
-                    app:icon="@{@drawable/ic_menu_partners}"
-                    app:title="@{@string/menu_partners}" />
-
-                <!-- FAQ -->
-                <include
-                    android:id="@+id/appMenuItemFaq"
-                    layout="@layout/app_menu_item"
-                    app:icon="@{@drawable/ic_menu_brands}"
-                    app:title="@{@string/menu_faq}" />
-
             </LinearLayout>
 
         </com.alab.extra_bouncy.BouncyNestedScrollView>

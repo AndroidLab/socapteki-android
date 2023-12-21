@@ -22,11 +22,6 @@ class NavigationManager @Inject constructor() {
     var onAuthNavigate: () -> Unit by Delegates.notNull()
 
     /**
-     * Возвращает или устанавливает идентификаторы пунктов назначения основного экрана.
-     */
-    var topLevelMainDestinationIds: Set<Int> by Delegates.notNull()
-
-    /**
      * Устанавливает или возвращает главный навигационный контроллер.
      */
     var generalNavController: NavController by Delegates.notNull()

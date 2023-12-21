@@ -17,8 +17,6 @@
 
     <include app:graph="@navigation/orders_graph" />
 
-    <include app:graph="@navigation/our_partners_graph" />
-
     <include app:graph="@navigation/pharmacies_map_graph" />
 
     <include app:graph="@navigation/personal_data_graph" />
@@ -27,15 +25,7 @@
 
     <include app:graph="@navigation/making_order_graph" />
 
-    <include app:graph="@navigation/reviews_graph" />
-
-    <include app:graph="@navigation/our_partners_graph" />
-
-    <include app:graph="@navigation/cooperation_graph" />
-
     <include app:graph="@navigation/favorites_graph" />
-
-    <include app:graph="@navigation/faq_graph" />
 
     <include app:graph="@navigation/feedback_graph" />
 

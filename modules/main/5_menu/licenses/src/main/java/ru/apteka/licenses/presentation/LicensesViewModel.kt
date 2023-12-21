@@ -5,7 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IBottomSheetService
 import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO

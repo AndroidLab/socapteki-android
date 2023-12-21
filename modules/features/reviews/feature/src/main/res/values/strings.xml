@@ -1,8 +1,0 @@
-<resources>
-
-    <string name="reviews_title">Отзывы</string>
-
-    <string name="reviews_send">Написать отзыв</string>
-    <string name="reviews_show_more">Показать еще</string>
-
-</resources>

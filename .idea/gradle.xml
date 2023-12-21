@@ -33,12 +33,6 @@
             <option value="$PROJECT_DIR$/modules/features/choosing_city" />
             <option value="$PROJECT_DIR$/modules/features/choosing_city/api" />
             <option value="$PROJECT_DIR$/modules/features/choosing_city/feature" />
-            <option value="$PROJECT_DIR$/modules/features/cooperation" />
-            <option value="$PROJECT_DIR$/modules/features/cooperation/api" />
-            <option value="$PROJECT_DIR$/modules/features/cooperation/feature" />
-            <option value="$PROJECT_DIR$/modules/features/faq" />
-            <option value="$PROJECT_DIR$/modules/features/faq/api" />
-            <option value="$PROJECT_DIR$/modules/features/faq/feature" />
             <option value="$PROJECT_DIR$/modules/features/favorites" />
             <option value="$PROJECT_DIR$/modules/features/favorites/api" />
             <option value="$PROJECT_DIR$/modules/features/favorites/feature" />
@@ -51,9 +45,6 @@
             <option value="$PROJECT_DIR$/modules/features/orders" />
             <option value="$PROJECT_DIR$/modules/features/orders/api" />
             <option value="$PROJECT_DIR$/modules/features/orders/feature" />
-            <option value="$PROJECT_DIR$/modules/features/our_partners" />
-            <option value="$PROJECT_DIR$/modules/features/our_partners/api" />
-            <option value="$PROJECT_DIR$/modules/features/our_partners/feature" />
             <option value="$PROJECT_DIR$/modules/features/personal_data" />
             <option value="$PROJECT_DIR$/modules/features/personal_data/api" />
             <option value="$PROJECT_DIR$/modules/features/personal_data/feature" />
@@ -63,9 +54,6 @@
             <option value="$PROJECT_DIR$/modules/features/product_card" />
             <option value="$PROJECT_DIR$/modules/features/product_card/api" />
             <option value="$PROJECT_DIR$/modules/features/product_card/feature" />
-            <option value="$PROJECT_DIR$/modules/features/reviews" />
-            <option value="$PROJECT_DIR$/modules/features/reviews/api" />
-            <option value="$PROJECT_DIR$/modules/features/reviews/feature" />
             <option value="$PROJECT_DIR$/modules/main" />
             <option value="$PROJECT_DIR$/modules/main/1_home" />
             <option value="$PROJECT_DIR$/modules/main/2_catalog" />
