@@ -1,6 +1,8 @@
 package ru.apteka.home.presentation.home
 
+import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,6 +12,8 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.recyclerAutoScroll
 import ru.apteka.components.data.utils.setPullForward
+import ru.apteka.components.databinding.ToolbarMenuBinding
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.home.R
 import ru.apteka.home.data.models.OrderCardModel
@@ -18,11 +22,9 @@ import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.OrderCardAdapter
 import ru.apteka.home.presentation.home.adapters.OtherCardViewAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
-import ru.apteka.main_common.ui.MainScreenBaseFragment
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
-import ru.apteka.main_common.R as MainCommonR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.product_card_api.R as productCardApiR
 
@@ -31,7 +33,7 @@ import ru.apteka.product_card_api.R as productCardApiR
  * Представляет фрагмент "Главная".
  */
 @AndroidEntryPoint
-class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_fragment
@@ -92,24 +94,24 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
             )
         }
 
-        binding.homeProductsDay.rv.setPullForward(binding.homeProductsDay.vForvward) {
+        /*binding.homeProductsDay.rv.setPullForward(binding.homeProductsDay.vForvward) {
             binding.homePromotions.header.btn.performClick()
-        }
+        }*/
 
-        binding.homePromotions.header.btn.setOnClickListener {
-
-        }
-
-        binding.homeProductsDay.header.btn.setOnClickListener {
+        binding.homePromotions.horizontalListBtn.setOnClickListener {
 
         }
 
-        binding.homeProductsDiscount.header.btn.setOnClickListener {
+        binding.homeProductsDay.horizontalListBtn.setOnClickListener {
+
+        }
+
+        binding.homeProductsDiscount.horizontalListBtn.setOnClickListener {
 
         }
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
-            viewModel.navigationManager.onSelectItemMenu(MainCommonR.id.brands_graph, bundleOf())
+            viewModel.navigationManager.onSelectItemMenu(ru.apteka.components.R.id.brands_graph, bundleOf())
         }
 
 
@@ -139,6 +141,7 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
         viewModel.others.observe(viewLifecycleOwner) {
             othersAdapter.swapData(it)
         }
+        Log.d("myL", "2")
     }
 
     private fun onOrderCardClick(item: OrderCardModel) {
@@ -167,11 +170,23 @@ class HomeFragment : MainScreenBaseFragment<HomeViewModel, HomeFragmentBinding>(
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(
-            binding.homeToolbar,
-            onSearchClick = viewModel.navigationManager.showSearchProduct
-        )
-        binding.homeToolbar.toolbar.setLogo(MainCommonR.drawable.logo)
+        viewModel.navigationManager.onBottomAppBarShowed(true)
+        binding.homeToolbar.apply {
+            toolbarCustomViewContainer.removeAllViews()
+            toolbarCustomViewContainer.addView(
+                DataBindingUtil.inflate<ToolbarMenuBinding>(
+                    layoutInflater,
+                    ru.apteka.components.R.layout.toolbar_menu,
+                    null,
+                    false
+                ).apply {
+                    ivMenuSearch.setOnClickListener {
+                        viewModel.navigationManager.showSearchProduct()
+                    }
+                }.root
+            )
+        }
+        binding.homeToolbar.toolbar.setLogo(R.drawable.logo)
     }
 
 }

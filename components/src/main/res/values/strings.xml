@@ -19,6 +19,7 @@
     <string name="save">Сохранить</string>
     <string name="search">Поиск</string>
     <string name="send">Отправить</string>
+    <string name="success">Успех</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="exit">Выйти</string>
@@ -72,5 +73,12 @@
         <item>Популярные 2</item>
         <item>Популярные 3</item>
     </string-array>
+
+    <string name="menu_label_1">Главная</string>
+    <string name="menu_label_2">Каталог</string>
+    <string name="menu_label_3">Акции</string>
+    <string name="menu_label_4">Корзина</string>
+    <string name="menu_label_5">Меню</string>
+    <string name="menu_profile">Профиль</string>
 
 </resources>

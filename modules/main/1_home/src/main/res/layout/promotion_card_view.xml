@@ -19,42 +19,52 @@
         app:cardCornerRadius="12dp"
         app:strokeWidth="0dp">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <!-- Лэйблы -->
             <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/promotionCardLabels"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 app:flexWrap="wrap"
                 app:forItems="@{model.labels}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:useTemplate="@{@layout/label_template}" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/promotionCardTitle"
+                style="@style/Theme.Socapteki.HeaderH4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
+                android:text="@{model.title}"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:textColor="@color/dark_black"
+                app:layout_constraintBottom_toTopOf="@id/promotionCardDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="spread" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.Socapteki.HeaderH4"
-                    android:text="@{model.title}"
-                    android:textColor="@color/dark_black" />
+            <TextView
+                android:id="@+id/promotionCardDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="@{model.description}"
+                android:textColor="@color/dark_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/promotionCardTitle"
+                app:layout_constraintWidth_default="wrap" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{model.description}"
-                    android:textColor="@color/dark_black" />
-
-            </LinearLayout>
-
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

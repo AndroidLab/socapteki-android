@@ -25,8 +25,6 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
     @Inject
     lateinit var accountRemoveService: AccountRemoveService
 
-    @Inject
-    lateinit var accountsPreferences: AccountsPreferences
 
     override fun onViewBindingInflated(binding: ProfileFragmentBinding) {
         accountRemoveService.isAccountRemove.observe(viewLifecycleOwner) {
@@ -73,11 +71,6 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
             )
         }
 
-        binding.userProfileLogout.setOnClickListener {
-            accountsPreferences.account = null
-            //navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
-            navigationManager.onSelectItemId(ru.apteka.main_common.R.id.home_graph)
-        }
     }
 
     override fun onResume() {

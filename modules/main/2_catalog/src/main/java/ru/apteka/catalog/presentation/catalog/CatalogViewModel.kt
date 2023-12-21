@@ -5,12 +5,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
-import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.catalog.data.catalog_repository.CatalogRepository
 import ru.apteka.catalog.data.models.CatalogMenuItem
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -24,7 +22,7 @@ class CatalogViewModel @Inject constructor(
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

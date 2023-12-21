@@ -16,7 +16,6 @@ android {
 
 dependencies {
     implementation(project(":components"))
-    implementation(project(":modules:main:main_common"))
     implementation(project(":modules:features:feedback:api"))
     implementation(project(":modules:features:pharmacies_map:api"))
 

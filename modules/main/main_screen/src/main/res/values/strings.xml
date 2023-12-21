@@ -1,10 +1,4 @@
 <resources>
-    <string name="menu_label_1">Главная</string>
-    <string name="menu_label_2">Каталог</string>
-    <string name="menu_label_3">Акции</string>
-    <string name="menu_label_4">Корзина</string>
-    <string name="menu_label_5">Меню</string>
-    <string name="menu_profile">Профиль</string>
     <string name="menu_city_not_selected">Город не выбран</string>
 
     <string name="menu_my_orders">Мои заказы</string>

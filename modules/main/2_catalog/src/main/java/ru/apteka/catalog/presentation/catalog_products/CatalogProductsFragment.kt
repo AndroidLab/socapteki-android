@@ -195,7 +195,7 @@ class CatalogProductsFragment :
 
     private fun initCatalogProductsWithProductBuy() {
         viewModel.getProductsWithProductBuy()
-        binding.catalogProductsWithProductBuy.header.btn.setOnClickListener {
+        binding.catalogProductsWithProductBuy.horizontalListBtn.setOnClickListener {
 
         }
         binding.catalogProductsWithProductBuy.rv.adapter = catalogProductsWithProductBuyAdapter
@@ -208,7 +208,7 @@ class CatalogProductsFragment :
 
     private fun initCatalogProductsRecentlyWatched() {
         viewModel.getProductsRecentlyWatched()
-        binding.catalogProductsRecentlyWatched.header.btn.setOnClickListener {
+        binding.catalogProductsRecentlyWatched.horizontalListBtn.setOnClickListener {
 
         }
         binding.catalogProductsRecentlyWatched.rv.adapter = catalogProductsRecentlyWatchedAdapter

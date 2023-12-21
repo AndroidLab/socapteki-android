@@ -11,7 +11,7 @@ import ru.apteka.components.data.services.message_notice_service.IMessageNoticeS
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -24,7 +24,7 @@ class SettingNotificationsViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

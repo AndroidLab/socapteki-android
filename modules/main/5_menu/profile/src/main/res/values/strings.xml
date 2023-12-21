@@ -58,4 +58,27 @@
     <string name="personal_data_mail_receive_code">Отправить код</string>
     <string name="personal_data_mail_receive_code_desc">Введите код, отправленный на указанную электронную почту\nВведите его ниже:</string>
 
+    <string name="profile_management_title">Управление профилем</string>
+    <string name="profile_management_logout">Выйти из профиля</string>
+    <string name="profile_management_remove">Удалить профиль</string>
+    <string name="profile_management_remove_desc">Если вы хотите удалить все ваши данные из мобильного приложения и сайта нажмите кнопку ниже</string>
+    <string name="profile_management_remove_dialog_title">Удаление аккаунта</string>
+    <string name="profile_management_remove_dialog_desc">Вы действительно хотите удалить ваш аккаунт? Все ваши данные будут удалены без возможности восстановления.</string>
+    <string name="profile_management_remove_dialog_loyalty_desc">При удалении аккаунта, Вы можете оставить возможность пользоваться программой лояльности в офлайн-аптеках</string>
+    <string name="profile_management_remove_dialog_loyalty">Не удалять меня из программы лояльности</string>
+    <string name="profile_management_remove_dialog_err_title">Удаление профиля недоступно</string>
+    <string name="profile_management_remove_dialog_err_desc">Пока есть активные заказы, удалить профиль не получится.\nПопробуйте сначала получить заказ или отменить его.</string>
+
+
+    <string name="profile_remove_title">Удаление аккаунта</string>
+    <string name="profile_remove_question">Почему вы решили удалить ваш аккаунт?</string>
+    <string name="profile_remove_question_desc">Пожалуйста, поделитесь с нами причиной, почему вы решили удалить свой аккаунт.</string>
+    <string name="profile_remove_choice_1">Не пользуюсь сервисом</string>
+    <string name="profile_remove_choice_2">Высокие цены</string>
+    <string name="profile_remove_choice_3">Приходит много рекламы</string>
+    <string name="profile_remove_choice_4">Не нравится качество сервиса</string>
+    <string name="profile_remove_choice_5">Другое</string>
+    <string name="profile_remove_choice_own_reason">Укажите свою причину</string>
+    <string name="profile_remove_success">Ваш запрос на удаление учетной записи успешно обработан!\nМы надеемся, что ваш опыт работы с нашей платформой был положительным и будем рады видеть вас снова!</string>
+
 </resources>

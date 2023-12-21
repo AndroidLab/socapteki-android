@@ -248,6 +248,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.productCardTabs.doOnLayout {
             it.translationY = -binding.productCardTabs.height.toFloat()
         }

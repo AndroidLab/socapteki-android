@@ -6,7 +6,7 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -20,7 +20,7 @@ class StocksViewModel @Inject constructor(
     val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

@@ -47,6 +47,7 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.choosingCityToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
             toolbar.setNavigationOnClickListener {

@@ -6,4 +6,5 @@
     <dimen name="toolbar_height">50dp</dimen>
     <dimen name="bottom_bar_height">70dp</dimen>
     <dimen name="footer_stub_height">100dp</dimen>
+    <dimen name="progress_size">45dp</dimen>
 </resources>

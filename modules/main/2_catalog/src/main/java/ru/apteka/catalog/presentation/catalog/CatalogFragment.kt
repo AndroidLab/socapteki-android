@@ -1,6 +1,8 @@
 package ru.apteka.catalog.presentation.catalog
 
 
+import android.util.Log
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -8,15 +10,16 @@ import ru.apteka.catalog.R
 import ru.apteka.catalog.data.models.CatalogMenuItem
 import ru.apteka.catalog.databinding.CatalogFragmentBinding
 import ru.apteka.components.data.utils.navigateWithAnim
+import ru.apteka.components.databinding.ToolbarMenuBinding
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.main_common.ui.MainScreenBaseFragment
 
 
 /**
  * Представляет фрагмент "Каталог".
  */
 @AndroidEntryPoint
-class CatalogFragment : MainScreenBaseFragment<CatalogViewModel, CatalogFragmentBinding>() {
+class CatalogFragment : BaseFragment<CatalogViewModel, CatalogFragmentBinding>() {
 
     override val viewModel: CatalogViewModel by viewModels()
 
@@ -48,10 +51,22 @@ class CatalogFragment : MainScreenBaseFragment<CatalogViewModel, CatalogFragment
 
     override fun onResume() {
         super.onResume()
-        fillMainScreensToolbar(
-            toolbarBinding = binding.catalogToolbar,
-            onSearchClick = viewModel.navigationManager.showSearchProduct
-        )
+        viewModel.navigationManager.onBottomAppBarShowed(true)
+        binding.catalogToolbar.apply {
+            toolbarCustomViewContainer.removeAllViews()
+            toolbarCustomViewContainer.addView(
+                DataBindingUtil.inflate<ToolbarMenuBinding>(
+                    layoutInflater,
+                    ru.apteka.components.R.layout.toolbar_menu,
+                    null,
+                    false
+                ).apply {
+                    ivMenuSearch.setOnClickListener {
+                        viewModel.navigationManager.showSearchProduct.invoke()
+                    }
+                }.root
+            )
+        }
         binding.catalogToolbar.tvToolbarTitle.text = getString(R.string.catalog_title)
     }
 

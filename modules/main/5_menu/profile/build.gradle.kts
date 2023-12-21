@@ -16,7 +16,6 @@ android {
 
 dependencies {
     implementation(project(":components"))
-	implementation(project(":modules:main:main_common"))
     implementation(project(":modules:features:favorites:api"))
     implementation(project(":modules:features:orders:api"))
 	implementation(project(":modules:features:personal_data:api"))

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.profile_remove.ProfileRemoveViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/profileRemoveToolbar"
+            layout="@layout/toolbar" />
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:isUserInteractionEnabled="@{!viewModel.isLoading &amp; !viewModel.confirmationCode.isLoading}">
+
+                <!-- Отображение запроса пинкода -->
+                <include
+                    android:id="@+id/confirmationCode"
+                    layout="@layout/confirmation_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:model="@{viewModel.confirmationCode}" />
+
+                <TextView
+                    android:id="@+id/profileRemoveQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/profile_remove_question"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/confirmationCode" />
+
+                <TextView
+                    android:id="@+id/profileRemoveQuestionDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile_remove_question_desc"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileRemoveQuestion" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profileRemoveRadioGroup"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:cardBackgroundColor="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileRemoveQuestionDesc">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp">
+
+                        <RadioButton
+                            android:id="@+id/questionRemoveChoice1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.rb1}"
+                            android:paddingHorizontal="12dp"
+                            android:text="@string/profile_remove_choice_1" />
+
+                        <RadioButton
+                            android:id="@+id/questionRemoveChoice2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.rb2}"
+                            android:paddingHorizontal="12dp"
+                            android:text="@string/profile_remove_choice_2" />
+
+                        <RadioButton
+                            android:id="@+id/questionRemoveChoice3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.rb3}"
+                            android:paddingHorizontal="12dp"
+                            android:text="@string/profile_remove_choice_3" />
+
+                        <RadioButton
+                            android:id="@+id/questionRemoveChoice4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.rb4}"
+                            android:paddingHorizontal="12dp"
+                            android:text="@string/profile_remove_choice_4" />
+
+                        <RadioButton
+                            android:id="@+id/questionRemoveChoice5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.rb5}"
+                            android:paddingHorizontal="12dp"
+                            android:text="@string/profile_remove_choice_5" />
+
+                    </RadioGroup>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Своя причина -->
+                <EditText
+                    android:id="@+id/profileRemoveOwnReason"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/edit_text_shape"
+                    android:gravity="top"
+                    android:hint="@string/profile_remove_choice_own_reason"
+                    android:padding="16dp"
+                    android:text="@={viewModel.ownReason}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileRemoveRadioGroup"
+                    app:visibleIf="@{viewModel.rb5}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbProfileRemoveCancel"
+                    style="@style/Theme.Socapteki.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/cancel"
+                    app:layout_constraintEnd_toStartOf="@id/mbProfileRemove"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileRemoveOwnReason" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbProfileRemove"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:enabled="@{viewModel.removeBtnEnabled}"
+                    android:text="@string/remove"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/mbProfileRemoveCancel"
+                    app:layout_constraintTop_toBottomOf="@id/profileRemoveOwnReason" />
+
+                <include
+                    layout="@layout/footer_stub"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/footer_stub_height"
+                    android:background="@color/light_black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mbProfileRemove" />
+
+                <include
+                    layout="@layout/progress_bar"
+                    app:isLoading="@{viewModel.isLoading | viewModel.confirmationCode.isLoading}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+    </LinearLayout>
+
+</layout>

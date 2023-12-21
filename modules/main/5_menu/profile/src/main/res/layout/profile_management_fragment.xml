@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.profile_management.ProfileManagementViewModel" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/profileManagementToolbar"
+                layout="@layout/toolbar" />
+
+            <!-- Выйти из профиля -->
+            <LinearLayout
+                android:id="@+id/llProfileManagementLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile_management_logout"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@string/profile_management_logout"
+                    android:textColor="@color/color_primary" />
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{16}"
+                app:sepMarginStart="@{16}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                android:text="@string/profile_management_remove_desc"
+                android:textColor="@color/light_black" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{16}"
+                app:sepMarginStart="@{16}" />
+
+            <!-- Удалить профиль -->
+            <LinearLayout
+                android:id="@+id/llProfileManagementRemove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile_management_remove"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@string/profile_management_remove"
+                    android:textColor="@color/color_primary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>

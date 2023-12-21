@@ -32,11 +32,11 @@ class OrdersFragment : BaseFragment<OrdersViewModel, OrdersFragmentBinding>() {
         binding.rvOrders.adapter = ordersAdapter
 
         binding.mbOrdersToCatalog.setOnClickListener {
-            //viewModel.navigationManager.onSelectItemId(ru.apteka.main_common.R.id.catalog_graph)
+            viewModel.navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.catalog_graph)
         }
 
         binding.mbOrdersToStocks.setOnClickListener {
-            //viewModel.navigationManager.onSelectItemId(ru.apteka.main_common.R.id.stocks_graph)
+            viewModel.navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.stocks_graph)
         }
 
         viewModel.ordersFiltered.observe(viewLifecycleOwner) {
@@ -53,6 +53,7 @@ class OrdersFragment : BaseFragment<OrdersViewModel, OrdersFragmentBinding>() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.ordersToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
             tvToolbarTitle.text = getString(R.string.orders_title)

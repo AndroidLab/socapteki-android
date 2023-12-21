@@ -13,9 +13,9 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.OrderCardModel
 import ru.apteka.home.data.models.OtherModel
@@ -25,8 +25,6 @@ import ru.apteka.home.data.repository.other.OtherRepository
 import ru.apteka.home.data.repository.products_day.ProductsDayRepository
 import ru.apteka.home.data.repository.products_discount.ProductsDiscountRepository
 import ru.apteka.home.data.repository.promotion.PromotionRepository
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
-import java.util.UUID
 import javax.inject.Inject
 
 
@@ -45,7 +43,7 @@ class HomeViewModel @Inject constructor(
     private val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

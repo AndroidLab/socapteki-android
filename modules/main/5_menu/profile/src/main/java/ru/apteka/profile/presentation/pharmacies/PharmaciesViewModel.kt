@@ -8,7 +8,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.profile.data.models.AptekaCardModel
 import ru.apteka.profile.data.repository.apteki.AptekiRepository
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class PharmaciesViewModel @Inject constructor(
     private val aptekiRepository: AptekiRepository,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

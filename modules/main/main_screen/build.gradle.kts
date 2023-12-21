@@ -15,7 +15,6 @@ android {
 
 dependencies {
     implementation(project(":components"))
-    implementation(project(":modules:main:main_common"))
     implementation(project(":modules:main:1_home"))
     implementation(project(":modules:main:2_catalog"))
     implementation(project(":modules:main:3_stocks"))

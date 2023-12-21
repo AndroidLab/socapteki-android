@@ -10,19 +10,18 @@ import ru.apteka.basket.databinding.BasketMenuBinding
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
-import ru.apteka.components.databinding.ToolbarMenuBinding
-import ru.apteka.main_common.ui.MainScreenBaseFragment
+import ru.apteka.components.ui.BaseFragment
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
-import ru.apteka.main_common.R as MainCommonR
 import ru.apteka.making_order_api.R as MakingOrderApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
+import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет фрагмент "Корзина".
  */
 @AndroidEntryPoint
-class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBinding>() {
+class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
     override val viewModel: BasketViewModel by viewModels()
     override val layoutId: Int = R.layout.basket_fragment
 
@@ -37,14 +36,14 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
         binding.viewModel = viewModel
 
         binding.basketToCatalog.setOnClickListener {
-            viewModel.navigationManager.onSelectItemId(MainCommonR.id.catalog_graph)
+            viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.catalog_graph)
         }
 
         binding.basketToStocks.setOnClickListener {
-            viewModel.navigationManager.onSelectItemId(MainCommonR.id.stocks_graph)
+            viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.stocks_graph)
         }
 
-        binding.basketWatchedRecently.header.btn.setOnClickListener {
+        binding.basketWatchedRecently.horizontalListBtn.setOnClickListener {
 
         }
 
@@ -91,6 +90,7 @@ class BasketFragment : MainScreenBaseFragment<BasketViewModel, BasketFragmentBin
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(true)
         binding.basketToolbar.tvToolbarTitle.text = getString(R.string.basket_title)
     }
 

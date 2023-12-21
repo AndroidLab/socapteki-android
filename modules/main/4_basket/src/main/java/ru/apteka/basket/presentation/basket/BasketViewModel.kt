@@ -9,13 +9,12 @@ import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -30,7 +29,7 @@ class BasketViewModel @Inject constructor(
     val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

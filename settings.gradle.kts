@@ -23,7 +23,6 @@ rootProject.name = "socapteka"
 include(":app")
 include(":components")
 include(":modules:main:main_screen")
-include(":modules:main:main_common")
 include(":modules:main:1_home")
 include(":modules:main:2_catalog")
 include(":modules:main:3_stocks")

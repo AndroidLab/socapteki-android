@@ -41,60 +41,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/horizontalListBtnTitle"
+                style="@style/Theme.Socapteki.HeaderH4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:text="@{title}"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/horizontalListBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleIf="@{title != null | textBtn != null}" />
+
+            <TextView
+                android:id="@+id/horizontalListBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:text="@{textBtn}"
+                android:textColor="@color/color_primary"
+                app:layout_constraintBaseline_toBaselineOf="@id/horizontalListBtnTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/horizontalListBtnTitle"
+                app:visibleIf="@{title != null | textBtn != null}" />
+
+            <com.alab.extra_bouncy.BouncyRecyclerView
+                android:id="@+id/rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                app:circlePagerIndicator="@{circlePagerIndicator}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
+                app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="150dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalListBtnTitle"
+                app:linearSnapHelper="@{linearSnapHelper}"
+                app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
 
             <include
-                android:id="@+id/header"
-                layout="@layout/horizontal_list_header"
-                app:textBtn="@{textBtn}"
-                app:title="@{title}" />
+                layout="@layout/progress_bar"
+                app:isLoading="@{isLoading}" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="150dp">
+            <!--<com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/vForvward"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                app:lottie_colorFilter="@color/dark_grey"
+                app:lottie_progress=".75"
+                app:lottie_rawRes="@raw/forward"
+                app:lottie_repeatMode="restart" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.alab.extra_bouncy.BouncyRecyclerView
-                        android:id="@+id/rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                        app:circlePagerIndicator="@{circlePagerIndicator}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layoutPaddingBottom="@{title != null | textBtn != null ? 8 : 16 }"
-                        app:layoutPaddingTop="@{title != null | textBtn != null ? 8 : 16 }"
-                        app:linearSnapHelper="@{linearSnapHelper}"
-                        app:marginItemHorizontal="@{marginItemHorizontal == null ? 16 : marginItemHorizontal}" />
-
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/vForvward"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center_vertical"
-                        android:padding="10dp"
-                        app:lottie_colorFilter="@color/dark_grey"
-                        app:lottie_progress=".75"
-                        app:lottie_rawRes="@raw/forward"
-                        app:lottie_repeatMode="restart" />
-
-                </LinearLayout>
-
-                <include
-                    layout="@layout/progress_bar"
-                    app:isLoading="@{isLoading}" />
-
-            </FrameLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

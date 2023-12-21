@@ -2,10 +2,9 @@ package ru.apteka.profile.presentation.comments_reviews.pages.comments
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
+import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
 
@@ -17,7 +16,7 @@ class CommentsPageViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

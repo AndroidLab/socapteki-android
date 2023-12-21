@@ -9,8 +9,8 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.home.data.models.BonusModel
-import ru.apteka.main_common.ui.MainScreenBaseViewModel
 import javax.inject.Inject
 
 
@@ -22,7 +22,7 @@ class BonusProgramViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
-) : MainScreenBaseViewModel(
+) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {

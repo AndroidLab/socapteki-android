@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.alab.extra_bouncy.BouncyNestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/svMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/flMenuAuth"
+            android:layout_above="@id/mbMenuAuth"
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none">
@@ -152,30 +152,24 @@
 
             </LinearLayout>
 
-        </com.alab.extra_bouncy.BouncyNestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <include
             layout="@layout/shadow_view"
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            android:layout_above="@id/flMenuAuth"
+            android:layout_above="@id/mbMenuAuth"
             app:visibleIf="@{account == null}" />
 
-        <FrameLayout
-            android:id="@+id/flMenuAuth"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbMenuAuth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:padding="8dp"
-            app:visibleIf="@{account == null}">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mbMenuAuth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_enter" />
-
-        </FrameLayout>
+            android:layout_margin="8dp"
+            android:text="@string/menu_enter"
+            android:translationY="-8dp"
+            app:visibleIf="@{account == null}" />
 
     </RelativeLayout>
 

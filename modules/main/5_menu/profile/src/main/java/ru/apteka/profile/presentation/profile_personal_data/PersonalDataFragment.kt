@@ -154,7 +154,9 @@ class PersonalDataFragment : BaseFragment<PersonalDataViewModel, PersonalDataFra
         }
 
         binding.personalDataProfileManagement.personalDataItem.setOnClickListener {
-
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                PersonalDataFragmentDirections.toProfileManagementFragment()
+            )
         }
 
         binding.personalDataMailQuestion.setOnClickListener {

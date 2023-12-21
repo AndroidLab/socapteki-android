@@ -89,6 +89,7 @@ class MakingOrderFragment : BaseFragment<MakingOrderViewModel, MakingOrderFragme
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.makingOrderToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
             toolbar.setNavigationOnClickListener {
