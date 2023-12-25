@@ -23,7 +23,6 @@ class OtherRepository @Inject constructor(
         return listOf(
             OtherModel(
                 id = UUID.randomUUID(),
-
             ),
             OtherModel(
                 id = UUID.randomUUID(),

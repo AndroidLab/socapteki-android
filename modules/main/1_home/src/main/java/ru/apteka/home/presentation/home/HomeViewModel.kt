@@ -155,7 +155,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launchIO {
             launchIO {
                 _ordersCardIsLoading.postValue(true)
-                delay(1500)
+                delay(1000)
                 _ordersCard.postValue(fakeOrdersCard)
                 _ordersCardIsLoading.postValue(false)
             }

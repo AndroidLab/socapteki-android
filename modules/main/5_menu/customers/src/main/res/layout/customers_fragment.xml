@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.customers.presentation.CustomersViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLicenses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/customersToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <!-- Акции -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/customersStocks"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    app:cardBackgroundColor="@color/pink">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_customers_stocks"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/customers_stocks"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Как сделать заказ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/customersPlaceOrderHeaderIndicator"
+                        app:expansion_layout="@id/customersPlaceOrderExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/customers_place_order_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/customersPlaceOrderHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            android:tag="indicator"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/customersPlaceOrderExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/customers_place_order_desc"
+                                android:textColor="@color/dark_black" />
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dp"
+                                android:background="@color/background_secondary"
+                                android:scaleType="center"
+                                android:src="@drawable/place_order" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Возврат -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/customersRefundHeaderIndicator"
+                        app:expansion_layout="@id/customersRefundExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/customers_refund_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/customersRefundHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/customersRefundExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <include
+                                layout="@layout/customers_key_value_template"
+                                app:desc="@{@string/customers_refund_conditions_desc}"
+                                app:title="@{@string/customers_refund_conditions}" />
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <include
+                                layout="@layout/customers_key_value_template"
+                                app:desc="@{@string/customers_refund_list_desc}"
+                                app:title="@{@string/customers_refund_list}" />
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <include
+                                layout="@layout/customers_key_value_template"
+                                app:desc="@{@string/customers_refund_order_desc}"
+                                app:title="@{@string/customers_refund_order}" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Оплата -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.github.florent37.expansionpanel.ExpansionHeader
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            app:expansionChangeColor="@{true}"
+                            app:expansion_headerIndicator="@id/licensesPermissionsHeaderIndicator"
+                            app:expansion_layout="@id/licensesPermissionsExpansionLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:tag="title"
+                                android:text="@string/customers_payment_title"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/licensesPermissionsHeaderIndicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|center_vertical"
+                                android:src="@drawable/ic_arrow_expand"
+                                tools:ignore="ContentDescription" />
+
+                        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                        <com.github.florent37.expansionpanel.ExpansionLayout
+                            android:id="@+id/licensesPermissionsExpansionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:expansion_expanded="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <include
+                                    layout="@layout/separator_view"
+                                    app:sepMarginEnd="@{16}"
+                                    app:sepMarginStart="@{16}" />
+
+                                <include
+                                    layout="@layout/customers_key_value_template"
+                                    app:desc="@{@string/customers_payment_types_desc}"
+                                    app:title="@{@string/customers_payment_types}" />
+
+                                <include
+                                    layout="@layout/separator_view"
+                                    app:sepMarginEnd="@{16}"
+                                    app:sepMarginStart="@{16}" />
+
+                                <include
+                                    layout="@layout/customers_key_value_template"
+                                    app:desc="@{@string/customers_payment_receipt_desc}"
+                                    app:title="@{@string/customers_payment_receipt}" />
+
+                            </LinearLayout>
+
+                        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Доставка -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/customersDeliveryHeaderIndicator"
+                        app:expansion_layout="@id/customersDeliveryExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/customers_delivery_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/customersDeliveryHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/customersDeliveryExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!-- Условия доставки -->
+                            <include
+                                android:id="@+id/customersPlaceOrderSeparator"
+                                layout="@layout/separator_view"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryConditions"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp"
+                                android:text="@string/customers_delivery_conditions"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersPlaceOrderSeparator" />
+
+                            <!-- Курьерская служба -->
+                            <include
+                                android:id="@+id/customersCourierServiceSeparator"
+                                layout="@layout/separator_view"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryConditions"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryCourierService"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_courier_service"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersCourierServiceSeparator" />
+
+                            <!-- Стоимость -->
+                            <TextView
+                                android:id="@+id/customersDeliveryCoast"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_coast"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/customersDeliveryCoastValue"
+                                app:layout_constraintHorizontal_weight="1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryCourierService" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryCoastValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:text="199 руб"
+                                android:textColor="@color/light_black"
+                                android:textSize="16sp"
+                                app:layout_constraintBaseline_toBaselineOf="@id/customersDeliveryCoast"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/customersDeliveryCoast" />
+
+                            <!-- Бесплатно -->
+                            <TextView
+                                android:id="@+id/customersDeliveryFree"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_free"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/customersDeliveryFreeValue"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryCoast" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryFreeValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:text="1599 руб"
+                                android:textColor="@color/light_black"
+                                android:textSize="16sp"
+                                app:layout_constraintBaseline_toBaselineOf="@id/customersDeliveryFree"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/customersDeliveryFree" />
+
+                            <!-- Интервал доставки -->
+                            <TextView
+                                android:id="@+id/customersDeliveryInterval"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_interval"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/customersDeliveryIntervalValue"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryFree" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryIntervalValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:text="9:00 - 20:00"
+                                android:textColor="@color/light_black"
+                                android:textSize="16sp"
+                                app:layout_constraintBaseline_toBaselineOf="@id/customersDeliveryInterval"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/customersDeliveryInterval" />
+
+                            <!-- Дата доставки -->
+                            <TextView
+                                android:id="@+id/customersDeliveryDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingTop="8dp"
+                                android:text="@string/customers_delivery_date"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryInterval" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryDateValue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingBottom="8dp"
+                                android:text="до 13:00 - в день заказа\nпосле 13:00 - на след. день"
+                                android:textColor="@color/light_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryDate" />
+
+                            <!-- Яндекс доставка -->
+                            <include
+                                android:id="@+id/customersDeliveryYandexSeparator"
+                                layout="@layout/separator_view"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryDateValue"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryYandex"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_yandex"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryYandexSeparator" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryYandexDesc"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/customers_delivery_yandex_desc"
+                                android:textColor="@color/light_black"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryYandex" />
+
+                            <!-- Самовывоз из аптеки -->
+                            <include
+                                android:id="@+id/customersDeliveryPickupSeparator"
+                                layout="@layout/separator_view"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryYandexDesc"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryPickup"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_pickup_pharmacy"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@id/customersDeliveryPickupFree"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryPickupSeparator" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryPickupFree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:text="@string/customers_delivery_pickup_pharmacy_free"
+                                android:textColor="@color/color_primary"
+                                app:layout_constraintBaseline_toBaselineOf="@id/customersDeliveryPickup"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/customersDeliveryPickup" />
+
+                            <!-- Порядок возврата -->
+                            <include
+                                android:id="@+id/customersDeliveryRefundSeparator"
+                                layout="@layout/separator_view"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryPickup"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryRefund"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="@string/customers_delivery_refund"
+                                android:textColor="@color/dark_black"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryRefundSeparator" />
+
+                            <TextView
+                                android:id="@+id/customersDeliveryRefundDesc"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/customers_delivery_refund_desc"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/customersDeliveryRefund" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <include layout="@layout/footer_stub" />
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/customersToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>

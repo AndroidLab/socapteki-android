@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@id/licenses_graph"
-    app:startDestination="@id/licensesFragment">
+    android:id="@id/customers_graph"
+    app:startDestination="@id/customersFragment">
 
     <fragment
-        android:id="@+id/licensesFragment"
-        android:name="ru.apteka.licenses.presentation.LicensesFragment">
+        android:id="@+id/customersFragment"
+        android:name="ru.apteka.customers.presentation.CustomersFragment">
 
     </fragment>
 

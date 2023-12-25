@@ -59,6 +59,8 @@ include(":modules:main:5_menu:brands")
 //Модуль 'Благотворительность'.
 include(":modules:main:5_menu:charity")
 
+//Модуль 'Покупателям'.
+include(":modules:main:5_menu:customers")
 
 
 

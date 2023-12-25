@@ -347,15 +347,16 @@ fun setErrorTextToTextInputLayout(layout: TextInputLayout, errorText: String?) {
  * Устанавливает изображение из ресурса.
  * @param glideImageRes Ресурс изображения.
  */
-@BindingAdapter("app:glideImageRes")
+@BindingAdapter("app:glideImageRes", "app:useStub", requireAll = false)
 fun ImageView.setGlideImage(
-    glideImageRes: Any?
+    glideImageRes: Any?,
+    useStub: Drawable? = ContextCompat.getDrawable(context, R.drawable.image_stub)
 ) {
     glideImageRes?.let {
         Glide
             .with(context)
             .load(it)
-            .placeholder(R.drawable.image_stub)
+            .placeholder(useStub)
             .into(this)
     }
 }

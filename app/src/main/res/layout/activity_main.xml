@@ -11,115 +11,132 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/general_nav_host"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/general_nav_host"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/general_nav_graph" />
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height"
+                android:layout_gravity="bottom"
+                app:contentInsetEnd="0dp"
+                app:contentInsetStart="0dp"
+                app:fabAlignmentMode="center"
+                app:fabCradleMargin="8dp"
+                app:fabCradleRoundedCornerRadius="5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/bottomNavigationCatalogItem"
+                        layout="@layout/bottom_navigation_item"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_2.itemId}"
+                        app:layout_constraintEnd_toStartOf="@id/bottomNavigationStocksItem"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:menuItem="@{bottomAppBarModel.item_2}" />
+
+                    <include
+                        android:id="@+id/bottomNavigationStocksItem"
+                        layout="@layout/bottom_navigation_item"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_3.itemId}"
+                        app:layout_constraintEnd_toStartOf="@id/bottomNavigationHomeItem"
+                        app:layout_constraintStart_toEndOf="@id/bottomNavigationCatalogItem"
+                        app:menuItem="@{bottomAppBarModel.item_3}" />
+
+                    <include
+                        android:id="@+id/bottomNavigationHomeItem"
+                        layout="@layout/bottom_navigation_item"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_1.itemId}"
+                        app:layout_constraintEnd_toStartOf="@id/bottomNavigationBasketItem"
+                        app:layout_constraintStart_toEndOf="@id/bottomNavigationStocksItem"
+                        app:menuItem="@{bottomAppBarModel.item_1}" />
+
+                    <include
+                        android:id="@+id/bottomNavigationBasketItem"
+                        layout="@layout/bottom_navigation_item"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_4.itemId}"
+                        app:layout_constraintEnd_toStartOf="@id/bottomNavigationMenuItem"
+                        app:layout_constraintStart_toEndOf="@id/bottomNavigationHomeItem"
+                        app:menuItem="@{bottomAppBarModel.item_4}" />
+
+                    <include
+                        android:id="@+id/bottomNavigationMenuItem"
+                        layout="@layout/bottom_navigation_item"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_5.itemId}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/bottomNavigationBasketItem"
+                        app:menuItem="@{bottomAppBarModel.item_5}" />
+
+                    <ru.apteka.components.ui.badge.NotificationBadge
+                        android:id="@+id/nbTab4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@id/bottomNavigationBasketItem"
+                        app:layout_constraintEnd_toEndOf="@id/bottomNavigationBasketItem"
+                        app:layout_constraintHorizontal_bias=".755"
+                        app:layout_constraintStart_toStartOf="@id/bottomNavigationBasketItem"
+                        app:layout_constraintTop_toTopOf="@id/bottomNavigationBasketItem"
+                        app:layout_constraintVertical_bias=".12" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/bottomAppBarFab"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/ic_home"
+                app:backgroundTint="@color/light_grey"
+                app:elevation="0dp"
+                app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
+                app:maxImageSize="32dp"
+                app:rippleColor="@color/grey"
+                tools:ignore="ContentDescription" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ImageView
+            android:id="@+id/ivStartAnim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="center"
             android:background="@color/white"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/general_nav_graph" />
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_bar_height"
-            android:layout_gravity="bottom"
-            app:contentInsetEnd="0dp"
-            app:contentInsetStart="0dp"
-            app:fabAlignmentMode="center"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="5dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <include
-                    android:id="@+id/bottomNavigationCatalogItem"
-                    layout="@layout/bottom_navigation_item"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_2.itemId}"
-                    app:layout_constraintEnd_toStartOf="@id/bottomNavigationStocksItem"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:menuItem="@{bottomAppBarModel.item_2}" />
-
-                <include
-                    android:id="@+id/bottomNavigationStocksItem"
-                    layout="@layout/bottom_navigation_item"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_3.itemId}"
-                    app:layout_constraintEnd_toStartOf="@id/bottomNavigationHomeItem"
-                    app:layout_constraintStart_toEndOf="@id/bottomNavigationCatalogItem"
-                    app:menuItem="@{bottomAppBarModel.item_3}" />
-
-                <include
-                    android:id="@+id/bottomNavigationHomeItem"
-                    layout="@layout/bottom_navigation_item"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_1.itemId}"
-                    app:layout_constraintEnd_toStartOf="@id/bottomNavigationBasketItem"
-                    app:layout_constraintStart_toEndOf="@id/bottomNavigationStocksItem"
-                    app:menuItem="@{bottomAppBarModel.item_1}" />
-
-                <include
-                    android:id="@+id/bottomNavigationBasketItem"
-                    layout="@layout/bottom_navigation_item"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_4.itemId}"
-                    app:layout_constraintEnd_toStartOf="@id/bottomNavigationMenuItem"
-                    app:layout_constraintStart_toEndOf="@id/bottomNavigationHomeItem"
-                    app:menuItem="@{bottomAppBarModel.item_4}" />
-
-                <include
-                    android:id="@+id/bottomNavigationMenuItem"
-                    layout="@layout/bottom_navigation_item"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_5.itemId}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/bottomNavigationBasketItem"
-                    app:menuItem="@{bottomAppBarModel.item_5}" />
-
-                <ru.apteka.components.ui.badge.NotificationBadge
-                    android:id="@+id/nbTab4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/bottomNavigationBasketItem"
-                    app:layout_constraintEnd_toEndOf="@id/bottomNavigationBasketItem"
-                    app:layout_constraintHorizontal_bias=".755"
-                    app:layout_constraintStart_toStartOf="@id/bottomNavigationBasketItem"
-                    app:layout_constraintTop_toTopOf="@id/bottomNavigationBasketItem"
-                    app:layout_constraintVertical_bias=".12" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/bottomAppBarFab"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/ic_home"
-            app:backgroundTint="@color/light_grey"
-            app:elevation="0dp"
-            app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
-            app:maxImageSize="32dp"
-            app:rippleColor="@color/grey"
+            app:glideImageRes="@{`file:///android_asset/start_anim.gif`}"
+            app:useStub="@{null}"
             tools:ignore="ContentDescription" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
+
 
 </layout>

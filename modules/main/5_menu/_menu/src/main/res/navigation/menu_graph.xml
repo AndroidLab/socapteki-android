@@ -29,4 +29,6 @@
 
     <include app:graph="@navigation/symptoms_diseases_graph" />
 
+    <include app:graph="@navigation/customers_graph" />
+
 </navigation>

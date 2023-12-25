@@ -1,0 +1,37 @@
+<resources>
+
+    <string name="customers_title">Покупателям</string>
+    <string name="customers_stocks">Акции</string>
+
+    <string name="customers_place_order_title">Как сделать заказ</string>
+    <string name="customers_place_order_desc">На странице оформления заказа Вы можете выбрать удобный для Вас способ доставки: самовывоз, курьером или Яндекс доставкой.</string>
+
+    <string name="customers_refund_title">Возврат</string>
+    <string name="customers_refund_conditions">Условия возврата</string>
+    <string name="customers_refund_conditions_desc">Согласно пункту 2.17. Порядка отпуска лекарственных средств, утвержденного Приказом Минздравсоцразвития России от 14.12.2005 года № 785 в редакции от 22.04.2014 года (далее Порядок), приобретенные гражданами лекарственные препараты надлежащего качества не подлежат возврату или обмену.</string>
+    <string name="customers_refund_list">Перечень категорий подлежащих возврату</string>
+    <string name="customers_refund_list_desc">Supporting line text lorem ipsum dolor sit amet, consectetur</string>
+    <string name="customers_refund_order">Порядок возврата</string>
+    <string name="customers_refund_order_desc">Supporting line text lorem ipsum dolor sit amet, consectetur</string>
+
+    <string name="customers_payment_title">Оплата</string>
+    <string name="customers_payment_types">Виды оплат</string>
+    <string name="customers_payment_types_desc">Вы можете оформить заказ несколькими способами: в приложении, на сайте и по телефону с оператором.</string>
+    <string name="customers_payment_receipt">Оплата и получение при доставке курьером</string>
+    <string name="customers_payment_receipt_desc">Supporting line text lorem ipsum dolor sit amet, consectetur</string>
+
+    <string name="customers_delivery_title">Доставка</string>
+    <string name="customers_delivery_conditions">Условия доставки</string>
+    <string name="customers_delivery_courier_service">Курьерская служба</string>
+    <string name="customers_delivery_coast">Стоимость</string>
+    <string name="customers_delivery_free">Бесплатно</string>
+    <string name="customers_delivery_interval">Интервал доставки</string>
+    <string name="customers_delivery_date">Дата доставки, если заказ оформлен:</string>
+    <string name="customers_delivery_yandex">Яндекс доставка</string>
+    <string name="customers_delivery_yandex_desc">Стоимость и интервалы доставки будут рассчитаны при оформлении доставки</string>
+    <string name="customers_delivery_pickup_pharmacy">Самовывоз из аптеки</string>
+    <string name="customers_delivery_pickup_pharmacy_free">Бесплатно</string>
+    <string name="customers_delivery_refund">Порядок обмена/возврата</string>
+    <string name="customers_delivery_refund_desc">Согласно пункту 2.17. Порядка отпуска лекарственных средств, утвержденного Приказом Минздравсоцразвития России от 14.12.2005 года № 785 в редакции от 22.04.2014 года (далее Порядок), приобретенные гражданами лекарственные препараты надлежащего качества не подлежат возврату или обмену.</string>
+
+</resources>

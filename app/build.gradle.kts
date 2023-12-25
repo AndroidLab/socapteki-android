@@ -50,4 +50,5 @@ dependencies {
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.mapsMobile)
     implementation(libs.measured)
+    implementation(libs.glideGlide)
 }

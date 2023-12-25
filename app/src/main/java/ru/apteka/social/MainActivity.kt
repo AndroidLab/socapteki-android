@@ -1,6 +1,7 @@
 package ru.apteka.social
 
 import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Paint
@@ -17,6 +18,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +43,7 @@ import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.setImageTint
+import ru.apteka.components.data.utils.setVisibleWithInteractionEnabled
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
@@ -96,6 +99,21 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         setContentView(binding.root)
         binding.lifecycleOwner = this
+
+        lifecycleScope.launchIO {
+            delay(6000)
+            mainThread {
+                ValueAnimator.ofFloat(
+                    1f, 0f
+                ).apply {
+                    addUpdateListener { valueAnimator ->
+                        binding.ivStartAnim.alpha = valueAnimator.animatedValue as Float
+                    }
+                    duration = 400
+                }.start()
+            }
+        }
+
         navigationManager.apply {
             generalNavController = this@MainActivity.generalNavController
         }
@@ -308,7 +326,10 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             binding.appMenuItemCustomers.item.setOnClickListener {
-                                //navigate()
+                                navigationManager.onSelectItemMenu(
+                                    ComponentsR.id.customers_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemSymptomsAndDiseases.item.setOnClickListener {

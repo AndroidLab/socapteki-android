@@ -9,9 +9,4 @@ import ru.apteka.components.ui.BaseFragment
 @AndroidEntryPoint
 class MenuFragment : BaseFragment<Nothing, Nothing>() {
     override val layoutId: Int? = null
-
-    override fun onViewBindingInflated(binding: Nothing) {
-
-    }
-
 }

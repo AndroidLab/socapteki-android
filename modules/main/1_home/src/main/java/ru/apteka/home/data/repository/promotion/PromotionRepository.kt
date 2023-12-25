@@ -21,7 +21,7 @@ class PromotionRepository @Inject constructor(
      * Получает акции.
      */
     suspend fun getPromotions(): List<PromotionModel> {
-        delay(1500)
+        delay(900)
         return listOf(
             PromotionModel(
                 id = UUID.randomUUID(),
