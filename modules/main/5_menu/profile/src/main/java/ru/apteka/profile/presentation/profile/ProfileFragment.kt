@@ -55,6 +55,12 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
             )
         }
 
+        binding.userProfileCommentsReviews.llProfileMenuItem.setOnClickListener {
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ProfileFragmentDirections.toCommentsReviewsFragment()
+            )
+        }
+
         binding.userProfileSettingNotifications.llProfileMenuItem.setOnClickListener {
             navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 ProfileFragmentDirections.toSettingNotificationsFragment()
@@ -65,16 +71,11 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
 
         }
 
-        binding.userProfileCommentsReviews.llProfileMenuItem.setOnClickListener {
-            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-                ProfileFragmentDirections.toCommentsReviewsFragment()
-            )
-        }
-
     }
 
     override fun onResume() {
         super.onResume()
+        navigationManager.onBottomAppBarShowed(true)
         binding.profileToolbar.apply {
             tvToolbarTitle.text = getString(R.string.profile_title)
         }

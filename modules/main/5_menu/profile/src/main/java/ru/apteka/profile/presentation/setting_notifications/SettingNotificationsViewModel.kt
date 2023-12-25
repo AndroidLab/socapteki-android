@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.SubscriptionsModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
@@ -28,18 +29,45 @@ class SettingNotificationsViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
-    private var _smsNotice = false
-    private var _mailNotice = false
+    private var _notificationsOnlineOrderStatusMail = false
+    private var _notificationsStocksMail = false
+    private var _notificationsStocksSms = false
+    private var _notificationsStocksPush = false
+    private var _notificationsPointsSmsOrMail = false
+    private var _notificationsPointsPush = false
 
     /**
-     * Возвращает или устанавливает флаг 'Смс уведомления'.
+     * Возвращает или устанавливает флаг 'Статус интернет-заказа, получать уведомления на e-mail'.
      */
-    val smsNotice = MutableLiveData(_smsNotice)
+    val notificationsOnlineOrderStatusMail = MutableLiveData(_notificationsOnlineOrderStatusMail)
+
 
     /**
-     * Возвращает или устанавливает флаг 'Maqk уведомления'.
+     * Возвращает или устанавливает флаг 'Акции, получать уведомления на e-mail'.
      */
-    val mailNotice = MutableLiveData(_mailNotice)
+    val notificationsStocksMail = MutableLiveData(_notificationsStocksMail)
+
+    /**
+     * Возвращает или устанавливает флаг 'Акции, смс уведомления'.
+     */
+    val notificationsStocksSms = MutableLiveData(_notificationsStocksSms)
+
+    /**
+     * Возвращает или устанавливает флаг 'Акции, push уведомления'.
+     */
+    val notificationsStocksPush = MutableLiveData(_notificationsStocksPush)
+
+
+    /**
+     * Возвращает или устанавливает флаг 'Баллы, смс или mail уведомления'.
+     */
+    val notificationsPointsSmsOrMail = MutableLiveData(_notificationsPointsSmsOrMail)
+
+    /**
+     * Возвращает или устанавливает флаг 'Баллы, push уведомления'.
+     */
+    val notificationsPointsPush = MutableLiveData(_notificationsPointsPush)
+
 
     /**
      * Возвращает флаг изменений.
@@ -47,14 +75,26 @@ class SettingNotificationsViewModel @Inject constructor(
     val isChanged = MediatorLiveData<Boolean>().apply {
         fun checkChanged() {
             postValue(
-                !isLoading.value!! && (smsNotice.value!! != _smsNotice || mailNotice.value!! != _mailNotice)
+                true//!isLoading.value!! && (smsNotice.value!! != _smsNotice || mailNotice.value!! != _mailNotice)
             )
         }
 
-        addSource(smsNotice) {
+        addSource(notificationsOnlineOrderStatusMail) {
             checkChanged()
         }
-        addSource(mailNotice) {
+        addSource(notificationsStocksMail) {
+            checkChanged()
+        }
+        addSource(notificationsStocksSms) {
+            checkChanged()
+        }
+        addSource(notificationsStocksPush) {
+            checkChanged()
+        }
+        addSource(notificationsPointsSmsOrMail) {
+            checkChanged()
+        }
+        addSource(notificationsPointsPush) {
             checkChanged()
         }
         addSource(isLoading) {
@@ -64,56 +104,38 @@ class SettingNotificationsViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { loginRepository.getSubscriptions() },
-                onSuccess = { subscriptions ->
-                    mainThread {
-                        _smsNotice = subscriptions.sms
-                        _mailNotice = subscriptions.mail
-                        smsNotice.value = _smsNotice
-                        mailNotice.value = _mailNotice
-                    }
-                },
-                isLoading = _isLoading
-            )
+            _isLoading.postValue(true)
+            delay(1500)
+            _notificationsOnlineOrderStatusMail = true
+            _notificationsStocksMail = true
+            _notificationsStocksSms = true
+            _notificationsStocksPush = true
+            _notificationsPointsSmsOrMail = true
+            _notificationsPointsPush = false
+
+            notificationsOnlineOrderStatusMail.postValue(_notificationsOnlineOrderStatusMail)
+            notificationsStocksMail.postValue(_notificationsStocksMail)
+            notificationsStocksSms.postValue(_notificationsStocksSms)
+            notificationsStocksPush.postValue(_notificationsStocksPush)
+            notificationsPointsSmsOrMail.postValue(_notificationsPointsSmsOrMail)
+            notificationsPointsPush.postValue(_notificationsPointsPush)
+
+            _isLoading.postValue(false)
         }
     }
 
 
     /**
-     * Клик по смс уведомлениям.
-     */
-    fun clickSmsNotice() {
-        smsNotice.value = !smsNotice.value!!
-    }
-
-    /**
-     * Клик по емайл уведомлениям.
-     */
-    fun clickMailNotice() {
-        mailNotice.value = !mailNotice.value!!
-    }
-
-    /**
      * Сохранить.
      */
-    fun save() {
+    fun save(success: () -> Unit) {
         viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = {
-                    loginRepository.saveSubscriptions(
-                        SubscriptionsModel(
-                            smsNotice.value!!,
-                            mailNotice.value!!
-                        )
-                    )
-                },
-                onSuccess = {
-                    _smsNotice = smsNotice.value!!
-                    _mailNotice = mailNotice.value!!
-                },
-                isLoading = _isLoading
-            )
+            _isLoading.postValue(true)
+            delay(1500)
+            mainThread {
+                success()
+            }
+            _isLoading.postValue(false)
         }
     }
 

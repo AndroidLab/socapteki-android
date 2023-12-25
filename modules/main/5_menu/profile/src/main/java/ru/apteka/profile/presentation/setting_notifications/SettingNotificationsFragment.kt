@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.profile.R
-import ru.apteka.profile.databinding.SettingNotificationsFragmentBinding
+import ru.apteka.profile.databinding.ProfileNotificationsFragmentBinding
 import ru.apteka.components.R as ComponentsR
 
 
@@ -13,21 +13,27 @@ import ru.apteka.components.R as ComponentsR
  */
 @AndroidEntryPoint
 class SettingNotificationsFragment :
-    BaseFragment<SettingNotificationsViewModel, SettingNotificationsFragmentBinding>() {
+    BaseFragment<SettingNotificationsViewModel, ProfileNotificationsFragmentBinding>() {
     override val viewModel: SettingNotificationsViewModel by viewModels()
-    override val layoutId: Int = R.layout.setting_notifications_fragment
+    override val layoutId: Int = R.layout.profile_notifications_fragment
 
 
-    override fun onViewBindingInflated(binding: SettingNotificationsFragmentBinding) {
+    override fun onViewBindingInflated(binding: ProfileNotificationsFragmentBinding) {
         binding.viewModel = viewModel
 
+        binding.mbNotificationsSave.setOnClickListener {
+            viewModel.save {
+                viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.mySubscriptionsToolbar.apply {
+        viewModel.navigationManager.onBottomAppBarShowed(false)
+        binding.notificationsToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            tvToolbarTitle.text = getString(R.string.my_subscriptions_title)
+            tvToolbarTitle.text = getString(R.string.notifications_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

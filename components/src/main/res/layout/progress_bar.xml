@@ -16,13 +16,14 @@
             style="@style/Theme.Socapteki.ProgressBar"
             android:layout_width="@dimen/progress_size"
             android:layout_height="@dimen/progress_size"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:indeterminateOnly="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:indeterminateOnly="true"
-            app:visibleIf="@{isLoading}"/>
+            app:visibleIf="@{isLoading}" />
 
         <!--<com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/progress_size"
@@ -34,7 +35,6 @@
         app:visibleIf="@{isLoading}" />-->
 
     </merge>
-
 
 
 </layout>

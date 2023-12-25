@@ -21,12 +21,14 @@
     <string name="comments_reviews_published">Опубликованно</string>
     <string name="comments_reviews_consideration">На рассмотрении</string>
 
-    <string name="my_subscriptions_title">Мои подписки</string>
-    <string name="my_subscriptions_sms_notice">СМС-уведомления</string>
-    <string name="my_subscriptions_sms_notice_desc">Получать СМС-уведомления</string>
-    <string name="my_subscriptions_mail_notice">Уведомления на e-mail</string>
-    <string name="my_subscriptions_mail_notice_desc">Получать уведомления на e-mail</string>
-    <string name="my_subscriptions_save">Сохранить изменения</string>
+    <string name="notifications_title">Настройка уведомлений</string>
+    <string name="notifications_online_order_status">Статус интернет-заказа</string>
+    <string name="notifications_stocks">Акции, новости, низкие цены, промокоды и подарки</string>
+    <string name="notifications_points">Сгорание баллов:</string>
+
+    <string name="notifications_mail">Получать уведомления на e-mail</string>
+    <string name="notifications_sms">Получать СМС-уведомления</string>
+    <string name="notifications_push">Push-уведомления</string>
 
     <string name="personal_data">Личные данные</string>
     <string name="personal_data_not_specified">Не указан</string>

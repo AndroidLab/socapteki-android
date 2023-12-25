@@ -19,7 +19,6 @@
             android:id="@+id/svHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/homePharmaciesMap"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -27,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <include layout="@layout/footer_stub" />
 
                 <!-- Инфо по заказам -->
                 <com.google.android.material.card.MaterialCardView
@@ -112,62 +113,58 @@
                     app:title="@{@string/home_categories}" />
 
                 <!-- Преимущества -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="6dp">
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/home_advantages"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/home_advantages"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                    <include
+                        layout="@layout/home_advantages_item"
+                        app:desc="@{@string/home_advantages_around_clock_desc}"
+                        app:icon="@{@drawable/ic_home_advantages_around_clock}"
+                        app:title="@{@string/home_advantages_around_clock_title}" />
 
-                        <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_around_clock_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_around_clock}"
-                            app:title="@{@string/home_advantages_around_clock_title}" />
+                    <include
+                        layout="@layout/home_advantages_item"
+                        app:desc="@{@string/home_advantages_more_products_desc}"
+                        app:icon="@{@drawable/ic_home_advantages_more_products}"
+                        app:title="@{@string/home_advantages_more_products_title}" />
 
-                        <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_more_products_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_more_products}"
-                            app:title="@{@string/home_advantages_more_products_title}" />
+                    <include
+                        layout="@layout/home_advantages_item"
+                        app:desc="@{@string/home_advantages_no_queue_desc}"
+                        app:icon="@{@drawable/ic_home_advantages_no_queue}"
+                        app:title="@{@string/home_advantages_no_queue_title}" />
 
-                        <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_no_queue_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_no_queue}"
-                            app:title="@{@string/home_advantages_no_queue_title}" />
+                </LinearLayout>
 
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Меню -->
-                <com.google.android.material.card.MaterialCardView
+                <include
+                    android:id="@+id/homeMenuBrands"
+                    layout="@layout/bottom_menu"
+                    app:icon="@{@drawable/ic_brands}"
+                    app:text="@{@string/home_menu_brands}" />
+                <!--<com.google.android.material.card.MaterialCardView
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="16dp">
 
-                    <include
-                        android:id="@+id/homeMenuBrands"
-                        layout="@layout/bottom_menu"
-                        app:icon="@{@drawable/ic_brands}"
-                        app:text="@{@string/home_menu_brands}" />
 
-                </com.google.android.material.card.MaterialCardView>
+
+                </com.google.android.material.card.MaterialCardView>-->
 
                 <include layout="@layout/footer_stub" />
 
