@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         lifecycleScope.launchIO {
-            delay(6000)
+            //delay(6000)
             mainThread {
                 ValueAnimator.ofFloat(
                     1f, 0f

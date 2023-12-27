@@ -15,11 +15,14 @@
     <string name="pharmacies_not_found_desc">Нажмите ❤️ на аптеке, которую хотите сохранить</string>
 
     <string name="comments_reviews_title">Комментарии и отзывы</string>
-    <string name="comments_reviews_comments_page">Комментарии</string>
-    <string name="comments_reviews_reviews_page">Отзывы</string>
-    <string name="comments_reviews_feedback_page">Обратная связь</string>
-    <string name="comments_reviews_published">Опубликованно</string>
-    <string name="comments_reviews_consideration">На рассмотрении</string>
+    <string name="comments_read_completely">Читать полностью</string>
+    <string name="comments_hide">Скрыть</string>
+    <string name="comments_responses_comments">Ответы на комментарии (%s)</string>
+    <string name="comments_product_reviews_page">Отзывы о товаре</string>
+    <string name="comments_reviews_online_pharmacy_page">Отзывы об интернет-аптеке</string>
+    <string name="comments_feedback_page">Обратная связь</string>
+    <string name="comments_feedback_no_feedbacks">К сожалению, вы еще не оставляли комментарии либо отзывы</string>
+
 
     <string name="notifications_title">Настройка уведомлений</string>
     <string name="notifications_online_order_status">Статус интернет-заказа</string>

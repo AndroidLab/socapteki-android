@@ -19,6 +19,7 @@ import android.text.Spanned
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
@@ -42,6 +43,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import kotlin.math.ceil
 
 
 /**
@@ -573,3 +575,10 @@ fun Fragment.setSoftInputModeResize() {
 fun Fragment.setSoftInputModeNothing() {
     requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 }
+
+/**
+ * Возвращает кол-во строк в тексте.
+ */
+fun TextView.countLines() =
+    ceil(paint.measureText(text.toString()) / measuredWidth.toDouble()).toInt()
+

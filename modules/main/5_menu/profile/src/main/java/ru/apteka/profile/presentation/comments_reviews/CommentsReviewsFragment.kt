@@ -8,9 +8,9 @@ import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.PagerAdapter
 import ru.apteka.profile.R
 import ru.apteka.profile.databinding.CommentsReviewsFragmentBinding
-import ru.apteka.profile.presentation.comments_reviews.pages.comments.CommentsPageFragment
+import ru.apteka.profile.presentation.comments_reviews.pages.product_reviews.ProductReviewsPageFragment
 import ru.apteka.profile.presentation.comments_reviews.pages.feedback.FeedbackFragment
-import ru.apteka.profile.presentation.comments_reviews.pages.reviews.ReviewsPageFragment
+import ru.apteka.profile.presentation.comments_reviews.pages.reviews_online_pharmacy.ReviewsOnlinePharmacyPageFragment
 import ru.apteka.components.R as ComponentsR
 
 
@@ -31,22 +31,23 @@ class CommentsReviewsFragment :
         binding.commentsReviewsFragmentPager.adapter = PagerAdapter(
             requireActivity(),
             arrayListOf(
-                CommentsPageFragment.newInstance() as Fragment,
-                ReviewsPageFragment.newInstance() as Fragment,
+                ProductReviewsPageFragment.newInstance() as Fragment,
+                ReviewsOnlinePharmacyPageFragment.newInstance() as Fragment,
                 FeedbackFragment.newInstance() as Fragment,
             )
         )
         TabLayoutMediator(binding.tabLayout, binding.commentsReviewsFragmentPager) { tab, pos ->
             tab.text = listOf(
-                getString(R.string.comments_reviews_comments_page),
-                getString(R.string.comments_reviews_reviews_page),
-                getString(R.string.comments_reviews_feedback_page)
+                getString(R.string.comments_product_reviews_page),
+                getString(R.string.comments_reviews_online_pharmacy_page),
+                getString(R.string.comments_feedback_page)
             )[pos]
         }.attach()
     }
 
     override fun onResume() {
         super.onResume()
+        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.commentsReviewsToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
             tvToolbarTitle.text = getString(R.string.comments_reviews_title)

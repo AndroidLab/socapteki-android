@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.profile.data.models.CommentModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/corners_shape">
+
+        <!-- Изображение -->
+        <include
+            android:id="@+id/commentImage"
+            layout="@layout/image_card"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            app:imageUrl="@{model.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Заголовок -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:extraText="@{model.title}"
+            app:isHtml="@{true}"
+            android:textColor="@color/dark_black"
+            app:layout_constraintBottom_toBottomOf="@id/commentImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/commentImage"
+            app:layout_constraintTop_toTopOf="@id/commentImage" />
+
+        <!-- Текст -->
+        <TextView
+            android:id="@+id/commentText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:animateLayoutChanges="true"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text="@{model.text}"
+            android:textColor="@color/light_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/commentImage" />
+
+        <!-- Читать полностью -->
+        <LinearLayout
+            android:id="@+id/llCommentsReadCompletely"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/commentText">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_arrow_down"
+                app:tint="@color/color_primary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvCommentsReadCompletely"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/comments_read_completely"
+                android:textColor="@color/color_primary" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/commentSeparator"
+            layout="@layout/separator_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llCommentsReadCompletely"
+            app:layout_goneMarginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/commentSeparator">
+
+            <com.github.florent37.expansionpanel.ExpansionHeader
+                android:id="@+id/commentExpansionHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:expansionChangeColor="@{true}"
+                app:expansion_headerIndicator="@id/commentHeaderIndicator"
+                app:expansion_layout="@id/commentExpansionLayout">
+
+                <TextView
+                    android:id="@+id/commentHeaderTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@{String.format(@string/comments_responses_comments, model.answers.size)}"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/commentHeaderIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:src="@drawable/ic_arrow_expand"
+                    android:tag="indicator"
+                    tools:ignore="ContentDescription" />
+
+            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/commentExpansionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expansion_expanded="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:forItems="@{model.answers}"
+                    app:useTemplate="@{@layout/comments_answers_template}" />
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

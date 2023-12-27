@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.profile.presentation.comments_reviews.pages.feedback.FeedbackPageViewModel" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/no_element_view"
+            app:icon="@{@drawable/no_feedbacks}"
+            app:title="@{@string/comments_feedback_no_feedbacks}"
+            app:visibleIf="@{!viewModel.isLoading &amp; viewModel.feedbacks.empty}" />
+
+        <com.alab.extra_bouncy.BouncyRecyclerView
+            android:id="@+id/rvFeedbacks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:visibleIf="@{!viewModel.feedbacks.empty}" />
+
+        <include
+            layout="@layout/progress_bar"
+            app:isLoading="@{viewModel.isLoading}" />
+
+    </FrameLayout>
+
+</layout>

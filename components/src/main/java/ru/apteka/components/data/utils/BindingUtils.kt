@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -634,7 +635,6 @@ fun ExpansionHeader.setChangeSelectionColor(
 ) {
     if (expansionChangeColor == true) {
         val title = findViewWithTag<TextView>("title")
-
         addListener { expansionLayout, expanded ->
             title?.setTextColor(
                 ContextCompat.getColor(
