@@ -19,7 +19,7 @@
 
     <include app:graph="@navigation/contacts_graph" />
 
-    <include app:graph="@navigation/licenses_graph" />
+    <include app:graph="@navigation/legal_documents_graph" />
 
     <include app:graph="@navigation/brands_graph" />
 

@@ -50,7 +50,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_customers_stocks"
+                            android:src="@drawable/ic_stocks"
+                            app:tint="@color/red"
                             tools:ignore="ContentDescription" />
 
                         <TextView
@@ -58,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:layout_weight="1"
-                            android:text="@string/customers_stocks"
+                            android:text="@string/stocks"
                             android:textColor="@color/red"
                             android:textSize="16sp" />
 

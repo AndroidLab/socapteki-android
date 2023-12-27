@@ -20,7 +20,7 @@ dependencies {
     implementation(project(":modules:main:5_menu:work_with_us"))
     implementation(project(":modules:main:5_menu:profile"))
     implementation(project(":modules:main:5_menu:contacts"))
-    implementation(project(":modules:main:5_menu:licenses"))
+    implementation(project(":modules:main:5_menu:legal_documents"))
     implementation(project(":modules:main:5_menu:brands"))
     implementation(project(":modules:main:5_menu:charity"))
     implementation(project(":modules:main:5_menu:referral_program"))

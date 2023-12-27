@@ -50,8 +50,8 @@ include(":modules:main:5_menu:profile")
 //Модуль 'Контакты'.
 include(":modules:main:5_menu:contacts")
 
-//Модуль 'Лицензии и соглашения'.
-include(":modules:main:5_menu:licenses")
+//Модуль 'Юридические документы'.
+include(":modules:main:5_menu:legal_documents")
 
 //Модуль 'Бренды и производители'.
 include(":modules:main:5_menu:brands")

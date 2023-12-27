@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/legal_documents_graph"
+    app:startDestination="@id/legalDocumentsFragment">
+
+    <fragment
+        android:id="@+id/legalDocumentsFragment"
+        android:name="ru.apteka.legal_documents.presentation.legal_documents.LegalDocumentsFragment">
+
+        <action
+            android:id="@+id/toLicensesFragment"
+            app:destination="@id/licensesFragment" />
+
+        <action
+            android:id="@+id/toPolicyConfidentialityFragment"
+            app:destination="@id/policyConfidentialityFragment" />
+
+        <action
+            android:id="@+id/toLoyaltyProgramFragmentFragment"
+            app:destination="@id/loyaltyProgramFragment" />
+
+        <action
+            android:id="@+id/toUserAgreementFragment"
+            app:destination="@id/userAgreementFragment" />
+
+        <action
+            android:id="@+id/toMedicinalProductsFragment"
+            app:destination="@id/medicinalProductsFragment" />
+
+        <action
+            android:id="@+id/toPublishingReviewsFragment"
+            app:destination="@id/publishingReviewsFragment" />
+
+        <action
+            android:id="@+id/toSaleGoodsFragment"
+            app:destination="@id/saleGoodsFragment" />
+
+        <action
+            android:id="@+id/toReferralProgramBonusesFragment"
+            app:destination="@id/referralProgramBonusesFragment" />
+
+    </fragment>
+
+    <!-- Лицензии и разрешения -->
+    <fragment
+        android:id="@+id/licensesFragment"
+        android:name="ru.apteka.legal_documents.presentation.licenses.LicensesFragment"/>
+
+    <!-- Политика конфиденциальности -->
+    <fragment
+        android:id="@+id/policyConfidentialityFragment"
+        android:name="ru.apteka.legal_documents.presentation.policy_confidentiality.PolicyConfidentialityFragment"/>
+
+    <!-- Правила программы лояльности -->
+    <fragment
+        android:id="@+id/loyaltyProgramFragment"
+        android:name="ru.apteka.legal_documents.presentation.loyalty_program.LoyaltyProgramFragment">
+
+        <action
+            android:id="@+id/toLoyaltyProgramBonusesFragmentFragment"
+            app:destination="@id/loyaltyProgramBonusesFragment" />
+
+    </fragment>
+
+    <!-- Бонусы -->
+    <fragment
+        android:id="@+id/loyaltyProgramBonusesFragment"
+        android:name="ru.apteka.legal_documents.presentation.loyalty_program.LoyaltyProgramBonusesFragment"/>
+
+    <!-- Пользовательское соглашение -->
+    <fragment
+        android:id="@+id/userAgreementFragment"
+        android:name="ru.apteka.legal_documents.presentation.user_agreement.UserAgreementFragment"/>
+
+    <!-- Правила отпуска лекарственных препаратов -->
+    <fragment
+        android:id="@+id/medicinalProductsFragment"
+        android:name="ru.apteka.legal_documents.presentation.medicinal_products.MedicinalProductsFragment"/>
+
+    <!-- Правила публикации отзывов на сайте social-apteka.ru -->
+    <fragment
+        android:id="@+id/publishingReviewsFragment"
+        android:name="ru.apteka.legal_documents.presentation.publishing_reviews.PublishingReviewsFragment"/>
+
+    <!-- Условия продажи товаров -->
+    <fragment
+        android:id="@+id/saleGoodsFragment"
+        android:name="ru.apteka.legal_documents.presentation.sale_goods.SaleGoodsFragment"/>
+
+    <!-- Условия реферальной программы -->
+    <fragment
+        android:id="@+id/referralProgramBonusesFragment"
+        android:name="ru.apteka.legal_documents.presentation.referral_program.LegalDocumentsReferralProgramFragment"/>
+
+
+</navigation>

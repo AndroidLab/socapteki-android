@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.favorites.presentation.stocks.presentation.stocks.StocksViewModel" />
+            type="ru.apteka.stocks.presentation.stocks.StocksViewModel" />
 
     </data>
 
@@ -14,37 +14,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_secondary"
         android:orientation="vertical">
 
         <include
-            android:id="@+id/favoritesToolbar"
+            android:id="@+id/stocksToolbar"
             layout="@layout/toolbar" />
 
-        <ru.apteka.components.ui.LoaderLayout
+        <include layout="@layout/separator_view" />
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:isLoading="@{viewModel.isLoading}">
+            android:orientation="vertical">
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScroll"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStocks"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:scrollbars="none">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            <include
+                layout="@layout/progress_bar"
+                app:isLoading="@{viewModel.isLoading}" />
 
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </ru.apteka.components.ui.LoaderLayout>
+        </FrameLayout>
 
     </LinearLayout>
-
 
 
 </layout>

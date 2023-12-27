@@ -32,6 +32,7 @@
     <string name="telephone">Телефон</string>
     <string name="phone_number">Номер телефона</string>
     <string name="mail">Почта</string>
+    <string name="stocks">Акции</string>
     <string name="email">Электронная почта</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>

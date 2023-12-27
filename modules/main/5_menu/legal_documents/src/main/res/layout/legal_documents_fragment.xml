@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLegalDocuments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/legalDocumentsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical">
+
+                    <!-- Лицензии и разрешения -->
+                    <include
+                        android:id="@+id/legalDocumentsLicenses"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_licenses_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Политика конфеденциальности -->
+                    <include
+                        android:id="@+id/legalDocumentsPolicyConfidentiality"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_policy_confidentiality_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Правила программы лояльности -->
+                    <include
+                        android:id="@+id/legalDocumentsLoyaltyProgram"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_loyalty_program_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Пользовательское соглашение -->
+                    <include
+                        android:id="@+id/legalDocumentsUserAgreement"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_user_agreement_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Правила отпуска лекарственных препаратов -->
+                    <include
+                        android:id="@+id/legalDocumentsMedicinalProducts"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_medicinal_products_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Правила публикации отзывов на сайте social-apteka.ru -->
+                    <include
+                        android:id="@+id/legalDocumentsPublishingReviews"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_publishing_reviews_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Условия продажи товаров -->
+                    <include
+                        android:id="@+id/legalDocumentsSaleGoods"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_sale_goods_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Условия реферальной программы -->
+                    <include
+                        android:id="@+id/legalDocumentsReferralProgram"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_referral_program_title}" />
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Реквизиты -->
+                    <include
+                        android:id="@+id/legalDocumentsRequisites"
+                        layout="@layout/legal_documents_template"
+                        app:title="@{@string/legal_documents_requisites_title}" />
+
+                </LinearLayout>
+
+                <!-- Справочная служба -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp">
+
+                    <ImageView
+                        android:id="@+id/legalDocumentsHelpDeskIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_help_desk"
+                        app:layout_constraintBottom_toBottomOf="@id/legalDocumentsHelpDeskPhone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/legalDocumentsHelpDesk"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/legalDocumentsHelpDesk"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:singleLine="true"
+                        android:text="@string/legal_documents_help_desk_title"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskIcon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/legalDocumentsHelpDeskPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="8 800 550 77 32"
+                        app:layout_constraintEnd_toStartOf="@id/legalDocumentsHelpDeskTime"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskIcon"
+                        app:layout_constraintTop_toBottomOf="@id/legalDocumentsHelpDesk" />
+
+                    <TextView
+                        android:id="@+id/legalDocumentsHelpDeskTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:singleLine="true"
+                        android:text="(с 8:00 до 21:00 по МСК)"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintBaseline_toBaselineOf="@id/legalDocumentsHelpDeskPhone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskPhone" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/legalDocumentsToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+</layout>

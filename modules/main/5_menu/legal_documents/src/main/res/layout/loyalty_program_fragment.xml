@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLoyaltyProgram"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/loyaltyProgramToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <!-- Акции -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/loyaltyProgramStocks"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    app:cardBackgroundColor="@color/pink">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_stocks"
+                            app:tint="@color/red"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/stocks"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Общая информация -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramCommonInfoHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramCommonInfoExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_common_info_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramCommonInfoHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            android:tag="indicator"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramCommonInfoExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_common_info_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Термины и определения -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramTermsHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramTermsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_terms_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramTermsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramTermsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_loyalty_program_desc}"
+                                app:title="@{@string/loyalty_program_terms_loyalty_program}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_rules_desc}"
+                                app:title="@{@string/loyalty_program_terms_rules}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_operator_desc}"
+                                app:title="@{@string/loyalty_program_terms_operator}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_ooo_desc}"
+                                app:title="@{@string/loyalty_program_terms_ooo}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_participant_desc}"
+                                app:title="@{@string/loyalty_program_terms_participant}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_registration_form_desc}"
+                                app:title="@{@string/loyalty_program_terms_registration_form}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_account_desc}"
+                                app:title="@{@string/loyalty_program_terms_account}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_card_desc}"
+                                app:title="@{@string/loyalty_program_terms_card}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_privilege_desc}"
+                                app:title="@{@string/loyalty_program_terms_privilege}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_bonus_desc}"
+                                app:title="@{@string/loyalty_program_terms_bonus}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_course_desc}"
+                                app:title="@{@string/loyalty_program_terms_course}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_terms_activation_desc}"
+                                app:title="@{@string/loyalty_program_terms_activation}" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Регистрация в программе -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramRegistrationHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramRegistrationExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_registration_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramRegistrationHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramRegistrationExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_registration_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Блокировка карты -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramBlockingCardHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramBlockingCardExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_blocking_card_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramBlockingCardHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramBlockingCardExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_blocking_card_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Восстановление карты -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramRestoringCardHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramRestoringCardExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_restoring_card_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramRestoringCardHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramRestoringCardExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_restoring_card_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Правила начисления Бонусных баллов -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramAccrualRulesHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramAccrualRulesExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_accrual_rules_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramAccrualRulesHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramAccrualRulesExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_accrual_rules_desc" />
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <LinearLayout
+                                android:id="@+id/loyaltyProgramAccrualRulesBonuses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackground"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="12dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_legal_documents_bonuses"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingHorizontal="16dp"
+                                    android:text="@string/loyalty_program_bonuses_title" />
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/ic_arrow_expand"
+                                    tools:ignore="ContentDescription" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Правила списания Бонусных баллов -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramRiteOffRulesHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramRiteOffRulesExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_write_off_rules_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramRiteOffRulesHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramRiteOffRulesExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_write_off_rules_desc}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_write_off_rules_variants_desc}"
+                                app:title="@{@string/loyalty_program_write_off_rules_variants}" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Прочие условия -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramOtherConditionsHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramOtherConditionsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_other_conditions_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramOtherConditionsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramOtherConditionsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_other_conditions_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Согласие участника Программы лояльности «Социальная Аптека» на обработку персональных данных при регистрации в Программе Лояльности -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramApprovalHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramApprovalExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_approval_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramApprovalHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramApprovalExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_1}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_2}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_3}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_4}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_5}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_6}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_7}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/loyalty_program_approval_desc_8}" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Предыдущие редакции документа -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/loyaltyProgramPreviousEditionsHeaderIndicator"
+                        app:expansion_layout="@id/loyaltyProgramPreviousEditionsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/loyalty_program_previous_editions_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/loyaltyProgramPreviousEditionsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/loyaltyProgramPreviousEditionsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/loyalty_program_previous_editions_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/loyaltyProgramToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</layout>

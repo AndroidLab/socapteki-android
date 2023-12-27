@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLoyaltyProgram"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/publishingReviewsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/corners_shape"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_1" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_2" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_3" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_4" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_5" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_6" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_7" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_8" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_9" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginBottom="@{8}"
+                    app:sepMarginTop="@{8}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loyalty_program_publishing_reviews_rules_10" />
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/publishingReviewsToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</layout>

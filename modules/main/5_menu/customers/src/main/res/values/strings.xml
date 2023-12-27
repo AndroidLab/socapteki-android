@@ -1,7 +1,6 @@
 <resources>
 
     <string name="customers_title">Покупателям</string>
-    <string name="customers_stocks">Акции</string>
 
     <string name="customers_place_order_title">Как сделать заказ</string>
     <string name="customers_place_order_desc">На странице оформления заказа Вы можете выбрать удобный для Вас способ доставки: самовывоз, курьером или Яндекс доставкой.</string>

@@ -7,6 +7,7 @@ plugins {
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.roomConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
+    id(libs.plugins.kotlinParcelize.get().pluginId)
 }
 
 android {

@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svSaleGoods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/saleGoodsToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <!-- Термины -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsTermsHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsTermsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_terms_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsTermsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            android:tag="indicator"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsTermsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_salesman}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_buyer}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_product}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_booking}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_order}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_pre_order}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_website}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_delivery}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_delivery_service}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_personal_account}" />
+
+                            <include
+                                layout="@layout/legal_documents_item_view"
+                                app:desc="@{@string/sale_goods_terms_cancellation}" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Условия продажи товаров -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsConditionsHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsConditionsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_conditions_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsConditionsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsConditionsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_conditions_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Основные положения -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsMainProvisionsHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsMainProvisionsExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_main_provisions_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsMainProvisionsHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsMainProvisionsExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_main_provisions_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Регистрация на сайте -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsRegistrationHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsRegistrationExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_registration_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsRegistrationHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsRegistrationExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_registration_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Предмет соглашения -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsAgreementHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsAgreementExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_agreement_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsAgreementHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsAgreementExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_agreement_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Оформление и сроки выполнения заказа -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsDeadlinesHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsDeadlinesExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_deadlines_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsDeadlinesHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsDeadlinesExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_deadlines_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Доставка заказа -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsDeliveryHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsDeliveryExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_delivery_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsDeliveryHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsDeliveryExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_delivery_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Оплата товара -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsPaymentHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsPaymentExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_payment_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsPaymentHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsPaymentExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_payment_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Возврат товара -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsRefundHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsRefundExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_refund_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsRefundHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsRefundExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_refund_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+
+                <!-- Гарантии и ответственность -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsGuaranteesHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsGuaranteesExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_guarantees_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsGuaranteesHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsGuaranteesExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_guarantees_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Прочие условия -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/saleGoodsOtherHeaderIndicator"
+                        app:expansion_layout="@id/saleGoodsOtherExpansionLayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:tag="title"
+                            android:text="@string/sale_goods_other_title"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/saleGoodsOtherHeaderIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/saleGoodsOtherExpansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
+                                android:text="@string/sale_goods_other_desc" />
+
+                        </LinearLayout>
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/saleGoodsToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</layout>

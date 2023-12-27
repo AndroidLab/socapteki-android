@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="legal_documents_title">Юридические документы</string>
+    <string name="legal_documents_licenses_title">Лицензии и разрешения</string>
+    <string name="legal_documents_policy_confidentiality_title">Политика конфеденциальности</string>
+    <string name="legal_documents_loyalty_program_title">Правила программы лояльности</string>
+    <string name="legal_documents_user_agreement_title">Пользовательское соглашение</string>
+    <string name="legal_documents_medicinal_products_title">Правила отпуска лекарственных препаратов</string>
+    <string name="legal_documents_publishing_reviews_title">Правила публикации отзывов на сайте social-apteka.ru</string>
+    <string name="legal_documents_sale_goods_title">Условия продажи товаров</string>
+    <string name="legal_documents_referral_program_title">Условия реферальной программы</string>
+    <string name="legal_documents_requisites_title">Реквизиты</string>
+    <string name="legal_documents_help_desk_title">Справочная служба. Звонок бесплатный</string>
+
+</resources>

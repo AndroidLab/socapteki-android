@@ -20,7 +20,9 @@ class CustomersFragment : BaseFragment<CustomersViewModel, CustomersFragmentBind
         binding.viewModel = viewModel
 
         binding.customersStocks.setOnClickListener {
-
+            viewModel.navigationManager.bottomAppBarModel.apply {
+                onItemSelected(item_3.itemId)
+            }
         }
     }
 

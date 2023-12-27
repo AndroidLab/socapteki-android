@@ -17,7 +17,6 @@
     <string name="making_order_recipient_same_buyer">Получатель совпадает с покупателем?</string>
     <string name="making_order_recipient_same_buyer_hint">Для выбора заполните личные данные</string>
     <string name="making_order_price_paid">Сумма к оплате</string>
-    <string name="making_order_price_promo_desc">Скидка 1000 ₽ по промокоду <font color="#00A95D">«Health»</font></string>
     <string name="making_order_price_promo_code">Промокод</string>
     <string name="making_order_price_bonus">На вашем балансе</string>
     <string name="making_order_price_bonus_hint">Списать бонусы</string>

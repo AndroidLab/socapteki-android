@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLoyaltyProgramBonuses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/loyaltyProgramBonusesToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@color/background_secondary"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Базовые бонусы -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_bonuses_base"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!-- Количество -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{8}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_base_count_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_base_count_title}" />
+
+                    <!-- Условия начисления -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_base_conditions_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_base_conditions_title}" />
+
+                    <!-- Срок жизни -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_base_life_span_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_base_life_span_title}" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Дополнительные бонусы -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_bonuses_additional"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!-- Приветственный бонус -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_bonuses_additional_welcome"
+                        android:textColor="@color/light_black"
+                        android:textSize="16sp" />
+
+                    <!-- Количество -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_welcome_count_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_welcome_count_title}" />
+
+                    <!-- Условия начисления -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_welcome_conditions_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_welcome_conditions_title}" />
+
+                    <!-- Период начисления -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_welcome_accrual_period_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_welcome_accrual_period_title}" />
+
+                    <!-- Срок жизни -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_welcome_life_span_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_welcome_life_span_title}" />
+
+                    <!-- Акционный бонус -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_bonuses_additional_promotional"
+                        android:textColor="@color/light_black"
+                        android:textSize="16sp" />
+
+                    <!-- Количество -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_promotional_count_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_promotional_count_title}" />
+
+                    <!-- Условия начисления -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_promotional_conditions_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_promotional_conditions_title}" />
+
+                    <!-- Период начисления -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_promotional_accrual_period_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_promotional_accrual_period_title}" />
+
+                    <!-- Срок жизни -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <include
+                        layout="@layout/loyalty_program_bonuses_item_view"
+                        app:desc="@{@string/loyalty_program_bonuses_additional_promotional_life_span_desc}"
+                        app:title="@{@string/loyalty_program_bonuses_additional_promotional_life_span_title}" />
+
+                    <!-- Оператор -->
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginBottom="@{12}"
+                        app:sepMarginTop="@{12}" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_bonuses_additional_promotional_operator" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/loyaltyProgramBonusesToolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</layout>

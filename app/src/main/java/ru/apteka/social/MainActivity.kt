@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -18,7 +17,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +41,6 @@ import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.setImageTint
-import ru.apteka.components.data.utils.setVisibleWithInteractionEnabled
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
@@ -362,7 +359,7 @@ class MainActivity : AppCompatActivity() {
 
                             binding.appMenuItemLegalDocuments.item.setOnClickListener {
                                 navigationManager.onSelectItemMenu(
-                                    ComponentsR.id.licenses_graph,
+                                    ComponentsR.id.legal_documents_graph,
                                     bundleOf()
                                 )
                             }
@@ -441,7 +438,6 @@ class MainActivity : AppCompatActivity() {
         navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.observe(
             this
         ) {
-            Log.d("myL", "1")
             setupBottomNavigationBar()
         }
 
