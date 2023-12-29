@@ -187,7 +187,6 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
 
     override fun onResume() {
         super.onResume()
-        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.ivPharmaciesMapBack.setOnClickListener {
             viewModel.navigationManager.generalNavController.popBackStack()
         }

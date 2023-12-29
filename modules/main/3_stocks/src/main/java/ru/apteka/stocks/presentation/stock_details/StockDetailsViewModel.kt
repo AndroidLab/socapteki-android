@@ -1,12 +1,23 @@
 package ru.apteka.stocks.presentation.stock_details
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import ru.apteka.components.data.models.DiscountModel
+import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.Label
+import ru.apteka.components.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductCounterModel
+import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.getProductsFake
+import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.stocks.data.models.StockModel
 import javax.inject.Inject
@@ -27,13 +38,41 @@ class StockDetailsViewModel @Inject constructor(
     messageNoticeService
 ) {
 
+    private val _products = MutableLiveData<List<ProductCardModel>>()
+
+    /**
+     * Возвращает продукцию.
+     */
+    val products: LiveData<List<ProductCardModel>> = _products
+
     /**
      * Возвращает или устанавливает акцию.
      */
     val stock: MutableLiveData<StockModel> = MutableLiveData(null)
 
     init {
-        //searchSocks()
+        viewModelScope.launchIO {
+            _isLoading.postValue(true)
+            delay(1500)
+            _products.postValue(
+                getProductsFake().map { product ->
+                    ProductCardModel(
+                        product = product,
+                    ).apply {
+                        favorite = FavoriteModel(
+                            favoriteService = favoriteService,
+                            isFavorite = product.isFavorite,
+                        )
+                        itemCounter = ProductCounterModel(
+                            basketService = basketService,
+                            productCard = this,
+                            countInBasket = product.countInBasket
+                        )
+                    }
+                }
+            )
+
+        }
     }
 
 

@@ -81,7 +81,6 @@ class FeedbackFragment :
 
     override fun onResume() {
         super.onResume()
-        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.contactsToolbarFeedback.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
             tvToolbarTitle.text = getString(R.string.feedback_title)

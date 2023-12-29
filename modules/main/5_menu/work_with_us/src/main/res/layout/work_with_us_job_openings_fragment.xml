@@ -102,7 +102,6 @@
                         <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/red"
                             android:fillViewport="true"
                             android:overScrollMode="never"
                             android:scrollbars="none">
@@ -384,8 +383,8 @@
                                 app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
                                 app:circlePagerIndicator="@{32}"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                app:layoutPaddingBottom="@{0}"
-                                app:layoutPaddingTop="@{0}"
+                                app:extraPaddingBottom="@{0}"
+                                app:extraPaddingTop="@{0}"
                                 app:linearSnapHelper="@{true}"
                                 app:visibleIf="@{!viewModel.events.empty}" />
 

@@ -15,7 +15,7 @@
     <string name="home_advantages_no_queue_title">Обслуживание без очереди</string>
     <string name="home_advantages_no_queue_desc">Получение товара в аптеке без очереди после поступления СМС уведомления о готовности заказа</string>
     <string name="home_menu_brands">Бренды и производители</string>
-    <string name="home_menu_pharmacies_map">Аптеки на карте</string>
+    <string name="home_menu_pharmacies_map">Адреса аптек</string>
     <string name="home_menu_partners">Наши партнеры</string>
 
     <string name="bonus_program_title">Бонусная программа</string>

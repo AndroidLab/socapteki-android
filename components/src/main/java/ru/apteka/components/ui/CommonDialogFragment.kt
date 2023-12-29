@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import ru.apteka.components.R
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
+import ru.apteka.components.data.utils.dp
 import ru.apteka.components.databinding.CommonDialogFragmentBinding
 
 

@@ -48,7 +48,6 @@ class BarcodeScannerFragment : BaseFragment<BarcodeScannerViewModel, BarcodeScan
 
     override fun onResume() {
         super.onResume()
-        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.barcodeScannerToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
             toolbar.setNavigationOnClickListener {

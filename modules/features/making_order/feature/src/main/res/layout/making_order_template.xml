@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@{bindingItem.desc}"
+                    android:text="@{bindingItem.title}"
                     android:textColor="@color/dark_black" />
 
                 <LinearLayout

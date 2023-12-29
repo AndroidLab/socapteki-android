@@ -1,7 +1,6 @@
 package ru.apteka.catalog.presentation.catalog
 
 
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager

@@ -18,25 +18,22 @@
         <variable
             name="isBorderNotShow"
             type="boolean" />
-        
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:borderWidth="@{isBorderNotShow ? 0 : 1}"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
-        app:strokeColor="@color/grey"
-        app:borderWidth="@{isBorderNotShow ? 0 : 1}">
+        app:strokeColor="@color/grey">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutPaddingStart="@{padding == null ? 8 : padding}"
-            app:layoutPaddingTop="@{padding == null ? 8 : padding}"
-            app:layoutPaddingEnd="@{padding == null ? 8 : padding}"
-            app:layoutPaddingBottom="@{padding == null ? 8 : padding}"
             android:scaleType="centerCrop"
+            app:extraPadding="@{padding == null ? 8 : padding}"
             app:glideImageRes="@{imageUrl}"
             tools:ignore="ContentDescription" />
 

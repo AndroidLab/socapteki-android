@@ -58,7 +58,7 @@ class BarcodeScannerViewModel @Inject constructor(
                         image = "",
                         isFavorite = false,
                         price = "2 500p",
-                        desc = "Какой то товар",
+                        title = "Какой то товар",
                         rating = "4.7",
                         comments = 50,
                     )

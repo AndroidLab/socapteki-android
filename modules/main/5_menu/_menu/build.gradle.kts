@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":modules:main:5_menu:referral_program"))
     implementation(project(":modules:main:5_menu:symptoms_diseases"))
     implementation(project(":modules:main:5_menu:customers"))
+    implementation(project(":modules:main:5_menu:orders"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

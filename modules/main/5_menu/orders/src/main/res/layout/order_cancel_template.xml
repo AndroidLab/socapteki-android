@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.components.data.models.ProductModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Картинка товара -->
+            <include
+                android:id="@+id/orderCancelProductImage"
+                layout="@layout/image_card"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:imageUrl="@{bindingItem.image}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Заголовок -->
+            <TextView
+                android:id="@+id/orderCancelProductTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{bindingItem.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/orderCancelProductImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Описание -->
+            <TextView
+                android:id="@+id/orderCancelProductDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{bindingItem.desc}"
+                android:textColor="@color/light_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/orderCancelProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderCancelProductTitle"
+                app:visibleIf="@{bindingItem.desc != null}" />
+
+            <!-- Цена -->
+            <TextView
+                android:id="@+id/orderCancelProductPrice"
+                style="@style/Theme.Socapteki.Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{bindingItem.price}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@id/orderCancelProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderCancelProductDesc" />
+
+            <!-- Процент скидки -->
+            <include
+                layout="@layout/discount_percentage_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:discount="@{bindingItem.discount}"
+                app:layout_constraintStart_toEndOf="@id/orderCancelProductPrice"
+                app:layout_constraintTop_toBottomOf="@id/orderCancelProductDesc" />
+
+            <!-- Старая цена -->
+            <TextView
+                android:id="@+id/orderCancelProductOldPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{bindingItem.discount.oldPrice}"
+                app:isStrikethrough="@{true}"
+                app:layout_constraintStart_toEndOf="@id/orderCancelProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderCancelProductPrice"
+                app:visibleIf="@{bindingItem.discount != null}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@id/separator"
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
+
+    </LinearLayout>
+
+
+</layout>

@@ -25,15 +25,16 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            app:expansionChangeColor="@{true}"
             app:expansion_headerIndicator="@id/feedbackHeaderIndicator"
             app:expansion_layout="@id/feedbackExpansionLayout">
 
             <TextView
-                android:id="@+id/commentHeaderTitle"
+                android:id="@+id/feedbackHeaderTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:tag="title"
                 android:text="@{model.title}"
                 android:textSize="16sp" />
 
@@ -52,6 +53,7 @@
             android:id="@+id/feedbackExpansionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:expansionChangeColor="@{true}"
             app:expansion_expanded="false">
 
             <LinearLayout

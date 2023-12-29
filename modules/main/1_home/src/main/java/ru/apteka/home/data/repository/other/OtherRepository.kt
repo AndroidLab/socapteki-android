@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 @ViewModelScoped
 class OtherRepository @Inject constructor(
-    private val promotionApi: IOtherApi
+    //private val promotionApi: IOtherApi
 ) {
 
     /**

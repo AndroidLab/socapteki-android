@@ -95,9 +95,8 @@ class NotificationsViewModel @Inject constructor(
     /**
      * Возвращает флаг прочтения всех уведомлений.
      */
-    val isAllNotificationRead = _notifications.map {
-        it.all { it.isRead.value!! }
-    }
+    val isAllNotificationRead = MediatorLiveData<Boolean>()
+
 
     init {
         viewModelScope.launchIO {
@@ -127,6 +126,19 @@ class NotificationsViewModel @Inject constructor(
                     selectedNotificationFilter.value = it
                 }.apply {
                     setItemSelected(0)
+                }
+
+                isAllNotificationRead.apply {
+                    fun checkNotificationsRead() {
+                        postValue(
+                            _notifications.value!!.all { it.isRead.value!! }
+                        )
+                    }
+                    _notifications.value!!.forEach {
+                        addSource(it.isRead) {
+                            checkNotificationsRead()
+                        }
+                    }
                 }
             }
         }

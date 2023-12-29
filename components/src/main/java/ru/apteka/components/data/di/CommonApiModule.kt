@@ -6,20 +6,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import ru.apteka.components.data.repository.kogin.ILoginApi
-import ru.apteka.components.data.repository.orders.IOrdersApi
 import ru.apteka.components.data.repository.products.IProductsApi
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 class CommonApiModule {
-
-    /**
-     * Предоставляет экземпляр [IOrdersApi].
-     */
-    @Provides
-    fun provideOrdersApi(retrofitClient: Retrofit): IOrdersApi =
-        retrofitClient.create(IOrdersApi::class.java)
 
     /**
      * Предоставляет экземпляр [IProductsApi].

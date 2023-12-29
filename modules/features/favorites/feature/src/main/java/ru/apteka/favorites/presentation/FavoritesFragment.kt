@@ -52,7 +52,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FavoritesFragmentBind
 
     override fun onResume() {
         super.onResume()
-        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.favoritesToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
             tvToolbarTitle.text = getString(R.string.favorites_title)

@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <import type="ru.apteka.components.data.models.OrderStatus" />
+
+        <import type="ru.apteka.components.data.models.OrderPayStatus" />
+
+        <import type="ru.apteka.components.data.models.OrderDeliveryMethod" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.orders.presentation.order_details.OrderDetailsViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/llOrderDetailsBtnContainer"
+            android:layout_below="@id/orderDetailsToolbar"
+            android:background="@color/background_secondary"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:padding="16dp">
+
+                    <!-- Статус заказа -->
+                    <include
+                        android:id="@+id/orderDetailsStatus"
+                        layout="@layout/label_view"
+                        app:backgroundColor="@{viewModel.order.status.getBackgroundColor(context, viewModel.order.status)}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:text="@{viewModel.order.status.title}"
+                        app:textColor="@{viewModel.order.status.getTextColor(context, viewModel.order.status)}" />
+
+                    <!-- Номер заказа -->
+                    <TextView
+                        android:id="@+id/orderDetailsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@{String.format(@string/order_details_title, viewModel.order.number)}"
+                        android:textColor="@{viewModel.order.status == OrderStatus.CANCELED ? @color/red : @color/black}"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsStatus" />
+
+                    <!-- Дата заказа -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.order.getFormatDate(context)}"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/orderDetailsTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/orderDetailsStatus" />
+
+                    <!-- Оплатите заказ -->
+                    <include
+                        android:id="@+id/orderDetailsPayOrderSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsTitle"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}" />
+
+                    <ImageView
+                        android:id="@+id/orderDetailsPayOrderIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_attention"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPayOrderSeparator"
+                        app:tint="@color/red"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPayOrder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_pay_order"
+                        android:textColor="@color/red"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/orderDetailsPayOrderIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsPayOrderSeparator"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}" />
+
+                    <!-- Отменится через -->
+                    <include
+                        android:id="@+id/orderDetailsCanceledAfterSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPayOrder"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}" />
+
+                    <ImageView
+                        android:id="@+id/orderDetailsCanceledAfterIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_attention"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsCanceledAfterSeparator"
+                        app:tint="@color/red"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsCanceledAfter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@{String.format(@string/order_details_canceled_after, viewModel.order.canceledTime)}"
+                        android:textColor="@color/red"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/orderDetailsCanceledAfterIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsCanceledAfterSeparator"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT}" />
+
+                    <!-- Причина отмены -->
+                    <include
+                        android:id="@+id/orderDetailsCanceledReasonSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsCanceledAfterIcon"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.canceledReason != null}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsCanceledReasonTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_canceled_reason"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsCanceledReasonSeparator"
+                        app:visibleIf="@{viewModel.order.canceledReason != null}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsCanceledReason"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.order.canceledReason}"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsCanceledReasonTitle"
+                        app:visibleIf="@{viewModel.order.canceledReason != null}" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/orderDetailsOpinion"
+                        style="@style/Theme.Socapteki.BackgroundCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/background_secondary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsCanceledReason"
+                        app:strokeColor="@color/grey"
+                        app:strokeWidth="1dp"
+                        app:visibleIf="@{viewModel.order.status == OrderStatus.CANCELED}">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp"
+                            android:text="@string/order_details_opinion" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <!-- Способ доставки -->
+                    <include
+                        android:id="@+id/orderDetailsDeliveryMethodSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsOpinion"
+                        app:sepMarginTop="@{10}" />
+
+                    <ImageView
+                        android:id="@+id/orderDetailsMethodDeliveryIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY ? @drawable/ic_delivery : @drawable/ic_pickup}"
+                        app:layout_constraintBottom_toBottomOf="@id/orderDetailsDeliveryMethod"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/orderDetailsDeliveryMethodTitle"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDeliveryMethodTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_delivery_method"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toEndOf="@id/orderDetailsMethodDeliveryIcon"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryMethodSeparator" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDeliveryMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.order.deliveryMethod.title}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toEndOf="@id/orderDetailsMethodDeliveryIcon"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryMethodTitle" />
+
+
+                    <!-- Адресс доставки -->
+                    <include
+                        android:id="@+id/orderDetailsDeliveryAddressSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryMethod"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDeliveryAddressTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_delivery_address"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryAddressSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDeliveryAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.order.deliveryAddress}"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryAddressTitle"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <!-- Желаемое время доставки -->
+                    <include
+                        android:id="@+id/orderDetailsDeliveryTimeSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryAddress"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDeliveryTimeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_delivery_time"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <include
+                        android:id="@+id/orderDetailsDeliveryTimeDate"
+                        layout="@layout/label_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:backgroundColor="@{@color/background_secondary}"
+                        app:bigSize="@{true}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeTitle"
+                        app:text="@{`13.01.2024`}"
+                        app:textColor="@{@color/black}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+                    <include
+                        layout="@layout/label_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:backgroundColor="@{@color/background_secondary}"
+                        app:bigSize="@{true}"
+                        app:layout_constraintStart_toEndOf="@id/orderDetailsDeliveryTimeDate"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeTitle"
+                        app:text="@{`с 10:00-12:00`}"
+                        app:textColor="@{@color/black}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
+
+
+                    <!-- Хранение до -->
+                    <include
+                        android:id="@+id/orderDetailsStorageUpToSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeDate"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsStorageUpToTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_storage_up_to"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsStorageUpToSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsStorageUpTo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`12.11.2023 до 20:00`}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsStorageUpToTitle"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+
+                    <!-- Адресс аптеки -->
+                    <include
+                        android:id="@+id/orderDetailsPharmacyAddressSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsStorageUpTo"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPharmacyAddressTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_pharmacy_address"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyAddressSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPharmacyAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`Аптека 'Социальная аптека'`}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyAddressTitle"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPharmacyAddress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`2-я Владимирская ул. 28А, Москва`}"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyAddress"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <!-- Номер телефона -->
+                    <include
+                        android:id="@+id/orderDetailsPharmacyNumberSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyAddress1"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <ImageView
+                        android:id="@+id/orderDetailsPharmacyNumberIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyNumberSeparator"
+                        app:tint="@color/color_primary"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@{`+7 (863) 310-55-60`}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toEndOf="@id/orderDetailsPharmacyNumberIcon"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyNumberSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <!-- Режим работы -->
+                    <include
+                        android:id="@+id/orderDetailsOperatingModeSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPharmacyNumberIcon"
+                        app:sepMarginTop="@{10}"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsOperatingModeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_operating_mode"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsOperatingModeSeparator"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsOperatingMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{`с 08:00 до 20:00`}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/orderDetailsOperatingModeTitle"
+                        app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+
+                    <!-- Всего товаров -->
+                    <include
+                        android:id="@+id/orderDetailsAllProductsSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsOperatingMode"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsAllProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_total_products"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsAllProductsSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{String.valueOf(viewModel.order.products.size())}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsAllProductsSeparator" />
+
+                    <!-- Скидка -->
+                    <include
+                        android:id="@+id/orderDetailsDiscountSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsAllProducts"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_discount"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDiscountSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{`-1000 ₽`}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsDiscount"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <!-- Бонусов списано -->
+                    <include
+                        android:id="@+id/orderDetailsBonusesGoneSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDiscount"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsBonusesGone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_bonuses_gone"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsBonusesGoneSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{`-80`}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsBonusesGone"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <!-- Бонусов начислено -->
+                    <include
+                        android:id="@+id/orderDetailsBonusesAccruedSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsBonusesGone"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsBonusesAccrued"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_bonuses_accrued"
+                        android:textColor="@color/color_primary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsBonusesAccruedSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{`+25`}"
+                        android:textColor="@color/color_primary"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsBonusesAccrued"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <!-- Способ оплаты -->
+                    <include
+                        android:id="@+id/orderDetailsPaymentMethodSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsBonusesAccrued"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPaymentMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_payment_method"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPaymentMethodSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{viewModel.order.paymentMethod}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsPaymentMethod"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <!-- Доставка -->
+                    <include
+                        android:id="@+id/orderDetailsPaymentDeliverySeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPaymentMethod"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsPaymentDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_payment_delivery"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPaymentDeliverySeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{`99 ₽`}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsPaymentDelivery"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <!-- Иотговая стоимость -->
+                    <include
+                        android:id="@+id/orderDetailsTotalCostSeparator"
+                        layout="@layout/separator_view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsPaymentDelivery"
+                        app:sepMarginTop="@{10}" />
+
+                    <TextView
+                        android:id="@+id/orderDetailsTotalCost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/order_details_total_cost"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsTotalCostSeparator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{`4 569,90 ₽`}"
+                        android:textColor="@color/black"
+                        app:layout_constraintBaseline_toBaselineOf="@id/orderDetailsTotalCost"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Список проукции -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical"
+                    app:forItems="@{viewModel.order.products}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/orderDetailsTotalCost"
+                    app:useTemplate="@{@layout/order_detail_product_template}" />
+
+                <!-- Продлить бронирование -->
+                <TextView
+                    android:id="@+id/tvOrderDetailsExtendBooking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="@string/order_details_extend_booking"
+                    android:textColor="@color/color_primary"
+                    app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+        <include
+            android:id="@+id/orderDetailsToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/progress_bar"
+            app:isLoading="@{viewModel.isLoading}" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/llOrderDetailsBtnContainer" />
+
+        <!-- Кнопки отменить/повторить -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llOrderDetailsBtnContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/btnOrderDetailsCancel"
+                style="@style/Theme.Socapteki.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@string/order_details_cancel_btn"
+                app:layout_constraintEnd_toStartOf="@id/btnOrderDetailsRepeat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleIf="@{viewModel.order.status == OrderStatus.NEW | viewModel.order.status == OrderStatus.IN_PROCESSING | viewModel.order.status == OrderStatus.DELIVERY_POSTPONED}" />
+
+            <Button
+                android:id="@+id/btnOrderDetailsRepeat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/order_details_repeat_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnOrderDetailsCancel"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginStart="0dp" />
+
+            <Button
+                android:id="@+id/btnOrderDetailsBuy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/order_details_buy_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleIf="@{viewModel.order.status == OrderStatus.AWAITING_PAYMENT | viewModel.order.payStatus != OrderPayStatus.SUCCESS}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+
+</layout>

@@ -11,15 +11,16 @@ import java.util.UUID
  */
 @Parcelize
 data class ProductModel(
-    val id: UUID,
     val image: String,
     val isFavorite: Boolean,
     val price: String,
-    val desc: String,
+    val title: String,
     val rating: String,
     val comments: Int,
+    val needRecipe: Boolean = false,
     val images: List<String> = listOf(),
     val discount: DiscountModel? = null,
+    val desc: String? = null,
     val additionalDesc: String? = null,
     val releaseForm: String? = null,
     val manufacturer: String? = null,
@@ -31,4 +32,5 @@ data class ProductModel(
     val variants: @RawValue List<ProductVariantModel> = emptyList(),
     val labels: List<Label> = emptyList(),
     val countInBasket: Int = 0,
+    val id: UUID = UUID.randomUUID(),
 ) : Parcelable

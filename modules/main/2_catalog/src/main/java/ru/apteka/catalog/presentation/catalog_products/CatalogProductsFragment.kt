@@ -64,11 +64,13 @@ class CatalogProductsFragment :
 
     //private val _args: CatalogProductsFragmentArgs by navArgs()
 
+    //TODO Попробовать Заменить на общий адаптер
     private val catalogProductsAdapter by lazy {
         CompositeDelegateAdapter(
             ProductCardViewAdapter(
                 this,
-                ::onProductsCardClick
+                ::onProductsCardClick,
+                false
             )
         )
     }

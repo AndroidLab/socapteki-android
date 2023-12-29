@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.orders.presentation.order_details.OrderDetailsViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:visibleIf="@{viewModel.orderExtendBookingModel.mediator}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_details_opinion"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/order_details_extend_booking_desc"
+            android:textColor="@color/light_black" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:checked="@{viewModel.orderExtendBookingModel.items.get(0).isItemSelected}"
+            android:onClick="@{() -> viewModel.orderExtendBookingModel.items.get(0).onItemClick()}"
+            android:paddingHorizontal="8dp"
+            app:extraText="@{viewModel.orderExtendBookingModel.items.get(0).titleRes}" />
+
+        <include
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{8}"
+            app:sepMarginStart="@{8}" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="@{viewModel.orderExtendBookingModel.items.get(1).isItemSelected}"
+            android:onClick="@{() -> viewModel.orderExtendBookingModel.items.get(1).onItemClick()}"
+            android:paddingHorizontal="8dp"
+            app:extraText="@{viewModel.orderExtendBookingModel.items.get(1).titleRes}" />
+
+        <include
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{8}"
+            app:sepMarginStart="@{8}" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="@{viewModel.orderExtendBookingModel.items.get(2).isItemSelected}"
+            android:onClick="@{() -> viewModel.orderExtendBookingModel.items.get(2).onItemClick()}"
+            android:paddingHorizontal="8dp"
+            app:extraText="@{viewModel.orderExtendBookingModel.items.get(2).titleRes}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbOrderOpinionCancel"
+                style="@style/Theme.Socapteki.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbOrderExtendBooking"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:enabled="@{viewModel.orderExtendBookingModel.selectedItem != null}"
+                android:text="@string/order_details_extend_booking_extend" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -4,7 +4,7 @@ import ru.apteka.components.data.models.SelectableModel
 
 
 /**
- * Представляет модель для поиска по алфовиту.
+ * Представляет модель для выбора пола.
  */
 class SexModel(
     _items: List<Item>,

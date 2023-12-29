@@ -2,8 +2,10 @@
 min_sdk = "27"
 target_sdk = "34"
 compile_sdk = "34"
-application_minify_enabled = "true"
-library_minify_enabled = "true"
+application_minify_debug_enabled = "true"
+library_minify_debug_enabled = "true"
+application_minify_release_enabled = "true"
+library_minify_release_enabled = "true"
 agp = "8.2.0"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
@@ -103,7 +105,7 @@ expansionpanel = { module = "com.github.florent37:expansionpanel", version = "1.
 measured = { module = "io.nacular.measured:measured", version = "0.3.3" }
 zbar = { module = "me.dm7.barcodescanner:zbar", version = "1.9.8" }
 tedpermission = { module = "io.github.ParkSangGwon:tedpermission-normal", version = "3.3.0" }
-extraBouncy = { module = "com.github.AndroidLab:ExtraBouncy", version = "1.0.0" }
+extraBouncy = { module = "com.github.AndroidLab:ExtraBouncy", version = "1.0.2" }
 inputLayoutInnerHint = { module = "com.github.AndroidLab:InputLayoutInnerHint", version = "1.0.0" }
 pdfViewer = { module = "com.github.AndroidLab:AndroidPdfViewer", version = "3.3.0-beta.1" }
 andRatingBar = { module = "com.github.wdsqjq:AndRatingBar", version = "1.0.6" }

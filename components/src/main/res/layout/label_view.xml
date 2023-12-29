@@ -4,9 +4,11 @@
 
     <data>
 
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
         <variable
             name="text"
-            type="Integer" />
+            type="Object" />
 
         <variable
             name="textColor"
@@ -16,6 +18,10 @@
             name="backgroundColor"
             type="Integer" />
 
+        <variable
+            name="bigSize"
+            type="boolean" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -24,7 +30,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         app:cardBackgroundColor="@{backgroundColor}"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@{bigSize ? ExtensionsMethodsKt.getDp(12) : ExtensionsMethodsKt.getDp(8)}"
         app:strokeWidth="0dp">
 
         <TextView
@@ -32,10 +38,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:paddingHorizontal="8dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="4dp"
             android:singleLine="true"
             android:textColor="@{textColor}"
+            android:textSize="@{bigSize ? ExtensionsMethodsKt.getSp(14) : ExtensionsMethodsKt.getSp(12)}"
+            app:extraPaddingBottom="@{bigSize ? 2 : 0}"
+            app:extraPaddingTop="@{bigSize ? 2 : 0}"
             app:extraText="@{text}" />
 
     </com.google.android.material.card.MaterialCardView>

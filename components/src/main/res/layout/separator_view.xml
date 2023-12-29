@@ -34,10 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@{sepColor == null ? @color/grey : sepColor}"
-        app:layoutMarginBottom="@{sepMarginBottom == null ? 0 : sepMarginBottom}"
-        app:layoutMarginEnd="@{sepMarginEnd == null ? 0 : sepMarginEnd}"
-        app:layoutMarginStart="@{sepMarginStart == null ? 0 : sepMarginStart}"
-        app:layoutMarginTop="@{sepMarginTop == null ? 0 : sepMarginTop}"
+        app:extraMarginBottom="@{sepMarginBottom == null ? 0 : sepMarginBottom}"
+        app:extraMarginEnd="@{sepMarginEnd == null ? 0 : sepMarginEnd}"
+        app:extraMarginStart="@{sepMarginStart == null ? 0 : sepMarginStart}"
+        app:extraMarginTop="@{sepMarginTop == null ? 0 : sepMarginTop}"
         tools:ignore="ContentDescription" />
 
 </layout>

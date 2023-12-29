@@ -1,11 +1,7 @@
 package ru.apteka.profile.presentation.profile_personal_data
 
 import android.app.DatePickerDialog
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,12 +14,8 @@ import ru.apteka.components.data.services.message_notice_service.models.DialogMo
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.message_notice_service.showBottomSheet
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
-import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
-import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.navigateWithAnim
-import ru.apteka.components.data.utils.screenHeight
 import ru.apteka.components.ui.BaseFragment
-import ru.apteka.personal_data_api.api.PERSONAL_DATA_CHANGE_RESULT_DATA
 import ru.apteka.profile.R
 import ru.apteka.profile.databinding.PersonalDataFragmentBinding
 import ru.apteka.profile.databinding.PersonalDataInfoBinding
@@ -31,10 +23,6 @@ import ru.apteka.profile.databinding.PersonalDataSexBinding
 import ru.apteka.profile.presentation.profile_personal_data_fio.PersonalDataFioFragment
 import ru.apteka.profile.presentation.profile_personal_data_mail.PersonalDataMailFragment
 import ru.apteka.profile.presentation.profile_personal_data_phone.PersonalDataPhoneFragment
-import ru.tinkoff.decoro.MaskImpl
-import ru.tinkoff.decoro.slots.PredefinedSlots
-import ru.tinkoff.decoro.slots.Slot
-import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import java.util.Calendar
 
 

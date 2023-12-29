@@ -248,7 +248,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
     override fun onResume() {
         super.onResume()
-        viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.productCardTabs.doOnLayout {
             it.translationY = -binding.productCardTabs.height.toFloat()
         }
@@ -256,7 +255,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.toolbar.apply {
             binding.toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            binding.toolbar.subtitle = _args.product.desc
+            binding.toolbar.subtitle = _args.product.title
             var maxOffsetForRecycler: Int? = null
             var maxOffsetForTitle: Int? = null
             var maxOffsetForFab: Int? = null

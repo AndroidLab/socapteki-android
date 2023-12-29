@@ -1,17 +1,22 @@
 package ru.apteka.stocks.presentation.stock_details
 
+import android.animation.Animator
+import android.animation.Animator.AnimatorListener
+import android.animation.ValueAnimator
 import android.view.View
 import android.widget.AdapterView
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.getProductCardViewAdapter
+import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
@@ -30,10 +35,11 @@ class StockDetailsFragment : BaseFragment<StockDetailsViewModel, StockDetailsFra
     override val viewModel: StockDetailsViewModel by viewModels()
     override val layoutId: Int = R.layout.stock_details_fragment
 
-    private val stockProductsAdapter by lazy {
+    private val productsAdapter by lazy {
         getProductCardViewAdapter(
             this,
             ::onProductsCardClick,
+            false
         )
     }
 
@@ -43,18 +49,57 @@ class StockDetailsFragment : BaseFragment<StockDetailsViewModel, StockDetailsFra
         viewModel.stock.value = args.stock
         binding.viewModel = viewModel
 
-        binding.stockDetailsDesc.doOnLayout {
-            //binding.stockDetailsReadCompletely.visibleIf(binding.stockDetailsDesc.countLines() > 5)
-        }
-
+        var llCollapsedHeight = 0
         binding.stockDetailsReadCompletely.setOnClickListener {
             if (binding.stockDetailsReadCompletely.text == getString(R.string.stock_details_read_completely)) {
+                llCollapsedHeight = binding.llStockDetailsDesc.height
+                binding.llStockDetailsDesc.layoutParams.height = llCollapsedHeight
                 binding.stockDetailsReadCompletely.text = getString(R.string.stock_details_hide)
                 binding.stockDetailsDesc.maxLines = Int.MAX_VALUE
+                lifecycleScope.launchMain {
+                    delay(100)
+                    ValueAnimator.ofInt(
+                        binding.llStockDetailsDesc.height,
+                        binding.stockDetailsDesc.layout.height
+                    ).apply {
+                        addUpdateListener { valueAnimator ->
+                            val lp = binding.llStockDetailsDesc.layoutParams
+                            binding.llStockDetailsDesc.layoutParams =
+                                lp.apply { height = valueAnimator.animatedValue as Int }
+                        }
+                        duration = 350
+                        start()
+                    }
+                }
             } else {
-                binding.stockDetailsReadCompletely.text =
-                    getString(R.string.stock_details_read_completely)
-                binding.stockDetailsDesc.maxLines = 5
+                lifecycleScope.launchMain {
+                    delay(100)
+                    ValueAnimator.ofInt(
+                        binding.llStockDetailsDesc.height,
+                        llCollapsedHeight
+                    ).apply {
+                        addUpdateListener { valueAnimator ->
+                            val lp = binding.llStockDetailsDesc.layoutParams
+                            binding.llStockDetailsDesc.layoutParams =
+                                lp.apply { height = valueAnimator.animatedValue as Int }
+                        }
+                        addListener(
+                            object : AnimatorListener {
+                                override fun onAnimationStart(animation: Animator) {}
+                                override fun onAnimationEnd(animation: Animator) {
+                                    binding.stockDetailsReadCompletely.text =
+                                        getString(R.string.stock_details_read_completely)
+                                    binding.stockDetailsDesc.maxLines = 5
+                                }
+
+                                override fun onAnimationCancel(animation: Animator) {}
+                                override fun onAnimationRepeat(animation: Animator) {}
+                            }
+                        )
+                        duration = 350
+                        start()
+                    }
+                }
             }
         }
 
@@ -69,11 +114,11 @@ class StockDetailsFragment : BaseFragment<StockDetailsViewModel, StockDetailsFra
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.rvStockProducts.adapter = stockProductsAdapter
+        binding.rvStockProducts.adapter = productsAdapter
 
-        /*viewModel.products.observe(viewLifecycleOwner) {
-            stocksAdapter.swapData(it)
-        }*/
+        viewModel.products.observe(viewLifecycleOwner) {
+            productsAdapter.swapData(it)
+        }
     }
 
     private fun onProductsCardClick(product: ProductModel) {

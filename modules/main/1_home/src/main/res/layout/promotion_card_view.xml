@@ -11,58 +11,29 @@
 
     </data>
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/promotionCardItem"
-        android:layout_width="180dp"
-        android:layout_height="140dp"
-        app:cardBackgroundColor="@color/color_secondary_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <!-- Лэйблы -->
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/promotionCardLabels"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                app:flexWrap="wrap"
-                app:forItems="@{model.labels}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:useTemplate="@{@layout/label_template}" />
-
-            <TextView
-                android:id="@+id/promotionCardTitle"
-                style="@style/Theme.Socapteki.HeaderH4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:text="@{model.title}"
-                app:layout_constraintVertical_chainStyle="packed"
-                android:textColor="@color/dark_black"
-                app:layout_constraintBottom_toTopOf="@id/promotionCardDesc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_default="spread" />
-
-            <TextView
-                android:id="@+id/promotionCardDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:text="@{model.description}"
-                android:textColor="@color/dark_black"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/banner_promotion_stub"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/promotionCardTitle"
-                app:layout_constraintWidth_default="wrap" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.orders.presentation.oder_cancel.OrderCancelViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:visibleIf="@{viewModel.orderCancelModel.mediator}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/order_details_cancel_sheet_title"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/order_details_cancel_sheet_desc"
+                android:textColor="@color/light_black" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(0).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(0).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(0).titleRes}" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{8}"
+                app:sepMarginStart="@{8}" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(1).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(1).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(1).titleRes}" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{8}"
+                app:sepMarginStart="@{8}" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(2).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(2).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(2).titleRes}" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{8}"
+                app:sepMarginStart="@{8}" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(3).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(3).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(3).titleRes}" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{8}"
+                app:sepMarginStart="@{8}" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(4).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(4).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(4).titleRes}" />
+
+            <include
+                layout="@layout/separator_view"
+                app:sepMarginEnd="@{8}"
+                app:sepMarginStart="@{8}" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.orderCancelModel.items.get(5).isItemSelected}"
+                android:onClick="@{() -> viewModel.orderCancelModel.items.get(5).onItemClick()}"
+                android:paddingHorizontal="8dp"
+                app:extraText="@{viewModel.orderCancelModel.items.get(5).titleRes}" />
+
+            <!-- Своя причина -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="top"
+                android:hint="@string/order_details_cancel_sheet_own_reason"
+                android:padding="16dp"
+                android:text="@={viewModel.orderCancelOwnReason}"
+                app:visibleIf="@{viewModel.orderCancelModel.items.get(5).isItemSelected}" />
+
+        </LinearLayout>
+
+        <include layout="@layout/shadow_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/orderDetailsCancelSheetNotCancel"
+                style="@style/Theme.Socapteki.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="@string/order_details_cancel_sheet_not_cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/orderDetailsCancelSheetCancel"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:enabled="@{viewModel.orderCancelModel.selectedItem != null}"
+                android:text="@string/order_details_cancel_sheet_cancel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

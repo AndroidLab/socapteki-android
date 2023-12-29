@@ -36,18 +36,13 @@
             <option value="$PROJECT_DIR$/modules/features/favorites" />
             <option value="$PROJECT_DIR$/modules/features/favorites/api" />
             <option value="$PROJECT_DIR$/modules/features/favorites/feature" />
+            <option value="$PROJECT_DIR$/modules/features/feature_screen" />
             <option value="$PROJECT_DIR$/modules/features/feedback" />
             <option value="$PROJECT_DIR$/modules/features/feedback/api" />
             <option value="$PROJECT_DIR$/modules/features/feedback/feature" />
             <option value="$PROJECT_DIR$/modules/features/making_order" />
             <option value="$PROJECT_DIR$/modules/features/making_order/api" />
             <option value="$PROJECT_DIR$/modules/features/making_order/feature" />
-            <option value="$PROJECT_DIR$/modules/features/orders" />
-            <option value="$PROJECT_DIR$/modules/features/orders/api" />
-            <option value="$PROJECT_DIR$/modules/features/orders/feature" />
-            <option value="$PROJECT_DIR$/modules/features/personal_data" />
-            <option value="$PROJECT_DIR$/modules/features/personal_data/api" />
-            <option value="$PROJECT_DIR$/modules/features/personal_data/feature" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map/api" />
             <option value="$PROJECT_DIR$/modules/features/pharmacies_map/feature" />
@@ -68,6 +63,7 @@
             <option value="$PROJECT_DIR$/modules/main/5_menu/customers" />
             <option value="$PROJECT_DIR$/modules/main/5_menu/legal_documents" />
             <option value="$PROJECT_DIR$/modules/main/5_menu/notifications" />
+            <option value="$PROJECT_DIR$/modules/main/5_menu/orders" />
             <option value="$PROJECT_DIR$/modules/main/5_menu/profile" />
             <option value="$PROJECT_DIR$/modules/main/5_menu/referral_program" />
             <option value="$PROJECT_DIR$/modules/main/5_menu/symptoms_diseases" />

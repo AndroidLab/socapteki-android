@@ -7,6 +7,7 @@ import ru.apteka.components.data.models.Label
 import ru.apteka.home.data.models.AdvertModel
 import java.util.UUID
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Представляет репозиторий рекламы.

@@ -48,10 +48,11 @@ fun BottomAppBar.setupWithNavController(
         }
 
         graphIdToTagMap[graphId] = fragmentTag
-        detachNavHostFragment(fragmentManager, navHostFragment)
         if (bottomAppBarModel.selectedItemId.value!! == graphId) {
             selectedNavController.value = navHostFragment.navController
             attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
+        } else {
+            detachNavHostFragment(fragmentManager, navHostFragment)
         }
     }
 
@@ -188,7 +189,9 @@ private fun obtainNavHostFragment(
     navGraphId: Int,
     containerId: Int
 ): NavHostFragment {
-    (fragmentManager.findFragmentByTag(fragmentTag) as? NavHostFragment)?.let { return it }
+    (fragmentManager.findFragmentByTag(fragmentTag) as? NavHostFragment)?.let {
+        return it
+    }
 
     return NavHostFragment.create(navGraphId).also {
         fragmentManager.beginTransaction()

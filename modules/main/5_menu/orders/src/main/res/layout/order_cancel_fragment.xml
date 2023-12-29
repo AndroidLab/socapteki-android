@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.orders.presentation.oder_cancel.OrderCancelViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flOrderCancelBtnContainer"
+            android:layout_below="@id/orderCancelToolbar"
+            android:background="@color/white"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/order_cancel_are_you_sure"
+                    android:textSize="16sp" />
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{String.format(@string/order_cancel_number, viewModel.order.number)}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12.01.23 в 21:00"
+                        android:textColor="@color/light_black" />
+
+                </LinearLayout>
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:isUserInteractionEnabled="@{!viewModel.isLoading}"
+                    app:forItems="@{viewModel.order.products}"
+                    app:useTemplate="@{@layout/order_cancel_template}" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <include
+            android:id="@+id/orderCancelToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:isLoading="@{viewModel.isLoading()}" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flOrderCancelBtnContainer" />
+
+        <!-- Кнопки отменить/повторить -->
+        <FrameLayout
+            android:id="@+id/flOrderCancelBtnContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOrderCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:clickable="@{!viewModel.isLoading}"
+                android:text="@string/order_cancel" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

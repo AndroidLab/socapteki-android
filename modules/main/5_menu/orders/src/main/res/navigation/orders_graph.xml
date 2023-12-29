@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/orders_graph"
+    app:startDestination="@id/ordersFragment">
+
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="ru.apteka.orders.presentation.orders.OrdersFragment"
+        android:label="@string/orders_title"
+        tools:layout="@layout/orders_fragment">
+
+        <action
+            android:id="@+id/toOrderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="ru.apteka.orders.presentation.order_details.OrderDetailsFragment">
+
+        <argument
+            android:name="order"
+            app:argType="ru.apteka.components.data.models.OrderModel" />
+
+        <action
+            android:id="@+id/toOrderCancelFragment"
+            app:destination="@id/orderCancelFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderCancelFragment"
+        android:name="ru.apteka.orders.presentation.oder_cancel.OrderCancelFragment">
+
+        <argument
+            android:name="order"
+            app:argType="ru.apteka.components.data.models.OrderModel" />
+
+    </fragment>
+
+</navigation>

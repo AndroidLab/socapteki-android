@@ -19,6 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mainFragment"
+                android:name="ru.apteka.main.presentation.main.MainFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <fragment
                 android:id="@+id/general_nav_host"
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -49,6 +55,7 @@
                         layout="@layout/bottom_navigation_item"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:background="@color/red"
                         app:isSelected="@{bottomAppBarModel.selectedItemId == bottomAppBarModel.item_2.itemId}"
                         app:layout_constraintEnd_toStartOf="@id/bottomNavigationStocksItem"
                         app:layout_constraintStart_toStartOf="parent"
@@ -130,8 +137,8 @@
             android:id="@+id/ivStartAnim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="center"
             android:background="@color/white"
+            android:scaleType="center"
             app:glideImageRes="@{`file:///android_asset/start_anim.gif`}"
             app:useStub="@{null}"
             tools:ignore="ContentDescription" />

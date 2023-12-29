@@ -1,7 +1,6 @@
 package ru.apteka.product_card.data.repository.product_card
 
 import android.util.Log
-import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.DiscountModel
 import ru.apteka.components.data.models.Label
 import ru.apteka.components.data.models.ProductModel
@@ -35,14 +34,14 @@ class ProductCardRepository @Inject constructor(
             ),
             isFavorite = false,
             price = "от 2 200 ₽",
-            desc = "Диклофенак-акос гель для наружного применения 5% 50 г",
+            title = "Диклофенак-акос гель для наружного применения 5% 50 г",
             rating = "4.7",
             comments = 123,
             discount = DiscountModel(
                 oldPrice = "22 131 ₽",
                 percent = "30%"
             ),
-            additionalDesc = "Без рецепта",
+            desc = "Без рецепта",
             releaseForm = "Какая то форма выпуска",
             manufacturer = "Индия, Патеон",
             activeSubstance = "Ибупрофен",

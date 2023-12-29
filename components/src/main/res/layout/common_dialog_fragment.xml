@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="28dp"
+        app:cardCornerRadius="12dp"
         app:strokeWidth="0dp">
 
         <LinearLayout
@@ -88,8 +88,8 @@
                     android:textColor="@color/light_black"
                     app:extraText="@{dialogMessage.message}"
                     app:isHtml="@{dialogMessage.isHtml}"
-                    app:layoutMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
-                    app:layoutMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 24 : 0 }"
+                    app:extraMarginBottom="@{(buttonCancel == null &amp; buttonConfirm == null) ? 16 : 0 }"
+                    app:extraMarginTop="@{(imageRes == -1 &amp; title.toString().empty) ? 24 : 0 }"
                     app:visibleIf="@{!dialogMessage.message.toString().empty}"
                     tools:text="Обычный текст диалога" />
 

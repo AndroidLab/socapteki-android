@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 @ViewModelScoped
 class PromotionRepository @Inject constructor(
-    private val promotionApi: IPromotionApi
+    //private val promotionApi: IPromotionApi
 ) {
 
     /**

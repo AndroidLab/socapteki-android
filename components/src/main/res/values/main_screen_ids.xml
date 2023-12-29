@@ -17,4 +17,5 @@
     <item type="id" name="referral_program_graph" />
     <item type="id" name="symptoms_diseases_graph" />
     <item type="id" name="customers_graph" />
+    <item type="id" name="orders_graph" />
 </resources>

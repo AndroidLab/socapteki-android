@@ -131,7 +131,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_contacts_phone"
+                            android:src="@drawable/ic_phone"
                             app:tint="@color/color_primary"
                             tools:ignore="ContentDescription" />
 
@@ -179,7 +179,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_contacts_phone"
+                            android:src="@drawable/ic_phone"
                             app:tint="@color/color_primary"
                             tools:ignore="ContentDescription" />
 

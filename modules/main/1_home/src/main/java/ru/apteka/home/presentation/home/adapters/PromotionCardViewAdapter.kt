@@ -1,6 +1,8 @@
 package ru.apteka.home.presentation.home.adapters
 
 
+import androidx.recyclerview.widget.RecyclerView
+import ru.apteka.components.data.utils.screenWidth
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.home.data.models.PromotionModel
 import ru.apteka.home.databinding.PromotionCardViewBinding
@@ -18,6 +20,12 @@ class PromotionCardViewAdapter(private val onItemClick: () -> Unit) :
         isFirst: Boolean,
         isLast: Boolean
     ) {
+        val itemWidth = (screenWidth * .8).toInt()
+
+        val lp = root.layoutParams as RecyclerView.LayoutParams
+        lp.width = itemWidth
+        root.layoutParams = lp
+
         model = item
         executePendingBindings()
         promotionCardItem.setOnClickListener {

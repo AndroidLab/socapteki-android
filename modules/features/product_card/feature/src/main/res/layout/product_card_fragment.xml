@@ -156,7 +156,7 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="2"
-                        android:text="@{viewModel.product.desc}"
+                        android:text="@{viewModel.product.title}"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:translationY="@{-@dimen/toolbar_height}" />

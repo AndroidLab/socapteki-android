@@ -19,11 +19,11 @@ class App : Application() {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d("myL", "Fetching FCM registration token failed", task.exception)
+                //Log.d("myL", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
 
-            Log.d("myL", "msg_token_fmt " + task.result)
+            //Log.d("myL", "msg_token_fmt " + task.result)
         })
     }
 

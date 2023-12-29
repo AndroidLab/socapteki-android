@@ -9,8 +9,4 @@
         android:id="@+id/homeFragment"
         android:name="ru.apteka.home.presentation.home.HomeFragment" />
 
-    <fragment
-        android:id="@+id/bonusProgramFragment"
-        android:name="ru.apteka.home.presentation.bonus_program.BonusProgramFragment"/>
-
 </navigation>

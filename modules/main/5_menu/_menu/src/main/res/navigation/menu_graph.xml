@@ -31,4 +31,6 @@
 
     <include app:graph="@navigation/customers_graph" />
 
+    <include app:graph="@navigation/orders_graph" />
+
 </navigation>

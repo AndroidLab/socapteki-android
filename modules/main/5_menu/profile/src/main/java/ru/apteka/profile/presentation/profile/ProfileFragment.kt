@@ -1,15 +1,14 @@
 package ru.apteka.profile.presentation.profile
 
+import androidx.core.os.bundleOf
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.account.AccountRemoveService
-import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.profile.R
 import ru.apteka.profile.databinding.ProfileFragmentBinding
 import javax.inject.Inject
-import ru.apteka.personal_data_api.R as UserProfileApiR
 
 
 /**
@@ -44,8 +43,9 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
         }
 
         binding.userProfileOrders.profileCard.setOnClickListener {
-            navigationManager.generalNavController.navigateWithAnim(
-                ru.apteka.orders_api.R.id.orders_graph,
+            navigationManager.onSelectItemMenu(
+                ru.apteka.components.R.id.orders_graph,
+                bundleOf()
             )
         }
 

@@ -2,6 +2,7 @@ package ru.apteka.components.data.services.navigation_manager
 
 import android.os.Bundle
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import ru.apteka.components.data.models.BottomAppBarModel
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
@@ -50,4 +51,14 @@ class NavigationManager @Inject constructor() {
      * Возвращает или устанавливает обработчик показа/скрытия нижней панели.
      */
     var onBottomAppBarShowed: (Boolean) -> Unit by Delegates.notNull()
+
+    /**
+     * Возвращает или устанавливает флаг показа главного экрана или бонусной программы.
+     */
+    val isHomeFront = MutableLiveData(true)
+
+    /**
+     * Возвращает обработчик нажатия на FAB.
+     */
+    var onFabClick: () -> Unit by Delegates.notNull()
 }

@@ -31,14 +31,14 @@ internal fun Project.configureModule(
             is ApplicationExtension -> {
                 buildTypes {
                     debug {
-                        isMinifyEnabled = false
+                        isMinifyEnabled = libs.findVersion("library_minify_debug_enabled").get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
                         )
                     }
                     release {
-                        isMinifyEnabled = libs.findVersion("application_minify_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("application_minify_release_enabled").get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
@@ -49,14 +49,14 @@ internal fun Project.configureModule(
             is LibraryExtension -> {
                 buildTypes {
                     debug {
-                        isMinifyEnabled = false
+                        isMinifyEnabled = libs.findVersion("library_minify_debug_enabled").get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
                         )
                     }
                     release {
-                        isMinifyEnabled = libs.findVersion("library_minify_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("library_minify_release_enabled").get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"

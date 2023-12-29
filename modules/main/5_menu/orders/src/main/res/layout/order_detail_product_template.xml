@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.components.data.models.ProductModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/corners_shape"
+        android:padding="16dp">
+
+        <!-- Картинка товара -->
+        <include
+            android:id="@+id/orderDetailProductImage"
+            layout="@layout/image_card"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:imageUrl="@{bindingItem.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Заголовок -->
+        <TextView
+            android:id="@+id/orderDetailProductTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{bindingItem.title}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Описание -->
+        <TextView
+            android:id="@+id/orderDetailProductDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:visibleIf="@{bindingItem.desc != null}"
+            android:text="@{bindingItem.desc}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailProductTitle" />
+
+        <!-- Цена -->
+        <TextView
+            android:id="@+id/orderDetailProductPrice"
+            style="@style/Theme.Socapteki.Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{bindingItem.price}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc" />
+
+        <!-- Процент скидки -->
+        <include
+            layout="@layout/discount_percentage_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:discount="@{bindingItem.discount}"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc"
+            app:layout_constraintStart_toEndOf="@id/orderDetailProductPrice" />
+
+        <!-- Старая цена -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{bindingItem.discount.oldPrice}"
+            app:isStrikethrough="@{true}"
+            app:visibleIf="@{bindingItem.discount != null}"
+            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailProductPrice" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

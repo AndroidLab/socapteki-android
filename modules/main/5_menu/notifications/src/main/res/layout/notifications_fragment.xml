@@ -15,65 +15,54 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary"
-        android:orientation="vertical">
+        android:background="@color/background_secondary">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@id/flNotificationsMakingOrder"
-            android:layout_below="@id/notificationsToolbar"
-            android:orientation="vertical">
+            android:layout_below="@id/notificationsFilter">
 
-            <ru.apteka.components.ui.LoaderLayout
+            <com.alab.extra_bouncy.BouncyRecyclerView
+                android:id="@+id/rvNotification"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isLoading="@{viewModel.isLoading}">
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:visibleIf="@{!viewModel.notificationFiltered.empty}" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            <include
+                layout="@layout/progress_bar"
+                app:isLoading="@{viewModel.isLoading}" />
 
-                    <!-- Фильтры -->
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fillViewport="true"
-                        android:overScrollMode="never"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="16dp"
-                            app:forItems="@{viewModel.notificationFilter.items}"
-                            app:useTemplate="@{@layout/notification_filter_template}"
-                            app:visibleIf="@{viewModel.notificationFilter.mediator}" />
-
-                    </HorizontalScrollView>
-
-                    <com.alab.extra_bouncy.BouncyRecyclerView
-                        android:id="@+id/rvNotification"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:visibleIf="@{!viewModel.notificationFiltered.empty}" />
-
-                </LinearLayout>
-
-            </ru.apteka.components.ui.LoaderLayout>
-
-        </LinearLayout>
-
+        </FrameLayout>
 
         <!-- Туул бар -->
         <include
             android:id="@+id/notificationsToolbar"
             layout="@layout/toolbar" />
+
+        <!-- Фильтры -->
+        <HorizontalScrollView
+            android:id="@+id/notificationsFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/notificationsToolbar"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                app:forItems="@{viewModel.notificationFilter.items}"
+                app:useTemplate="@{@layout/notification_filter_template}"
+                app:visibleIf="@{viewModel.notificationFilter.mediator}" />
+
+        </HorizontalScrollView>
 
         <include
             layout="@layout/shadow_view"
@@ -88,7 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:paddingBottom="@dimen/footer_stub_height">
+            android:paddingBottom="@dimen/footer_stub_height"
+            app:visibleIf="@{!viewModel.isLoading}">
 
             <TextView
                 android:id="@+id/notificationsMarkAsRead"
@@ -97,6 +87,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="4dp"
                 android:background="?attr/selectableItemBackground"
+                android:clickable="@{!viewModel.isAllNotificationRead}"
                 android:gravity="center_horizontal"
                 android:paddingVertical="12dp"
                 android:text="@string/notifications_mark_as_read"

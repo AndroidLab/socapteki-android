@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="@{bindingItem.productCard.product.desc}"
+                        android:text="@{bindingItem.productCard.product.title}"
                         android:textColor="@color/dark_black"
                         android:textStyle="bold" />
 

@@ -44,6 +44,7 @@ class NotificationsFragment : BaseFragment<NotificationsViewModel, Notifications
     }
 
     private fun onNotificationClick(notification: NotificationModel) {
+        Log.d("myL", "12135")
         /*viewModel.navigationManager.generalNavController.navigateWithAnim(
             OrdersFragmentDirections.toOrderDetailsFragment(order)
         )*/

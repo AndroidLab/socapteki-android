@@ -106,6 +106,7 @@
                         app:contentPadding="16dp">
 
                         <LinearLayout
+                            android:id="@+id/llStockDetailsDesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -172,6 +173,7 @@
 
                 </LinearLayout>
 
+                <!-- Список акционных товаров -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvStockProducts"
                     android:layout_width="match_parent"
@@ -180,7 +182,7 @@
                     android:overScrollMode="never"
                     android:scrollbars="none"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2" />
+                    app:spanCount="1" />
 
             </LinearLayout>
 

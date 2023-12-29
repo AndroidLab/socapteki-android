@@ -3,23 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/general_nav_graph"
-    app:startDestination="@+id/mainFragment">
-
+    app:startDestination="@+id/featureFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="ru.apteka.main.presentation.main.MainFragment"
-        tools:layout="@layout/main_fragment">
+        android:id="@+id/featureFragment"
+        android:name="ru.apteka.feature_screen.presentation.FeatureFragment">
 
     </fragment>
 
     <include app:graph="@navigation/choosing_city_graph" />
 
-    <include app:graph="@navigation/orders_graph" />
-
     <include app:graph="@navigation/pharmacies_map_graph" />
-
-    <include app:graph="@navigation/personal_data_graph" />
 
     <include app:graph="@navigation/product_card_graph" />
 

@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@{model.product.desc}"
+                        android:text="@{model.product.title}"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textStyle="bold" />
@@ -69,8 +69,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@{model.product.additionalDesc}"
-                        app:visibleIf="@{model.product.additionalDesc != null}"/>
+                        android:text="@{model.product.desc}"
+                        app:visibleIf="@{model.product.desc != null}"/>
 
                     <!-- Актуальная цена -->
                     <TextView

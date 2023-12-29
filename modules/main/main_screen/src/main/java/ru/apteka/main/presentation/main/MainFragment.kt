@@ -1,5 +1,6 @@
 package ru.apteka.main.presentation.main
 
+import android.util.Log
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,6 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
     lateinit var navigationManager: NavigationManager
 
     override fun onViewBindingInflated(binding: MainFragmentBinding) {
-
         setFragmentResultListener(NAVIGATE_REQUEST_KEY_TO_CATALOG) { _, _ ->
             navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.catalog_graph)
         }
@@ -84,10 +84,5 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
     override fun onStart() {
         super.onStart()
         navigationManager.isBottomNavigationBarNeedUpdateSingleEvent.call()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 }

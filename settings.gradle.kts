@@ -28,6 +28,7 @@ include(":modules:main:2_catalog")
 include(":modules:main:3_stocks")
 include(":modules:main:4_basket")
 include(":modules:main:5_menu:_menu")
+include(":modules:features:feature_screen")
 
 //Модуль 'Уведомления'.
 include(":modules:main:5_menu:notifications")
@@ -62,15 +63,12 @@ include(":modules:main:5_menu:charity")
 //Модуль 'Покупателям'.
 include(":modules:main:5_menu:customers")
 
-
-
 //Модуль заказов
-include(":modules:features:orders:api")
-include(":modules:features:orders:feature")
+include(":modules:main:5_menu:orders")
 
-//Модуль 'Персональные данные'.
-include(":modules:features:personal_data:feature")
-include(":modules:features:personal_data:api")
+
+
+
 
 //Модуль 'Выбор города'.
 include(":modules:features:choosing_city:feature")

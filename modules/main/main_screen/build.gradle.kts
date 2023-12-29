@@ -22,7 +22,6 @@ dependencies {
     implementation(project(":modules:main:5_menu:_menu"))
     implementation(project(":modules:features:pharmacies_map:api"))
     implementation(project(":modules:features:choosing_city:api"))
-    implementation(project(":modules:features:orders:api"))
 
     implementation(libs.andRatingBar)
 }

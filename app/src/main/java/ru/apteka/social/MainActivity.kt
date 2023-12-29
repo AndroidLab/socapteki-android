@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -44,12 +43,13 @@ import ru.apteka.components.data.utils.setImageTint
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
-import ru.apteka.main.databinding.MenuNavigationViewBinding
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.social.databinding.ActivityMainBinding
+import ru.apteka.social.databinding.MenuNavigationViewBinding
 import ru.apteka.social.presentation.auth.AuthActivity
 import javax.inject.Inject
+import ru.apteka.home.R as HomeR
 import ru.apteka.basket.R as BasketR
 import ru.apteka.catalog.R as CatalogR
 import ru.apteka.stocks.R as StocksR
@@ -113,56 +113,38 @@ class MainActivity : AppCompatActivity() {
 
         navigationManager.apply {
             generalNavController = this@MainActivity.generalNavController
+            onBottomAppBarShowed = {
+                if (it) {
+                    binding.bottomAppBar.performShow()
+                    binding.bottomAppBarFab.show()
+                } else {
+                    binding.bottomAppBar.performHide()
+                    binding.bottomAppBarFab.hide()
+                }
+            }
         }
+
         binding.bottomAppBarModel = navigationManager.bottomAppBarModel
 
-        navigationManager.onBottomAppBarShowed = {
-            if (it) {
-                binding.bottomAppBar.performShow()
-                binding.bottomAppBarFab.show()
-            } else {
-                binding.bottomAppBar.performHide()
-                binding.bottomAppBarFab.hide()
-            }
-        }
-
         binding.bottomAppBarFab.addOnShowAnimationListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-
-            }
-
+            override fun onAnimationStart(animation: Animator) {}
             override fun onAnimationEnd(animation: Animator) {
                 binding.bottomAppBar.visibility = View.VISIBLE
             }
 
-            override fun onAnimationCancel(animation: Animator) {
-
-            }
-
-            override fun onAnimationRepeat(animation: Animator) {
-
-            }
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
         })
 
         binding.bottomAppBarFab.addOnHideAnimationListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-
-            }
-
+            override fun onAnimationStart(animation: Animator) {}
             override fun onAnimationEnd(animation: Animator) {
                 binding.bottomAppBar.visibility = View.GONE
             }
 
-            override fun onAnimationCancel(animation: Animator) {
-
-            }
-
-            override fun onAnimationRepeat(animation: Animator) {
-
-            }
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
         })
-
-
 
         binding.bottomAppBar.apply {
             background = MaterialShapeDrawable(
@@ -185,44 +167,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         binding.bottomAppBarFab.setOnClickListener {
             val controller = navigationManager.currentBottomNavControllerLiveData.value!!
             if (controller.graph.id == ru.apteka.components.R.id.home_graph) {
-                if (controller.currentDestination!!.id == ru.apteka.home.R.id.bonusProgramFragment) {
-                    controller.popBackStack()
-                    binding.bottomAppBarFab.apply {
-                        setImageResource(ru.apteka.components.R.drawable.ic_home)
-                        setImageTint(
-                            ContextCompat.getColor(
-                                this@MainActivity,
-                                ru.apteka.components.R.color.color_primary
-                            )
-                        )
-                    }
-                } else {
-                    val navOptions: NavOptions = NavOptions.Builder()
-                        .setEnterAnim(ru.apteka.home.R.anim.flip_enter_anim)
-                        .setExitAnim(ru.apteka.home.R.anim.flip_exit_anim)
-                        .setPopEnterAnim(ru.apteka.home.R.anim.flip_pop_enter_anim)
-                        .setPopExitAnim(ru.apteka.home.R.anim.flip_pop_exit_anim)
-                        .build()
-                    controller.navigate(
-                        ru.apteka.home.R.id.bonusProgramFragment,
-                        bundleOf(),
-                        navOptions
-                    )
-                    binding.bottomAppBarFab.apply {
-                        setImageResource(ru.apteka.main.R.drawable.ic_card)
-                        setImageTint(
-                            ContextCompat.getColor(
-                                this@MainActivity,
-                                ru.apteka.components.R.color.color_primary
-                            )
-                        )
-                    }
-                }
+                navigationManager.onFabClick()
             } else {
-                navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.home_graph)
+                navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
             }
         }
 
@@ -270,8 +221,9 @@ class MainActivity : AppCompatActivity() {
                             binding.appMenuItemMyOrders.apply {
                                 count = 10
                                 item.setOnClickListener {
-                                    navigationManager.generalNavController.navigateWithAnim(
-                                        ru.apteka.orders_api.R.id.orders_graph,
+                                    navigationManager.onSelectItemMenu(
+                                        ComponentsR.id.orders_graph,
+                                        bundleOf()
                                     )
                                     bottomSheetService.close()
                                 }
@@ -441,6 +393,10 @@ class MainActivity : AppCompatActivity() {
             setupBottomNavigationBar()
         }
 
+        navigationManager.isHomeFront.observe(this) {
+            setBottomAppBarFabState(it)
+        }
+
         basketService.totalCount.observe(this) { count ->
             binding.nbTab4.setNumber(
                 if (count > 0) {
@@ -506,7 +462,8 @@ class MainActivity : AppCompatActivity() {
             navigationManager.currentBottomNavControllerLiveData.value?.currentBackStackEntry?.destination?.id
         val previousMainDestinationId =
             navigationManager.currentBottomNavControllerLiveData.value?.previousBackStackEntry?.destination?.id
-        if (currentGeneralDestinationId != R.id.mainFragment) {
+
+        if (currentGeneralDestinationId != R.id.featureFragment) {
             navigationManager.generalNavController.popBackStack()
         } else {
             if (currentMainDestinationId == CatalogR.id.catalogFragment
@@ -519,12 +476,39 @@ class MainActivity : AppCompatActivity() {
                 }
                 navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
             } else {
-                if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
-                    super.onBackPressed()
+                if (!navigationManager.isHomeFront.value!!) {
+                    navigationManager.onFabClick()
+                } else {
+                    if (navigationManager.currentBottomNavControllerLiveData.value?.popBackStack() != true) {
+                        super.onBackPressed()
+                    }
                 }
             }
         }
+    }
 
+    private fun setBottomAppBarFabState(isHomeFront: Boolean) {
+        if (isHomeFront) {
+            binding.bottomAppBarFab.apply {
+                setImageResource(ComponentsR.drawable.ic_home)
+                setImageTint(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        ComponentsR.color.color_primary
+                    )
+                )
+            }
+        } else {
+            binding.bottomAppBarFab.apply {
+                setImageResource(MainR.drawable.ic_card)
+                setImageTint(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        ComponentsR.color.color_primary
+                    )
+                )
+            }
+        }
     }
 
     private fun setupBottomNavigationBar() {
@@ -532,7 +516,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomAppBar.setupWithNavController(
                 bottomAppBarModel = navigationManager.bottomAppBarModel,
                 navGraphIds = listOf(
-                    ru.apteka.home.R.navigation.home_graph,
+                    HomeR.navigation.home_graph,
                     CatalogR.navigation.catalog_graph,
                     StocksR.navigation.stocks_graph,
                     BasketR.navigation.basket_graph,

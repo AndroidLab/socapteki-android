@@ -17,8 +17,6 @@ android {
 dependencies {
     implementation(project(":components"))
     implementation(project(":modules:features:favorites:api"))
-    implementation(project(":modules:features:orders:api"))
-	implementation(project(":modules:features:personal_data:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

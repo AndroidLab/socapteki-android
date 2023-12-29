@@ -28,19 +28,20 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape_circle_grey_icon"
-            android:scaleType="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{background}"
+            android:scaleType="fitXY"
             android:src="@{icon}"
-            tools:ignore="ContentDescription"
+            app:extraPadding="@{background == null ? 0 : 5}"
+            app:extra_layout_height="@{background == null ? 20 : 30}"
             app:extra_layout_width="@{background == null ? 20 : 30}"
-            app:extra_layout_height="@{background == null ? 20 : 30}"/>
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:text="@{value}" />
 
     </LinearLayout>

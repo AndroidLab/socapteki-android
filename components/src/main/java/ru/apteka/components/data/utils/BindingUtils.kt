@@ -103,125 +103,157 @@ fun setExtraTextStyle(textView: TextView, value: Int?) {
     )
 }
 
+
 /**
  * Устанавливает отступы.
- * @param view [View]
- * @param top [Int]
- * @param bottom [Int]
  */
 @BindingAdapter(
-    "app:layoutMarginStart",
-    "app:layoutMarginTop",
-    "app:layoutMarginEnd",
-    "app:layoutMarginBottom",
+    "app:extraMargin",
     requireAll = false
 )
-fun View.setLayoutMargin(
-    start: Int? = null,
-    top: Int? = null,
-    end: Int? = null,
-    bottom: Int? = null
+fun View.setExtraMargin(
+    extraMargin: Int? = null
 ) {
-    if (start != null || top != null || end != null || bottom != null) {
+    setExtraMargin(
+        extraMargin ?: 0,
+        extraMargin ?: 0,
+        extraMargin ?: 0,
+        extraMargin ?: 0,
+    )
+}
+
+/**
+ * Устанавливает отступы.
+ */
+@BindingAdapter(
+    "app:extraMarginStart",
+    "app:extraMarginTop",
+    "app:extraMarginEnd",
+    "app:extraMarginBottom",
+    requireAll = false
+)
+fun View.setExtraMargin(
+    extraMarginStart: Int? = null,
+    extraMarginTop: Int? = null,
+    extraMarginEnd: Int? = null,
+    extraMarginBottom: Int? = null
+) {
+    if (extraMarginStart != null || extraMarginTop != null || extraMarginEnd != null || extraMarginBottom != null) {
         val lp = layoutParams as ViewGroup.MarginLayoutParams
-        if (start != null) {
+        if (extraMarginStart != null) {
             layoutParams =
                 lp.apply {
                     setMargins(
-                        start.dp,
+                        extraMarginStart.dp,
                         marginTop,
                         marginRight,
                         marginBottom
                     )
                 }
         }
-        if (top != null) {
+        if (extraMarginTop != null) {
             layoutParams =
                 lp.apply {
                     setMargins(
                         marginLeft,
-                        top.dp,
+                        extraMarginTop.dp,
                         marginRight,
                         marginBottom
                     )
                 }
         }
-        if (end != null) {
+        if (extraMarginEnd != null) {
             layoutParams =
                 lp.apply {
                     setMargins(
                         marginLeft,
                         marginTop,
-                        end.dp,
+                        extraMarginEnd.dp,
                         marginBottom
                     )
                 }
         }
-        if (bottom != null) {
+        if (extraMarginBottom != null) {
             layoutParams =
                 lp.apply {
                     setMargins(
                         marginLeft,
                         marginTop,
                         marginRight,
-                        bottom.dp
+                        extraMarginBottom.dp
                     )
                 }
         }
     }
 }
 
+
 /**
  * Устанавливает отступы.
- * @param view [View]
- * @param paddingTop [Int]
- * @param paddingBottom [Int]
  */
 @BindingAdapter(
-    "app:layoutPaddingStart",
-    "app:layoutPaddingTop",
-    "app:layoutPaddingEnd",
-    "app:layoutPaddingBottom",
+    "app:extraPadding",
     requireAll = false
 )
-fun setLayoutPadding(
-    view: View,
-    paddingStart: Int?,
-    paddingTop: Int?,
-    paddingEnd: Int?,
-    paddingBottom: Int?
+fun View.setExtraPadding(
+    extraPadding: Int?,
 ) {
-    if (paddingStart != null || paddingTop != null || paddingEnd != null || paddingBottom != null) {
-        if (paddingStart != null) {
-            view.setPadding(
-                paddingStart.dp,
-                view.paddingTop,
-                view.paddingRight,
-                view.paddingBottom
+    setExtraPadding(
+        extraPadding ?: 0,
+        extraPadding ?: 0,
+        extraPadding ?: 0,
+        extraPadding ?: 0,
+    )
+}
+
+
+/**
+ * Устанавливает отступы.
+ */
+@BindingAdapter(
+    "app:extraPaddingStart",
+    "app:extraPaddingTop",
+    "app:extraPaddingEnd",
+    "app:extraPaddingBottom",
+    requireAll = false
+)
+fun View.setExtraPadding(
+    extraPaddingStart: Int?,
+    extraPaddingTop: Int?,
+    extraPaddingEnd: Int?,
+    extraPaddingBottom: Int?
+) {
+    if (extraPaddingStart != null || extraPaddingTop != null || extraPaddingEnd != null || extraPaddingBottom != null) {
+        if (extraPaddingStart != null) {
+            setPadding(
+                extraPaddingStart.dp,
+                paddingTop,
+                paddingRight,
+                paddingBottom
             )
         }
-        if (paddingTop != null) {
-            view.setPadding(
-                view.paddingLeft,
-                paddingTop.dp,
-                view.paddingRight,
-                view.paddingBottom
+        if (extraPaddingTop != null) {
+            setPadding(
+                paddingLeft,
+                extraPaddingTop.dp,
+                paddingRight,
+                paddingBottom
             )
         }
-        if (paddingEnd != null) {
-            view.setPadding(
-                view.paddingLeft,
-                view.paddingTop,
-                paddingEnd.dp,
-                view.paddingBottom
+        if (extraPaddingEnd != null) {
+            setPadding(
+                paddingLeft,
+                paddingTop,
+                extraPaddingEnd.dp,
+                paddingBottom
             )
         }
-        if (paddingBottom != null) {
-            view.setPadding(
-                view.paddingLeft,
-                view.paddingTop,
-                view.paddingRight,
-                paddingBottom.dp
+        if (extraPaddingBottom != null) {
+            setPadding(
+                paddingLeft,
+                paddingTop,
+                paddingRight,
+                extraPaddingBottom.dp
             )
         }
     }
@@ -635,24 +667,40 @@ fun ExpansionHeader.setChangeSelectionColor(
 ) {
     if (expansionChangeColor == true) {
         val title = findViewWithTag<TextView>("title")
-        addListener { expansionLayout, expanded ->
-            title?.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    if (expanded) R.color.color_primary else R.color.dark_black
-                )
-            )
-            headerIndicator?.let {
-                (it as? ImageView)?.setImageTint(
-                    ContextCompat.getColor(
-                        context,
-                        if (expanded) R.color.color_primary else R.color.dark_grey
-                    )
-                )
-            }
-        }
+        val indicator = findViewWithTag<ImageView>("indicator")
+        addListener(addExpansionLayoutListener(title, indicator))
     }
 }
+
+/**
+ * Устанавливает цвет для заголовка и индикатора.
+ */
+@BindingAdapter("app:expansionChangeColor")
+fun ExpansionLayout.setChangeSelectionColor(
+    expansionChangeColor: Boolean?
+) {
+    if (expansionChangeColor == true) {
+        val title = (parent as ViewGroup).findViewWithTag<TextView>("title")
+        val indicator = (parent as ViewGroup).findViewWithTag<ImageView>("indicator")
+        addListener(addExpansionLayoutListener(title, indicator))
+    }
+}
+
+private fun addExpansionLayoutListener(title: TextView?, indicator: ImageView?) =
+    ExpansionLayout.Listener { expansionLayout, expanded ->
+        title?.setTextColor(
+            ContextCompat.getColor(
+                title.context,
+                if (expanded) R.color.color_primary else R.color.dark_black
+            )
+        )
+        indicator?.setImageTint(
+            ContextCompat.getColor(
+                indicator.context,
+                if (expanded) R.color.color_primary else R.color.dark_grey
+            )
+        )
+    }
 
 /**
  * Маштабирует отображение по оси X и Y.

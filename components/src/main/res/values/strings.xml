@@ -19,7 +19,8 @@
     <string name="save">Сохранить</string>
     <string name="search">Поиск</string>
     <string name="send">Отправить</string>
-    <string name="success">Успех</string>
+    <string name="success1">Успех</string>
+    <string name="success2">Успешно</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="exit">Выйти</string>
@@ -33,6 +34,7 @@
     <string name="phone_number">Номер телефона</string>
     <string name="mail">Почта</string>
     <string name="stocks">Акции</string>
+    <string name="to_pay">Оплатить</string>
     <string name="email">Электронная почта</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
@@ -57,6 +59,9 @@
     <string name="access_phone_camera">Для продолжения необходим доступ к камере телефона. Нажмите кнопку настройки и дайте доступ к камере телефона.</string>
     <string name="access_mic_record">Для продолжения необходим доступ к микрофону телефона. Нажмите кнопку настройки и дайте доступ к микрофону телефона.</string>
 
+    <string name="order_payment_failed">Оплата не прошла</string>
+    <string name="order_details_delivery_method_delivery">Доставка</string>
+    <string name="order_details_delivery_method_pickup">Самовывоз</string>
     <string name="order_status_new">Новый</string>
     <string name="order_status_in_processing">В обработке</string>
     <string name="order_status_ready_to_receive">Готов к получению</string>
@@ -65,8 +70,7 @@
     <string name="order_status_delivery_postponed">Доставка перенесена</string>
     <string name="order_status_received">Получен</string>
     <string name="order_status_canceled">Отменен</string>
-    <string name="order_awaiting_payment">Ожидает оплаты</string>
-    <string name="order_number">Заказ №%s</string>
+    <string name="order_payment_awaiting">Ожидает оплаты</string>
 
     <string-array name="sorts">
         <item>Популярные</item>

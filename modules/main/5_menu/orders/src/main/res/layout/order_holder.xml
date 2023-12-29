@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.models.OrderStatus" />
+
+        <import type="ru.apteka.components.data.models.OrderPayStatus" />
+
+        <variable
+            name="model"
+            type="ru.apteka.components.data.models.OrderModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/llOrderItem"
+        style="@style/Theme.Socapteki.BackgroundCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:contentPadding="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Статус заказа -->
+            <include
+                android:id="@+id/orderStatus"
+                layout="@layout/label_view"
+                app:backgroundColor="@{model.status.getBackgroundColor(context, model.status)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:text="@{model.status.title}"
+                app:textColor="@{model.status.getTextColor(context, model.status)}" />
+
+            <!-- Номер заказа -->
+            <TextView
+                android:id="@+id/orderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{String.format(@string/order_number, context.getString(model.deliveryMethod.title), model.number)}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderStatus" />
+
+            <!-- Дата заказа -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.getFormatDate(context)}"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/orderPayStatusSeparator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Статус оплаты -->
+            <include
+                android:id="@+id/orderPayStatusSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderTitle"
+                app:sepMarginTop="@{12}" />
+
+            <TextView
+                android:id="@+id/orderPaymentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/order_payment_status"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderPayStatusSeparator" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{model.payStatus.title}"
+                android:textColor="@{model.payStatus == OrderPayStatus.SUCCESS ? @color/color_primary : @color/red}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderPayStatusSeparator" />
+
+            <!-- Сумма -->
+            <include
+                android:id="@+id/orderSumSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderPaymentStatus"
+                app:sepMarginTop="@{12}" />
+
+            <TextView
+                android:id="@+id/orderSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/order_sum"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderSumSeparator" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.sum}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/orderSum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderSumSeparator" />
+
+            <!-- Отмена заказа -->
+            <include
+                android:id="@+id/orderCanceledSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderSum"
+                app:sepMarginTop="@{12}"
+                app:visibleIf="@{model.canceledTime != null}" />
+
+            <ImageView
+                android:id="@+id/orderCanceledIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderCanceledSeparator"
+                app:tint="@color/red"
+                app:visibleIf="@{model.canceledTime != null}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@{String.format(@string/order_canceled_after, model.canceledTime)}"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toEndOf="@+id/orderCanceledIcon"
+                app:layout_constraintTop_toBottomOf="@id/orderCanceledSeparator"
+                app:visibleIf="@{model.canceledTime != null}" />
+
+            <!-- Продукты -->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/orderProducts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:flexWrap="wrap"
+                app:forItems="@{model.productImages}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderCanceledIcon"
+                app:useTemplate="@{@layout/order_image_card_template}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/to_pay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/orderProducts"
+                app:visibleIf="@{model.payStatus != OrderPayStatus.SUCCESS}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
+

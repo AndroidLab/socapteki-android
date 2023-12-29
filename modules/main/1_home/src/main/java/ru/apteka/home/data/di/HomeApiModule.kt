@@ -7,8 +7,6 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import ru.apteka.home.data.repository.advert.IAdvertApi
 import ru.apteka.home.data.repository.other.IOtherApi
-import ru.apteka.home.data.repository.products_day.IProductsDayApi
-import ru.apteka.home.data.repository.products_discount.IProductsDiscountApi
 import ru.apteka.home.data.repository.promotion.IPromotionApi
 
 
@@ -29,20 +27,6 @@ class HomeApiModule {
     @Provides
     fun providePromotionApi(retrofitClient: Retrofit): IPromotionApi =
         retrofitClient.create(IPromotionApi::class.java)
-
-    /**
-     * Предоставляет экземпляр [IProductsDayApi].
-     */
-    @Provides
-    fun provideProductsDayApi(retrofitClient: Retrofit): IProductsDayApi =
-        retrofitClient.create(IProductsDayApi::class.java)
-
-    /**
-     * Предоставляет экземпляр [IProductsDiscountApi].
-     */
-    @Provides
-    fun provideProductsDiscountApi(retrofitClient: Retrofit): IProductsDiscountApi =
-        retrofitClient.create(IProductsDiscountApi::class.java)
 
     /**
      * Предоставляет экземпляр [IOtherApi].

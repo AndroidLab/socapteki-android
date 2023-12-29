@@ -479,7 +479,7 @@
                                     android:orientation="vertical"
                                     android:paddingHorizontal="16dp"
                                     app:forItems="@{viewModel.recipients}"
-                                    app:layoutPaddingBottom="@{viewModel.recipients.empty ? 0 : 16}"
+                                    app:extraPaddingBottom="@{viewModel.recipients.empty ? 0 : 16}"
                                     app:useTemplate="@{@layout/making_order_recipient_template}" />
 
                             </LinearLayout>
