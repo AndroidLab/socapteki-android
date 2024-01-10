@@ -18,7 +18,7 @@
     <string name="product_card_instruction">Инструкция по применению</string>
     <string name="product_card_send_comment">Написать отзыв</string>
     <string name="product_card_comments_popular">Популярные</string>
-    <string name="product_card_comments_show_more">Показать еще</string>
+    <string name="product_card_comments_show_more">Смотреть все отзывы (234)</string>
 
 
 </resources>

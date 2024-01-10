@@ -10,7 +10,6 @@ import ru.apteka.components.data.services.account.models.Account
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
-import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
@@ -34,7 +33,9 @@ class AuthConfirmViewModel @Inject constructor(
     /**
      * Возвращает или устанавливает номер телефона.
      */
-    var phoneNumber: String by Delegates.notNull()
+    var phoneNumber: String? by Delegates.observable(null) { d, old, new ->
+        confirmationCode.requestCode()
+    }
 
     /**
      * Возвращает событие навигации к главному экрану.
@@ -49,7 +50,7 @@ class AuthConfirmViewModel @Inject constructor(
         requestHandler = requestHandler,
         scope = viewModelScope,
         getPhoneRaw = {
-            phoneNumber
+            phoneNumber!!
         },
     )
 
@@ -61,7 +62,7 @@ class AuthConfirmViewModel @Inject constructor(
             confirmationCode.confirmCode(
                 request = { code ->
                     loginRepository.savePersonalDataPhone(
-                        phoneNumber
+                        phoneNumber!!
                     )
                 },
                 success = {
@@ -73,10 +74,6 @@ class AuthConfirmViewModel @Inject constructor(
                 }
             )
         }
-    }
-
-    init {
-        confirmationCode.requestCode()
     }
 
 }

@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.apteka.components.data.services.account.AccountsPreferences
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -22,6 +23,7 @@ internal class NetworkModule {
      * Представляет экземпляр [OkHttpClient].
      */
     @Provides
+    @Singleton
     fun provideOkHttpClient(
         accountsService: AccountsPreferences
     ): OkHttpClient = OkHttpClient.Builder().apply {

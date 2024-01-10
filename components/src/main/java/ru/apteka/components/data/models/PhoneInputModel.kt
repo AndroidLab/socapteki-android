@@ -1,12 +1,8 @@
 package ru.apteka.components.data.models
 
-import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import ru.apteka.components.data.utils.launchMain
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.slots.Slot

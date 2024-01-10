@@ -1,8 +1,10 @@
 package ru.apteka.social.presentation.auth.auth_login
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.apteka.components.data.models.PhoneInputModel
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
@@ -22,30 +24,40 @@ class AuthViewModel @Inject constructor(
 ) {
 
     /**
-     * Устанавливает или возвращает номер телефона.
+     * Возвращает модель поля ввода номера телефона.
      */
-    val phoneNumber = MutableLiveData("")
+    val phoneInput = PhoneInputModel()
 
     /**
-     * Возвращает номер телефона без маски.
+     * Возвращает или устанавливает флаг 'Политика конфидециальности'.
      */
-    val phoneNumberRaw = phoneNumber.map {
-        it
-            .replace("+7", "")
-            .replace("(", "")
-            .replace(")", "")
-            .replace("-", "")
-            .replace(" ", "")
+    val isPrivacyPolicy = MutableLiveData(false)
+
+    /**
+     * Возвращает или устанавливает флаг 'Поучение новостей'.
+     */
+    val isAdvertNews = MutableLiveData(false)
+
+    /**
+     * Возвращает флаг доступности кнопки подтверждения номера.
+     */
+    val isPhoneBtnConfirmEnabled = MediatorLiveData<Boolean>().apply {
+        fun checkFilledData() {
+            postValue(
+                phoneInput.getPhoneRaw().length == 10 && isPrivacyPolicy.value!! && isAdvertNews.value!!
+            )
+        }
+
+        addSource(phoneInput.phone) {
+            checkFilledData()
+        }
+
+        addSource(isPrivacyPolicy) {
+            checkFilledData()
+        }
+        addSource(isAdvertNews) {
+            checkFilledData()
+        }
     }
-
-    /**
-     * Возвращает или устанавливает флаг 'Запомнить меня'.
-     */
-    val isRememberMeLiveData = MutableLiveData(false)
-
-    /**
-     * Возвращает или устанавливает флаг 'Обработку персональных данных'.
-     */
-    val isPersonalDataLiveData = MutableLiveData(false)
 
 }

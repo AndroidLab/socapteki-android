@@ -2,6 +2,7 @@ package ru.apteka.home.presentation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -13,6 +14,7 @@ import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
@@ -44,12 +46,18 @@ class HomeViewModel @Inject constructor(
     private val otherRepository: OtherRepository,
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
+    private val accountsPreferences: AccountsPreferences,
     navigationManager: NavigationManager,
     messageNoticeService: IMessageNoticeService
 ) : BaseViewModel(
     navigationManager,
     messageNoticeService
 ) {
+
+    /**
+     * Возвращает аккаунт.
+     */
+    val account = accountsPreferences.accountFlow.asLiveData()
 
     /**
      * Получает заказы.
@@ -256,7 +264,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launchIO {
             launchIO {
                 _ordersCardIsLoading.postValue(true)
-                delay(750)
+                delay(800)
                 _ordersCard.postValue(getOrdersFake()!!)
                 _ordersCardIsLoading.postValue(false)
             }
@@ -348,7 +356,7 @@ class HomeViewModel @Inject constructor(
             launchIO {
                 viewModelScope.launchIO {
                     _bonusesLoading.postValue(true)
-                    delay(1500)
+                    delay(750)
                     _bonuses.postValue(fakeBonuses)
                     _bonusesLoading.postValue(false)
                 }

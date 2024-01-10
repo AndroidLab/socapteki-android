@@ -26,8 +26,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/shape_circle_surface_variant_icon"
+            android:padding="8dp"
             android:src="@{icon}"
             tools:ignore="ContentDescription" />
 
@@ -40,14 +42,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/light_black"
-                android:text="@{desc}"/>
+                android:text="@{desc}"
+                android:textColor="@color/light_black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{date}"
-                android:textSize="18sp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
         </LinearLayout>
 

@@ -1,6 +1,6 @@
 package ru.apteka.components.data.services.basket_service
 
-import androidx.annotation.ColorRes
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,6 @@ import ru.apteka.components.data.services.message_notice_service.models.DialogBu
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.utils.contains
-import ru.apteka.components.ui.CommonDialogFragment
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,12 +24,12 @@ import javax.inject.Singleton
 class BasketService @Inject constructor(
     private val messageNoticeService: MessageNoticeService,
 ) {
-    private val _products = MutableLiveData<List<BasketProductCardModel>>(emptyList())
+    private val _basketProducts = MutableLiveData<List<BasketProductCardModel>>(emptyList())
 
     /**
      * Возвращает список продукции.
      */
-    val products: LiveData<List<BasketProductCardModel>> = _products
+    val basketProducts: LiveData<List<BasketProductCardModel>> = _basketProducts
 
     /**
      * Возвращает кол-во продукции в корзине.
@@ -41,10 +40,10 @@ class BasketService @Inject constructor(
      * Добавляет продукцию в корзину.
      */
     fun addProduct(productCard: ProductCardModel) {
-        _products.value = _products.value!!.plus(
+        _basketProducts.value = _basketProducts.value!!.plus(
             BasketProductCardModel(
                 productCard
-            ) { productCardModel ->
+            ) { basketProductCard ->
                 messageNoticeService.showCommonDialog(
                     dialogModel = DialogModel(
                         message = MessageModel(
@@ -59,7 +58,8 @@ class BasketService @Inject constructor(
                             text = R.string.remove,
                             backgroundColor = R.color.red
                         ) {
-                            productCardModel.itemCounter.clear()
+                            basketProductCard.onProductRemove()
+                            //basketProductCard.productCard.itemCounter.clear()
                         }
                     )
                 )
@@ -76,8 +76,8 @@ class BasketService @Inject constructor(
      * Удаляет продукцию из корзины.
      */
     fun removeProduct(productCard: ProductCardModel) {
-        _products.value = _products.value!!.minus(
-            products.value!!.single { it.productCard.product.id == productCard.product.id }
+        _basketProducts.value = _basketProducts.value!!.minus(
+            basketProducts.value!!.single { it.productCard.product.id == productCard.product.id }
         )
         totalCount.removeSource(productCard.itemCounter.counterLiveData)
         totalCount.postValue(getTotalCount())
@@ -101,7 +101,7 @@ class BasketService @Inject constructor(
                     text = R.string.remove,
                     backgroundColor = R.color.red
                 ) {
-                    _products.value!!.forEach {
+                    _basketProducts.value!!.forEach {
                         it.productCard.itemCounter.clear()
                     }
                 }
@@ -113,8 +113,8 @@ class BasketService @Inject constructor(
      * Возвращает флаг содержания продукции в корзине.
      */
     fun isContainsInBasket(uuid: UUID) =
-        _products.value!!.contains { it.productCard.product.id == uuid }
+        _basketProducts.value!!.contains { it.productCard.product.id == uuid }
 
     private fun getTotalCount() =
-        _products.value!!.sumOf { it.productCard.itemCounter.counterLiveData.value!! }
+        _basketProducts.value!!.sumOf { it.productCard.itemCounter.counterLiveData.value!! }
 }

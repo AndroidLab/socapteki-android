@@ -36,16 +36,21 @@
     <string name="stocks">Акции</string>
     <string name="to_pay">Оплатить</string>
     <string name="email">Электронная почта</string>
+    <string name="enter">Войти</string>
+    <string name="update">Обновить</string>
+    <string name="all_products">Все товары</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
     <string name="confirm_code_repeat_left_time">через: %s</string>
     <string name="confirm_code_error">Не веврный код</string>
     <string name="dialog_remove_product_desk">Вы уверены, что хотите удалить этот товар?</string>
-    <string name="dialog_remove_product_all_desk">Вы уверены, что хотите удалить все товары?</string>
+    <string name="dialog_remove_product_all_desk">Вы уверены, что хотите удалить этот товар?</string>
     <string name="email_not_valid">Не верный формат почты</string>
     <string name="consent_personal_data">Нажимая кнопку “Отправить”, я даю согласие на обработку персональных данных</string>
-    <string name="confirmation_code_desc">Введите СМС код, отправленный на указанный номер телефона.\nВведите его ниже:</string>
+    <string name="confirmation_code_by_sms_desc">Введите СМС код, отправленный на указанный номер телефона. Введите его ниже:</string>
+    <string name="confirmation_code_by_number_desc">Введите последние 4 цифры номера, который вам сейчас позвонит. Введите его ниже:</string>
+    <string name="confirmation_code_limit">Превышен лимит отправки кодов</string>
 
     <string name="label_hit_sales">Хит продаж</string>
     <string name="label_product_day">Товар дня</string>
@@ -53,7 +58,7 @@
     <string name="label_checked_specialist">Проверяно специалистом</string>
     <string name="label_advert">Реклама</string>
 
-    <string name="similar_products">Аналоги лекарства</string>
+    <string name="analogues_products">Аналоги лекарства</string>
     <string name="with_products">С этим товаром покупают</string>
     <string name="recently_viewed_products">Вы недавно смотрели</string>
     <string name="access_phone_camera">Для продолжения необходим доступ к камере телефона. Нажмите кнопку настройки и дайте доступ к камере телефона.</string>

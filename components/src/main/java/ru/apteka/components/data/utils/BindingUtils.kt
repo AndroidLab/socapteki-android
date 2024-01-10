@@ -36,6 +36,7 @@ import com.github.florent37.expansionpanel.ExpansionHeader
 import com.github.florent37.expansionpanel.ExpansionLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
@@ -140,50 +141,16 @@ fun View.setExtraMargin(
 ) {
     if (extraMarginStart != null || extraMarginTop != null || extraMarginEnd != null || extraMarginBottom != null) {
         val lp = layoutParams as ViewGroup.MarginLayoutParams
-        if (extraMarginStart != null) {
-            layoutParams =
-                lp.apply {
-                    setMargins(
-                        extraMarginStart.dp,
-                        marginTop,
-                        marginRight,
-                        marginBottom
-                    )
-                }
-        }
-        if (extraMarginTop != null) {
-            layoutParams =
-                lp.apply {
-                    setMargins(
-                        marginLeft,
-                        extraMarginTop.dp,
-                        marginRight,
-                        marginBottom
-                    )
-                }
-        }
-        if (extraMarginEnd != null) {
-            layoutParams =
-                lp.apply {
-                    setMargins(
-                        marginLeft,
-                        marginTop,
-                        extraMarginEnd.dp,
-                        marginBottom
-                    )
-                }
-        }
-        if (extraMarginBottom != null) {
-            layoutParams =
-                lp.apply {
-                    setMargins(
-                        marginLeft,
-                        marginTop,
-                        marginRight,
-                        extraMarginBottom.dp
-                    )
-                }
-        }
+
+        layoutParams =
+            lp.apply {
+                setMargins(
+                    extraMarginStart?.dp ?: marginLeft,
+                    extraMarginTop?.dp ?: marginTop,
+                    extraMarginEnd?.dp ?: marginRight,
+                    extraMarginBottom?.dp ?: marginBottom
+                )
+            }
     }
 }
 
@@ -224,38 +191,12 @@ fun View.setExtraPadding(
     extraPaddingBottom: Int?
 ) {
     if (extraPaddingStart != null || extraPaddingTop != null || extraPaddingEnd != null || extraPaddingBottom != null) {
-        if (extraPaddingStart != null) {
-            setPadding(
-                extraPaddingStart.dp,
-                paddingTop,
-                paddingRight,
-                paddingBottom
-            )
-        }
-        if (extraPaddingTop != null) {
-            setPadding(
-                paddingLeft,
-                extraPaddingTop.dp,
-                paddingRight,
-                paddingBottom
-            )
-        }
-        if (extraPaddingEnd != null) {
-            setPadding(
-                paddingLeft,
-                paddingTop,
-                extraPaddingEnd.dp,
-                paddingBottom
-            )
-        }
-        if (extraPaddingBottom != null) {
-            setPadding(
-                paddingLeft,
-                paddingTop,
-                paddingRight,
-                extraPaddingBottom.dp
-            )
-        }
+        setPadding(
+            extraPaddingStart?.dp ?: paddingLeft,
+            extraPaddingTop?.dp ?: paddingTop,
+            extraPaddingEnd?.dp ?: paddingRight,
+            extraPaddingBottom?.dp ?: paddingBottom
+        )
     }
 }
 
@@ -709,4 +650,12 @@ private fun addExpansionLayoutListener(title: TextView?, indicator: ImageView?) 
 fun View.scale(value: Float) {
     scaleX = value
     scaleY = value
+}
+
+/**
+ * Устанавливает прозрачность.
+ */
+@BindingAdapter("app:extraAlpha")
+fun View.setExtraAlpha(value: Float?) {
+    alpha = value ?: 1f
 }

@@ -1,6 +1,8 @@
 package ru.apteka.components.data.utils
 
 import android.animation.Animator
+import android.animation.Animator.AnimatorListener
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -21,6 +23,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.core.animation.addListener
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
@@ -582,3 +585,90 @@ fun Fragment.setSoftInputModeNothing() {
 fun TextView.countLines() =
     ceil(paint.measureText(text.toString()) / measuredWidth.toDouble()).toInt()
 
+/**
+ * Возвращает обработчик старта анимации.
+ */
+fun ValueAnimator.addOnAnimationStartListener(onAnimationStart: () -> Unit) =
+    onAnimationStartListener(onAnimationStart).also {
+        addListener(it)
+    }
+
+/**
+ * Возвращает обработчик конца анимации.
+ */
+fun ValueAnimator.addOnAnimationEndListener(onAnimationEnd: () -> Unit) =
+    onAnimationEndListener(onAnimationEnd).also {
+        addListener(it)
+    }
+
+/**
+ * Возвращает обработчик отмены анимации.
+ */
+fun ValueAnimator.addOnAnimationCancel(onAnimationCancel: () -> Unit) =
+    onAnimationCancel(onAnimationCancel).also {
+        addListener(it)
+    }
+
+/**
+ * Возвращает обработчик повтора анимации.
+ */
+fun ValueAnimator.addOnAnimationRepeat(onAnimationRepeat: () -> Unit) =
+    onAnimationRepeat(onAnimationRepeat).also {
+        addListener(it)
+    }
+
+/**
+ * Возвращает обработчик старта анимации.
+ */
+fun onAnimationStartListener(onAnimationStart: () -> Unit) =
+    object : AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {
+            onAnimationStart()
+        }
+
+        override fun onAnimationEnd(animation: Animator) {}
+        override fun onAnimationCancel(animation: Animator) {}
+        override fun onAnimationRepeat(animation: Animator) {}
+    }
+
+/**
+ * Возвращает обработчик конца анимации.
+ */
+fun onAnimationEndListener(onAnimationEnd: () -> Unit) =
+    object : AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {}
+        override fun onAnimationEnd(animation: Animator) {
+            onAnimationEnd()
+        }
+
+        override fun onAnimationCancel(animation: Animator) {}
+        override fun onAnimationRepeat(animation: Animator) {}
+    }
+
+/**
+ * Возвращает обработчик отмены анимации.
+ */
+fun onAnimationCancel(onAnimationCancel: () -> Unit) =
+    object : AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {}
+        override fun onAnimationEnd(animation: Animator) {}
+        override fun onAnimationCancel(animation: Animator) {
+            onAnimationCancel()
+        }
+
+        override fun onAnimationRepeat(animation: Animator) {}
+    }
+
+/**
+ * Возвращает обработчик повтора анимации.
+ */
+fun onAnimationRepeat(onAnimationRepeat: () -> Unit) =
+    object : AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {}
+        override fun onAnimationEnd(animation: Animator) {}
+        override fun onAnimationCancel(animation: Animator) {}
+
+        override fun onAnimationRepeat(animation: Animator) {
+            onAnimationRepeat()
+        }
+    }

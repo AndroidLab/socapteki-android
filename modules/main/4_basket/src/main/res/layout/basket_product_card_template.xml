@@ -26,6 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 android:orientation="horizontal">
 
                 <!-- Фото товара -->
@@ -47,11 +48,11 @@
                         android:layout_height="24dp"
                         android:layout_gravity="end|bottom"
                         android:background="@drawable/circle_secondary_container_shape"
+                        android:padding="4dp"
                         android:src="@drawable/ic_delivery"
                         tools:ignore="ContentDescription" />
 
                 </FrameLayout>
-
 
                 <!-- Описание товара -->
                 <LinearLayout
@@ -67,32 +68,29 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:text="@{bindingItem.productCard.product.title}"
-                        android:textColor="@color/dark_black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="Синтез ОАО, Россия"
+                        android:text="@{bindingItem.productCard.product.desc}"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <include layout="@layout/separator_view" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/light_grey" />
+            <include
+                layout="@layout/separator_view"
+                app:sepAlpha="@{bindingItem.productLeftTime == null ? 1f : .5f}" />
 
             <!-- Отпускается -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp">
 
@@ -101,8 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Отпускается:"
-                    android:textColor="@color/dark_black"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black" />
 
                 <ImageView
                     android:id="@+id/basketProductCardPrescription"
@@ -127,8 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="Годен до:"
-                    android:textColor="@color/dark_black"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,6 +138,7 @@
 
             <include
                 layout="@layout/separator_view"
+                app:sepAlpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 app:sepMarginEnd="@{16}"
                 app:sepMarginStart="@{16}" />
 
@@ -149,6 +146,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -197,7 +195,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@{bindingItem.productCard.product.price}"
-                        android:textColor="@color/dark_black" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <!-- Процент скидки -->
                     <include
@@ -208,7 +207,6 @@
                         app:discount="@{bindingItem.productCard.product.discount}" />
 
                 </LinearLayout>
-
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -247,12 +245,14 @@
 
             <include
                 layout="@layout/separator_view"
+                app:sepAlpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 app:sepMarginEnd="@{16}"
                 app:sepMarginStart="@{16}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alpha="@{bindingItem.productLeftTime == null ? 1f : .5f}"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
@@ -261,82 +261,96 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_product_info" />
+                    android:src="@drawable/ic_product_info"
+                    app:tint="@color/light_black"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginHorizontal="16dp"
-                    android:text="Добавьте еще 1 упаковку для получения скидки" />
+                    android:text="Добавьте еще 1 упаковку для получения скидки"
+                    android:textColor="@color/light_black" />
 
             </LinearLayout>
 
             <include layout="@layout/separator_view" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/light_grey" />
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp">
+                android:paddingVertical="4dp">
 
-                <!-- Сердечко -->
-                <FrameLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> bindingItem.productCard.favorite.onFavoriteClick.invoke(bindingItem.productCard)}">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_circle_grey_icon"
-                        android:padding="6dp"
-                        android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                        app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
-                        tools:ignore="ContentDescription" />
-
-                </FrameLayout>
-
-                <!-- Удалить -->
-                <FrameLayout
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> bindingItem.onRemoveProducts.invoke(bindingItem.productCard)}">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_circle_grey_icon"
-                        android:padding="6dp"
-                        android:src="@drawable/ic_remove"
-                        tools:ignore="ContentDescription" />
-
-                </FrameLayout>
-
-                <View
-                    android:layout_width="0dp"
+                <!-- Добавление товара -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <!-- Счетчик товара в корзине -->
-                <include
-                    android:id="@+id/basketProductCardCounter"
-                    layout="@layout/product_counter_view"
-                    android:layout_width="140dp"
-                    android:layout_height="40dp"
-                    app:model="@{bindingItem.productCard.itemCounter}" />
+                    <!-- Сердечко -->
+                    <FrameLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> bindingItem.productCard.favorite.onFavoriteClick.invoke(bindingItem.productCard)}">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_circle_grey_icon"
+                            android:padding="6dp"
+                            android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                            app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                            tools:ignore="ContentDescription" />
 
+                    </FrameLayout>
+
+                    <!-- Удалить -->
+                    <FrameLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> bindingItem.onShowRemoveDialog.invoke(bindingItem)}">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_circle_grey_icon"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_remove"
+                            tools:ignore="ContentDescription" />
+
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <!-- Счетчик товара в корзине -->
+                    <include
+                        android:id="@+id/basketProductCardCounter"
+                        layout="@layout/product_counter_view"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        app:model="@{bindingItem.productCard.itemCounter}" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Theme.Socapteki.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:onClick="@{() -> bindingItem.onProductRestore()}"
+                    android:text="@{String.format(@string/basket_product_restore, bindingItem.productLeftTime)}"
+                    app:visibleIf="@{bindingItem.productLeftTime != null}" />
+
+            </FrameLayout>
 
         </LinearLayout>
 

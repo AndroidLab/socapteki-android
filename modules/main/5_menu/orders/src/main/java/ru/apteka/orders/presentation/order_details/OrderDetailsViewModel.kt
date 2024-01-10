@@ -1,6 +1,8 @@
 package ru.apteka.orders.presentation.order_details
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,9 +14,13 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.orders.R
+import ru.apteka.product_card_api.R as ProductCardApiR
+import ru.apteka.orders.data.models.OrderDetailProductCard
 import ru.apteka.orders.data.models.OrderExtendBookingModel
+import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import javax.inject.Inject
 
 
@@ -37,6 +43,24 @@ class OrderDetailsViewModel @Inject constructor(
      * Возвращает или устанавливает заказ.
      */
     val order = MutableLiveData<OrderModel?>(null)
+
+    /**
+     * Возвращает продукцию в заказе.
+     */
+    val orderProducts = order.map {
+        it?.products?.map { product ->
+            OrderDetailProductCard(
+                product = product,
+                onCardClick = {
+                    navigationManager.generalNavController.navigateWithAnim(
+                        ProductCardApiR.id.product_card_graph, bundleOf(
+                            PRODUCT_CARD_ARGUMENT_PRODUCT to it
+                        )
+                    )
+                }
+            )
+        } ?: emptyList()
+    }
 
     /**
      * Возвращает или устанавливает текст комментария по сделанному заказу.

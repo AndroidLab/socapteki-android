@@ -9,5 +9,6 @@
     <string name="basket_always_useful">Всегда пригодится</string>
     <string name="basket_always_useful_all_products">Все товары</string>
     <string name="basket_buy">Оформить заказ</string>
+    <string name="basket_product_restore">Вернуть %s</string>
 
 </resources>

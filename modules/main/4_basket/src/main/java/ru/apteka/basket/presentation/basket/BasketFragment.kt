@@ -43,20 +43,19 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
             viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.stocks_graph)
         }
 
-        binding.basketWatchedRecently.horizontalListBtn.setOnClickListener {
+        binding.tvBasketAlwaysUsefulAllProducts.setOnClickListener {
 
         }
 
-
-        binding.basketWatchedRecently.rv.adapter = productsWatchedRecentlyAdapter
-        viewModel.productsWatchedRecently.observe(viewLifecycleOwner) {
+        binding.rvBasketAlwaysUseful.adapter = productsWatchedRecentlyAdapter
+        viewModel.alwaysUsefulProducts.observe(viewLifecycleOwner) {
             productsWatchedRecentlyAdapter.swapData(it)
         }
 
         binding.basketMakingOrder.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 MakingOrderApiR.id.making_order_graph, bundleOf(
-                    MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.products.value!!.map { it.productCard.product }.toTypedArray()
+                    MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.basketProducts.value!!.map { it.productCard.product }.toTypedArray()
                 )
             )
         }

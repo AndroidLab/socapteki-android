@@ -1,6 +1,5 @@
 package ru.apteka.social
 
-import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -34,28 +33,37 @@ import ru.apteka.components.data.services.message_notice_service.showCommonDialo
 import ru.apteka.components.data.services.message_notice_service.showToast
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.addOnAnimationEndListener
 import ru.apteka.components.data.utils.dp
+import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
+import ru.apteka.components.data.utils.onAnimationEndListener
+import ru.apteka.components.data.utils.screenWidth
 import ru.apteka.components.data.utils.setImageTint
+import ru.apteka.components.data.utils.subStringByRegex
+import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.main.data.CircleEdgeTreatment
 import ru.apteka.main.data.setupWithNavController
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
+import ru.apteka.social.data.services.AppUpdateService
 import ru.apteka.social.databinding.ActivityMainBinding
+import ru.apteka.social.databinding.DialogNewVersionFileBinding
 import ru.apteka.social.databinding.MenuNavigationViewBinding
 import ru.apteka.social.presentation.auth.AuthActivity
+import java.util.Locale
 import javax.inject.Inject
-import ru.apteka.home.R as HomeR
 import ru.apteka.basket.R as BasketR
 import ru.apteka.catalog.R as CatalogR
-import ru.apteka.stocks.R as StocksR
+import ru.apteka.components.R as ComponentsR
+import ru.apteka.home.R as HomeR
 import ru.apteka.main.R as MainR
 import ru.apteka.menu.R as MenuR
-import ru.apteka.components.R as ComponentsR
+import ru.apteka.stocks.R as StocksR
 
 
 @AndroidEntryPoint
@@ -79,6 +87,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var basketService: BasketService
 
+    @Inject
+    lateinit var appUpdateService: AppUpdateService
+
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(
             LayoutInflater.from(
@@ -91,6 +102,91 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.general_nav_host)
     }
 
+
+    private val vStartAnimLeftStartPosition = (-150).dp.toFloat()
+    private val vStartAnimLeftEndPosition = (screenWidth / 2 - 150.dp).toFloat()
+    private val vStartAnimRightStartPosition = screenWidth.toFloat()
+    private val vStartAnimRightEndPosition = (screenWidth / 2).toFloat()
+
+    private fun startAnim() {
+        binding.flStartAnim.visibility = View.VISIBLE
+        lifecycleScope.launchIO {
+            launchAfter(750) {
+                mainThread {
+                    binding.vStartAnimLeft.visibility = View.VISIBLE
+                    binding.vStartAnimRight.visibility = View.VISIBLE
+                    ValueAnimator.ofFloat(
+                        vStartAnimRightStartPosition, vStartAnimRightEndPosition
+                    ).apply {
+                        addUpdateListener { valueAnimator ->
+                            binding.vStartAnimRight.x = valueAnimator.animatedValue as Float
+                        }
+                        duration = 1500
+                    }.start()
+
+                    ValueAnimator.ofFloat(
+                        vStartAnimLeftStartPosition, vStartAnimLeftEndPosition
+                    ).apply {
+                        addUpdateListener { valueAnimator ->
+                            binding.vStartAnimLeft.x = valueAnimator.animatedValue as Float
+                        }
+                        addOnAnimationEndListener {
+                            startLogoAnim()
+                        }
+                        duration = 1500
+                    }.start()
+                }
+            }
+        }
+    }
+
+    private fun startLogoAnim() {
+        ValueAnimator.ofFloat(
+            0f, 1f
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.ivStartAnimLogo.alpha = valueAnimator.animatedValue as Float
+            }
+            addOnAnimationEndListener {
+                startDescAnim()
+            }
+            duration = 750
+        }.start()
+    }
+
+    private fun startDescAnim() {
+        ValueAnimator.ofFloat(
+            0f, 1f
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.tvStartAnimLogo.alpha = valueAnimator.animatedValue as Float
+                binding.tvStartAnimDesc.alpha = valueAnimator.animatedValue as Float
+            }
+            addOnAnimationEndListener {
+                startFadeOutAnim()
+            }
+            duration = 750
+        }.start()
+    }
+
+    private fun startFadeOutAnim() {
+        navigationManager.onStartAnimCompleted()
+        lifecycleScope.launchAfter(1000) {
+            mainThread {
+                ValueAnimator.ofFloat(
+                    1f, 0f
+                ).apply {
+                    addUpdateListener { valueAnimator ->
+                        val value = valueAnimator.animatedValue as Float
+                        binding.flStartAnim.alpha = value
+                        binding.flStartAnim.visibleIf(value > 0)
+                    }
+                    duration = 400
+                }.start()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -98,7 +194,13 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         lifecycleScope.launchIO {
-            //delay(6000)
+            appUpdateService.checkUpdate()
+        }
+
+        //startAnim()
+
+        /*lifecycleScope.launchIO {
+            delay(6000)
             mainThread {
                 ValueAnimator.ofFloat(
                     1f, 0f
@@ -109,9 +211,12 @@ class MainActivity : AppCompatActivity() {
                     duration = 400
                 }.start()
             }
-        }
+        }*/
 
         navigationManager.apply {
+            goToAuth = {
+                goToAuthActivity()
+            }
             generalNavController = this@MainActivity.generalNavController
             onBottomAppBarShowed = {
                 if (it) {
@@ -126,24 +231,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomAppBarModel = navigationManager.bottomAppBarModel
 
-        binding.bottomAppBarFab.addOnShowAnimationListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
-            override fun onAnimationEnd(animation: Animator) {
-                binding.bottomAppBar.visibility = View.VISIBLE
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-            override fun onAnimationRepeat(animation: Animator) {}
+        binding.bottomAppBarFab.addOnShowAnimationListener(onAnimationEndListener {
+            binding.bottomAppBar.visibility = View.VISIBLE
         })
 
-        binding.bottomAppBarFab.addOnHideAnimationListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
-            override fun onAnimationEnd(animation: Animator) {
-                binding.bottomAppBar.visibility = View.GONE
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-            override fun onAnimationRepeat(animation: Animator) {}
+        binding.bottomAppBarFab.addOnHideAnimationListener(onAnimationEndListener {
+            binding.bottomAppBar.visibility = View.GONE
         })
 
         binding.bottomAppBar.apply {
@@ -166,7 +259,6 @@ class MainActivity : AppCompatActivity() {
                 paintStyle = Paint.Style.FILL
             }
         }
-
 
         binding.bottomAppBarFab.setOnClickListener {
             val controller = navigationManager.currentBottomNavControllerLiveData.value!!
@@ -201,10 +293,11 @@ class MainActivity : AppCompatActivity() {
                     binding = MenuNavigationViewBinding.inflate(layoutInflater, null, false)
                         .also { binding ->
                             binding.account = accountsPreferences.account
+                            binding.appUpdateService = appUpdateService
 
                             binding.appMenuItemProfile.item.setOnClickListener {
                                 navigationManager.onSelectItemMenu(
-                                    ru.apteka.components.R.id.profile_graph,
+                                    ComponentsR.id.profile_graph,
                                     bundleOf()
                                 )
                             }
@@ -355,12 +448,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             binding.mbMenuAuth.setOnClickListener {
-                                startActivity(
-                                    Intent(
-                                        this@MainActivity,
-                                        AuthActivity::class.java
-                                    )
-                                )
+                                goToAuthActivity()
                             }
                         },
                     useScrollableContainer = false
@@ -407,6 +495,47 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        appUpdateService.newVersionFile.observe(this) { newVersionFile ->
+            if (newVersionFile != null) {
+                val lastVersionChecked = userPreferences.lastVersionChecked
+                if (lastVersionChecked == -1f || newVersionFile.version > lastVersionChecked) {
+                    showCommonDialog(
+                        CommonDialogModel(
+                            fragmentManager = supportFragmentManager,
+                            DialogModel(
+                                title = R.string.new_version_file_title,
+                                bodyContent = BodyContentModel(
+                                    layoutId = R.layout.dialog_new_version_file,
+                                ) { dialog, binding ->
+                                    binding as DialogNewVersionFileBinding
+                                    binding.text = String.format(
+                                        getString(
+                                            R.string.new_version_file_message
+                                        ),
+                                        newVersionFile.version,
+                                        String.format(
+                                            Locale.US,
+                                            "%.2f",
+                                            newVersionFile.doc.size / 1024.0 / 1024.0
+                                        )
+                                    )
+                                    binding.isLoading = appUpdateService.isLoading
+                                    binding.newVersionFileUpdateBtn.setOnClickListener {
+                                        appUpdateService.updateApp()
+                                        dialog.dismiss()
+                                    }
+                                },
+                                onDismiss = {
+                                    userPreferences.lastVersionChecked =
+                                        newVersionFile.version
+                                }
+                            )
+                        )
+                    )
+                }
+            }
+        }
+
         lifecycleScope.launchIO {
             messageNoticeService.commonDialog.collect { dialogModel ->
                 mainThread {
@@ -446,6 +575,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToAuthActivity() {
+        startActivity(
+            Intent(
+                this@MainActivity,
+                AuthActivity::class.java
+            )
+        )
+    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)

@@ -23,6 +23,7 @@ class UserPreferences @Inject constructor(
 ) {
 
     companion object {
+        private const val LAST_VERSION_CHECKED = "LAST_VERSION_CHECKED"
         private const val CITY = "city"
         private const val JOB_OPENINGS_CITY_FILTER = "job_openings_cCity_filter"
         private const val SELECTED_PHARMACY = "selected_pharmacy"
@@ -31,6 +32,15 @@ class UserPreferences @Inject constructor(
 
     private val userPref =
         context.getSharedPreferences(UserPreferences::class.java.simpleName, Context.MODE_PRIVATE)
+
+    /**
+     * Возвращает последнюю версию приложения готовую для обновления.
+     */
+    var lastVersionChecked: Float by PreferencesDelegate<Float, Float>(
+        userPref,
+        LAST_VERSION_CHECKED,
+        -1f
+    )
 
     private val _cityFlow = MutableSharedFlow<CityModel?>(replay = 1)
 

@@ -226,7 +226,7 @@
                         android:id="@+id/orderDetailsMethodDeliveryIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY ? @drawable/ic_delivery : @drawable/ic_pickup}"
+                        android:src="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY ? @drawable/ic_order_delivery : @drawable/ic_order_pickup}"
                         app:layout_constraintBottom_toBottomOf="@id/orderDetailsDeliveryMethod"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/orderDetailsDeliveryMethodTitle"
@@ -314,7 +314,7 @@
                         app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
 
                     <include
-                        android:id="@+id/orderDetailsDeliveryTimeDate"
+                        android:id="@+id/orderDetailsDeliveryDate"
                         layout="@layout/label_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -328,6 +328,7 @@
                         app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.DELIVERY}" />
 
                     <include
+                        android:id="@+id/orderDetailsDeliveryTime"
                         layout="@layout/label_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -335,7 +336,7 @@
                         android:layout_marginTop="8dp"
                         app:backgroundColor="@{@color/background_secondary}"
                         app:bigSize="@{true}"
-                        app:layout_constraintStart_toEndOf="@id/orderDetailsDeliveryTimeDate"
+                        app:layout_constraintStart_toEndOf="@id/orderDetailsDeliveryDate"
                         app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeTitle"
                         app:text="@{`с 10:00-12:00`}"
                         app:textColor="@{@color/black}"
@@ -350,7 +351,7 @@
                         android:layout_height="1dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryTimeDate"
+                        app:layout_constraintTop_toBottomOf="@id/orderDetailsDeliveryDate"
                         app:sepMarginTop="@{10}"
                         app:visibleIf="@{viewModel.order.deliveryMethod == OrderDeliveryMethod.PICKUP}" />
 
@@ -708,7 +709,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="12dp"
                     android:orientation="vertical"
-                    app:forItems="@{viewModel.order.products}"
+                    app:forItems="@{viewModel.orderProducts}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/orderDetailsTotalCost"

@@ -1,5 +1,6 @@
 package ru.apteka.components.data.services
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
@@ -67,6 +68,7 @@ class RequestHandler @Inject constructor(
         onLoading(true)
         return try {
             val requestResult = onRequest.invoke()
+            //Log.d("myL", "requestResult " + requestResult)
             onSuccess(requestResult)
             Result.success(requestResult)
         } catch (e: CancellationException) {
@@ -83,6 +85,7 @@ class RequestHandler @Inject constructor(
         } catch (e: SSLException) {
             throw e
         } catch (e: Throwable) {
+            Log.d("myL", "6 " + e)
             onError(e)
             Result.failure(e)
         } finally {

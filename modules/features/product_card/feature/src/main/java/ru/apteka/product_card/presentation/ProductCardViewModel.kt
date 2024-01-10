@@ -14,6 +14,7 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.product_card.data.model.CommentModel
@@ -39,27 +40,24 @@ class ProductCardViewModel @Inject constructor(
     messageNoticeService
 ) {
 
-    private val _product = MutableLiveData<ProductModel?>(null)
-
     /**
      * Возвращает продукцию.
      */
-    val product: LiveData<ProductModel?> = _product
+    val product = MutableLiveData<ProductModel?>(null)
 
-
-    private val _similarProducts = MutableLiveData<List<ProductCardModel>>()
+    private val _analoguesProducts = MutableLiveData<List<ProductCardModel>>()
 
     /**
      * Возвращает ссписок аннологичных товаров.
      */
-    val similarProducts: LiveData<List<ProductCardModel>> = _similarProducts
+    val analoguesProducts: LiveData<List<ProductCardModel>> = _analoguesProducts
 
-    private val _isSimilarProductsLoading = MutableLiveData(false)
+    private val _isAnaloguesProductsLoading = MutableLiveData(false)
 
     /**
      * Возвращает флаг загрузки аннологичных товаров.
      */
-    val isSimilarProductsLoading: LiveData<Boolean> = _isSimilarProductsLoading
+    val isAnaloguesProductsLoading: LiveData<Boolean> = _isAnaloguesProductsLoading
 
 
     private val _withProductProducts = MutableLiveData<List<ProductCardModel>>()
@@ -67,14 +65,14 @@ class ProductCardViewModel @Inject constructor(
     /**
      * Возвращает ссписок с этим товаром покупают.
      */
-    val withProductProducts: LiveData<List<ProductCardModel>> = _withProductProducts
+    val withProducts: LiveData<List<ProductCardModel>> = _withProductProducts
 
-    private val _isWithProductProductsLoading = MutableLiveData(false)
+    private val _isWithProductsLoading = MutableLiveData(false)
 
     /**
      * Возвращает флаг загрузки с этим товаром покупают.
      */
-    val isWithProductProductsLoading: LiveData<Boolean> = _isWithProductProductsLoading
+    val isWithProductsLoading: LiveData<Boolean> = _isWithProductsLoading
 
 
     private val _productInstruction = MutableLiveData<List<InstructionModel.InstructionItem>>()
@@ -109,7 +107,7 @@ class ProductCardViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            launchIO {
+            /*launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { productCardRepository.getProductDetails() },
                     onSuccess = { product ->
@@ -117,13 +115,13 @@ class ProductCardViewModel @Inject constructor(
                     },
                     isLoading = _isLoading
                 )
-            }
+            }*/
 
             launchIO {
                 requestHandler.handleApiRequest(
-                    onRequest = { productsRepository.getProductions() },
+                    onRequest = { getProductsFake() },
                     onSuccess = { products ->
-                        _similarProducts.postValue(
+                        _analoguesProducts.postValue(
                             products.map { product ->
                                 ProductCardModel(
                                     product = product,
@@ -141,12 +139,13 @@ class ProductCardViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _isSimilarProductsLoading
+                    isLoading = _isAnaloguesProductsLoading
                 )
             }
+
             launchIO {
                 requestHandler.handleApiRequest(
-                    onRequest = { productsRepository.getProductions() },
+                    onRequest = { getProductsFake() },
                     onSuccess = { products ->
                         _withProductProducts.postValue(
                             products.map { product ->
@@ -166,9 +165,10 @@ class ProductCardViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _isWithProductProductsLoading
+                    isLoading = _isWithProductsLoading
                 )
             }
+
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { productCardRepository.getInstruction() },
@@ -178,6 +178,7 @@ class ProductCardViewModel @Inject constructor(
                     isLoading = _isProductInstructionLoading
                 )
             }
+
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { productCardRepository.getProductComments() },

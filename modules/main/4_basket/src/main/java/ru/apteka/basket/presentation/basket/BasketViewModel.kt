@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.apteka.basket.data.models.AlwaysUsefulFilterModel
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
@@ -13,6 +14,7 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
@@ -33,26 +35,51 @@ class BasketViewModel @Inject constructor(
     navigationManager,
     messageNoticeService
 ) {
-    private val _productsWatchedRecently = MutableLiveData<List<ProductCardModel>>(emptyList())
+    /**
+     * Возвращат модель фильтра для 'Всегда пригодится'.
+     */
+    val alwaysUsefulFilter = AlwaysUsefulFilterModel(
+        _items = listOf(
+            AlwaysUsefulFilterModel.Item(
+                status = "Все"
+            ),
+            AlwaysUsefulFilterModel.Item(
+                status = "Годен менее 3 месяцев"
+            ),
+            AlwaysUsefulFilterModel.Item(
+                status = "Популярное 1"
+            ),
+            AlwaysUsefulFilterModel.Item(
+                status = "Популярное 2"
+            ),
+            AlwaysUsefulFilterModel.Item(
+                status = "Популярное 3"
+            ),
+        )
+    ).apply {
+        items[0].isItemSelected.value = true
+    }
+
+    private val _alwaysUsefulProducts = MutableLiveData<List<ProductCardModel>>(emptyList())
 
     /**
-     *
+     * Возвращает товары 'Всегда пригодится'
      */
-    val productsWatchedRecently: LiveData<List<ProductCardModel>> = _productsWatchedRecently
+    val alwaysUsefulProducts: LiveData<List<ProductCardModel>> = _alwaysUsefulProducts
 
-    private val _watchedRecentlyIsLoading = MutableLiveData(false)
+    private val _alwaysUsefulIsLoading = MutableLiveData(false)
 
     /**
-     *
+     * Ворзвращает флаг загрузки товаров.
      */
-    val watchedRecentlyIsLoading: LiveData<Boolean> = _watchedRecentlyIsLoading
+    val alwaysUsefulIsLoading: LiveData<Boolean> = _alwaysUsefulIsLoading
 
     init {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
-                onRequest = { productsRepository.getProductions() },
+                onRequest = { getProductsFake() },
                 onSuccess = { products ->
-                    _productsWatchedRecently.postValue(
+                    _alwaysUsefulProducts.postValue(
                         products.map { product ->
                             ProductCardModel(
                                 product = product
@@ -70,7 +97,7 @@ class BasketViewModel @Inject constructor(
                         }
                     )
                 },
-                isLoading = _watchedRecentlyIsLoading
+                isLoading = _alwaysUsefulIsLoading
             )
         }
     }

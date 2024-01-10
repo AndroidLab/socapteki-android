@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bottom_corners_shape"
                         android:orientation="vertical"
-                        app:visibleIf="@{viewModel.basketService.products.empty}">
+                        app:visibleIf="@{viewModel.basketService.basketProducts.empty}">
 
                         <ImageView
                             android:layout_width="100dp"
@@ -58,8 +58,8 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:text="@string/basket_there_nothing"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -111,27 +111,94 @@
                         android:layout_height="wrap_content"
                         android:animateLayoutChanges="true"
                         android:orientation="vertical"
-                        app:forItems="@{viewModel.basketService.products}"
+                        app:forItems="@{viewModel.basketService.basketProducts}"
                         app:useTemplate="@{@layout/basket_product_card_template}" />
 
                 </FrameLayout>
 
                 <!-- Всегда пригодится -->
-                <include
-                    android:id="@+id/basketWatchedRecently"
-                    layout="@layout/horizontal_list"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="8dp"
-                    app:isLoading="@{viewModel.watchedRecentlyIsLoading}"
-                    app:marginItemHorizontal="@{0}"
-                    app:textBtn="@{@string/basket_always_useful_all_products}"
-                    app:title="@{@string/basket_always_useful}" />
+                    android:background="@drawable/corners_shape">
+
+                    <TextView
+                        android:id="@+id/basketAlwaysUsefulTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/basket_always_useful"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvBasketAlwaysUsefulAllProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/basket_always_useful_all_products"
+                        android:textColor="@color/color_primary"
+                        app:layout_constraintBottom_toBottomOf="@id/basketAlwaysUsefulTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/basketAlwaysUsefulTitle" />
+
+                    <!-- Фильтры -->
+                    <HorizontalScrollView
+                        android:id="@+id/basketAlwaysUsefulFilters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/basketAlwaysUsefulTitle">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingTop="16dp"
+                            app:forItems="@{viewModel.alwaysUsefulFilter.items}"
+                            app:useTemplate="@{@layout/basket_always_useful_filter_template}"
+                            app:visibleIf="@{viewModel.alwaysUsefulFilter.mediator}" />
+
+                    </HorizontalScrollView>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="150dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/basketAlwaysUsefulFilters">
+
+                        <com.alab.extra_bouncy.BouncyRecyclerView
+                            android:id="@+id/rvBasketAlwaysUseful"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:visibleIf="@{!viewModel.alwaysUsefulIsLoading}" />
+
+                        <include
+                            layout="@layout/progress_bar"
+                            app:isLoading="@{viewModel.alwaysUsefulIsLoading}" />
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <include
                     layout="@layout/footer_stub"
-                    app:visibleIf="@{viewModel.basketService.products.empty}" />
+                    app:visibleIf="@{viewModel.basketService.basketProducts.empty}" />
 
             </LinearLayout>
 
@@ -159,7 +226,7 @@
                 android:paddingVertical="10dp"
                 android:text="@string/basket_clear_all"
                 android:textColor="@color/red"
-                app:visibleIf="@{!viewModel.basketService.products.empty}" />
+                app:visibleIf="@{!viewModel.basketService.basketProducts.empty}" />
 
         </FrameLayout>
 
@@ -168,7 +235,7 @@
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:layout_above="@id/flBasketMakingOrder"
-            app:visibleIf="@{!viewModel.basketService.products.empty}" />
+            app:visibleIf="@{!viewModel.basketService.basketProducts.empty}" />
 
         <!-- Кнопка оформить заказ -->
         <FrameLayout
@@ -177,7 +244,7 @@
             android:layout_height="160dp"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            app:visibleIf="@{!viewModel.basketService.products.empty}">
+            app:visibleIf="@{!viewModel.basketService.basketProducts.empty}">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/basketMakingOrder"

@@ -27,6 +27,10 @@
             name="sepColor"
             type="Integer" />
 
+        <variable
+            name="sepAlpha"
+            type="Float" />
+
     </data>
 
     <View
@@ -34,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@{sepColor == null ? @color/grey : sepColor}"
+        app:extraAlpha="@{sepAlpha}"
         app:extraMarginBottom="@{sepMarginBottom == null ? 0 : sepMarginBottom}"
         app:extraMarginEnd="@{sepMarginEnd == null ? 0 : sepMarginEnd}"
         app:extraMarginStart="@{sepMarginStart == null ? 0 : sepMarginStart}"

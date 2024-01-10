@@ -22,7 +22,7 @@
         tools:layout="@layout/auth_confirm_fragment">
 
         <argument
-            android:name="phoneNumber"
+            android:name="phone"
             app:argType="string" />
 
     </fragment>

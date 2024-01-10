@@ -20,6 +20,9 @@ android {
         versionCode = major * 10000 + minor * 100 + patch
         versionName = "${major}.${minor}.${patch}"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {

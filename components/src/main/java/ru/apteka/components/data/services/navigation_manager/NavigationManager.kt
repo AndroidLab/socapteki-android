@@ -18,6 +18,16 @@ import kotlin.properties.Delegates
 class NavigationManager @Inject constructor() {
 
     /**
+     * Возвращает обработчик завершения стартовой анимации.
+     */
+    var onStartAnimCompleted: () -> Unit by Delegates.notNull()
+
+    /**
+     * Устанавливает или возвращает обработчик прехода к авторизации.
+     */
+    var goToAuth: () -> Unit by Delegates.notNull()
+
+    /**
      * Устанавливает или возвращает главный навигационный контроллер.
      */
     var generalNavController: NavController by Delegates.notNull()

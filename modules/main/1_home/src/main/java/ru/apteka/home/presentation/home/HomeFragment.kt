@@ -3,11 +3,15 @@ package ru.apteka.home.presentation.home
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Typeface
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
@@ -152,29 +156,45 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             )
         }
 
-        viewModel.ordersCard.observe(viewLifecycleOwner) {
-            ordersAdapter.swapData(it)
-        }
-
-        viewModel.adverts.observe(viewLifecycleOwner) {
-            advertsAdapter.swapData(it)
-            if (it.isNotEmpty()) {
-                lifecycleScope.launchIO { recyclerAutoScroll(binding.rvAdvert) }
-            }
-        }
-
-        viewModel.promotions.observe(viewLifecycleOwner) {
-            promotionsAdapter.swapData(it)
-        }
-
-        viewModel.categories.observe(viewLifecycleOwner) {
-            categoriesAdapter.swapData(it)
-        }
 
         binding.bonusProgramHistoryAll.btn.setOnClickListener {
 
         }
 
+        //viewModel.navigationManager.onStartAnimCompleted = {
+            viewModel.productsDay.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    binding.homeProductsDay1.model = it[0]
+                    binding.homeProductsDay2.model = it[1]
+                }
+            }
+
+            viewModel.productsDiscount.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    binding.homeProductsDiscount1.model = it[0]
+                    binding.homeProductsDiscount2.model = it[1]
+                }
+            }
+
+            viewModel.ordersCard.observe(viewLifecycleOwner) {
+                ordersAdapter.swapData(it)
+            }
+
+            viewModel.adverts.observe(viewLifecycleOwner) {
+                advertsAdapter.swapData(it)
+                if (it.isNotEmpty()) {
+                    lifecycleScope.launchIO { recyclerAutoScroll(binding.rvAdvert) }
+                }
+            }
+
+            viewModel.promotions.observe(viewLifecycleOwner) {
+                promotionsAdapter.swapData(it)
+            }
+
+            viewModel.categories.observe(viewLifecycleOwner) {
+                categoriesAdapter.swapData(it)
+            }
+        //}
 
         binding.rlHomeScreen.cameraDistance = 8000.dp.toFloat()
         binding.llBonusProgram.cameraDistance = 8000.dp.toFloat()
@@ -202,6 +222,10 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
                 binding.rlHomeScreen.bringToFront()
                 viewModel.navigationManager.isHomeFront.value = true
             }
+        }
+
+        binding.mbHomeAuth.setOnClickListener {
+            viewModel.navigationManager.goToAuth()
         }
     }
 

@@ -58,7 +58,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="120dp"
-                    android:translationY="-50dp"
+                    android:translationY="-45dp"
                     app:flexWrap="wrap"
                     app:forItems="@{viewModel.product.labels}"
                     app:layout_collapseMode="parallax"
@@ -217,6 +217,167 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!-- Блок цены -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardPrice"
+                    style="@style/Theme.Socapteki.BackgroundCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/price"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="От +20 бонусов"
+                                android:textColor="@color/color_primary" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Старая цена -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.product.discount.oldPrice}"
+                                android:textColor="@color/dark_grey"
+                                app:isStrikethrough="@{true}" />
+
+                            <!-- Текущая цена -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@{viewModel.product.price}"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <!-- Процент скидки -->
+                            <include
+                                layout="@layout/discount_percentage_view"
+                                app:discount="@{viewModel.product.discount}"
+                                app:discountMarginStart="@{10}" />
+
+                        </LinearLayout>
+
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            app:cardBackgroundColor="@color/pink"
+                            app:cardCornerRadius="8dp"
+                            app:contentPaddingBottom="4dp"
+                            app:contentPaddingLeft="8dp"
+                            app:contentPaddingRight="8dp"
+                            app:contentPaddingTop="4dp"
+                            app:strokeWidth="0dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-1000 ₽ при покупке второй упаковки"
+                                android:textColor="@color/red" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <include layout="@layout/separator_view" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingVertical="12dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_product_info"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:text="Цена действует только при заказе на сайте" />
+
+                        </LinearLayout>
+
+                        <include layout="@layout/separator_view" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="12dp"
+                            android:orientation="horizontal">
+
+                            <include
+                                layout="@layout/product_card_delivery_desc_view"
+                                app:date="@{`13 сентября`}"
+                                app:desc="@{@string/product_card_pickup}"
+                                app:icon="@{@drawable/ic_pickup}" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <include
+                                layout="@layout/product_card_delivery_desc_view"
+                                app:date="@{`13 сентября`}"
+                                app:desc="@{@string/product_card_home_delivery}"
+                                app:icon="@{@drawable/ic_delivery}" />
+
+                        </LinearLayout>
+
+                        <!-- Счетчик -->
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="В корзину" />
+
+                        <!--<include
+                            layout="@layout/product_counter_view"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginTop="4dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/productPrice"
+                            app:model="@{viewModel.itemCounter}" />-->
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Форма выпуска, наличие в аптеках -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/productCardDesc"
                     style="@style/Theme.Socapteki.BackgroundCard"
@@ -302,14 +463,12 @@
 
                         </LinearLayout>
 
-
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Описание -->
+                <!-- Блок выбора параметров товара -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/productCardDesc1"
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -318,38 +477,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <include
-                            layout="@layout/product_card_price_page_desc_item"
-                            app:desc="@{viewModel.product.manufacturer}"
-                            app:title="@{@string/product_card_manufacturer}" />
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginEnd="@{16}"
-                            app:sepMarginStart="@{16}" />
-
-                        <include
-                            layout="@layout/product_card_price_page_desc_item"
-                            app:desc="@{viewModel.product.manufacturer}"
-                            app:title="@{@string/product_card_active_substance}" />
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginEnd="@{16}"
-                            app:sepMarginStart="@{16}" />
-
-                        <include
-                            layout="@layout/product_card_price_page_desc_item"
-                            app:desc="@{viewModel.product.expirationDate}"
-                            app:title="@{@string/product_card_expiration_date}" />
-
-                    </LinearLayout>
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:forItems="@{viewModel.product.variants}"
+                        app:useTemplate="@{@layout/product_card_variant_view}" />
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!--  -->
+                <!-- Двойные бонусы -->
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
@@ -362,8 +498,10 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/llProductCardDoubleBonuses"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingHorizontal="16dp"
@@ -397,8 +535,10 @@
                             app:sepMarginStart="@{16}" />
 
                         <LinearLayout
+                            android:id="@+id/llProductCardManufacturerProgram"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingHorizontal="16dp"
@@ -430,8 +570,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Блок выбора параметров товара -->
+                <!-- Описание -->
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/productCardDesc1"
                     style="@style/Theme.Socapteki.BackgroundCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -440,199 +581,170 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        app:forItems="@{viewModel.product.variants}"
-                        app:useTemplate="@{@layout/product_card_variant_view}" />
+                        android:orientation="vertical">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{`Индия, Патеон`}"
+                            app:title="@{@string/product_card_manufacturer}" />
 
-                <!-- Блок цены -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/productCardPrice"
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp">
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{`Ибупрофен`}"
+                            app:title="@{@string/product_card_active_substance}" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal">
+                        <include
+                            layout="@layout/separator_view"
+                            app:sepMarginEnd="@{16}"
+                            app:sepMarginStart="@{16}" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/price" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="От +20 бонусов"
-                                android:textColor="@color/color_primary" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <!-- Текущая цена -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewModel.product.price}"
-                                android:textSize="22sp" />
-
-                            <!-- Процент скидки -->
-                            <include
-                                layout="@layout/discount_percentage_view"
-                                app:discount="@{viewModel.product.discount}" />
-
-                        </LinearLayout>
-
-                        <!-- Старая цена -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{viewModel.product.discount.oldPrice}"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="16sp"
-                            app:isStrikethrough="@{true}" />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="12dp"
-                            app:cardBackgroundColor="@color/pink"
-                            app:cardCornerRadius="8dp"
-                            app:contentPaddingBottom="4dp"
-                            app:contentPaddingLeft="8dp"
-                            app:contentPaddingRight="8dp"
-                            app:contentPaddingTop="4dp"
-                            app:strokeWidth="0dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-1000 ₽ при покупке второй упаковки"
-                                android:textColor="@color/red" />
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <include layout="@layout/separator_view" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingVertical="8dp">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_product_info"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="16dp"
-                                android:text="Цена действует только при заказе на сайте" />
-
-                        </LinearLayout>
-
-                        <include layout="@layout/separator_view" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingVertical="8dp">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_product_info"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="16dp"
-                                android:text="В наличии: 140 аптеках" />
-
-                        </LinearLayout>
-
-                        <include layout="@layout/separator_view" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:orientation="horizontal">
-
-                            <include
-                                layout="@layout/product_card_delivery_desc_view"
-                                app:date="@{viewModel.product.pickupDate}"
-                                app:desc="@{@string/product_card_pickup}"
-                                app:icon="@{@drawable/ic_pickup}" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" />
-
-                            <include
-                                layout="@layout/product_card_delivery_desc_view"
-                                app:date="@{viewModel.product.homeDeliveryDate}"
-                                app:desc="@{@string/product_card_home_delivery}"
-                                app:icon="@{@drawable/ic_home_delivery}" />
-
-                        </LinearLayout>
+                        <include
+                            layout="@layout/product_card_price_page_desc_item"
+                            app:desc="@{`36 месяцев`}"
+                            app:title="@{@string/product_card_expiration_date}" />
 
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
+
                 <!-- Аналоги лекарста -->
-                <include
-                    android:id="@+id/productCardAnnalogs"
-                    layout="@layout/horizontal_list"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clProductCardAnalogues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    app:isLoading="@{viewModel.isSimilarProductsLoading}"
-                    app:marginItemHorizontal="@{0}"
-                    app:textBtn="@{@string/all}"
-                    app:title="@{@string/similar_products}" />
+                    android:background="@drawable/corners_shape">
+
+                    <TextView
+                        android:id="@+id/tvProductCardAnaloguesTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        android:text="@string/analogues_products"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/flProductCardAnalogues"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvProductCardAnaloguesTitle">
+
+                        <com.alab.extra_bouncy.BouncyRecyclerView
+                            android:id="@+id/rvProductCardAnalogues"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:visibleIf="@{!viewModel.isAnaloguesProductsLoading}" />
+
+                        <include
+                            layout="@layout/progress_bar"
+                            app:isLoading="@{viewModel.isAnaloguesProductsLoading}" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvProductCardAnaloguesAll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp"
+                        android:text="@string/all_products"
+                        android:textColor="@color/color_primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/flProductCardAnalogues" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <!-- С этим товаром покупают -->
-                <include
-                    android:id="@+id/pricePageWithProduct"
-                    layout="@layout/horizontal_list"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    app:isLoading="@{viewModel.isWithProductProductsLoading}"
-                    app:marginItemHorizontal="@{0}"
-                    app:textBtn="@{@string/all}"
-                    app:title="@{@string/with_products}" />
+                    android:background="@drawable/top_corners_shape"
+                    android:padding="16dp"
+                    android:text="@string/with_products"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:minHeight="100dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:visibleIf="@{!viewModel.withProducts.empty}">
+
+                        <include
+                            android:id="@+id/withProduct1"
+                            layout="@layout/product_card_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:model="@{viewModel.withProducts.empty ? null : viewModel.withProducts.get(0)}" />
+
+                        <Space
+                            android:layout_width="6dp"
+                            android:layout_height="wrap_content" />
+
+                        <include
+                            android:id="@+id/withProduct2"
+                            layout="@layout/product_card_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:model="@{viewModel.withProducts.empty ? null : viewModel.withProducts.get(1)}" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/progress_bar"
+                        app:isLoading="@{viewModel.isWithProductsLoading}" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bottom_corners_shape">
+
+                    <TextView
+                        android:id="@+id/tvWithProductAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:background="@drawable/bottom_corners_shape"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingVertical="12dp"
+                        android:text="@string/all_products"
+                        android:textColor="@color/color_primary" />
+
+                </FrameLayout>
+
 
                 <!-- Блок с инструкциями -->
                 <com.google.android.material.card.MaterialCardView
@@ -654,7 +766,8 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginBottom="8dp"
                             android:text="@string/product_card_instruction"
-                            android:textSize="20sp" />
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -800,7 +913,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Цена и положить в корзину -->
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
@@ -810,21 +923,36 @@
                     android:paddingVertical="8dp">
 
                     <TextView
+                        android:id="@+id/tvProductCardDiscountOldPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.product.discount.oldPrice}"
+                        android:textColor="@color/light_black"
+                        app:isStrikethrough="@{true}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@{viewModel.product.price}"
-                        android:textSize="22sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvProductCardDiscountOldPrice" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/basket_to_stocks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="4dp"
-                        android:text="@string/price_page_add_basket" />
+                        android:text="@string/price_page_add_basket"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

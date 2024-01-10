@@ -7,92 +7,98 @@
 
         <variable
             name="bindingItem"
-            type="ru.apteka.components.data.models.ProductModel" />
+            type="ru.apteka.orders.data.models.OrderDetailProductCard" />
 
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Theme.Socapteki.BackgroundCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/corners_shape"
-        android:padding="16dp">
+        android:onClick="@{() -> bindingItem.onCardClick.invoke(bindingItem.product)}"
+        app:contentPadding="16dp">
 
-        <!-- Картинка товара -->
-        <include
-            android:id="@+id/orderDetailProductImage"
-            layout="@layout/image_card"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:imageUrl="@{bindingItem.image}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!-- Заголовок -->
-        <TextView
-            android:id="@+id/orderDetailProductTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@{bindingItem.title}"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!-- Картинка товара -->
+            <include
+                android:id="@+id/orderDetailProductImage"
+                layout="@layout/image_card"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:imageUrl="@{bindingItem.product.image}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Описание -->
-        <TextView
-            android:id="@+id/orderDetailProductDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            app:visibleIf="@{bindingItem.desc != null}"
-            android:text="@{bindingItem.desc}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailProductTitle" />
+            <!-- Заголовок -->
+            <TextView
+                android:id="@+id/orderDetailProductTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{bindingItem.product.title}"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Цена -->
-        <TextView
-            android:id="@+id/orderDetailProductPrice"
-            style="@style/Theme.Socapteki.Price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{bindingItem.price}"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc" />
+            <!-- Описание -->
+            <TextView
+                android:id="@+id/orderDetailProductDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{bindingItem.product.desc}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderDetailProductTitle"
+                app:visibleIf="@{bindingItem.product.desc != null}" />
 
-        <!-- Процент скидки -->
-        <include
-            layout="@layout/discount_percentage_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:discount="@{bindingItem.discount}"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc"
-            app:layout_constraintStart_toEndOf="@id/orderDetailProductPrice" />
+            <!-- Цена -->
+            <TextView
+                android:id="@+id/orderDetailProductPrice"
+                style="@style/Theme.Socapteki.Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{bindingItem.product.price}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc" />
 
-        <!-- Старая цена -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{bindingItem.discount.oldPrice}"
-            app:isStrikethrough="@{true}"
-            app:visibleIf="@{bindingItem.discount != null}"
-            app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailProductPrice" />
+            <!-- Процент скидки -->
+            <include
+                layout="@layout/discount_percentage_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:discount="@{bindingItem.product.discount}"
+                app:layout_constraintStart_toEndOf="@id/orderDetailProductPrice"
+                app:layout_constraintTop_toBottomOf="@id/orderDetailProductDesc" />
+
+            <!-- Старая цена -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{bindingItem.product.discount.oldPrice}"
+                app:isStrikethrough="@{true}"
+                app:layout_constraintStart_toEndOf="@id/orderDetailProductImage"
+                app:layout_constraintTop_toBottomOf="@id/orderDetailProductPrice"
+                app:visibleIf="@{bindingItem.product.discount != null}" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </layout>

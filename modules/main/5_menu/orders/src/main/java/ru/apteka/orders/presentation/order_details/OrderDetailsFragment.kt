@@ -1,5 +1,7 @@
 package ru.apteka.orders.presentation.order_details
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -17,6 +19,7 @@ import ru.apteka.orders.databinding.OrderDetailsFragmentBinding
 import ru.apteka.orders.databinding.OrderExtendBookingSheetBinding
 import ru.apteka.orders.databinding.OrderOpinionSheetBinding
 import ru.apteka.orders.presentation.oder_cancel.OrderCancelFragment
+import java.util.Calendar
 import ru.apteka.components.R as ComponentsR
 
 
@@ -33,14 +36,45 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
 
     override fun onViewBindingInflated(binding: OrderDetailsFragmentBinding) {
         setFragmentResultListener(OrderCancelFragment.ORDER_CANCEL) { _, bundle ->
-            /*val order: OrderModel = bundle.getParcelable(
-                OrderCancelFragment.ORDER_CANCEL_DATA
-            )!!*/
             viewModel.order.value = viewModel.order.value!!.copy(status = OrderStatus.CANCELED)
         }
         viewModel.order.value = _args.order
-        //binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        binding.orderDetailsDeliveryDate.labelItem.setOnClickListener {
+            val mCalendar: Calendar = Calendar.getInstance()
+            val _year: Int = mCalendar.get(Calendar.YEAR)
+            val _month: Int = mCalendar.get(Calendar.MONTH)
+            val _dayOfMonth: Int = mCalendar.get(Calendar.DAY_OF_MONTH)
+            DatePickerDialog(
+                requireContext(),
+                ComponentsR.style.Theme_Socapteki_DataPicker,
+                { view, year, month, day ->
+                    /*viewModel.date.value =
+                        "${String.format("%02d", day)}.${
+                            String.format(
+                                "%02d",
+                                month + 1
+                            )
+                        }.$year"*/
+                },
+                _year,
+                _month,
+                _dayOfMonth
+            ).show()
+        }
+
+        binding.orderDetailsDeliveryTime.labelItem.setOnClickListener {
+            TimePickerDialog(
+                requireContext(),
+                { view, hourOfDay, minute ->
+
+                },
+                5,
+                10,
+                true
+            ).show()
+        }
 
         binding.tvOrderDetailsExtendBooking.setOnClickListener {
             viewModel.messageNoticeService.showCommonDialog(

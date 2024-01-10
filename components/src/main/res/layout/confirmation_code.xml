@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.apteka.components.data.models.ConfirmationCodeModel.CodeType" />
+
         <variable
             name="model"
             type="ru.apteka.components.data.models.ConfirmationCodeModel" />
@@ -19,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/confirmation_code_desc"
+            android:text="@{model.codeType == CodeType.SMS ? @string/confirmation_code_by_sms_desc : @string/confirmation_code_by_number_desc}"
             android:textColor="@color/light_black" />
 
         <!-- Поле ввода пинкода -->
@@ -48,8 +50,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_code_is_missing"
-            android:textColor="@color/dark_grey" />
+            android:text="@{model.requestCounts > 1 ? @string/confirmation_code_limit : @string/confirm_code_is_missing}"
+            android:textColor="@{model.requestCounts > 1 ? @color/red : @color/dark_grey}" />
 
         <LinearLayout
             android:layout_width="wrap_content"

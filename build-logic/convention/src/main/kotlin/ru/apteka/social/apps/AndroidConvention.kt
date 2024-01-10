@@ -31,7 +31,7 @@ internal fun Project.configureModule(
             is ApplicationExtension -> {
                 buildTypes {
                     debug {
-                        isMinifyEnabled = libs.findVersion("library_minify_debug_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("application_minify_debug_enabled").get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"

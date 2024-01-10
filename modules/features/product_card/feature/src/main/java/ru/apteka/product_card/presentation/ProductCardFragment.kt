@@ -45,26 +45,27 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         )
     }
 
-    private val similarProductsAdapter by lazy {
+    private val analoguesProductsAdapter by lazy {
         getProductCardViewAdapter(
             this,
             ::onProductsCardClick,
         )
     }
 
-    private val withProductProductsDayAdapter by lazy {
+    /*private val withProductProductsDayAdapter by lazy {
         getProductCardViewAdapter(
             this,
             ::onProductsCardClick,
         )
-    }
+    }*/
 
     override fun onViewBindingInflated(binding: ProductCardFragmentBinding) {
+        viewModel.product.value = _args.product
         binding.viewModel = viewModel
 
         binding.rvProductCardImages.adapter = priceImageAdapter
-        binding.productCardAnnalogs.rv.adapter = similarProductsAdapter
-        binding.pricePageWithProduct.rv.adapter = withProductProductsDayAdapter
+        binding.rvProductCardAnalogues.adapter = analoguesProductsAdapter
+        //binding.pricePageWithProduct.rv.adapter = withProductProductsDayAdapter
 
         var isScrollSelect = false
         binding.productCardTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -82,8 +83,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                         )
 
                         2 -> binding.nsvProductCard.smoothScrollTo(
-                            binding.productCardAnnalogs.horizontalListBlock.x.toInt(),
-                            binding.productCardAnnalogs.horizontalListBlock.y.toInt() - binding.productCardTabs.height
+                            binding.clProductCardAnalogues.x.toInt(),
+                            binding.clProductCardAnalogues.y.toInt() - binding.productCardTabs.height
                         )
 
                         3 -> binding.nsvProductCard.smoothScrollTo(
@@ -122,14 +123,14 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 }
             }
 
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.productCardAnnalogs.horizontalListBlock.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.clProductCardAnalogues.y) {
                 if (!binding.productCardTabs.getTabAt(1)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(1)?.select()
                 }
             }
 
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardAnnalogs.horizontalListBlock.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.clProductCardAnalogues.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
                 if (!binding.productCardTabs.getTabAt(2)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(2)?.select()
@@ -168,13 +169,46 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.productCardReleaseForm.setOnClickListener {
-            Log.d("myL", "productCardReleaseForm")
+
         }
 
         binding.productCardPharmaciesInMap.setOnClickListener {
-            Log.d("myL", "productCardPharmaciesInMap")
+
         }
 
+        binding.llProductCardDoubleBonuses.setOnClickListener {
+
+        }
+
+        binding.llProductCardManufacturerProgram.setOnClickListener {
+
+        }
+
+
+        binding.tvProductCardAnaloguesAll.setOnClickListener {
+
+        }
+
+
+        binding.withProduct1.productCardItem.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+                    PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.withProducts.value!![0].product
+                )
+            )
+        }
+
+        binding.withProduct2.productCardItem.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+                    PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.withProducts.value!![1].product
+                )
+            )
+        }
+
+        binding.tvWithProductAll.setOnClickListener {
+
+        }
 
         binding.tvProductCardSendComment.setOnClickListener {
             binding.btnProductCardSendComment.performClick()
@@ -192,13 +226,13 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
             }
         }
 
-        viewModel.similarProducts.observe(viewLifecycleOwner) {
-            similarProductsAdapter.swapData(it)
+        viewModel.analoguesProducts.observe(viewLifecycleOwner) {
+            analoguesProductsAdapter.swapData(it)
         }
 
-        viewModel.withProductProducts.observe(viewLifecycleOwner) {
+        /*viewModel.withProductProducts.observe(viewLifecycleOwner) {
             withProductProductsDayAdapter.swapData(it)
-        }
+        }*/
 
     }
 

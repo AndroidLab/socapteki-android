@@ -21,8 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn java.lang.invoke.StringConcatFactory
--keepattributes Signature
--keep class com.google.gson.reflect.TypeToken { *; }
--keep class * extends com.google.gson.reflect.TypeToken
--keep,allowobfuscation,allowshrinking class retrofit2.Response
--keep,allowobfuscation interface com.processout.sdk.api.network.** { *; }
+
+

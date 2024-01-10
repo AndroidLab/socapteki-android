@@ -246,388 +246,407 @@
             android:layout_height="match_parent"
             android:background="@color/background_secondary">
 
-            <com.alab.extra_bouncy.BouncyNestedScrollView
-                android:id="@+id/svHome"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:scrollbars="none"
-                app:canScrolling="@{viewModel.navigationManager.isHomeFront}">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/homeToolbar">
 
-                <LinearLayout
+                <com.alab.extra_bouncy.BouncyNestedScrollView
+                    android:id="@+id/svHome"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:scrollbars="none"
+                    app:canScrolling="@{viewModel.navigationManager.isHomeFront}">
 
-                    <include layout="@layout/footer_stub" />
-
-                    <!-- Инфо по заказам -->
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp">
-
-                        <com.alab.extra_bouncy.BouncyRecyclerView
-                            android:id="@+id/rvOrders"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                            app:extraPaddingBottom="@{12}"
-                            app:extraPaddingTop="@{12}"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:marginItemHorizontal="@{4}" />
-
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.ordersCardIsLoading}" />
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Реклама -->
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp">
-
-                        <com.alab.extra_bouncy.BouncyRecyclerView
-                            android:id="@+id/rvAdvert"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                            app:circlePagerIndicator="@{32}"
-                            app:extraPaddingBottom="@{16}"
-                            app:extraPaddingTop="@{16}"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:linearSnapHelper="@{true}" />
-
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.advertsIsLoading}" />
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Товары дня -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/top_corners_shape"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="16dp"
-                            android:text="@string/home_products_day"
-                            android:textColor="@color/black"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tvHomeProductsDayAll"
+                        <View
                             android:layout_width="wrap_content"
+                            android:layout_height="55dp" />
+
+                        <!-- Инфо по заказам -->
+                        <com.google.android.material.card.MaterialCardView
+                            style="@style/Theme.Socapteki.BackgroundCard"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:paddingHorizontal="16dp"
-                            android:text="@string/home_products_all"
-                            android:textColor="@color/color_primary" />
+                            android:layout_marginTop="6dp"
+                            android:minHeight="100dp">
 
-                    </LinearLayout>
+                            <com.alab.extra_bouncy.BouncyRecyclerView
+                                android:id="@+id/rvOrders"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                                app:extraPaddingBottom="@{12}"
+                                app:extraPaddingTop="@{12}"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:marginItemHorizontal="@{4}" />
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:minHeight="150dp">
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.ordersCardIsLoading}" />
 
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Реклама -->
+                        <com.google.android.material.card.MaterialCardView
+                            style="@style/Theme.Socapteki.BackgroundCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:minHeight="100dp">
+
+                            <com.alab.extra_bouncy.BouncyRecyclerView
+                                android:id="@+id/rvAdvert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                                app:circlePagerIndicator="@{32}"
+                                app:extraPaddingBottom="@{16}"
+                                app:extraPaddingTop="@{16}"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:linearSnapHelper="@{true}" />
+
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.advertsIsLoading}" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Товары дня -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:visibleIf="@{!viewModel.productsDay.empty}">
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/top_corners_shape"
+                            android:orientation="horizontal">
 
-                            <include
-                                android:id="@+id/homeProductsDay1"
-                                layout="@layout/product_card_view"
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                app:model="@{viewModel.productsDay.empty ? null : viewModel.productsDay.get(0)}" />
+                                android:padding="16dp"
+                                android:text="@string/home_products_day"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
 
-                            <Space
-                                android:layout_width="6dp"
-                                android:layout_height="wrap_content" />
-
-                            <include
-                                android:id="@+id/homeProductsDay2"
-                                layout="@layout/product_card_view"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:model="@{viewModel.productsDay.empty ? null : viewModel.productsDay.get(1)}" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.productsDayIsLoading}" />
-
-                    </FrameLayout>
-
-
-                    <!-- Все акции -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/corners_shape"
-                        android:minHeight="150dp">
-
-                        <TextView
-                            android:id="@+id/homePromotionsTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:text="@string/home_promotions"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvHomePromotionsAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:paddingHorizontal="16dp"
-                            android:text="@string/home_promotions_all"
-                            android:textColor="@color/color_primary"
-                            app:layout_constraintBottom_toBottomOf="@id/homePromotionsTitle"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/homePromotionsTitle" />
-
-                        <!-- Фильтры -->
-                        <HorizontalScrollView
-                            android:id="@+id/homePromotionFilters"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fillViewport="true"
-                            android:overScrollMode="never"
-                            android:scrollbars="none"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/homePromotionsTitle">
-
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/tvHomeProductsDayAll"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:orientation="horizontal"
-                                android:padding="16dp"
-                                app:forItems="@{viewModel.promotionFilter.items}"
-                                app:useTemplate="@{@layout/pomotion_filter_view}"
-                                app:visibleIf="@{viewModel.promotionFilter.mediator}" />
-
-                        </HorizontalScrollView>
-
-                        <com.alab.extra_bouncy.BouncyRecyclerView
-                            android:id="@+id/rvPromotion"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                            app:extraPaddingBottom="@{16}"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/homePromotionFilters"
-                            app:marginItemHorizontal="@{16}"
-                            app:visibleIf="@{!viewModel.promotionsIsLoading}" />
-
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.promotionsIsLoading}" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <!-- Товары со скидкой -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/top_corners_shape"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="16dp"
-                            android:text="@string/home_products_discount"
-                            android:textColor="@color/black"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tvHomeProductsDiscountAll"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:paddingHorizontal="16dp"
-                            android:text="@string/home_products_all"
-                            android:textColor="@color/color_primary" />
-
-                    </LinearLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:minHeight="150dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:visibleIf="@{!viewModel.productsDiscount.empty}">
-
-                            <include
-                                android:id="@+id/homeProductsDiscount1"
-                                layout="@layout/product_card_view"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:model="@{viewModel.productsDiscount.empty ? null : viewModel.productsDiscount.get(0)}" />
-
-                            <Space
-                                android:layout_width="6dp"
-                                android:layout_height="wrap_content" />
-
-                            <include
-                                android:id="@+id/homeProductsDiscount2"
-                                layout="@layout/product_card_view"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:model="@{viewModel.productsDiscount.empty ? null : viewModel.productsDiscount.get(1)}" />
+                                android:layout_gravity="center_vertical"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:paddingHorizontal="16dp"
+                                android:text="@string/home_products_all"
+                                android:textColor="@color/color_primary" />
 
                         </LinearLayout>
 
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.productsDiscountIsLoading}" />
-
-                    </FrameLayout>
-
-                    <!-- Категории -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/corners_shape"
-                        android:minHeight="150dp">
-
-                        <TextView
-                            android:id="@+id/homeCategoriesTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:text="@string/home_categories"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.alab.extra_bouncy.BouncyRecyclerView
-                            android:id="@+id/rvCategories"
+                        <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
-                            app:extraPaddingBottom="@{16}"
-                            app:extraPaddingTop="@{16}"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/homeCategoriesTitle"
-                            app:marginItemHorizontal="@{16}"
-                            app:visibleIf="@{!viewModel.categoriesIsLoading}" />
+                            android:layout_marginTop="6dp"
+                            android:minHeight="150dp">
 
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.categoriesIsLoading}" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:visibleIf="@{!viewModel.productsDay.empty}">
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                <include
+                                    android:id="@+id/homeProductsDay1"
+                                    layout="@layout/product_card_view"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
 
-                    <!-- Преимущества -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/corners_shape"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                                <Space
+                                    android:layout_width="6dp"
+                                    android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                                <include
+                                    android:id="@+id/homeProductsDay2"
+                                    layout="@layout/product_card_view"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+
+                            </LinearLayout>
+
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.productsDayIsLoading}" />
+
+                        </FrameLayout>
+
+
+                        <!-- Все акции -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/home_advantages"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/corners_shape">
 
-                        <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_around_clock_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_around_clock}"
-                            app:title="@{@string/home_advantages_around_clock_title}" />
+                            <TextView
+                                android:id="@+id/homePromotionsTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="16dp"
+                                android:text="@string/home_promotions"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_more_products_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_more_products}"
-                            app:title="@{@string/home_advantages_more_products_title}" />
+                            <TextView
+                                android:id="@+id/tvHomePromotionsAll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:paddingHorizontal="16dp"
+                                android:text="@string/home_promotions_all"
+                                android:textColor="@color/color_primary"
+                                app:layout_constraintBottom_toBottomOf="@id/homePromotionsTitle"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/homePromotionsTitle" />
 
+                            <!-- Фильтры -->
+                            <HorizontalScrollView
+                                android:id="@+id/homePromotionFilters"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fillViewport="true"
+                                android:overScrollMode="never"
+                                android:scrollbars="none"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/homePromotionsTitle"
+                                app:visibleIf="@{!viewModel.promotionsIsLoading}">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:padding="16dp"
+                                    app:forItems="@{viewModel.promotionFilter.items}"
+                                    app:useTemplate="@{@layout/pomotion_filter_template}"
+                                    app:visibleIf="@{viewModel.promotionFilter.mediator}" />
+
+                            </HorizontalScrollView>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="100dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/homePromotionFilters">
+
+                                <com.alab.extra_bouncy.BouncyRecyclerView
+                                    android:id="@+id/rvPromotion"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                                    app:extraPaddingBottom="@{16}"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    app:marginItemHorizontal="@{16}"
+                                    app:visibleIf="@{!viewModel.promotionsIsLoading}" />
+
+                                <include
+                                    layout="@layout/progress_bar"
+                                    app:isLoading="@{viewModel.promotionsIsLoading}" />
+
+                            </FrameLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Товары со скидкой -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/top_corners_shape"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="16dp"
+                                android:text="@string/home_products_discount"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvHomeProductsDiscountAll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:paddingHorizontal="16dp"
+                                android:text="@string/home_products_all"
+                                android:textColor="@color/color_primary" />
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:minHeight="100dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:visibleIf="@{!viewModel.productsDiscount.empty}">
+
+                                <include
+                                    android:id="@+id/homeProductsDiscount1"
+                                    layout="@layout/product_card_view"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+
+                                <Space
+                                    android:layout_width="6dp"
+                                    android:layout_height="wrap_content" />
+
+                                <include
+                                    android:id="@+id/homeProductsDiscount2"
+                                    layout="@layout/product_card_view"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+
+                            </LinearLayout>
+
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.productsDiscountIsLoading}" />
+
+                        </FrameLayout>
+
+                        <!-- Категории -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/corners_shape"
+                            android:minHeight="100dp">
+
+                            <TextView
+                                android:id="@+id/homeCategoriesTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="16dp"
+                                android:text="@string/home_categories"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.alab.extra_bouncy.BouncyRecyclerView
+                                android:id="@+id/rvCategories"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                                app:extraPaddingBottom="@{16}"
+                                app:extraPaddingTop="@{16}"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/homeCategoriesTitle"
+                                app:marginItemHorizontal="@{16}"
+                                app:visibleIf="@{!viewModel.categoriesIsLoading}" />
+
+                            <include
+                                layout="@layout/progress_bar"
+                                app:isLoading="@{viewModel.categoriesIsLoading}" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Преимущества -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/corners_shape"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:text="@string/home_advantages"
+                                android:textColor="@color/black"
+                                android:textSize="20sp" />
+
+                            <include
+                                layout="@layout/home_advantages_item"
+                                app:desc="@{@string/home_advantages_around_clock_desc}"
+                                app:icon="@{@drawable/ic_home_advantages_around_clock}"
+                                app:title="@{@string/home_advantages_around_clock_title}" />
+
+                            <include
+                                layout="@layout/home_advantages_item"
+                                app:desc="@{@string/home_advantages_more_products_desc}"
+                                app:icon="@{@drawable/ic_home_advantages_more_products}"
+                                app:title="@{@string/home_advantages_more_products_title}" />
+
+                            <include
+                                layout="@layout/home_advantages_item"
+                                app:desc="@{@string/home_advantages_no_queue_desc}"
+                                app:icon="@{@drawable/ic_home_advantages_no_queue}"
+                                app:title="@{@string/home_advantages_no_queue_title}" />
+
+                        </LinearLayout>
+
+
+                        <!-- Меню -->
                         <include
-                            layout="@layout/home_advantages_item"
-                            app:desc="@{@string/home_advantages_no_queue_desc}"
-                            app:icon="@{@drawable/ic_home_advantages_no_queue}"
-                            app:title="@{@string/home_advantages_no_queue_title}" />
+                            android:id="@+id/homeMenuBrands"
+                            layout="@layout/bottom_menu"
+                            app:icon="@{@drawable/ic_brands}"
+                            app:text="@{@string/home_menu_brands}" />
+
+                        <include layout="@layout/footer_stub" />
 
                     </LinearLayout>
 
+                </com.alab.extra_bouncy.BouncyNestedScrollView>
 
-                    <!-- Меню -->
-                    <include
-                        android:id="@+id/homeMenuBrands"
-                        layout="@layout/bottom_menu"
-                        app:icon="@{@drawable/ic_brands}"
-                        app:text="@{@string/home_menu_brands}" />
-                    <!--<com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
+                <FrameLayout
+                    android:id="@+id/homeBottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/white"
+                    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+                    app:visibleIf="@{viewModel.account == null}">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbHomeAuth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="16dp">
+                        android:layout_gravity="top"
+                        android:layout_margin="8dp"
+                        android:text="@string/enter" />
 
+                </FrameLayout>
 
-
-                    </com.google.android.material.card.MaterialCardView>-->
-
-                    <include layout="@layout/footer_stub" />
-
-                </LinearLayout>
-
-            </com.alab.extra_bouncy.BouncyNestedScrollView>
-
-            <include
-                android:id="@+id/homeToolbar"
-                layout="@layout/toolbar" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             <!-- Аптеки на карте -->
             <LinearLayout
@@ -635,12 +654,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/homeToolbar"
+                android:layout_gravity="top"
                 android:background="@drawable/bottom_corners_shape"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="12dp"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -663,6 +684,10 @@
                     tools:ignore="ContentDescription" />
 
             </LinearLayout>
+
+            <include
+                android:id="@+id/homeToolbar"
+                layout="@layout/toolbar" />
 
         </RelativeLayout>
 

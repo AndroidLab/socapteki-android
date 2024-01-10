@@ -9,6 +9,10 @@
             name="discount"
             type="ru.apteka.components.data.models.DiscountModel" />
 
+        <variable
+            name="discountMarginStart"
+            type="Integer" />
+
     </data>
 
 
@@ -19,6 +23,7 @@
         app:cardCornerRadius="10dp"
         app:contentPaddingLeft="8dp"
         app:contentPaddingRight="8dp"
+        app:extraMarginStart="@{discountMarginStart == null ? 0 : discountMarginStart}"
         app:strokeWidth="0dp"
         app:visibleIf="@{discount != null}">
 

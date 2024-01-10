@@ -133,7 +133,7 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/ivStartAnim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -141,9 +141,67 @@
             android:scaleType="center"
             app:glideImageRes="@{`file:///android_asset/start_anim.gif`}"
             app:useStub="@{null}"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription" />-->
+
+        <FrameLayout
+            android:id="@+id/flStartAnim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{null}"
+            android:visibility="gone"
+            android:background="@drawable/gradient_1">
+
+            <View
+                android:id="@+id/vStartAnimLeft"
+                android:layout_width="150dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/start_anim_left_corners_shape"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/vStartAnimRight"
+                android:layout_width="150dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@drawable/start_anim_right_corners_shape"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/ivStartAnimLogo"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:alpha="0"
+                android:scaleType="fitXY"
+                android:src="@drawable/start_anim_logo"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvStartAnimLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="90dp"
+                android:alpha="0"
+                android:text="Добрый день!"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvStartAnimDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="35dp"
+                android:alpha="0"
+                android:gravity="center"
+                android:text="Редкие лекарства\nдоступны в одном месте"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </FrameLayout>
 
     </FrameLayout>
-
 
 </layout>

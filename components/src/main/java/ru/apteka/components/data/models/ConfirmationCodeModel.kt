@@ -31,6 +31,11 @@ data class ConfirmationCodeModel(
     private val _leftTime = MutableLiveData<String?>(null)
 
     /**
+     * Возвращает или устанавливает тип кода для получения (СМС или звонок).
+     */
+    val codeType = MutableLiveData(CodeType.SMS)
+
+    /**
      * Осталось времени до повторения отправки кода.
      */
     val leftTime: LiveData<String?> = _leftTime
@@ -69,6 +74,13 @@ data class ConfirmationCodeModel(
      */
     val isCodeConfirmError: LiveData<Boolean> = _isCodeConfirmError
 
+    private val _requestCounts = MutableLiveData(0)
+
+    /**
+     * Возвращает кол-во запросов пин кода.
+     */
+    val requestCounts: LiveData<Int> = _requestCounts
+
     /**
      * Возвращает обработчмк получения нового кода.
      */
@@ -78,6 +90,7 @@ data class ConfirmationCodeModel(
                 requestHandler.handleApiRequest(
                     onRequest = { loginRepository.requestCode(getPhoneRaw()) },
                     onSuccess = {
+                        _requestCounts.postValue(_requestCounts.value!! + 1)
                         _isCodeRequested.postValue(true)
                     },
                     isLoading = _isLoading
@@ -132,6 +145,11 @@ data class ConfirmationCodeModel(
                 )
             ).installOn(this)
         }
+    }
+
+    enum class CodeType {
+        SMS,
+        PHONE
     }
 }
 
