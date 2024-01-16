@@ -7,9 +7,7 @@
 
     <fragment
         android:id="@+id/catalogFragment"
-        android:name="ru.apteka.catalog.presentation.catalog.CatalogFragment"
-        android:label="@string/catalog_title"
-        tools:layout="@layout/catalog_fragment">
+        android:name="ru.apteka.catalog.presentation.catalog.CatalogFragment">
 
         <action
             android:id="@+id/toCatalogProductsFragment"
@@ -19,14 +17,6 @@
 
     <fragment
         android:id="@+id/catalogProductsFragment"
-        android:name="ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment"
-        tools:layout="@layout/catalog_products_fragment">
-
-        <argument
-            android:name="catalogItemName"
-            app:argType="string" />
-
-    </fragment>
-
+        android:name="ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment"/>
 
 </navigation>

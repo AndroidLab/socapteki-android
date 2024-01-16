@@ -2,7 +2,6 @@ package ru.apteka.orders.presentation.orders
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,7 +11,7 @@ import ru.apteka.components.data.models.OrderPayStatus
 import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
@@ -31,10 +30,10 @@ class OrdersViewModel @Inject constructor(
     private val ordersRepository: OrdersRepository,
     private val ordersPreferences: OrdersPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService,
+    messageService: IMessageService,
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

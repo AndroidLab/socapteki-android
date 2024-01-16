@@ -2,7 +2,6 @@ package ru.apteka.catalog.data.catalog_repository
 
 import kotlinx.coroutines.delay
 import ru.apteka.catalog.data.models.SearchResultModel
-import java.util.Random
 import javax.inject.Inject
 
 /**
@@ -10,7 +9,7 @@ import javax.inject.Inject
  * @param catalogApi Api.
  */
 class CatalogRepository @Inject constructor(
-    private val catalogApi: ICatalogApi,
+
 ) {
 
     private val searchFake = listOf(
@@ -36,11 +35,4 @@ class CatalogRepository @Inject constructor(
         return searchFake.filter { it.text.contains(q, true) }
     }
 
-    /**
-     * Возвращает доступное кол-во товара по фильтру.
-     */
-    suspend fun availableCountProducts(): Int {
-        delay(1500)
-        return Random().nextInt(99)
-    }
 }

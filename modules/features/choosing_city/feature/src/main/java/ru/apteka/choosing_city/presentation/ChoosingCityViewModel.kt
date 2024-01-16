@@ -13,7 +13,7 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.choosing_city.data.model.CityCardModel
 import ru.apteka.choosing_city.data.repository.new_repository.CitiesRepository
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import javax.inject.Inject
 
 
@@ -26,10 +26,10 @@ class ChoosingCityViewModel @Inject constructor(
     private val citiesRepository: CitiesRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

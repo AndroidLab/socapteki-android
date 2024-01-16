@@ -968,12 +968,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/product_card_tab_desc" />
+                android:text="@string/product_card_tab_price" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/product_card_tab_price" />
+                android:text="@string/product_card_tab_desc" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

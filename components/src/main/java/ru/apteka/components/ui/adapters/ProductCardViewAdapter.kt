@@ -1,18 +1,14 @@
 package ru.apteka.components.ui.adapters
 
 
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.screenWidth
-import ru.apteka.components.databinding.ProductCardView1Binding
 import ru.apteka.components.databinding.ProductCardViewBinding
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-import java.text.FieldPosition
 
 
 /**
@@ -43,6 +39,12 @@ class ProductCardViewAdapter(
             lp.width = itemWidth
         } else {
             lp.width = RecyclerView.LayoutParams.MATCH_PARENT
+            lp.topMargin = 6.dp
+            if (position % 2 == 0) {
+                lp.marginEnd = 3.dp
+            } else {
+                lp.marginStart = 3.dp
+            }
         }
         root.layoutParams = lp
         model = item

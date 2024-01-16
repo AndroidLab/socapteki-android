@@ -5,16 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.DiscountModel
 import ru.apteka.components.data.models.FavoriteModel
-import ru.apteka.components.data.models.Label
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductCounterModel
-import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
@@ -30,12 +27,12 @@ import javax.inject.Inject
 class StockDetailsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val basketService: BasketService,
-    val favoriteService: FavoriteService,
+    private val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     private val _products = MutableLiveData<List<ProductCardModel>>()
@@ -71,7 +68,7 @@ class StockDetailsViewModel @Inject constructor(
                     }
                 }
             )
-
+            _isLoading.postValue(false)
         }
     }
 

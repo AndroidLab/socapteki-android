@@ -2,10 +2,9 @@ package ru.apteka.social.presentation.auth.auth_login
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.PhoneInputModel
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
@@ -17,10 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

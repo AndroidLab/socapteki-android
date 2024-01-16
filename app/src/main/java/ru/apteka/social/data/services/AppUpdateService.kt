@@ -2,21 +2,26 @@ package ru.apteka.social.data.services
 
 import android.app.DownloadManager
 import android.content.Context
-import android.util.Log
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.message_notice_service.IMessageService
+import ru.apteka.components.data.services.message_notice_service.models.BodyContentModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.event_dispatcher.impl.EventDispatcher
 import ru.apteka.components.data.utils.event_dispatcher.impl.subscribe
 import ru.apteka.components.data.utils.subStringByRegex
 import ru.apteka.social.BuildConfig
+import ru.apteka.social.R
 import ru.apteka.social.data.models.NewVersionFile
 import ru.apteka.social.data.repository.IDocsApi
+import ru.apteka.social.databinding.DialogNewVersionFileBinding
 import java.io.File
-import java.util.concurrent.Flow.Subscriber
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,6 +33,8 @@ import javax.inject.Singleton
 class AppUpdateService @Inject constructor(
     private val docsApi: IDocsApi,
     private val requestHandler: RequestHandler,
+    private val userPreferences: UserPreferences,
+    private val messageService: IMessageService,
     @ApplicationContext val context: Context
 ) {
     companion object {
@@ -75,26 +82,56 @@ class AppUpdateService @Inject constructor(
                                 file
                             )
                         )
+                        showNewAppVersionDialog()
                     }
                 }
             },
         )
     }
 
-    /**
-     * Выполняет обновление приложения.
-     */
-    fun updateApp() {
-        updateApp {}
+    private fun showNewAppVersionDialog() {
+        val lastVersionChecked = userPreferences.lastVersionChecked
+        if (lastVersionChecked == -1f || newVersionFile.value!!.version > lastVersionChecked) {
+            messageService.showCommonDialog(
+                dialogModel = DialogModel(
+                    title = R.string.new_version_file_title,
+                    bodyContent = BodyContentModel(
+                        layoutId = R.layout.dialog_new_version_file,
+                    ) { dialog, binding ->
+                        binding as DialogNewVersionFileBinding
+                        binding.text = String.format(
+                            context.getString(
+                                R.string.new_version_file_message
+                            ),
+                            newVersionFile.value!!.version,
+                            String.format(
+                                Locale.US,
+                                "%.2f",
+                                newVersionFile.value!!.doc.size / 1024.0 / 1024.0
+                            )
+                        )
+                        binding.isLoading = isLoading
+                        binding.newVersionFileUpdateBtn.setOnClickListener {
+                            updateApp()
+                            dialog.dismiss()
+                        }
+                    },
+                    onDismiss = {
+                        userPreferences.lastVersionChecked =
+                            newVersionFile.value!!.version
+                    }
+                )
+            )
+        }
     }
 
     /**
      * Выполняет обновление приложения.
      */
     fun updateApp(
-        onSuccess: () -> Unit = {},
-        clearAppDataBase: () -> Unit = {},
-        clearPreferences: () -> Unit = {}
+        //onSuccess: () -> Unit = {},
+        //clearAppDataBase: () -> Unit = {},
+        //clearPreferences: () -> Unit = {}
     ) {
         /*ContextCompat.registerReceiver(
             context,

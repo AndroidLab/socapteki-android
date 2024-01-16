@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listingProductFilterModel"
+            type="ru.apteka.listing.data.models.IFilter.FilterNosologyModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/listing_products_filter_title"
+            app:title="@{listingProductFilterModel.title}" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Поле поиска -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Theme.Socapteki.BackgroundCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_padding"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/light_grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_search"
+                        tools:ignore="ContentDescription" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="8dp"
+                        android:background="@null"
+                        android:hint="Поиск"
+                        android:maxLines="1" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Список -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Theme.Socapteki.BackgroundCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_padding"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/light_grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:orientation="vertical"
+                    app:forItems="@{listingProductFilterModel.items}"
+                    app:useTemplate="@{@layout/listing_products_filter_nosology_template}" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Посмотреть все -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/catalogProductFilterNosologyShowAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> listingProductFilterModel.showAll()}"
+                    android:padding="@dimen/base_padding"
+                    android:text="Посмотреть все"
+                    android:textColor="@color/color_primary" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

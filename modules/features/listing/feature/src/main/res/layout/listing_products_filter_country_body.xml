@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listingProductFilterModel"
+            type="ru.apteka.listing.data.models.IFilter.FilterCountryModel" />
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/listing_products_filter_title"
+            app:title="@{listingProductFilterModel.title}" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Theme.Socapteki.BackgroundCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_padding"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/light_grey">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_grey"
+                android:orientation="vertical"
+                app:forItems="@{listingProductFilterModel.items}"
+                app:lifecycleOwner="@{lifecycle}"
+                app:useTemplate="@{@layout/listing_products_filter_country_template}"
+                app:visibleIf="@{listingProductFilterModel.mediator}" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</layout>

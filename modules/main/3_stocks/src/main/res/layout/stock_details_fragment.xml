@@ -174,15 +174,27 @@
                 </LinearLayout>
 
                 <!-- Список акционных товаров -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvStockProducts"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="1" />
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvStockProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2" />
+
+                    <include
+                        layout="@layout/progress_bar"
+                        app:isLoading="@{viewModel.isLoading}" />
+
+                </FrameLayout>
+
 
             </LinearLayout>
 

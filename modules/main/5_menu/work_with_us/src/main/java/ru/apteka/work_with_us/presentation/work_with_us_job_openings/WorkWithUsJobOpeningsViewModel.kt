@@ -1,6 +1,5 @@
 package ru.apteka.work_with_us.presentation.work_with_us_job_openings
 
-import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.R as ComponentsR
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -32,10 +31,10 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
     /**
      * Возвращат модель фильтра.

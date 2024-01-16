@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -22,10 +22,10 @@ import javax.inject.Inject
 class BarcodeScannerViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
-    messageNoticeService: MessageNoticeService
+    messageService: MessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     private val badCode = "800003674602"

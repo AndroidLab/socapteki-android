@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -21,10 +21,10 @@ import javax.inject.Inject
 class ReferralProgramViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
     private val fakeHistoryRecommendation = listOf(
         HistoryRecommendationModel("12.01.23", "+150"),

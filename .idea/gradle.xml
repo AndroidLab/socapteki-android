@@ -40,6 +40,9 @@
             <option value="$PROJECT_DIR$/modules/features/feedback" />
             <option value="$PROJECT_DIR$/modules/features/feedback/api" />
             <option value="$PROJECT_DIR$/modules/features/feedback/feature" />
+            <option value="$PROJECT_DIR$/modules/features/listing" />
+            <option value="$PROJECT_DIR$/modules/features/listing/api" />
+            <option value="$PROJECT_DIR$/modules/features/listing/feature" />
             <option value="$PROJECT_DIR$/modules/features/making_order" />
             <option value="$PROJECT_DIR$/modules/features/making_order/api" />
             <option value="$PROJECT_DIR$/modules/features/making_order/feature" />

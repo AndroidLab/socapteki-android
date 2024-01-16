@@ -1,13 +1,12 @@
 package ru.apteka.components.data.services.basket_service
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.R
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.basket_service.models.BasketProductCardModel
-import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
@@ -22,7 +21,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class BasketService @Inject constructor(
-    private val messageNoticeService: MessageNoticeService,
+    private val messageService: IMessageService,
 ) {
     private val _basketProducts = MutableLiveData<List<BasketProductCardModel>>(emptyList())
 
@@ -44,7 +43,7 @@ class BasketService @Inject constructor(
             BasketProductCardModel(
                 productCard
             ) { basketProductCard ->
-                messageNoticeService.showCommonDialog(
+                messageService.showCommonDialog(
                     dialogModel = DialogModel(
                         message = MessageModel(
                             message = R.string.dialog_remove_product_desk
@@ -87,7 +86,7 @@ class BasketService @Inject constructor(
      * Очищает корзину.
      */
     fun removeAll() {
-        messageNoticeService.showCommonDialog(
+        messageService.showCommonDialog(
             dialogModel = DialogModel(
                 message = MessageModel(
                     message = R.string.dialog_remove_product_all_desk

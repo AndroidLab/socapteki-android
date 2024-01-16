@@ -1,17 +1,10 @@
 package ru.apteka.components.data.services.favorites_service
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import ru.apteka.components.R
 import ru.apteka.components.data.models.ProductCardModel
-import ru.apteka.components.data.services.basket_service.models.BasketProductCardModel
-import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
-import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
-import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.utils.contains
-import ru.apteka.components.ui.CommonDialogFragment
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton

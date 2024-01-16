@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="listing_product_filters">Фильтры</string>
+    <string name="listing_product_sort">Сортировка</string>
+    <string name="listing_product_sort_popular">Популярные</string>
+    <string name="listing_product_sort_cheaper">Дешевле</string>
+    <string name="listing_product_sort_expensive">Дороже</string>
+    <string name="listing_product_sort_stock">В наличии</string>
+    <string name="listing_product_sort_discount">Товары со скидкой</string>
+    <string name="listing_product_sort_first_popular">Сначала популярные</string>
+    <string name="listing_product_sort_first_cheaper">Сначала дешевле</string>
+    <string name="listing_product_sort_first_expensive">Сначала дороже</string>
+    <string name="listing_product_sort_first_stock">Сначала в наличии</string>
+    <string name="listing_product_sort_first_discount">Сначала товары со скидкой</string>
+    <string name="listing_product_show_count_products">Показать %s товаров</string>
+    <string name="listing_product_search_products">Поиск…</string>
+    <string name="listing_product_filter_price_from">От</string>
+    <string name="listing_product_filter_price_before">До</string>
+
+</resources>

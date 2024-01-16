@@ -1,10 +1,11 @@
 package ru.apteka.components.data.services
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.R
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
@@ -13,10 +14,10 @@ import javax.net.ssl.SSLException
 
 /**
  * Представляет методы для обработки запросов.
- * @param messageNoticeService Сервис уведомлений.
+ * @param messageService Сервис уведомлений.
  */
 class RequestHandler @Inject constructor(
-    private val messageNoticeService: IMessageNoticeService
+    private val messageService: IMessageService
 ) {
 
     /**
@@ -32,7 +33,7 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: suspend (error: Throwable) -> Unit = {},
         onError: (error: Throwable) -> Unit = {
-            messageNoticeService.showCommonToast(
+            messageService.showCommonToast(
                 message = MessageModel(
                     message = it.message.toString()
                 )
@@ -57,7 +58,7 @@ class RequestHandler @Inject constructor(
         onSuccess: suspend (result: T) -> Unit = {},
         onFailure: suspend (error: Throwable) -> Unit = {},
         onError: (error: Throwable) -> Unit = {
-            messageNoticeService.showCommonToast(
+            messageService.showCommonToast(
                 message = MessageModel(
                     message = it.message.toString()
                 )
@@ -68,29 +69,31 @@ class RequestHandler @Inject constructor(
         onLoading(true)
         return try {
             val requestResult = onRequest.invoke()
-            //Log.d("myL", "requestResult " + requestResult)
             onSuccess(requestResult)
             Result.success(requestResult)
-        } catch (e: CancellationException) {
-            throw e
-            // Возникают при отмене работы, выполняемой в Coroutine.
-            // Например, может возникнуть, если VM инициировала запрос и была закрыта до его завершения.
-            // Нет необходимости как-либо реагировать на отмену.
-        } catch (e: ConnectException) {
-            throw e
-        } catch (e: ConnectException) {
-            throw e
-        } catch (e: UnknownHostException) {
-            throw e
-        } catch (e: SSLException) {
-            throw e
         } catch (e: Throwable) {
-            Log.d("myL", "6 " + e)
-            onError(e)
-            Result.failure(e)
+            when (e) {
+                is CancellationException -> throw e
+                is SocketTimeoutException, is ConnectException, is UnknownHostException, is SSLException -> {
+                    showConnectionError()
+                    throw e
+                }
+                else -> {
+                    onError(e)
+                    return Result.failure(e)
+                }
+            }
         } finally {
             onLoading(false)
         }
+    }
+
+    private fun showConnectionError() {
+        messageService.showCommonToast(
+            message = MessageModel(
+                message = R.string.http_error_not_connection
+            )
+        )
     }
 
 }

@@ -15,12 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.equalsWithDeviation
-import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.adapters.ProductCardViewAdapter
+import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.stocks.R
 import ru.apteka.stocks.databinding.StockDetailsFragmentBinding
@@ -35,11 +36,13 @@ class StockDetailsFragment : BaseFragment<StockDetailsViewModel, StockDetailsFra
     override val viewModel: StockDetailsViewModel by viewModels()
     override val layoutId: Int = R.layout.stock_details_fragment
 
-    private val productsAdapter by lazy {
-        getProductCardViewAdapter(
-            this,
-            ::onProductsCardClick,
-            false
+    private val stockProductsAdapter by lazy {
+        CompositeDelegateAdapter(
+            ProductCardViewAdapter(
+                this,
+                ::onProductsCardClick,
+                false
+            )
         )
     }
 
@@ -114,10 +117,10 @@ class StockDetailsFragment : BaseFragment<StockDetailsViewModel, StockDetailsFra
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.rvStockProducts.adapter = productsAdapter
+        binding.rvStockProducts.adapter = stockProductsAdapter
 
         viewModel.products.observe(viewLifecycleOwner) {
-            productsAdapter.swapData(it)
+            stockProductsAdapter.swapData(it)
         }
     }
 

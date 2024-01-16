@@ -3,17 +3,12 @@ package ru.apteka.home.presentation.home
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Typeface
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -24,14 +19,16 @@ import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.home.R
 import ru.apteka.home.databinding.HomeFragmentBinding
 import ru.apteka.home.presentation.home.adapters.AdvertCardViewAdapter
-import ru.apteka.home.presentation.home.adapters.OrderCardAdapter
 import ru.apteka.home.presentation.home.adapters.CategoriesAdapter
+import ru.apteka.home.presentation.home.adapters.OrderCardAdapter
 import ru.apteka.home.presentation.home.adapters.PromotionCardViewAdapter
+import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
+import ru.apteka.listing_api.R as ListingApiR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
-import ru.apteka.product_card_api.R as productCardApiR
+import ru.apteka.product_card_api.R as ProductCardApiR
 
 /**
  * Представляет фрагмент "Главная".
@@ -106,12 +103,16 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
 
         binding.tvHomeProductsDayAll.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Товары дня"
+                )
+            )
         }
 
         binding.homeProductsDay1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                productCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph, bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDay.value!![0].product
                 )
             )
@@ -119,7 +120,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDay2.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                productCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph, bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDay.value!![1].product
                 )
             )
@@ -130,12 +131,16 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         }
 
         binding.tvHomeProductsDiscountAll.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Товары со скидкой"
+                )
+            )
         }
 
         binding.homeProductsDiscount1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                productCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph, bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDiscount.value!![0].product
                 )
             )
@@ -143,7 +148,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDiscount2.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                productCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph, bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDiscount.value!![1].product
                 )
             )

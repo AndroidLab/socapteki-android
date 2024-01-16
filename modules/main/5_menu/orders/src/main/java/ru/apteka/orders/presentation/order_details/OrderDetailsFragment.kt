@@ -77,7 +77,7 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
         }
 
         binding.tvOrderDetailsExtendBooking.setOnClickListener {
-            viewModel.messageNoticeService.showCommonDialog(
+            viewModel.messageService.showCommonDialog(
                 dialogModel = DialogModel(
                     bodyContent = BodyContentModel(
                         layoutId = R.layout.order_extend_booking_sheet,

@@ -35,7 +35,7 @@ class ProfileRemoveFragment :
             viewModel.profileRemove {
                 viewModel.accountsPreferences.account = null
                 viewModel.navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.home_graph)
-                viewModel.messageNoticeService.showCommonDialog(
+                viewModel.messageService.showCommonDialog(
                     dialogModel = DialogModel(
                         bodyContent = BodyContentModel(
                             layoutId = R.layout.profile_remove_dialog

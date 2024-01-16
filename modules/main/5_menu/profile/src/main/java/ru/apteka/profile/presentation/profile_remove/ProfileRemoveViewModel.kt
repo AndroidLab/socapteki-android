@@ -10,7 +10,7 @@ import ru.apteka.components.data.models.ConfirmationCodeModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
@@ -27,10 +27,10 @@ class ProfileRemoveViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
     val accountsPreferences: AccountsPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
     /**
      * Возвращает модель подтверждения кода.

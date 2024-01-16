@@ -12,7 +12,7 @@ import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
@@ -34,10 +34,10 @@ class ProductCardViewModel @Inject constructor(
     private val basketService: BasketService,
     private val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

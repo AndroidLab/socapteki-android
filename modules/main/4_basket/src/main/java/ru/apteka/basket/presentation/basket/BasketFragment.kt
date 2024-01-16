@@ -8,14 +8,17 @@ import ru.apteka.basket.R
 import ru.apteka.basket.databinding.BasketFragmentBinding
 import ru.apteka.basket.databinding.BasketMenuBinding
 import ru.apteka.components.data.models.ProductModel
-import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.adapters.ProductCardViewAdapter
+import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
+import ru.apteka.components.R as ComponentsR
+import ru.apteka.listing_api.R as ListingApiR
 import ru.apteka.making_order_api.R as MakingOrderApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
-import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет фрагмент "Корзина".
@@ -26,9 +29,12 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
     override val layoutId: Int = R.layout.basket_fragment
 
     private val productsWatchedRecentlyAdapter by lazy {
-        getProductCardViewAdapter(
-            this,
-            ::onProductsCardClick
+        CompositeDelegateAdapter(
+            ProductCardViewAdapter(
+                this,
+                ::onProductsCardClick,
+                true
+            )
         )
     }
 
@@ -44,7 +50,11 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
         }
 
         binding.tvBasketAlwaysUsefulAllProducts.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Всегда пригодится"
+                )
+            )
         }
 
         binding.rvBasketAlwaysUseful.adapter = productsWatchedRecentlyAdapter

@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.ConfirmationCodeModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -22,11 +22,11 @@ import javax.inject.Inject
 class PersonalDataMailViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
-    messageNoticeService: IMessageNoticeService,
+    messageService: IMessageService,
     navigationManager: NavigationManager,
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
     /**
      * Возвращает или устанавливает адрес почты.

@@ -68,7 +68,9 @@ include(":modules:main:5_menu:orders")
 
 
 
-
+//Модуль 'Листинг'.
+include(":modules:features:listing:feature")
+include(":modules:features:listing:api")
 
 //Модуль 'Выбор города'.
 include(":modules:features:choosing_city:feature")

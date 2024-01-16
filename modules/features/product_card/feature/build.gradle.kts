@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":components"))
     implementation(project(":modules:features:product_card:api"))
     implementation(project(":modules:features:pharmacies_map:api"))
+    implementation(project(":modules:features:listing:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)

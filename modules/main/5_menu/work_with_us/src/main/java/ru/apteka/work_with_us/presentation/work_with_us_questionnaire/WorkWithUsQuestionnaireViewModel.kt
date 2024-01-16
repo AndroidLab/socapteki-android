@@ -10,7 +10,7 @@ import ru.apteka.components.data.models.PhoneInputModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -19,7 +19,6 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 
@@ -33,10 +32,10 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
     private val accountsPreferences: AccountsPreferences,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

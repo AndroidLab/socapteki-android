@@ -16,7 +16,7 @@ import ru.apteka.components.data.models.PersonalData
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.MessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -46,10 +46,10 @@ class MakingOrderViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,
-    messageNoticeService: MessageNoticeService
+    messageService: MessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     //

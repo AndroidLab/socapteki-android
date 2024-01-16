@@ -1,12 +1,10 @@
 package ru.apteka.main.presentation.main
 
-import android.util.Log
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.apteka.catalog.presentation.catalog.CatalogFragmentDirections
-import ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
@@ -39,12 +37,10 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
             navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
         }
 
-
-
         navigationManager.showSearchProduct = {
             fun navigateToSearch() {
                 navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
-                    CatalogFragmentDirections.toCatalogProductsFragment(CatalogProductsFragment.SEARCH_MODE)
+                    CatalogFragmentDirections.toCatalogProductsFragment()
                 )
             }
 

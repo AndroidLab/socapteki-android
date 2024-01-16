@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.data.utils.launchIO
@@ -33,10 +33,10 @@ class OrderDetailsViewModel @Inject constructor(
     private val ordersRepository: OrdersRepository,
     private val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     /**

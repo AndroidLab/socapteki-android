@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":modules:features:favorites:feature"))
     implementation(project(":modules:features:feedback:feature"))
     implementation(project(":modules:features:barcode_scanner:feature"))
+    implementation(project(":modules:features:listing:feature"))
 
     //Google & Android
     implementation(libs.coreKtx)

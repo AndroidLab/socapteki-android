@@ -1,34 +1,20 @@
 package ru.apteka.profile.presentation.profile_personal_data
 
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.map
 import ru.apteka.components.data.models.PersonalData
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.DownTimer
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
-import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.profile.R
 import ru.apteka.profile.data.models.SexModel
-import ru.tinkoff.decoro.MaskImpl
-import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
-import ru.tinkoff.decoro.slots.PredefinedSlots
-import ru.tinkoff.decoro.slots.Slot
-import ru.tinkoff.decoro.watchers.MaskFormatWatcher
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 
@@ -39,12 +25,12 @@ import javax.inject.Inject
 class PersonalDataViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
-    messageNoticeService: IMessageNoticeService,
+    messageService: IMessageService,
     navigationManager: NavigationManager,
     accountsPreferences: AccountsPreferences
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
     private val personalData = MutableLiveData<PersonalData?>(null)
 

@@ -10,7 +10,7 @@ import ru.apteka.brands.data.model.BrandModel
 import ru.apteka.brands.data.model.LettersCardModel
 import ru.apteka.brands.data.model.LettersItemModel
 import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.message_notice_service.IMessageNoticeService
+import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
@@ -25,10 +25,10 @@ import javax.inject.Inject
 class LettersPageViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     navigationManager: NavigationManager,
-    messageNoticeService: IMessageNoticeService
+    messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
-    messageNoticeService
+    messageService
 ) {
 
     private val fakeBrands = listOf(

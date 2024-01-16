@@ -11,13 +11,14 @@ import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.dp
-import ru.apteka.components.data.utils.getProductCardViewAdapter
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.screenHeight
 import ru.apteka.components.data.utils.setVisibleWithInteractionEnabled
 import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BaseFragment
+import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card.R
@@ -25,7 +26,8 @@ import ru.apteka.product_card.databinding.ProductCardFragmentBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import kotlin.math.abs
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.pharmacies_map_api.R as pharmaciesMapApiR
+import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
+import ru.apteka.listing_api.R as ListingApiR
 
 
 /**
@@ -45,9 +47,12 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
     }
 
     private val analoguesProductsAdapter by lazy {
-        getProductCardViewAdapter(
-            this,
-            ::onProductsCardClick,
+        CompositeDelegateAdapter(
+            ProductCardViewAdapter(
+                this,
+                ::onProductsCardClick,
+                true
+            )
         )
     }
 
@@ -72,13 +77,13 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 if (!isScrollSelect) {
                     when (tab?.position) {
                         0 -> binding.nsvProductCard.smoothScrollTo(
-                            binding.productCardDesc.x.toInt(),
-                            binding.productCardDesc.y.toInt() - binding.productCardTabs.height
+                            binding.productCardPrice.x.toInt(),
+                            binding.productCardPrice.y.toInt() - binding.productCardTabs.height
                         )
 
                         1 -> binding.nsvProductCard.smoothScrollTo(
-                            binding.productCardPrice.x.toInt(),
-                            binding.productCardPrice.y.toInt() - binding.productCardTabs.height
+                            binding.productCardDesc.x.toInt(),
+                            binding.productCardDesc.y.toInt() - binding.productCardTabs.height
                         )
 
                         2 -> binding.nsvProductCard.smoothScrollTo(
@@ -105,24 +110,25 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         })
 
         binding.nsvProductCard.setOnScrollChangeListener { view, i, i2, i3, i4 ->
-            if (i2 > binding.productCardDesc1.y && binding.productCardTabs.visibility == View.INVISIBLE) {
+            if (i2 > binding.productCardPrice.y && binding.productCardTabs.visibility == View.INVISIBLE) {
                 tabsAnimatorShow.start()
             }
-            if (i2 < binding.productCardReleaseForm.y && binding.productCardTabs.visibility == View.VISIBLE) {
+
+            if (i2 < binding.productCardDesc.y && binding.productCardTabs.visibility == View.VISIBLE) {
                 binding.productCardTabs.translationY = -binding.productCardTabs.height / 2f
                 binding.productCardTabs.setVisibleWithInteractionEnabled(false)
             }
 
 
             val scrollLayoutOffsetTriggerPoint = i2 + screenHeight / 3
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.productCardPrice.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.productCardDesc.y) {
                 if (!binding.productCardTabs.getTabAt(0)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(0)?.select()
                 }
             }
 
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.clProductCardAnalogues.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.clProductCardAnalogues.y) {
                 if (!binding.productCardTabs.getTabAt(1)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(1)?.select()
@@ -154,14 +160,14 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.productCardPharmaciesLocation1.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
         }
         binding.productCardPharmaciesLocation2.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                pharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
@@ -185,7 +191,11 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
 
         binding.tvProductCardAnaloguesAll.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Аналоги лекарства"
+                )
+            )
         }
 
 
@@ -206,7 +216,11 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.tvWithProductAll.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "С этим товаром покупают"
+                )
+            )
         }
 
         binding.tvProductCardSendComment.setOnClickListener {
