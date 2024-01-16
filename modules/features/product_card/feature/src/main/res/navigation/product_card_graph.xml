@@ -8,8 +8,21 @@
 
     <fragment
         android:id="@+id/productCardFragment"
-        android:name="ru.apteka.product_card.presentation.ProductCardFragment"
-        tools:layout="@layout/product_card_fragment">
+        android:name="ru.apteka.product_card.presentation.product_card.ProductCardFragment">
+
+        <argument
+            android:name="product"
+            app:argType="ru.apteka.components.data.models.ProductModel" />
+
+        <action
+            android:id="@+id/toProductCardWriteReviewFragment"
+            app:destination="@id/productCardWriteReviewFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/productCardWriteReviewFragment"
+        android:name="ru.apteka.product_card.presentation.product_card_write_review.WriteReviewFragment">
 
         <argument
             android:name="product"

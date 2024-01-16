@@ -1,4 +1,4 @@
-package ru.apteka.product_card.presentation
+package ru.apteka.product_card.presentation.product_card
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

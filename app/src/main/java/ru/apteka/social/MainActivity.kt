@@ -415,7 +415,7 @@ class MainActivity : AppCompatActivity() {
                                         fragmentManager = supportFragmentManager,
                                         dialogModel = DialogModel(
                                             bodyContent = BodyContentModel(
-                                                layoutId = ru.apteka.main.R.layout.rate_dialog
+                                                layoutId = R.layout.rate_dialog
                                             ) { dialog, binding -> },
                                             buttonCancel = DialogButtonModel(
                                                 text = ru.apteka.main.R.string.rate_app_cancel

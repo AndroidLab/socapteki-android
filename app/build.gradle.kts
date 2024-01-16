@@ -53,4 +53,5 @@ dependencies {
     implementation(libs.mapsMobile)
     implementation(libs.measured)
     implementation(libs.glideGlide)
+    implementation(libs.andRatingBar)
 }

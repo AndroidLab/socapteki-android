@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.product_card.presentation.product_card_write_review.WriteReviewViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flWriteReview"
+            android:layout_below="@id/writeReviewToolbar"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/writeReviewProductImage"
+                    layout="@layout/image_card"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="16dp"
+                    app:imageUrl="@{viewModel.product.image}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.title}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/writeReviewProductImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/writeReviewProductImage"
+                    app:layout_constraintTop_toTopOf="@id/writeReviewProductImage" />
+
+                <!-- Рейтинг -->
+                <include
+                    android:id="@+id/writeReviewProductRate"
+                    layout="@layout/icon_value_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    app:icon="@{@drawable/ic_star}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductImage"
+                    app:value="@{`4.7`}" />
+
+                <!-- Комментрии -->
+                <include
+                    layout="@layout/icon_value_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    app:icon="@{@drawable/ic_comment}"
+                    app:layout_constraintStart_toEndOf="@id/writeReviewProductRate"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductImage"
+                    app:value="@{`147`}" />
+
+                <include
+                    android:id="@+id/writeReviewProductSeparator"
+                    layout="@layout/separator_view"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductRate"
+                    app:sepMarginTop="@{16}" />
+
+                <TextView
+                    android:id="@+id/writeReviewProductEvaluation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/write_review_evaluation"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductSeparator" />
+
+                <per.wsj.library.AndRatingBar
+                    android:id="@+id/writeReviewProductRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:numStars="5"
+                    android:rating="@={viewModel.rating}"
+                    android:stepSize="1"
+                    app:bgColor="@color/gold"
+                    app:bgDrawable="@drawable/ic_star_outline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductEvaluation"
+                    app:starColor="@color/gold"
+                    app:starDrawable="@drawable/ic_star_filled"
+                    app:starSpacing="16dp" />
+
+                <!-- ФИО -->
+                <com.alab.input_layout_inner_hint.TextInputLayout
+                    android:id="@+id/writeReviewProductFio"
+                    style="@style/TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:enabled="@{!viewModel.isLoading}"
+                    android:hint="@string/fio"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductRating"
+                    app:startIconDrawable="@drawable/ic_fio">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/text_input_white_background_unfocused_shape"
+                        android:maxLength="64"
+                        android:maxLines="1"
+                        android:text="@={viewModel.fio}" />
+
+                </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                <!-- Майл -->
+                <com.alab.input_layout_inner_hint.TextInputLayout
+                    android:id="@+id/writeReviewProductMail"
+                    style="@style/TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:enabled="@{!viewModel.isLoading}"
+                    android:hint="@string/mail"
+                    app:errorText="@{viewModel.isMailValid == null ? `` : context.getString(viewModel.isMailValid)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductFio"
+                    app:startIconDrawable="@drawable/ic_mail">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/text_input_white_background_unfocused_shape"
+                        android:maxLength="64"
+                        android:maxLines="1"
+                        android:text="@={viewModel.mail}" />
+
+                </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                <!-- Ваш отзыв -->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/edit_text_shape"
+                    android:gravity="top"
+                    android:enabled="@{!viewModel.isLoading}"
+                    android:hint="@string/write_review_comment"
+                    android:padding="16dp"
+                    android:text="@={viewModel.comment}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductMail" />
+
+                <include
+                    layout="@layout/progress_bar"
+                    app:isLoading="@{viewModel.isLoading}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <include
+            android:id="@+id/writeReviewToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flWriteReview" />
+
+        <!-- Кнопка -->
+        <FrameLayout
+            android:id="@+id/flWriteReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:enabled="@{viewModel.canSendReview}"
+                android:onClick="@{() -> viewModel.sendReview()}"
+                android:text="@string/send" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

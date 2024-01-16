@@ -1,4 +1,4 @@
-package ru.apteka.product_card.presentation
+package ru.apteka.product_card.presentation.product_card
 
 
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter

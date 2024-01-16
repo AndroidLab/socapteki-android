@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.product_card.presentation.ProductCardViewModel" />
+            type="ru.apteka.product_card.presentation.product_card.ProductCardViewModel" />
 
         <variable
             name="fragment"
-            type="ru.apteka.product_card.presentation.ProductCardFragment" />
+            type="ru.apteka.product_card.presentation.product_card.ProductCardFragment" />
 
     </data>
 

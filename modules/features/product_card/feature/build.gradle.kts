@@ -23,4 +23,5 @@ dependencies {
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.lottie)
     implementation(libs.expansionpanel)
+    implementation(libs.andRatingBar)
 }

@@ -1,8 +1,7 @@
-package ru.apteka.product_card.presentation
+package ru.apteka.product_card.presentation.product_card
 
 import android.animation.ValueAnimator
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
@@ -215,7 +214,9 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.btnProductCardSendComment.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ProductCardFragmentDirections.toProductCardWriteReviewFragment(_args.product)
+            )
         }
 
         viewModel.product.observe(viewLifecycleOwner) {
