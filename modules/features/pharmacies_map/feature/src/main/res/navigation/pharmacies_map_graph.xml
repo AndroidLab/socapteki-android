@@ -12,10 +12,6 @@
         android:label="@string/pharmacies_map_title"
         tools:layout="@layout/pharmacies_map_fragment">
 
-        <argument
-            android:name="typeInteraction"
-            app:argType="ru.apteka.pharmacies_map_api.api.TypeInteraction" />
-
     </fragment>
 
 </navigation>

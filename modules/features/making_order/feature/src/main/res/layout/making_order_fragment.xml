@@ -33,117 +33,117 @@
                 android:orientation="vertical">
 
                 <!-- Ваш заказ -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <com.github.florent37.expansionpanel.ExpansionHeader
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:padding="16dp"
+                        app:expansionChangeColor="@{true}"
+                        app:expansion_headerIndicator="@id/headerIndicator"
+                        app:expansion_layout="@id/expansionLayout">
 
-                        <com.github.florent37.expansionpanel.ExpansionHeader
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            app:expansionChangeColor="@{true}"
-                            app:expansion_headerIndicator="@id/headerIndicator"
-                            app:expansion_layout="@id/expansionLayout">
+                            android:tag="title"
+                            android:text="@string/making_order_your_order"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/headerIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
+
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/expansionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expansion_expanded="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:forItems="@{viewModel.productsForOrder}"
+                            app:useTemplate="@{@layout/making_order_template}" />
+
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+                </LinearLayout>
+
+                <!-- Добавьте 2,3,4 товара -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <com.github.florent37.expansionpanel.ExpansionHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:expansion_headerIndicator="@id/headerIndicator1"
+                        app:expansion_layout="@id/expansionLayout1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/shape_circle_surface_variant_icon"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/ic_list_percent"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:tag="title"
-                                android:text="@string/making_order_your_order"
-                                android:textStyle="bold" />
+                                android:layout_marginHorizontal="16dp"
+                                android:text="Добавьте 2-3-4 товара, участвующих в акции, чтобы получить скидку 1 000 ₽" />
 
-                            <ImageView
-                                android:id="@+id/headerIndicator"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:src="@drawable/ic_arrow_expand"
-                                tools:ignore="ContentDescription" />
+                        </LinearLayout>
 
-                        </com.github.florent37.expansionpanel.ExpansionHeader>
-
-                        <com.github.florent37.expansionpanel.ExpansionLayout
-                            android:id="@+id/expansionLayout"
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/headerIndicator1"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:expansion_expanded="false">
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_expand"
+                            tools:ignore="ContentDescription" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:forItems="@{viewModel.productsForOrder}"
-                                app:useTemplate="@{@layout/making_order_template}" />
+                    </com.github.florent37.expansionpanel.ExpansionHeader>
 
-                        </com.github.florent37.expansionpanel.ExpansionLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Добавьте 2,3,4 товара -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
+                    <com.github.florent37.expansionpanel.ExpansionLayout
+                        android:id="@+id/expansionLayout1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="8dp">
+                        app:expansion_expanded="false">
 
-                        <com.github.florent37.expansionpanel.ExpansionHeader
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            app:expansion_headerIndicator="@id/headerIndicator1"
-                            app:expansion_layout="@id/expansionLayout1">
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:background="@drawable/shape_circle_surface_variant_icon"
-                                    android:scaleType="centerInside"
-                                    android:src="@drawable/ic_list_percent"
-                                    tools:ignore="ContentDescription" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="16dp"
-                                    android:text="Добавьте 2-3-4 товара, участвующих в акции, чтобы получить скидку 1 000 ₽" />
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/headerIndicator1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end|center_vertical"
-                                android:src="@drawable/ic_arrow_expand"
-                                tools:ignore="ContentDescription" />
-
-                        </com.github.florent37.expansionpanel.ExpansionHeader>
-
-                        <com.github.florent37.expansionpanel.ExpansionLayout
-                            android:id="@+id/expansionLayout1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:expansion_expanded="false">
+                            <include
+                                layout="@layout/separator_view"
+                                app:sepMarginEnd="@{16}"
+                                app:sepMarginStart="@{16}" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -155,652 +155,620 @@
                                 app:forItems="@{viewModel.additionalProducts}"
                                 app:useTemplate="@{@layout/making_order_additional_products_template}" />
 
-                        </com.github.florent37.expansionpanel.ExpansionLayout>
+                        </LinearLayout>
 
-                    </LinearLayout>
+                    </com.github.florent37.expansionpanel.ExpansionLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
 
                 <!-- Способы доставки -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp"
                     app:visibleIf="@{viewModel.deliveryMethods.mediator}">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:orientation="vertical">
+                        android:text="@string/making_order_shipping_methods"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/making_order_shipping_methods"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <!-- Забрать из аптеки -->
-                        <com.google.android.material.card.MaterialCardView
-                            style="@style/Theme.Socapteki.BackgroundCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:onClick="@{() -> viewModel.deliveryMethods.pickPharmacy.onItemClick()}"
-                            app:cardBackgroundColor="@color/light_grey">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="8dp">
-
-                                <RadioButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:checked="@{viewModel.selectedPharmacy != null &amp; viewModel.deliveryMethods.pickPharmacy.isItemSelected}"
-                                    android:clickable="false" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-                                    <!-- Заголовок -->
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/making_order_shipping_methods_pick_pharmacy_title"
-                                        android:textColor="@{viewModel.selectedPharmacy == null ? @color/dark_black : @color/light_black}"
-                                        app:extraTextSize="@{viewModel.selectedPharmacy == null ? 16 : 12}" />
-                                    <!-- Описание -->
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/making_order_shipping_methods_pick_pharmacy_desc"
-                                        android:textColor="@color/light_black"
-                                        app:visibleIf="@{viewModel.selectedPharmacy == null}" />
-                                    <!-- Название аптеки -->
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="@{viewModel.selectedPharmacy.name}"
-                                        android:textColor="@color/dark_black"
-                                        android:textSize="16sp"
-                                        app:visibleIf="@{viewModel.selectedPharmacy.name != null}" />
-                                    <!-- Адресс аптеки -->
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="@{viewModel.selectedPharmacy.address}"
-                                        android:textColor="@color/light_black"
-                                        app:visibleIf="@{viewModel.selectedPharmacy.address != null}" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <!-- Яндекс доставка -->
-                        <include
-                            android:id="@+id/makingOrderShipping"
-                            layout="@layout/making_order_delivery_methods_view"
-                            app:model="@{(IItemDelivery)viewModel.deliveryMethods.yandexDelivery}" />
-
-                        <!-- Курьерская доставка -->
-                        <include
-                            layout="@layout/making_order_delivery_methods_view"
-                            app:model="@{(IItemDelivery)viewModel.deliveryMethods.courierDelivery}" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <!-- Блок выбора оплаты -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
+                    <!-- Забрать из аптеки -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/making_order_payments_methods"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <!-- Оплата в аптеке при получении -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:orientation="vertical"
-                            app:forItems="@{viewModel.paymentsMethods.items}"
-                            app:useTemplate="@{@layout/making_order_payments_methods_template}"
-                            app:visibleIf="@{viewModel.paymentsMethods.mediator}" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <!-- Блок личных данных -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginTop="16dp"
+                        android:onClick="@{() -> viewModel.deliveryMethods.pickPharmacy.onItemClick()}"
+                        app:cardBackgroundColor="@color/light_grey">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="8dp">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="16dp"
-                                android:text="@string/making_order_personal_data"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <FrameLayout
+                            <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical">
-
-                                <TextView
-                                    android:id="@+id/makingOrderPersonalData"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="?attr/selectableItemBackgroundBorderless"
-                                    android:padding="16dp"
-                                    android:textColor="@color/color_primary"
-                                    app:extraText="@{viewModel.personalData == null ? @string/add : @string/change}"
-                                    app:visibleIf="@{!viewModel.isPersonalDataLoading}" />
-
-                                <ProgressBar
-                                    style="@style/Theme.Socapteki.ProgressBar"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginEnd="16dp"
-                                    android:indeterminateOnly="true"
-                                    app:visibleIf="@{viewModel.isPersonalDataLoading}" />
-
-                            </FrameLayout>
-
-                        </LinearLayout>
-
-                        <com.google.android.material.card.MaterialCardView
-                            style="@style/Theme.Socapteki.BackgroundCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            app:cardBackgroundColor="@color/light_grey"
-                            app:visibleIf="@{viewModel.personalData != null}">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/fio"
-                                    android:textColor="@color/light_black" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{viewModel.personalData.fio}"
-                                    android:textColor="@color/dark_black"
-                                    android:textSize="16sp" />
-
-                                <include
-                                    layout="@layout/separator_view"
-                                    app:sepMarginBottom="@{16}"
-                                    app:sepMarginTop="@{16}" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/telephone"
-                                    android:textColor="@color/light_black" />
-
-                                <TextView
-                                    android:id="@+id/tvMakingOrderPhone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{viewModel.personalData.phone}"
-                                    android:textColor="@color/dark_black"
-                                    android:textSize="16sp" />
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Блок получателей -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="16dp"
-                                android:text="@string/making_order_recipients"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/makingOrderRecipients"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:padding="16dp"
-                                android:textColor="@color/color_primary"
-                                app:extraText="@{viewModel.personalData == null ? @string/add : @string/change}"
-                                app:visibleIf="@{!viewModel.isPersonalDataLoading}" />
-
-                        </LinearLayout>
-
-                        <com.google.android.material.card.MaterialCardView
-                            style="@style/Theme.Socapteki.BackgroundCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            app:cardBackgroundColor="@color/light_grey">
+                                android:checked="@{viewModel.selectedPharmacy != null &amp; viewModel.deliveryMethods.pickPharmacy.isItemSelected}"
+                                android:clickable="false" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
-
-                                <com.google.android.material.checkbox.MaterialCheckBox
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="8dp"
-                                    android:enabled="@{viewModel.personalData != null}"
-                                    android:text="@string/making_order_recipient_same_buyer"
-                                    app:onCheckedChangeListener="@{(view, b) -> viewModel.setRecipientSameBuyer(b)}" />
-
+                                <!-- Заголовок -->
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="16dp"
-                                    android:text="@string/recipients"
-                                    android:textColor="@color/light_black"
-                                    app:visibleIf="@{!viewModel.recipients.empty}" />
-
-                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:animateLayoutChanges="true"
-                                    android:orientation="vertical"
-                                    android:paddingHorizontal="16dp"
-                                    app:forItems="@{viewModel.recipients}"
-                                    app:extraPaddingBottom="@{viewModel.recipients.empty ? 0 : 16}"
-                                    app:useTemplate="@{@layout/making_order_recipient_template}" />
+                                    android:text="@string/making_order_shipping_methods_pick_pharmacy_title"
+                                    android:textColor="@{viewModel.selectedPharmacy == null ? @color/dark_black : @color/light_black}"
+                                    app:extraTextSize="@{viewModel.selectedPharmacy == null ? 16 : 12}" />
+                                <!-- Описание -->
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/making_order_shipping_methods_pick_pharmacy_desc"
+                                    android:textColor="@color/light_black"
+                                    app:visibleIf="@{viewModel.selectedPharmacy == null}" />
+                                <!-- Название аптеки -->
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.selectedPharmacy.name}"
+                                    android:textColor="@color/dark_black"
+                                    android:textSize="16sp"
+                                    app:visibleIf="@{viewModel.selectedPharmacy.name != null}" />
+                                <!-- Адресс аптеки -->
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.selectedPharmacy.address}"
+                                    android:textColor="@color/light_black"
+                                    app:visibleIf="@{viewModel.selectedPharmacy.address != null}" />
 
                             </LinearLayout>
 
-                        </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
 
-                    </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                </com.google.android.material.card.MaterialCardView>
+                    <!-- Яндекс доставка -->
+                    <include
+                        android:id="@+id/makingOrderShipping"
+                        layout="@layout/making_order_delivery_methods_view"
+                        app:model="@{(IItemDelivery)viewModel.deliveryMethods.yandexDelivery}" />
 
-                <!-- Блок итоговой стоимости -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
+                    <!-- Курьерская доставка -->
+                    <include
+                        layout="@layout/making_order_delivery_methods_view"
+                        app:model="@{(IItemDelivery)viewModel.deliveryMethods.courierDelivery}" />
+
+                </LinearLayout>
+
+
+                <!-- Блок выбора оплаты -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/making_order_payments_methods"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!-- Оплата в аптеке при получении -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:forItems="@{viewModel.paymentsMethods.items}"
+                        app:useTemplate="@{@layout/making_order_payments_methods_template}"
+                        app:visibleIf="@{viewModel.paymentsMethods.mediator}" />
+
+                </LinearLayout>
+
+
+                <!-- Блок личных данных -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/making_order_personal_data"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/fio"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.fio}"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/etMakingOrderPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/phone_number"
+                        android:inputType="phone"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:text="@={viewModel.number}"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/mail"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:text="@={viewModel.mail}"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/comment"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:text="@={viewModel.comment}"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+
+                <!-- Блок получателей -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/makingOrderRecipientsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/making_order_recipients"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/makingOrderRecipientsAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp"
+                        android:textColor="@color/color_primary"
+                        app:extraText="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10 ? @string/add : @string/change}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cbMakingOrderRecipientSameBuyer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:enabled="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10}"
+                        android:text="@string/making_order_recipient_same_buyer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/makingOrderRecipientsTitle"
+                        app:onCheckedChangeListener="@{(view, b) -> viewModel.setRecipientSameBuyer(b)}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginTop="8dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        app:extraPaddingBottom="@{viewModel.recipients.empty ? 0 : 16}"
+                        app:forItems="@{viewModel.recipients}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cbMakingOrderRecipientSameBuyer"
+                        app:useTemplate="@{@layout/making_order_recipient_template}" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_paid"
-                                android:textSize="20sp" />
+                <!-- Блок итоговой стоимости -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:text="2200 ₽"
-                                android:textSize="20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        </LinearLayout>
-
-                        <include layout="@layout/separator_view" />
-
-
-                        <!-- Промо код -->
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
-                            android:textColor="@color/light_black"
-                            app:extraText='@{"Скидка 1000 ₽ по промокоду &lt;font color=\"#00A95D\">«Health»&lt;/font>"}'
-                            app:isHtml="@{true}" />
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_paid"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <FrameLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1">
-
-                                <com.alab.input_layout_inner_hint.TextInputLayout
-                                    style="@style/TextInputLayout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:layout_marginEnd="8dp"
-                                    android:enabled="@{!viewModel.isPromoCodeApplyLoading}"
-                                    android:hint="@string/making_order_price_promo_code"
-                                    app:endIconMode="@{viewModel.isPromoCodeApplyLoading ? 0 : 2}">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/etMakingOrderPromoCode"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/text_input_white_background_unfocused_shape"
-                                        android:lines="1"
-                                        android:maxLength="64"
-                                        android:text="@={viewModel.promoCodeValue}" />
-
-                                </com.alab.input_layout_inner_hint.TextInputLayout>
-
-                                <ProgressBar
-                                    style="@style/Theme.Socapteki.ProgressBar"
-                                    android:layout_width="26dp"
-                                    android:layout_height="26dp"
-                                    android:layout_gravity="end|center_vertical"
-                                    android:layout_marginEnd="17dp"
-                                    android:indeterminateOnly="true"
-                                    app:visibleIf="@{viewModel.isPromoCodeApplyLoading}" />
-
-                            </FrameLayout>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginEnd="16dp"
-                                android:enabled="@{!viewModel.promoCodeValue.empty &amp; !viewModel.isPromoCodeApplyLoading}"
-                                android:onClick="@{() -> viewModel.applyPromoCode()}"
-                                android:text="@string/apply" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginTop="@{16}" />
-
-                        <!-- Бонусы -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="16dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_bonus"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="360 бонусов"
-                                android:textColor="@color/color_primary"
-                                android:textSize="16sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <FrameLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1">
-
-                                <com.alab.input_layout_inner_hint.TextInputLayout
-                                    style="@style/TextInputLayout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:layout_marginEnd="8dp"
-                                    android:enabled="@{!viewModel.isBonusesApplyLoading()}"
-                                    android:hint="@string/making_order_price_bonus_hint"
-                                    app:endIconMode="@{viewModel.isPromoCodeApplyLoading ? 0 : 2}">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/etMakingOrderBonus"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/text_input_white_background_unfocused_shape"
-                                        android:lines="1"
-                                        android:maxLength="64"
-                                        android:text="@={viewModel.bonusesValue}" />
-
-                                </com.alab.input_layout_inner_hint.TextInputLayout>
-
-                                <ProgressBar
-                                    style="@style/Theme.Socapteki.ProgressBar"
-                                    android:layout_width="26dp"
-                                    android:layout_height="26dp"
-                                    android:layout_gravity="end|center_vertical"
-                                    android:layout_marginEnd="17dp"
-                                    android:indeterminateOnly="true"
-                                    app:visibleIf="@{viewModel.isBonusesApplyLoading()}" />
-
-                            </FrameLayout>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginEnd="16dp"
-                                android:enabled="@{!viewModel.bonusesValue.empty &amp; !viewModel.isBonusesApplyLoading()}"
-                                android:onClick="@{() -> viewModel.applyBonuses()}"
-                                android:text="@string/apply" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginTop="@{16}" />
-
-                        <!-- Итого -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16sp"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_total"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:text="2 200 ₽"
-                                android:textSize="18sp" />
-
-                        </LinearLayout>
-
-                        <include layout="@layout/separator_view" />
-
-                        <!-- Скидка -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_discount"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:text="-1 000 ₽"
-                                android:textColor="@color/red"
-                                android:textSize="16sp" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginEnd="@{16}"
-                            app:sepMarginStart="@{16}" />
-
-                        <!-- Доставка -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_delivery"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:text="99 ₽"
-                                android:textColor="@color/light_black"
-                                android:textSize="18sp" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginEnd="@{16}"
-                            app:sepMarginStart="@{16}" />
-
-                        <!-- Начисление бонусов -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/making_order_price_accrual_bonuses"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
-                                android:text="+70 бонусов"
-                                android:textColor="@color/color_primary"
-                                android:textSize="18sp" />
-
-                        </LinearLayout>
-
-                        <include
-                            layout="@layout/separator_view"
-                            app:sepMarginEnd="@{16}"
-                            app:sepMarginStart="@{16}" />
-
-                        <com.google.android.material.checkbox.MaterialCheckBox
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="8dp"
-                            android:checked="@{viewModel.electronicReceipt}"
-                            android:text="@string/making_order_price_electronic_receipt" />
-
+                            android:layout_margin="16dp"
+                            android:text="2200 ₽"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                    <include layout="@layout/separator_view" />
+
+                    <!-- Промо код -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:textColor="@color/light_black"
+                        app:extraText='@{"Скидка 1000 ₽ по промокоду &lt;font color=\"#00A95D\">«Health»&lt;/font>"}'
+                        app:isHtml="@{true}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.alab.input_layout_inner_hint.TextInputLayout
+                                style="@style/TextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:enabled="@{!viewModel.isPromoCodeApplyLoading}"
+                                android:hint="@string/making_order_price_promo_code"
+                                app:endIconMode="@{viewModel.isPromoCodeApplyLoading ? 0 : 2}">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etMakingOrderPromoCode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                                    android:lines="1"
+                                    android:maxLength="64"
+                                    android:text="@={viewModel.promoCodeValue}" />
+
+                            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                            <ProgressBar
+                                style="@style/Theme.Socapteki.ProgressBar"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="17dp"
+                                android:indeterminateOnly="true"
+                                app:visibleIf="@{viewModel.isPromoCodeApplyLoading}" />
+
+                        </FrameLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:enabled="@{!viewModel.promoCodeValue.empty &amp; !viewModel.isPromoCodeApplyLoading}"
+                            android:onClick="@{() -> viewModel.applyPromoCode()}"
+                            android:text="@string/apply" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginTop="@{16}" />
+
+                    <!-- Бонусы -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_bonus"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="360 бонусов"
+                            android:textColor="@color/color_primary"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.alab.input_layout_inner_hint.TextInputLayout
+                                style="@style/TextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:enabled="@{!viewModel.isBonusesApplyLoading()}"
+                                android:hint="@string/making_order_price_bonus_hint"
+                                app:endIconMode="@{viewModel.isPromoCodeApplyLoading ? 0 : 2}">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etMakingOrderBonus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                                    android:lines="1"
+                                    android:maxLength="64"
+                                    android:text="@={viewModel.bonusesValue}" />
+
+                            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                            <ProgressBar
+                                style="@style/Theme.Socapteki.ProgressBar"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="17dp"
+                                android:indeterminateOnly="true"
+                                app:visibleIf="@{viewModel.isBonusesApplyLoading()}" />
+
+                        </FrameLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:enabled="@{!viewModel.bonusesValue.empty &amp; !viewModel.isBonusesApplyLoading()}"
+                            android:onClick="@{() -> viewModel.applyBonuses()}"
+                            android:text="@string/apply" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginTop="@{16}" />
+
+                    <!-- Итого -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16sp"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_total"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="2 200 ₽"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <include layout="@layout/separator_view" />
+
+                    <!-- Скидка -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_discount"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="-1 000 ₽"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Доставка -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_delivery"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="99 ₽"
+                            android:textColor="@color/light_black"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <!-- Начисление бонусов -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_price_accrual_bonuses"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="+70 бонусов"
+                            android:textColor="@color/color_primary"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/separator_view"
+                        app:sepMarginEnd="@{16}"
+                        app:sepMarginStart="@{16}" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/corners_variant_shape">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/cbMakingOrderElectronicReceipt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:checked="@{viewModel.electronicReceipt}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/makingOrderElectronicReceipt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/making_order_price_electronic_receipt"
+                            app:layout_constraintEnd_toStartOf="@+id/makingOrderElectronicReceiptInfo"
+                            app:layout_constraintStart_toEndOf="@id/cbMakingOrderElectronicReceipt"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/makingOrderElectronicReceiptDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="16dp"
+                            android:text="@string/making_order_price_electronic_receipt_desc"
+                            android:textColor="@color/light_black"
+                            app:layout_constraintEnd_toStartOf="@+id/makingOrderElectronicReceiptInfo"
+                            app:layout_constraintStart_toEndOf="@id/cbMakingOrderElectronicReceipt"
+                            app:layout_constraintTop_toBottomOf="@id/makingOrderElectronicReceipt" />
+
+                        <ImageView
+                            android:id="@+id/makingOrderElectronicReceiptInfo"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="8dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_question"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/makingOrderElectronicReceipt"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 

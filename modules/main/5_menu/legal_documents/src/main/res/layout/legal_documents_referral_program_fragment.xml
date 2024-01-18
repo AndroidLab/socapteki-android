@@ -33,14 +33,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/referral_program_conditions"
+                android:text="@string/legal_document_referral_program_conditions"
                 android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/referral_program_conditions_desc" />
+                android:text="@string/legal_document_referral_program_conditions_desc" />
 
         </LinearLayout>
 

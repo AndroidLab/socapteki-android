@@ -1,6 +1,7 @@
 package ru.apteka.components.data.models
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.util.UUID

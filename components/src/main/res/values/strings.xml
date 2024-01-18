@@ -38,6 +38,7 @@
     <string name="email">Электронная почта</string>
     <string name="enter">Войти</string>
     <string name="update">Обновить</string>
+    <string name="comment">Комментарий</string>
     <string name="all_products">Все товары</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>

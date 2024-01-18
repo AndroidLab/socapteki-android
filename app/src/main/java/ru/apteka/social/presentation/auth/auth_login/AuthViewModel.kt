@@ -43,7 +43,7 @@ class AuthViewModel @Inject constructor(
     val isPhoneBtnConfirmEnabled = MediatorLiveData<Boolean>().apply {
         fun checkFilledData() {
             postValue(
-                phoneInput.getPhoneRaw().length == 10 && isPrivacyPolicy.value!! && isAdvertNews.value!!
+                phoneInput.phoneRaw.length == 10 && isPrivacyPolicy.value!! && isAdvertNews.value!!
             )
         }
 

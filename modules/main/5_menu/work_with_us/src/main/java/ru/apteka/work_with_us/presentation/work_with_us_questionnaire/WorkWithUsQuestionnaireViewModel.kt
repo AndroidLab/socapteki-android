@@ -95,7 +95,7 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
     val isSendAccess = MediatorLiveData<Boolean>().apply {
         fun checkChange() {
             value = !isLoading.value!! && city.value!!.isNotEmpty() && validateEmail(email.value!!)
-                    && fio.value!!.isNotEmpty() && birthday.value!!.isNotEmpty() && phoneInput.getPhoneRaw().isNotEmpty()
+                    && fio.value!!.isNotEmpty() && birthday.value!!.isNotEmpty() && phoneInput.phoneRaw.isNotEmpty()
                     && email.value!!.isNotEmpty() && isPersonalDataChecked.value!!
         }
 

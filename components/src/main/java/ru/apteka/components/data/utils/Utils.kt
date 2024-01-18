@@ -29,6 +29,16 @@ fun validateEmail(email: String): Boolean {
 }
 
 /**
+ * Возвращает значение номера.
+ */
+fun getPhoneRaw(phone: String) =
+    phone.replace("+7", "")
+        .replace("(", "")
+        .replace(")", "")
+        .replace("-", "")
+        .replace(" ", "")
+
+/**
  * Возвращает span персональных данных.
  */
 fun getPersonalDataSpan(context: Context): SpannableString {

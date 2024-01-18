@@ -19,7 +19,10 @@ android {
         applicationId = "ru.apteka.social"
         versionCode = major * 10000 + minor * 100 + patch
         versionName = "${major}.${minor}.${patch}"
+
+        project.ext.set("archivesBaseName", "Apteki-${defaultConfig.versionName}")
     }
+
     buildFeatures {
         buildConfig = true
     }

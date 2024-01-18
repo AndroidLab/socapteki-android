@@ -86,7 +86,7 @@ class AuthFragment : BaseFragment<AuthViewModel, AuthFragmentBinding>() {
 
         binding.authConfirmPhone.setOnClickListener {
             findNavController().navigateWithAnim(
-                AuthFragmentDirections.toAuthConfirmFragment(viewModel.phoneInput.getPhoneRaw())
+                AuthFragmentDirections.toAuthConfirmFragment(viewModel.phoneInput.phoneRaw)
             )
         }
     }

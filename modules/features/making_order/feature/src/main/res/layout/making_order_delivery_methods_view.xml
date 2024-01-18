@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
                         android:text="@{model.price}"
-                        android:textColor="@color/light_black"
+                        android:textColor="@color/color_primary"
                         android:textSize="16sp" />
 
                 </LinearLayout>

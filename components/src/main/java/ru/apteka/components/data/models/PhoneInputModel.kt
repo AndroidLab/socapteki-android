@@ -3,6 +3,7 @@ package ru.apteka.components.data.models
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import ru.apteka.components.data.utils.getPhoneRaw
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.slots.Slot
@@ -21,12 +22,8 @@ class PhoneInputModel {
     /**
      * Возвращает номер телефона без маски.
      */
-    fun getPhoneRaw() = phone.value!!
-        .replace("+7", "")
-        .replace("(", "")
-        .replace(")", "")
-        .replace("-", "")
-        .replace(" ", "")
+    val phoneRaw
+        get() = getPhoneRaw(phone.value!!)
 
     companion object {
         /**

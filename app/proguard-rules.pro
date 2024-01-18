@@ -38,3 +38,12 @@
 
 -keep class com.google.gson.reflect.TypeToken { *; }
 -keep class * extends com.google.gson.reflect.TypeToken
+
+-keep class **$$Parcelable { *; }
+-keep class * implements android.os.Parcelable {
+   public static final android.os.Parcelable$Creator *;
+}
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+-keepnames class * extends java.io.Serializable

@@ -28,7 +28,7 @@ class LegalDocumentsReferralProgramFragment : BaseFragment<Nothing, LegalDocumen
         navigationManager.onBottomAppBarShowed(false)
         binding.referralProgramToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
-            tvToolbarTitle.text = getString(R.string.referral_program_title)
+            tvToolbarTitle.text = getString(R.string.legal_document_referral_program_title)
             toolbar.setNavigationOnClickListener {
                 navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

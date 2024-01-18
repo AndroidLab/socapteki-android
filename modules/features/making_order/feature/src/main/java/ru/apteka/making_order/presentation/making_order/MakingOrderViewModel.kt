@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.getPhoneRaw
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
@@ -165,16 +167,31 @@ class MakingOrderViewModel @Inject constructor(
 
 
     /**
-     * Возвращает или устанавливает персональные данные.
+     * Возвращает или устанавливает фио.
      */
-    val personalData = MutableLiveData<PersonalData?>(null)
-
-    private val _isPersonalDataLoading = MutableLiveData<Boolean>()
+    val fio = MutableLiveData("")
 
     /**
-     * Возвращает флаг загрузки персональных данных.
+     * Возвращает или устанавливает номер.
      */
-    val isPersonalDataLoading: LiveData<Boolean> = _isPersonalDataLoading
+    val number = MutableLiveData("")
+
+    /**
+     * Возвращает значение номера.
+     */
+    val rawNumber = number.map {
+        getPhoneRaw(it)
+    }
+
+    /**
+     * Возвращает или устанавливает майл.
+     */
+    val mail = MutableLiveData("")
+
+    /**
+     * Возвращает или устанавливает комментарий.
+     */
+    val comment = MutableLiveData("")
 
     /**
      * Возвращает флаг выбора самого себя в получатели.
@@ -191,8 +208,8 @@ class MakingOrderViewModel @Inject constructor(
      */
     fun setRecipientSameBuyer(b: Boolean) {
         val r = RecipientModel(
-            fio = personalData.value!!.fio,
-            phone = personalData.value!!.phone!!
+            fio = fio.value!!,
+            phone = number.value!!
         ).apply {
             onRemove = {
                 removeRecipientOrder(this)
@@ -313,7 +330,7 @@ class MakingOrderViewModel @Inject constructor(
     }
 
     init {
-        viewModelScope.launchIO {
+        /*viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = {
                     loginRepository.getPersonalData()
@@ -323,7 +340,7 @@ class MakingOrderViewModel @Inject constructor(
                 },
                 isLoading = _isPersonalDataLoading
             )
-        }
+        }*/
     }
 
 }

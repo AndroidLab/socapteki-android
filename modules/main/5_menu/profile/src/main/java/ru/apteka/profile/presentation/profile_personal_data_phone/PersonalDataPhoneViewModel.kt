@@ -40,7 +40,7 @@ class PersonalDataPhoneViewModel @Inject constructor(
      * Возвращает флаг изменения номер телефона.
      */
     val isPhoneNumberChanged = phoneInput.phone.map {
-        phoneInput.getPhoneRaw().length == 10 && phoneInput.getPhoneRaw() != accountsPreferences.account?.phoneNumber
+        phoneInput.phoneRaw.length == 10 && phoneInput.phoneRaw != accountsPreferences.account?.phoneNumber
     }
 
     /**
@@ -51,7 +51,7 @@ class PersonalDataPhoneViewModel @Inject constructor(
         requestHandler = requestHandler,
         scope = viewModelScope,
         getPhoneRaw = {
-            phoneInput.getPhoneRaw()
+            phoneInput.phoneRaw
         },
     )
 
@@ -63,7 +63,7 @@ class PersonalDataPhoneViewModel @Inject constructor(
             confirmationCode.confirmCode(
                 request = { code ->
                     loginRepository.savePersonalDataPhone(
-                        phoneInput.getPhoneRaw()
+                        phoneInput.phoneRaw
                     )
                 },
                 success = success

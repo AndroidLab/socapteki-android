@@ -12,7 +12,7 @@
     <string name="making_order_payments_methods_upon_receipt">Оплата в аптеке при получении</string>
     <string name="making_order_payments_methods_online">Онлайн</string>
     <string name="making_order_payments_methods_spb">Оплата СБП</string>
-    <string name="making_order_personal_data">Персональные данные</string>
+    <string name="making_order_personal_data">Указать личные данные</string>
     <string name="making_order_recipients">Получатели</string>
     <string name="making_order_recipient_same_buyer">Получатель совпадает с покупателем?</string>
     <string name="making_order_recipient_same_buyer_hint">Для выбора заполните личные данные</string>
@@ -24,7 +24,8 @@
     <string name="making_order_price_discount">Скидка</string>
     <string name="making_order_price_delivery">Доставка</string>
     <string name="making_order_price_accrual_bonuses">Начисление бонусов</string>
-    <string name="making_order_price_electronic_receipt">Получить электронный чек вместо бумажного</string>
+    <string name="making_order_price_electronic_receipt">Получать электронный чек вместо бумажного на e-mail</string>
+    <string name="making_order_price_electronic_receipt_desc">при оплате на кассе в аптеке, на сайте, в мобильном приложении</string>
     <string name="making_order_price_place_order">Оформить заказ</string>
 
     <string name="making_order_address_street_hint">Улица</string>
@@ -49,5 +50,15 @@
     <string name="making_order_completion_recipients">Получатели:</string>
     <string name="making_order_completion_pay">Оплата:</string>
     <string name="making_order_completion_back">Вернуться к покупкам</string>
+
+    <string name="making_order_electronic_receipt_info">
+        Электронный чек является аналогом бумажного чека и имеет ряд преимуществ:
+        \n- не нужно ждать, когда напечатается чек;
+        \n- всегда под рукой;
+        \n- нельзя потерять;
+        \n- уменьшает количество отходов.
+        \n
+        \nДавая согласие, вы будете получать все чеки на электронную почту. Для этого заполните и подтвердите вашу электронную почту.
+    </string>
 
 </resources>

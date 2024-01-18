@@ -31,7 +31,7 @@ class PersonalDataPhoneFragment :
             viewModel.savePersonalData {
                 setFragmentResult(
                     PERSONAL_DATA_PHONE_RESULT,
-                    bundleOf(PERSONAL_DATA_PHONE_RESULT_DATA to viewModel.phoneInput.getPhoneRaw())
+                    bundleOf(PERSONAL_DATA_PHONE_RESULT_DATA to viewModel.phoneInput.phoneRaw)
                 )
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }
