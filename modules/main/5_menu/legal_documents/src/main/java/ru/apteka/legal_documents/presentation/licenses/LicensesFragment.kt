@@ -13,10 +13,10 @@ import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.screenHeight
 import ru.apteka.components.ui.BaseFragment
-import ru.apteka.licenses.R
-import ru.apteka.licenses.databinding.LicensesFragmentBinding
-import ru.apteka.licenses.databinding.LicensesPdfBinding
-import ru.apteka.licenses.presentation.PdfAdapter
+import ru.apteka.legal_documents.R
+import ru.apteka.legal_documents.databinding.LicensesFragmentBinding
+import ru.apteka.legal_documents.databinding.LicensesPdfBinding
+import ru.apteka.legal_documents.presentation.PdfAdapter
 
 
 /**

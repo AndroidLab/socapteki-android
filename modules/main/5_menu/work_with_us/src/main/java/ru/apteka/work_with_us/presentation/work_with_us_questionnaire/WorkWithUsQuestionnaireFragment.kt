@@ -1,15 +1,8 @@
 package ru.apteka.work_with_us.presentation.work_with_us_questionnaire
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -19,7 +12,6 @@ import ru.apteka.components.data.services.message_notice_service.models.CommonDi
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
 import ru.apteka.components.data.utils.getPersonalDataSpan
 import ru.apteka.components.data.utils.setSoftInputModeAdjustPan
@@ -27,10 +19,6 @@ import ru.apteka.components.ui.BaseFragment
 import ru.apteka.work_with_us.R
 import ru.apteka.work_with_us.databinding.WorkWithUsQuestionnaireDialogSuccessBinding
 import ru.apteka.work_with_us.databinding.WorkWithUsQuestionnaireFragmentBinding
-import ru.tinkoff.decoro.MaskImpl
-import ru.tinkoff.decoro.slots.PredefinedSlots
-import ru.tinkoff.decoro.slots.Slot
-import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import java.util.Calendar
 import javax.inject.Inject
 

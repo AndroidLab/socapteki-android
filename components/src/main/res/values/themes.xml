@@ -16,7 +16,7 @@
         <item name="colorSecondaryVariant">@color/grey</item>-->
         <item name="colorOnSecondary">@color/dark_black</item>
         <item name="colorSecondaryContainer">@color/color_secondary_container</item>
-        <!--<item name="fontFamily">@font/manrope_extra_bold</item>-->
+        <item name="fontFamily">@font/manrope_regular</item>
     </style>
 
     <style name="Theme.Socapteki" parent="Base.Theme.Socapteki" />
@@ -140,6 +140,16 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">12dp</item>
         <item name="cornerSizeTopLeft">12dp</item>
+    </style>
+
+    <style name="Theme.Socapteki.SemiBold">
+        <item name="fontFamily">@font/manrope_semi_bold</item>
+        <item name="android:fontFamily">@font/manrope_semi_bold</item>
+    </style>
+
+    <style name="Theme.Socapteki.ManropeMedium">
+        <item name="fontFamily">@font/manrope_medium</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
 </resources>

@@ -68,9 +68,10 @@ class ProfileFragment : BaseFragment<Nothing, ProfileFragmentBinding>() {
         }
 
         binding.userProfileReferralProgram.llProfileMenuItem.setOnClickListener {
-
+            navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ProfileFragmentDirections.toNotificationsFragment()
+            )
         }
-
     }
 
     override fun onResume() {

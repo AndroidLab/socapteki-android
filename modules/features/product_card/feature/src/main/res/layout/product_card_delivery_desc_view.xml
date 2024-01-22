@@ -28,9 +28,10 @@
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@drawable/shape_circle_surface_variant_icon"
+            android:background="@drawable/shape_circle"
             android:padding="8dp"
             android:src="@{icon}"
+            app:backgroundTint="@color/color_surface_variant"
             tools:ignore="ContentDescription" />
 
         <LinearLayout

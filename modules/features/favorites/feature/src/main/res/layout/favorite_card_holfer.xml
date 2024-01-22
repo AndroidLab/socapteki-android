@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="ru.apteka.components.data.models.ProductCardModel" />
+            type="ru.apteka.favorites.data.model.FavoriteCardModel" />
 
     </data>
 
@@ -59,9 +59,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@{model.product.title}"
                         android:ellipsize="end"
                         android:maxLines="2"
+                        android:text="@{model.product.title}"
                         android:textStyle="bold" />
 
                     <!-- Описание -->
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@{model.product.desc}"
-                        app:visibleIf="@{model.product.desc != null}"/>
+                        app:visibleIf="@{model.product.desc != null}" />
 
                     <!-- Актуальная цена -->
                     <TextView
@@ -110,7 +110,7 @@
             <include
                 layout="@layout/separator_view"
                 app:sepMarginEnd="@{16}"
-                app:sepMarginStart="@{16}"/>
+                app:sepMarginStart="@{16}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,16 +119,25 @@
                 android:padding="8dp">
 
                 <!-- Сердечко -->
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                <FrameLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> model.favorite.onFavoriteClick.invoke(model)}"
-                    android:padding="8dp"
-                    android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                    app:imageTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
-                    tools:ignore="ContentDescription" />
+                    android:onClick="@{() -> model.onFavoriteClick.invoke(model.product)}">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_circle"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_favorite"
+                        app:backgroundTint="@color/pink"
+                        app:tint="@color/red"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
 
                 <View
                     android:layout_width="0dp"
@@ -137,11 +146,9 @@
 
                 <!-- Корзина -->
                 <include
-                    android:id="@+id/favoriteProductCardCounter"
                     layout="@layout/product_counter_view"
                     android:layout_width="140dp"
-                    android:layout_height="40dp"
-                    app:model="@{model.itemCounter}" />
+                    android:layout_height="40dp" />
 
             </LinearLayout>
 

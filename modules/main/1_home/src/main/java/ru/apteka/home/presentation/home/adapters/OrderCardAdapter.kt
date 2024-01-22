@@ -19,7 +19,7 @@ class OrderCardAdapter(private val onItemClick: (OrderModel) -> Unit) :
         isFirst: Boolean,
         isLast: Boolean
     ) {
-        val itemWidth = (screenWidth * .8).toInt()
+        val itemWidth = (screenWidth * .85).toInt()
 
         val lp = root.layoutParams as RecyclerView.LayoutParams
         lp.width = itemWidth

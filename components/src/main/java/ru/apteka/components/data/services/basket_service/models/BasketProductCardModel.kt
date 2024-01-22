@@ -15,7 +15,7 @@ data class BasketProductCardModel(
     val onShowRemoveDialog: (BasketProductCardModel) -> Unit
 ) {
     private val downTimer = DownTimer(
-        20, {
+        10, {
             _productLeftTime.value = it.let {
                 val minutes = it / 60
                 val seconds = it % 60
@@ -39,14 +39,14 @@ data class BasketProductCardModel(
      * Обработчик удаления продукта.
      */
     fun onProductRemove() {
-        downTimer.start()
+        downTimer.startTimer()
     }
 
     /**
      * Обработчик востановления продукта.
      */
     fun onProductRestore() {
-        downTimer.cancel()
+        downTimer.cancelTimer()
         _productLeftTime.value = null
     }
 }

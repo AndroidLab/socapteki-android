@@ -9,7 +9,7 @@
 
         <variable
             name="bindingItem"
-            type="ru.apteka.components.data.models.FilterChipModel" />
+            type="ru.apteka.listing.data.models.FilterChipModel" />
 
     </data>
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@{bindingItem.text}"
+        android:text="@{bindingItem.filter.title}"
         android:onClick="@{() -> bindingItem.onClick.invoke(bindingItem)}"
         app:closeIconEnabled="@{bindingItem.isSelected}"
         app:onCloseIconClickListener="@{() -> bindingItem.onClickClose.invoke(bindingItem)}"

@@ -1,0 +1,47 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /release*/ || $CI_COMMIT_BRANCH == "feature/SOCAPTEKI-50"'
+      when: always
+
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never
+
+    - when: always
+
+stages:
+  - build
+
+
+assembleDebug:
+  image: nguoianphu/alpine-android-base:latest-jdk17
+  stage: build
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/
+
+
+#assembleRelease:
+#  image: nguoianphu/alpine-android-base:latest-jdk17
+#  stage: build
+#  script:
+#    - echo $KEY_STORE_FILE | base64 -d > my.keystore
+#    - >
+#      ./gradlew assembleRelease
+#      -Pandroid.injected.signing.store.file=$(pwd)/my.keystore
+#      -Pandroid.injected.signing.store.password=$KEY_STORE_PASSWORD
+#      -Pandroid.injected.signing.key.alias=$KEY_ALIAS
+#      -Pandroid.injected.signing.key.password=$KEY_PASSWORD
+#  artifacts:
+#    paths:
+#      - app/build/outputs/
+
+#deployDebug:
+#  image: node:latest
+#  stage: deploy
+#  needs: [ assembleDebug ]
+#  script:
+#    - npm i -g firebase-tools
+#    - apkfile=$(find . -name "*.apk")
+#    - firebase appdistribution:distribute $apkfile --token $FIREBASE_TOKEN --app $FIREBASE_APP_ID --groups "my-app-testers"

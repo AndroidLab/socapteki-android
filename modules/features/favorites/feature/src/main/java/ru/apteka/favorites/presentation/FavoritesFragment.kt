@@ -1,10 +1,7 @@
 package ru.apteka.favorites.presentation
 
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.favorites.R
@@ -21,7 +18,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FavoritesFragmentBind
 
     private val adapter by lazy {
         CompositeDelegateAdapter(
-            FavoriteCardViewAdapter(
+            FavoritesAdapter(
                 this,
                 ::onAdvertCardClick
             )
@@ -33,15 +30,15 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FavoritesFragmentBind
         binding.rvFavorites.adapter = adapter
 
         binding.mbFavorites.setOnClickListener {
-            if (viewModel.favoriteService.products.value!!.isEmpty()) {
-                setFragmentResult(NAVIGATE_REQUEST_KEY_TO_CATALOG, bundleOf())
+            if (viewModel.favorites.value!!.isEmpty()) {
+                viewModel.navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.catalog_graph)
                 viewModel.navigationManager.generalNavController.popBackStack()
             } else {
 
             }
         }
 
-        viewModel.favoriteService.products.observe(viewLifecycleOwner) {
+        viewModel.favorites.observe(viewLifecycleOwner) {
             adapter.swapData(it)
         }
     }

@@ -3,8 +3,8 @@ package ru.apteka.legal_documents.presentation.publishing_reviews
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseFragment
-import ru.apteka.licenses.R
-import ru.apteka.licenses.databinding.PublishingReviewsFragmentBinding
+import ru.apteka.legal_documents.R
+import ru.apteka.legal_documents.databinding.PublishingReviewsFragmentBinding
 import javax.inject.Inject
 
 

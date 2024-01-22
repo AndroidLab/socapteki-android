@@ -47,9 +47,10 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="end|bottom"
-                        android:background="@drawable/circle_secondary_container_shape"
+                        android:background="@drawable/shape_circle"
                         android:padding="4dp"
                         android:src="@drawable/ic_delivery"
+                        app:backgroundTint="@color/color_secondary_container"
                         tools:ignore="ContentDescription" />
 
                 </FrameLayout>
@@ -295,14 +296,15 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:onClick="@{() -> bindingItem.productCard.favorite.onFavoriteClick.invoke(bindingItem.productCard)}">
+                        android:onClick="@{() -> bindingItem.productCard.favorite.clickFavorite(bindingItem.productCard.product)}">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_circle_grey_icon"
+                            android:background="@drawable/shape_circle"
                             android:padding="6dp"
                             android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                            app:backgroundTint="@color/light_grey"
                             app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
                             tools:ignore="ContentDescription" />
 
@@ -319,9 +321,10 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_circle_grey_icon"
+                            android:background="@drawable/shape_circle"
                             android:padding="6dp"
                             android:src="@drawable/ic_remove"
+                            app:backgroundTint="@color/light_grey"
                             tools:ignore="ContentDescription" />
 
                     </FrameLayout>

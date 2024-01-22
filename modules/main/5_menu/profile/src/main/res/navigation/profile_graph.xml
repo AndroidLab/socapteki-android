@@ -25,6 +25,10 @@
             android:id="@+id/toSettingNotificationsFragment"
             app:destination="@id/settingNotificationsFragment" />
 
+        <action
+            android:id="@+id/toNotificationsFragment"
+            app:destination="@id/profileNotificationsFragment" />
+
     </fragment>
 
     <fragment
@@ -55,7 +59,11 @@
 
     <fragment
         android:id="@+id/settingNotificationsFragment"
-        android:name="ru.apteka.profile.presentation.setting_notifications.SettingNotificationsFragment" />
+        android:name="ru.apteka.profile.presentation.profile_notifications_setting.ProfileNotificationsSettingFragment" />
+
+    <fragment
+        android:id="@+id/profileNotificationsFragment"
+        android:name="ru.apteka.profile.presentation.profile_notification.ProfileNotificationsFragment" />
 
     <fragment
         android:id="@+id/commentsReviewsFragment"

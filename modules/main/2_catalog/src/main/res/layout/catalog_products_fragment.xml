@@ -5,15 +5,9 @@
 
     <data>
 
-        <import type="ru.apteka.components.data.models.FilterChipModel" />
-
         <variable
             name="viewModel"
             type="ru.apteka.catalog.presentation.catalog_products.CatalogProductsViewModel" />
-
-        <variable
-            name="filterChips"
-            type="java.util.List&lt;FilterChipModel&gt;" />
 
     </data>
 

@@ -31,17 +31,16 @@
             android:layout_height="match_parent"
             android:layout_gravity="end|bottom"
             android:src="@drawable/catalog_menu_tub"
-            />
+            tools:ignore="ContentDescription" />
 
         <TextView
-            style="@style/Theme.Socapteki.HeaderH4"
+            style="@style/Theme.Socapteki.ManropeMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_padding"
-            android:text="@{model.title}" />
-
+            android:text="@{model.title}"
+            android:textSize="16sp" />
 
     </com.google.android.material.card.MaterialCardView>
-
 
 </layout>

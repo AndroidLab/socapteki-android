@@ -10,6 +10,7 @@
     <string name="settings">Настройки</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
+    <string name="more_detailed">Подробнее</string>
     <string name="remove">Удалить</string>
     <string name="change">Изменить</string>
     <string name="clear">Очистить</string>
@@ -46,7 +47,7 @@
     <string name="confirm_code_repeat_left_time">через: %s</string>
     <string name="confirm_code_error">Не веврный код</string>
     <string name="dialog_remove_product_desk">Вы уверены, что хотите удалить этот товар?</string>
-    <string name="dialog_remove_product_all_desk">Вы уверены, что хотите удалить этот товар?</string>
+    <string name="dialog_remove_product_all_desk">Вы уверены, что хотите очистить корзину??</string>
     <string name="email_not_valid">Не верный формат почты</string>
     <string name="consent_personal_data">Нажимая кнопку “Отправить”, я даю согласие на обработку персональных данных</string>
     <string name="confirmation_code_by_sms_desc">Введите СМС код, отправленный на указанный номер телефона. Введите его ниже:</string>

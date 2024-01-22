@@ -6,7 +6,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.apteka.catalog.presentation.catalog.CatalogFragmentDirections
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_CATALOG
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
@@ -30,9 +29,6 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
     lateinit var navigationManager: NavigationManager
 
     override fun onViewBindingInflated(binding: MainFragmentBinding) {
-        setFragmentResultListener(NAVIGATE_REQUEST_KEY_TO_CATALOG) { _, _ ->
-            navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.catalog_graph)
-        }
         setFragmentResultListener(NAVIGATE_REQUEST_KEY_TO_HOME) { _, _ ->
             navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
         }

@@ -1,6 +1,7 @@
 package ru.apteka.components.data.utils
 
 import android.os.CountDownTimer
+import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -31,7 +32,24 @@ class DownTimer(
     /**
      * Запускает таймер.
      */
+    fun startTimer() {
+        if (_lefTimeFlow.value == null) {
+            start()
+        }
+    }
+
+    /**
+     * Запускает таймер.
+     */
     fun startWithFlow() = _lefTimeFlow.asStateFlow().also {
         start()
+    }
+
+    /**
+     * Отменяет таймер.
+     */
+    fun cancelTimer() {
+        _lefTimeFlow.value = null
+        cancel()
     }
 }

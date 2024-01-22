@@ -39,7 +39,7 @@ class PersonalDataFioViewModel @Inject constructor(
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = {
-                    loginRepository.savePersonalDataMail(
+                    loginRepository.savePersonalDataFio(
                         fio.value!!
                     )
                 },

@@ -7,187 +7,35 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.profile.presentation.setting_notifications.SettingNotificationsViewModel" />
+            type="ru.apteka.profile.presentation.profile_notification.ProfileNotificationsViewModel" />
 
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
+        <ru.apteka.components.ui.LoaderLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/mbNotificationsSave"
-            android:layout_below="@id/notificationsToolbar"
-            android:background="@color/background_secondary"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:layout_height="match_parent"
+            android:layout_below="@id/profileNotificationToolbar"
+            app:isLoading="@{viewModel.isLoading}">
 
-            <LinearLayout
+            <com.alab.extra_bouncy.BouncyRecyclerView
+                android:id="@+id/rvNotifications"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
 
-                <!-- Статус интернет-заказа -->
-                <LinearLayout
-                    android:id="@+id/llNotificationsOnlineOrderStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_corners_shape"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notifications_online_order_status"
-                        android:textColor="@color/dark_black"
-                        android:textStyle="bold" />
-
-                    <!-- Email уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:checked="@={viewModel.notificationsOnlineOrderStatusMail}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
-                        android:textColor="@color/light_black" />
-
-                </LinearLayout>
-
-                <!-- Акции-->
-                <LinearLayout
-                    android:id="@+id/llNotificationsStocks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/corners_shape"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notifications_stocks"
-                        android:textColor="@color/dark_black"
-                        android:textStyle="bold" />
-
-                    <!-- Email уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:checked="@={viewModel.notificationsStocksMail}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
-                        android:textColor="@color/light_black" />
-
-                    <include layout="@layout/separator_view" />
-
-                    <!-- Sms уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="@={viewModel.notificationsStocksSms}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_sms"
-                        android:textColor="@color/light_black" />
-
-                    <include layout="@layout/separator_view" />
-
-                    <!-- Push уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="@={viewModel.notificationsStocksPush}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_push"
-                        android:textColor="@color/light_black" />
-
-                </LinearLayout>
-
-                <!-- Сгорание баллов -->
-                <LinearLayout
-                    android:id="@+id/llNotificationsPoints"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/corners_shape"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notifications_points"
-                        android:textColor="@color/dark_black"
-                        android:textStyle="bold" />
-
-                    <!-- Sms или email уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:checked="@={viewModel.notificationsPointsSmsOrMail}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
-                        android:textColor="@color/light_black" />
-
-                    <include layout="@layout/separator_view" />
-
-                    <!-- Push уведомления -->
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="@={viewModel.notificationsPointsPush}"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_push"
-                        android:textColor="@color/light_black" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </ru.apteka.components.ui.LoaderLayout>
 
         <include
-            android:id="@+id/notificationsToolbar"
+            android:id="@+id/profileNotificationToolbar"
             layout="@layout/toolbar" />
-
-        <include
-            layout="@layout/progress_bar"
-            app:isLoading="@{viewModel.isLoading}" />
-
-        <include
-            layout="@layout/shadow_view"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_above="@id/mbNotificationsSave" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mbNotificationsSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
-            android:layout_marginHorizontal="16dp"
-            android:enabled="@{viewModel.isChanged}"
-            android:text="@string/save" />
 
     </RelativeLayout>
 

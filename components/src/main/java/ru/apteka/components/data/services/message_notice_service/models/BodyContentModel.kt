@@ -13,5 +13,5 @@ import java.io.Serializable
 class BodyContentModel(
     @LayoutRes
     val layoutId: Int,
-    val onLayoutInflate: (dialog: DialogFragment, binding: ViewDataBinding) -> Unit
-): Serializable
+    val onLayoutInflate: (dialog: DialogFragment, binding: ViewDataBinding) -> Unit = { _, _ -> }
+) : Serializable

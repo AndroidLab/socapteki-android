@@ -30,11 +30,11 @@ class CatalogViewModel @Inject constructor(
                 image = "https://avatars.mds.yandex.net/i?id=73c7dc43ebb90f60671c7ff86f784a767c08a87f-10470894-images-thumbs&n=13"
             ),
             CatalogMenuItem(
-                title = "Мама и малышь",
+                title = "Мама и малыш",
                 image = "https://avatars.mds.yandex.net/i?id=f0b4ccedc6981a08308342ee986d8d53ffb0a53f-10136504-images-thumbs&n=13"
             ),
             CatalogMenuItem(
-                title = "Витамины и бады",
+                title = "Витамины и БАДы",
                 image = "https://avatars.mds.yandex.net/i?id=04e4af2ec28b114d2eee01c146ec5e5dafe80004-8261187-images-thumbs&n=13"
             ),
             CatalogMenuItem(
@@ -46,7 +46,7 @@ class CatalogViewModel @Inject constructor(
                 image = "https://avatars.mds.yandex.net/i?id=fdc51ec1da1687e89e8256b1126afa21fa0565a6-5711615-images-thumbs&n=13"
             ),
             CatalogMenuItem(
-                title = "Мед техника и медтовары",
+                title = "Медтехника и товары",
                 image = "https://avatars.mds.yandex.net/i?id=70fdd2654d6afbf794b3059615dd9b782380c974-10355051-images-thumbs&n=13"
             ),
         )

@@ -169,12 +169,12 @@ class MakingOrderViewModel @Inject constructor(
     /**
      * Возвращает или устанавливает фио.
      */
-    val fio = MutableLiveData("")
+    val fio = MutableLiveData(loginRepository.personalData.fio ?: "")
 
     /**
      * Возвращает или устанавливает номер.
      */
-    val number = MutableLiveData("")
+    val number = MutableLiveData(loginRepository.personalData.phone ?: "")
 
     /**
      * Возвращает значение номера.
@@ -186,7 +186,7 @@ class MakingOrderViewModel @Inject constructor(
     /**
      * Возвращает или устанавливает майл.
      */
-    val mail = MutableLiveData("")
+    val mail = MutableLiveData(loginRepository.personalData.userMail?.mail ?: "")
 
     /**
      * Возвращает или устанавливает комментарий.
@@ -299,7 +299,11 @@ class MakingOrderViewModel @Inject constructor(
      */
     val isMakingOrderEnabled = MediatorLiveData<Boolean>().apply {
         fun check() {
-            value = !isPromoCodeApplyLoading.value!! && !isBonusesApplyLoading.value!!
+            value = !isPromoCodeApplyLoading.value!!
+                    && !isBonusesApplyLoading.value!!
+                    && paymentsMethods.selectedItem.value != null
+                    && (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null)
+                    && recipients.value!!.isNotEmpty()
         }
 
         addSource(isPromoCodeApplyLoading) {
@@ -307,6 +311,22 @@ class MakingOrderViewModel @Inject constructor(
         }
 
         addSource(isBonusesApplyLoading) {
+            check()
+        }
+
+        addSource(paymentsMethods.selectedItem) {
+            check()
+        }
+
+        addSource(deliveryMethods.selectedItem) {
+            check()
+        }
+
+        addSource(selectedDeliveryDate) {
+            check()
+        }
+
+        addSource(recipients) {
             check()
         }
     }
@@ -320,13 +340,6 @@ class MakingOrderViewModel @Inject constructor(
         }
 
 
-        addSource(selectedDeliveryDate) {
-            checkFieldFilled()
-        }
-
-        addSource(recipients) {
-            checkFieldFilled()
-        }
     }
 
     init {

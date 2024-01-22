@@ -35,7 +35,7 @@ class LoginRepository @Inject constructor(
     }
 
 
-    private var _personalData: PersonalData = PersonalData(
+    var personalData: PersonalData = PersonalData(
         fio = null,
         date = null,
         phone = accountsPreferences.account?.phoneNumber,
@@ -49,7 +49,7 @@ class LoginRepository @Inject constructor(
      */
     suspend fun getPersonalData(): PersonalData {
         delay(1500)
-        return _personalData
+        return personalData
     }
 
     /**
@@ -57,28 +57,28 @@ class LoginRepository @Inject constructor(
      */
     suspend fun savePersonalData(personalData: PersonalData) {
         delay(1500)
-        _personalData = personalData
+        this.personalData = personalData
     }
 
     suspend fun savePersonalDataFio(fio: String) {
         delay(1500)
-        _personalData = _personalData.copy(fio = fio)
+        personalData = personalData.copy(fio = fio)
     }
 
     suspend fun savePersonalDataPhone(phone: String): Boolean {
         delay(1500)
-        _personalData = _personalData.copy(phone = phone)
+        personalData = personalData.copy(phone = phone)
         return true
     }
 
     suspend fun savePersonalDataSex(sex: Int) {
         delay(1500)
-        _personalData = _personalData.copy(sex = sex)
+        personalData = personalData.copy(sex = sex)
     }
 
     suspend fun savePersonalDataMail(mail: String): Boolean {
         delay(1500)
-        _personalData = _personalData.copy(userMail = PersonalData.UserMail(mail, true))
+        personalData = personalData.copy(userMail = PersonalData.UserMail(mail, true))
         return true
     }
 

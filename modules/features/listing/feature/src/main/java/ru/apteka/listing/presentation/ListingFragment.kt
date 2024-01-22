@@ -7,10 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.BR
-import ru.apteka.components.data.models.FilterChipModel
+import ru.apteka.listing.data.models.FilterChipModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -49,6 +48,7 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
 
     override fun onViewBindingInflated(binding: ListingFragmentBinding) {
         binding.viewModel = viewModel
+        binding.lifecycle = this
 
         if (viewModel.products.value!!.isEmpty()) {
             binding.catalogProductsSort.setOnClickListener {
@@ -101,7 +101,7 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
                     viewModel.bottomSheetService.close()
                 }
                 FilterChipModel(
-                    text = filter.title,
+                    filter = filter,
                     onClick = {
                         viewModel.bottomSheetService.show(
                             BottomSheetModel(
@@ -215,7 +215,6 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
         setVariable(BR.listingProductFilterModel, filter)
         setVariable(BR.lifecycle, viewLifecycleOwner)
     }
-
 
 
     override fun onResume() {

@@ -42,14 +42,14 @@
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:marginItemVertical="@{16}"
-                        app:visibleIf="@{!viewModel.favoriteService.products.empty}" />
+                        app:visibleIf="@{!viewModel.favorites.empty}" />
 
                     <include
                         layout="@layout/no_element_view"
                         app:desc="@{@string/favorites_no_favorites_desc}"
                         app:icon="@{@drawable/no_favorites}"
                         app:title="@{@string/favorites_no_favorites_title}"
-                        app:visibleIf="@{viewModel.favoriteService.products.empty}" />
+                        app:visibleIf="@{viewModel.favorites.empty}" />
 
                 </FrameLayout>
 
@@ -81,11 +81,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@{viewModel.favoriteService.products.empty ? @string/favorites_to_catalog : @string/favorites_bye_all}" />
+                android:text="@{viewModel.favorites.empty ? @string/favorites_to_catalog : @string/favorites_bye_all}" />
 
         </FrameLayout>
 
     </RelativeLayout>
-
 
 </layout>

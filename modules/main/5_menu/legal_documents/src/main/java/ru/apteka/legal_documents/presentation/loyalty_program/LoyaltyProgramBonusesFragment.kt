@@ -3,9 +3,8 @@ package ru.apteka.legal_documents.presentation.loyalty_program
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseFragment
-import ru.apteka.licenses.R
-import ru.apteka.licenses.databinding.LegalDocumentsLoyaltyProgramBonusesFragmentBinding
-import ru.apteka.licenses.databinding.LegalDocumentsLoyaltyProgramBonusesFragmentBindingImpl
+import ru.apteka.legal_documents.R
+import ru.apteka.legal_documents.databinding.LegalDocumentsLoyaltyProgramBonusesFragmentBinding
 import javax.inject.Inject
 
 

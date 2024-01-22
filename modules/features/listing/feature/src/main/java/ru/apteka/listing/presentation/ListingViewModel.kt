@@ -210,12 +210,22 @@ class ListingViewModel @Inject constructor(
         ),
         IFilter.FilterDiscountsModel(
             type = FilterType.DISCOUNTS,
-            title = "Скидки",
+            title = "Акции",
             foundProducts = products,
             onChanged = {
                 getCountProduction(it.productsCount)
             },
-            desc = "Только товары со скидкой",
+            items = listOf(
+                IFilter.FilterDiscountsModel.DiscountItemModel(
+                    title = "Акции",
+                ),
+                IFilter.FilterDiscountsModel.DiscountItemModel(
+                    title = "Истекающий срок годности",
+                ),
+                IFilter.FilterDiscountsModel.DiscountItemModel(
+                    title = "Скидки",
+                )
+            )
         ),
         IFilter.FilterNosologyModel(
             type = FilterType.NOSOLOGY,

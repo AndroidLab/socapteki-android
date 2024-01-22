@@ -20,6 +20,9 @@
     <string name="product_card_comments_popular">Популярные</string>
     <string name="product_card_comments_show_more">Смотреть все отзывы (234)</string>
 
+    <string name="product_card_double_bonuses">Двойные бонусы при заказке через приложение</string>
+    <string name="product_card_manufacturer_program">Купите 2 упаковки лекарства одного производителя и получите скидку 1000Р на общую сумму покупки!</string>
+
     <string name="write_review_title">Написать отзыв</string>
     <string name="write_review_evaluation">Оценка</string>
     <string name="write_review_comment">Ваш отзыв</string>

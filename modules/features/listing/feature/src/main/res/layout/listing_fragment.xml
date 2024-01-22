@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="ru.apteka.components.data.models.FilterChipModel" />
+        <import type="ru.apteka.listing.data.models.FilterChipModel" />
 
         <variable
             name="viewModel"
@@ -14,6 +14,10 @@
         <variable
             name="filterChips"
             type="java.util.List&lt;FilterChipModel&gt;" />
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
 
     </data>
 
@@ -73,26 +77,26 @@
                         <!-- Значек фильтра -->
                         <FrameLayout
                             android:id="@+id/catalogProductAllFilters"
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="end|center_vertical"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:padding="16dp">
+                            android:background="?attr/selectableItemBackgroundBorderless">
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:padding="11dp"
                                 android:src="@drawable/ic_filters"
                                 tools:ignore="ContentDescription" />
 
-                            <ImageView
-                                android:layout_width="6dp"
-                                android:layout_height="6dp"
+                            <ru.apteka.components.ui.badge.NotificationBadge
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="end"
-                                android:src="@drawable/shape_circle"
-                                app:tint="@color/red"
-                                app:visibleIf="@{viewModel.filterAll.globalAnySelected}"
-                                tools:ignore="ContentDescription" />
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:textSize="11sp"
+                                app:number="@{viewModel.filterAll.countSelected}" />
 
                         </FrameLayout>
 
@@ -155,6 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
+                                app:lifecycleOwner="@{lifecycle}"
                                 app:forItems="@{viewModel.alphabet.items.subList(1, viewModel.alphabet.items.size())}"
                                 app:useTemplate="@{@layout/alphabet_item_template}"
                                 app:visibleIf="@{viewModel.alphabet.mediator}" />

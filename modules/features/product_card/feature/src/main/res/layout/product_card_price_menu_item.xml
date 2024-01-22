@@ -35,9 +35,10 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/shape_circle_surface_variant_icon"
+            android:background="@drawable/shape_circle"
             android:scaleType="centerInside"
             android:src="@{icon}"
+            app:backgroundTint="@color/color_surface_variant"
             tools:ignore="ContentDescription" />
 
         <TextView

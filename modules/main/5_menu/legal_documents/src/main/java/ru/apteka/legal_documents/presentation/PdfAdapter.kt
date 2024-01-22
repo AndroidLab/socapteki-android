@@ -1,4 +1,4 @@
-package ru.apteka.licenses.presentation
+package ru.apteka.legal_documents.presentation
 
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
@@ -7,7 +7,7 @@ import android.os.ParcelFileDescriptor
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.apteka.licenses.databinding.LicensesPdfHolderBinding
+import ru.apteka.legal_documents.databinding.LicensesPdfHolderBinding
 import java.io.File
 
 

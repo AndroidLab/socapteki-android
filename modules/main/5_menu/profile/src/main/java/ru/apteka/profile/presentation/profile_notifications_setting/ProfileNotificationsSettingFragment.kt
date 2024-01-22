@@ -1,10 +1,10 @@
-package ru.apteka.profile.presentation.setting_notifications
+package ru.apteka.profile.presentation.profile_notifications_setting
 
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.profile.R
-import ru.apteka.profile.databinding.ProfileNotificationsFragmentBinding
+import ru.apteka.profile.databinding.ProfileNotificationsSettingsFragmentBinding
 import ru.apteka.components.R as ComponentsR
 
 
@@ -12,13 +12,13 @@ import ru.apteka.components.R as ComponentsR
  * Представляет фрагмент "Настройка уведомлений".
  */
 @AndroidEntryPoint
-class SettingNotificationsFragment :
-    BaseFragment<SettingNotificationsViewModel, ProfileNotificationsFragmentBinding>() {
-    override val viewModel: SettingNotificationsViewModel by viewModels()
-    override val layoutId: Int = R.layout.profile_notifications_fragment
+class ProfileNotificationsSettingFragment :
+    BaseFragment<ProfileNotificationsSettingViewModel, ProfileNotificationsSettingsFragmentBinding>() {
+    override val viewModel: ProfileNotificationsSettingViewModel by viewModels()
+    override val layoutId: Int = R.layout.profile_notifications_settings_fragment
 
 
-    override fun onViewBindingInflated(binding: ProfileNotificationsFragmentBinding) {
+    override fun onViewBindingInflated(binding: ProfileNotificationsSettingsFragmentBinding) {
         binding.viewModel = viewModel
 
         binding.mbNotificationsSave.setOnClickListener {

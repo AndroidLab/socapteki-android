@@ -44,9 +44,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/circle_secondary_container_shape"
+                    android:background="@drawable/shape_circle"
                     android:padding="6dp"
                     android:src="@drawable/ic_minus"
+                    app:backgroundTint="@color/color_secondary_container"
                     tools:ignore="ContentDescription" />
 
             </FrameLayout>
@@ -83,9 +84,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/circle_secondary_container_shape"
+                    android:background="@drawable/shape_circle"
                     android:padding="6dp"
                     android:src="@drawable/ic_plus"
+                    app:backgroundTint="@color/color_secondary_container"
                     tools:ignore="ContentDescription" />
 
             </FrameLayout>

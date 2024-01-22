@@ -10,6 +10,8 @@
     <string name="profile_setting_notifications">Настройка уведомлений</string>
     <string name="profile_product_notifications">Уведомления о товарах</string>
 
+    <string name="profile_notifications_title">Уведомления о товарах</string>
+
     <string name="pharmacies_title">Мои аптеки</string>
     <string name="pharmacies_not_found_title">Вы пока ничего не добавили</string>
     <string name="pharmacies_not_found_desc">Нажмите ❤️ на аптеке, которую хотите сохранить</string>

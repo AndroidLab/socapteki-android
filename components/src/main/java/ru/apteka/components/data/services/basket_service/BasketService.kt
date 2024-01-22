@@ -101,7 +101,8 @@ class BasketService @Inject constructor(
                     backgroundColor = R.color.red
                 ) {
                     _basketProducts.value!!.forEach {
-                        it.productCard.itemCounter.clear()
+                        it.onProductRemove()
+                        //it.productCard.itemCounter.clear()
                     }
                 }
             )

@@ -5,11 +5,18 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.services.message_notice_service.models.BodyContentModel
+import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.showCommonDialog
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.screenHeight
@@ -23,6 +30,7 @@ import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card.R
 import ru.apteka.product_card.databinding.ProductCardFragmentBinding
+import ru.apteka.product_card.databinding.ProductCardManufacturerProgramDialogBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import kotlin.math.abs
 import ru.apteka.components.R as ComponentsR
@@ -174,21 +182,59 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.productCardReleaseForm.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Форма выпуска"
+                )
+            )
         }
 
         binding.productCardPharmaciesInMap.setOnClickListener {
-
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
+                )
+            )
         }
 
         binding.llProductCardDoubleBonuses.setOnClickListener {
+            showCommonDialog(
+                commonDialogModel = CommonDialogModel(
+                    fragmentManager = parentFragmentManager,
+                    dialogModel = DialogModel(
+                        bodyContent = BodyContentModel(
+                            layoutId = R.layout.product_card_double_bonuses_dialog,
+                        ),
+                        buttonCancel = DialogButtonModel(
+                            text = ComponentsR.string.cancel
+                        ),
+                        buttonConfirm = DialogButtonModel(
+                            text = ComponentsR.string.more_detailed
+                        ) {
 
+                        }
+                    )
+                )
+            )
         }
 
         binding.llProductCardManufacturerProgram.setOnClickListener {
-
+            showCommonDialog(
+                commonDialogModel = CommonDialogModel(
+                    fragmentManager = parentFragmentManager,
+                    dialogModel = DialogModel(
+                        bodyContent = BodyContentModel(
+                            layoutId = R.layout.product_card_manufacturer_program_dialog,
+                        ) { dialog, binding ->
+                            binding as ProductCardManufacturerProgramDialogBinding
+                            binding.mbProductCardManufacturerProgram.setOnClickListener {
+                                dialog.dismiss()
+                            }
+                        }
+                    )
+                )
+            )
         }
-
 
         binding.tvProductCardAnaloguesAll.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(

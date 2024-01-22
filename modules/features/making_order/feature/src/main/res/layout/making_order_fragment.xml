@@ -106,9 +106,10 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:background="@drawable/shape_circle_surface_variant_icon"
+                                android:background="@drawable/shape_circle"
                                 android:scaleType="centerInside"
                                 android:src="@drawable/ic_list_percent"
+                                app:backgroundTint="@color/color_surface_variant"
                                 tools:ignore="ContentDescription" />
 
                             <TextView
@@ -398,6 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
                         android:enabled="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10}"
+                        android:paddingStart="8dp"
                         android:text="@string/making_order_recipient_same_buyer"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/makingOrderRecipientsTitle"
@@ -423,7 +425,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="12dp"
                     android:background="@drawable/corners_shape"
                     android:orientation="vertical">
 
@@ -797,7 +799,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:enabled="@{viewModel.isMakingOrderEnabled &amp; viewModel.isFieldsFilled}"
+                android:enabled="@{viewModel.isMakingOrderEnabled}"
                 android:text="@string/making_order_price_place_order" />
 
         </FrameLayout>

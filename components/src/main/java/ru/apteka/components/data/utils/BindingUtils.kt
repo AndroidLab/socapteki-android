@@ -1,6 +1,7 @@
 package ru.apteka.components.data.utils
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -108,10 +109,7 @@ fun setExtraTextStyle(textView: TextView, value: Int?) {
 /**
  * Устанавливает отступы.
  */
-@BindingAdapter(
-    "app:extraMargin",
-    requireAll = false
-)
+@BindingAdapter("app:extraMargin")
 fun View.setExtraMargin(
     extraMargin: Int? = null
 ) {
@@ -158,10 +156,7 @@ fun View.setExtraMargin(
 /**
  * Устанавливает отступы.
  */
-@BindingAdapter(
-    "app:extraPadding",
-    requireAll = false
-)
+@BindingAdapter("app:extraPadding")
 fun View.setExtraPadding(
     extraPadding: Int?,
 ) {
@@ -658,4 +653,24 @@ fun View.scale(value: Float) {
 @BindingAdapter("app:extraAlpha")
 fun View.setExtraAlpha(value: Float?) {
     alpha = value ?: 1f
+}
+
+/**
+ * Устанавливает оттенок фона.
+ */
+@BindingAdapter("app:extraBackgroundTint")
+fun View.setExtraBackgroundTint(
+    extraBackgroundTint: Int?,
+) {
+    backgroundTintList = if (extraBackgroundTint == null || extraBackgroundTint == 0) {
+        null
+    } else {
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_enabled)
+        )
+        val colors = intArrayOf(
+            extraBackgroundTint
+        )
+        ColorStateList(states, colors)
+    }
 }

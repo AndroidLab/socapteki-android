@@ -22,9 +22,10 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/shape_circle_grey_icon"
+            android:background="@drawable/shape_circle"
             android:scaleType="center"
             android:src="@drawable/ic_link"
+            app:backgroundTint="@color/light_grey"
             tools:ignore="ContentDescription" />
 
     </FrameLayout>

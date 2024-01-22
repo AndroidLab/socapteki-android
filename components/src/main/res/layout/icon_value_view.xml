@@ -16,8 +16,8 @@
             type="String" />
 
         <variable
-            name="background"
-            type="android.graphics.drawable.Drawable" />
+            name="iconBackgroundTint"
+            type="Integer" />
 
     </data>
 
@@ -30,12 +30,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@{background}"
+            android:background="@drawable/shape_circle"
             android:scaleType="fitXY"
             android:src="@{icon}"
-            app:extraPadding="@{background == null ? 0 : 5}"
-            app:extra_layout_height="@{background == null ? 20 : 30}"
-            app:extra_layout_width="@{background == null ? 20 : 30}"
+            app:extraBackgroundTint="@{iconBackgroundTint}"
+            app:extraPadding="@{iconBackgroundTint == null ? 0 : 5}"
+            app:extra_layout_height="@{iconBackgroundTint == null ? 20 : 30}"
+            app:extra_layout_width="@{iconBackgroundTint == null ? 20 : 30}"
             tools:ignore="ContentDescription" />
 
         <TextView

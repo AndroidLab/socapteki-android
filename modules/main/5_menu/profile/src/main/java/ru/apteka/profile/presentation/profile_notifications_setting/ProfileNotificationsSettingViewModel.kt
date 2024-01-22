@@ -1,4 +1,4 @@
-package ru.apteka.profile.presentation.setting_notifications
+package ru.apteka.profile.presentation.profile_notifications_setting
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Представляет модель представления "Настройка уведомлений".
  */
 @HiltViewModel
-class SettingNotificationsViewModel @Inject constructor(
+class ProfileNotificationsSettingViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,

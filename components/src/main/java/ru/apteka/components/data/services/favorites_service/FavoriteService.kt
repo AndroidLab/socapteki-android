@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import ru.apteka.components.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.contains
 import java.util.UUID
 import javax.inject.Inject
@@ -17,12 +18,12 @@ import javax.inject.Singleton
 class FavoriteService @Inject constructor(
 
 ) {
-    private val _products = MutableLiveData<List<ProductCardModel>>(emptyList())
+    private val _products = MutableLiveData<List<ProductModel>>(emptyList())
 
     /**
      * Возвращает список продукции в избранном.
      */
-    val products: LiveData<List<ProductCardModel>> = _products
+    val products: LiveData<List<ProductModel>> = _products
 
     /**
      * Возвращает кол-во продукции в избранном.
@@ -34,19 +35,19 @@ class FavoriteService @Inject constructor(
     /**
      * Добавляет товар в избранное.
      */
-    fun addProduct(productCard: ProductCardModel) {
+    fun addProduct(productCard: ProductModel) {
         _products.value = _products.value!!.plus(productCard)
     }
 
     /**
      * Удаляет товар из избранного.
      */
-    fun removeProduct(productCard: ProductCardModel) {
-        _products.value = _products.value!!.minus(productCard)
+    fun removeProduct(product: ProductModel) {
+        _products.value = _products.value!!.minus(product)
     }
 
     /**
      * Возвращет флаг содержания продукции в избранном.
      */
-    fun isContainsInFavorite(uuid: UUID) = _products.value!!.contains { it.product.id == uuid }
+    fun isContainsInFavorite(uuid: UUID) = _products.value!!.contains { it.id == uuid }
 }

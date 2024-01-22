@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.profile.data.models.ProductNotificationModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/productCardItem"
+        style="@style/Theme.Socapteki.BackgroundCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="8dp"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <include
+                android:id="@+id/productImageCard"
+                layout="@layout/image_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:imageUrl="@{model.product.image}"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Лэйблы -->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/productLabels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="40dp"
+                app:flexWrap="wrap"
+                app:forItems="@{model.product.labels}"
+                app:layout_constraintEnd_toStartOf="@id/productImageCard"
+                app:layout_constraintStart_toStartOf="@+id/productImageCard"
+                app:layout_constraintTop_toTopOf="@+id/productImageCard"
+                app:useTemplate="@{@layout/label_template}" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@id/productImageCard"
+                app:layout_constraintEnd_toEndOf="@id/productImageCard"
+                app:layout_constraintStart_toStartOf="@id/productImageCard"
+                app:layout_constraintTop_toTopOf="@id/productImageCard">
+
+                <!-- Иконка избранного -->
+                <ImageView
+                    android:id="@+id/productFavorite"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> model.favoriteModel.clickFavorite(model.product)}"
+                    android:padding="8dp"
+                    android:src="@{model.favoriteModel.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                    app:imageTint="@{model.favoriteModel.isFavoriteLiveData ? @color/red : @color/light_black}"
+                    tools:ignore="ContentDescription" />
+
+            </FrameLayout>
+
+            <!-- Рейтинг -->
+            <include
+                android:id="@+id/productRating"
+                layout="@layout/icon_value_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                app:icon="@{@drawable/ic_star}"
+                app:layout_constraintEnd_toStartOf="@id/productComments"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productImageCard"
+                app:value="@{model.product.rating}" />
+
+            <!-- Комментарии -->
+            <include
+                android:id="@+id/productComments"
+                layout="@layout/icon_value_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                app:icon="@{@drawable/ic_comment}"
+                app:layout_constraintStart_toEndOf="@id/productRating"
+                app:layout_constraintTop_toBottomOf="@id/productImageCard"
+                app:value="@{String.valueOf(model.product.comments)}" />
+
+            <!-- Заголовок -->
+            <TextView
+                android:id="@+id/productTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{model.product.title}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productRating" />
+
+            <!-- Требование рецепта -->
+            <ImageView
+                android:id="@+id/productRecipe"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_without_recipe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productTitle"
+                app:visibleIf="@{!model.product.needRecipe}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="3dp"
+                android:text="Без рецепта"
+                android:textColor="@color/light_black"
+                app:layout_constraintStart_toEndOf="@id/productRecipe"
+                app:layout_constraintTop_toBottomOf="@id/productTitle" />
+
+            <!-- Доп описание -->
+            <TextView
+                android:id="@+id/productDesc"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="6dp"
+                android:text="@{model.product.desc}"
+                android:textColor="@color/light_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productRecipe" />
+
+            <!-- Старая цена -->
+            <TextView
+                android:id="@+id/productOldPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:text="@{model.product.discount.oldPrice}"
+                android:textColor="@color/dark_grey"
+                app:isStrikethrough="@{true}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productDesc" />
+
+            <!-- Актуальная цена -->
+            <TextView
+                android:id="@+id/productPrice"
+                style="@style/Theme.Socapteki.Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{model.product.price}"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productOldPrice" />
+
+            <!-- Процент скидки -->
+            <include
+                android:id="@+id/productDiscountPercent"
+                layout="@layout/discount_percentage_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:discount="@{model.product.discount}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productOldPrice" />
+
+            <!-- Удалить -->
+            <com.google.android.material.button.MaterialButton
+                style="@style/Theme.Socapteki.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:onClick="@{() -> model.onNotificationRemove.invoke(model.product)}"
+                android:text="@string/remove"
+                app:icon="@drawable/ic_product_notification"
+                app:iconGravity="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productPrice" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

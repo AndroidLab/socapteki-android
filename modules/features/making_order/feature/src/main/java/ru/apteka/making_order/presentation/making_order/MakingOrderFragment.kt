@@ -11,6 +11,8 @@ import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.making_order.R
 import ru.apteka.making_order.data.model.CompletionDataModel
+import ru.apteka.making_order.data.model.DeliveryDateModel
+import ru.apteka.making_order.data.model.DeliveryTimeModel
 import ru.apteka.making_order.databinding.MakingOrderFragmentBinding
 import ru.apteka.making_order.databinding.MakingOrderOlectronicReceiptInfoDialogBinding
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_COMPLETION_BACK
@@ -87,7 +89,13 @@ class MakingOrderFragment : BaseFragment<MakingOrderViewModel, MakingOrderFragme
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 MakingOrderFragmentDirections.toMakingOrderCompletionFragment(
                     CompletionDataModel(
-                        deliveryDate = viewModel.selectedDeliveryDate.value!!,
+                        deliveryDate = viewModel.selectedDeliveryDate.value ?: DeliveryDateModel(
+                            date = 1708459096000,
+                            time = DeliveryTimeModel.Item(
+                                timeFrom = "10:00",
+                                timeTo = "18:00"
+                            )
+                        ),
                         recipients = viewModel.recipients.value!!.map {
                             it.copy().apply {
                                 onRemove = null

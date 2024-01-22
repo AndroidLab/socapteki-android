@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.PersonalData
+import ru.apteka.components.data.utils.setSoftInputModeAdjustPan
 import ru.apteka.components.data.utils.setSoftInputModeResize
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.profile.R
@@ -51,7 +52,7 @@ class PersonalDataFioFragment :
 
     override fun onResume() {
         super.onResume()
-        setSoftInputModeResize()
+        setSoftInputModeAdjustPan()
         binding.personalDataFioToolbar.apply {
             tvToolbarTitle.text = getString(R.string.personal_data_fio_title)
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
