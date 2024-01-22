@@ -42,6 +42,9 @@ include(":modules:main:5_menu:symptoms_diseases")
 //Модуль 'Работа у нас'.
 include(":modules:main:5_menu:work_with_us")
 
+//Модуль 'Программа лояльности'.
+include(":modules:main:5_menu:loyalty_program")
+
 //Модуль 'Реферальная программа'.
 include(":modules:main:5_menu:referral_program")
 

@@ -303,7 +303,10 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             binding.appMenuItemLoyaltyProgram.item.setOnClickListener {
-                                //navigate(ru.apteka.about_company_api.R.id.about_company_graph)
+                                viewModel.navigationManager.onSelectItemMenu(
+                                    ComponentsR.id.loyalty_program_graph,
+                                    bundleOf()
+                                )
                             }
 
                             binding.appMenuItemReferralProgram.item.setOnClickListener {

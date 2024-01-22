@@ -2,12 +2,8 @@ package ru.apteka.legal_documents.presentation.sale_goods
 
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.licenses.R
-import ru.apteka.licenses.databinding.LicensesFragmentBinding
-import ru.apteka.licenses.databinding.LoyaltyProgramFragmentBinding
-import ru.apteka.licenses.databinding.PolicyConfidentialityFragmentBinding
 import ru.apteka.licenses.databinding.SaleGoodsFragmentBinding
 import javax.inject.Inject
 

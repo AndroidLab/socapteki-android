@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="loyalty_program_title">Программа лояльности</string>
+    <string name="loyalty_program_desc">
+        Каждый зарегистрированный пользователь сайта может стать участником бонусной программы, зарабатывая бонусные баллы — «витаминки», которые можно использовать для получения скидки до 10% при оформлении заказа на сайте.
+        \nМаксимальное количество накопленных «витаминок» не ограничено. Максимальный суммарный размер скидки, действующей на весь заказ, — 10%, минимальный — 2%. Для получения скидки 10% необходимо использовать 100 витаминок.
+        \nСрок действия «витаминок» ограничен: если вы не сделали ни одного заказа в течение трех месяцев с даты последнего заказа или регистрации, ваши «витаминки» сгорают.
+    </string>
+
+    <string name="loyalty_program_additional_title_item_1">Своевременно узнавайте</string>
+    <string name="loyalty_program_additional_desc_desc_item_1">о новых акциях и предложениях</string>
+    <string name="loyalty_program_additional_title_item_2">Доступ ко всему каталогу</string>
+    <string name="loyalty_program_additional_desc_desc_item_2">в вашем кармане</string>
+    <string name="loyalty_program_additional_title_item_3">Отслеживайте ваши заказы</string>
+    <string name="loyalty_program_additional_desc_desc_item_3">в режиме онлайн</string>
+
+    <string name="loyalty_program_advantages">Преимущества</string>
+    <string name="loyalty_program_advantages_title_item_1">Вошли в 10-ку</string>
+    <string name="loyalty_program_advantages_desc_item_1">по технологичности среди всех аптечных сетей России</string>
+    <string name="loyalty_program_advantages_title_item_2">37 место</string>
+    <string name="loyalty_program_advantages_desc_item_2">в рейтинге аптечных сетей России</string>
+    <string name="loyalty_program_advantages_title_item_3">Более 190</string>
+    <string name="loyalty_program_advantages_desc_item_3">аптек на октябрь 2022 года</string>
+
+    <string name="loyalty_program_acquainted_offer">Ознакомиться с офертой</string>
+    <string name="loyalty_program_registration">Регистрация в программе лояльности</string>
+
+</resources>

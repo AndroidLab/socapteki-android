@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.loyalty_program.presentation.LoyaltyProgramViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svLoyaltyProgram"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flLoyaltyProgramRegistration"
+            android:layout_below="@id/loyaltyProgramToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical">
+
+                    <com.alab.extra_bouncy.BouncyRecyclerView
+                        android:id="@+id/rvLoyaltyProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                        app:circlePagerIndicator="@{32}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:linearSnapHelper="@{true}" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/loyalty_program_desc" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <include
+                        layout="@layout/loyalty_program_template"
+                        app:desc="@{@string/loyalty_program_additional_desc_desc_item_1}"
+                        app:icon="@{@drawable/ic_loyalty_program_template_item_1}"
+                        app:title="@{@string/loyalty_program_additional_title_item_1}" />
+
+                    <include layout="@layout/separator_view" />
+
+                    <include
+                        layout="@layout/loyalty_program_template"
+                        app:desc="@{@string/loyalty_program_additional_desc_desc_item_2}"
+                        app:icon="@{@drawable/ic_loyalty_program_template_item_2}"
+                        app:title="@{@string/loyalty_program_additional_title_item_2}" />
+
+                    <include layout="@layout/separator_view" />
+
+                    <include
+                        layout="@layout/loyalty_program_template"
+                        app:desc="@{@string/loyalty_program_additional_desc_desc_item_3}"
+                        app:icon="@{@drawable/ic_loyalty_program_template_item_3}"
+                        app:title="@{@string/loyalty_program_additional_title_item_3}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_advantages"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/loyalty_program_advantages_title_item_1"
+                        android:textColor="@color/color_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/loyalty_program_advantages_desc_item_1" />
+
+                    <include layout="@layout/separator_view" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/loyalty_program_advantages_title_item_2"
+                        android:textColor="@color/color_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/loyalty_program_advantages_desc_item_2" />
+
+                    <include layout="@layout/separator_view" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/loyalty_program_advantages_title_item_3"
+                        android:textColor="@color/color_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_program_advantages_desc_item_3" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/corners_shape">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbLoyaltyProgramAcquaintedOffer"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/loyalty_program_acquainted_offer" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/loyaltyProgramToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flLoyaltyProgramRegistration" />
+
+        <FrameLayout
+            android:id="@+id/flLoyaltyProgramRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/loyalty_program_registration" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

@@ -27,6 +27,8 @@
 
     <include app:graph="@navigation/referral_program_graph" />
 
+    <include app:graph="@navigation/loyalty_program_graph" />
+
     <include app:graph="@navigation/symptoms_diseases_graph" />
 
     <include app:graph="@navigation/customers_graph" />

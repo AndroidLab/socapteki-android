@@ -5,9 +5,7 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.licenses.R
-import ru.apteka.licenses.databinding.LicensesFragmentBinding
-import ru.apteka.licenses.databinding.LoyaltyProgramFragmentBinding
-import ru.apteka.licenses.databinding.PolicyConfidentialityFragmentBinding
+import ru.apteka.licenses.databinding.LegalDocumentsLoyaltyProgramFragmentBinding
 import javax.inject.Inject
 
 
@@ -15,13 +13,14 @@ import javax.inject.Inject
  * Представляет фрагмент "Правила программы лояльности".
  */
 @AndroidEntryPoint
-class LoyaltyProgramFragment : BaseFragment<Nothing, LoyaltyProgramFragmentBinding>() {
-    override val layoutId: Int = R.layout.loyalty_program_fragment
+class LoyaltyProgramFragment :
+    BaseFragment<Nothing, LegalDocumentsLoyaltyProgramFragmentBinding>() {
+    override val layoutId: Int = R.layout.legal_documents_loyalty_program_fragment
 
     @Inject
     lateinit var navigationManager: NavigationManager
 
-    override fun onViewBindingInflated(binding: LoyaltyProgramFragmentBinding) {
+    override fun onViewBindingInflated(binding: LegalDocumentsLoyaltyProgramFragmentBinding) {
         binding.loyaltyProgramStocks.setOnClickListener {
             navigationManager.bottomAppBarModel.apply {
                 onItemSelected(item_3.itemId)

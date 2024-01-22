@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@id/referral_program_graph"
-    app:startDestination="@id/referralProgramFragment">
+    android:id="@id/loyalty_program_graph"
+    app:startDestination="@id/loyaltyЗrogramFragment">
 
     <fragment
-        android:id="@+id/referralProgramFragment"
-        android:name="ru.apteka.loyalty_program.presentation.ReferralProgramFragment"/>
+        android:id="@+id/loyaltyЗrogramFragment"
+        android:name="ru.apteka.loyalty_program.presentation.LoyaltyProgramFragment"/>
 
 </navigation>

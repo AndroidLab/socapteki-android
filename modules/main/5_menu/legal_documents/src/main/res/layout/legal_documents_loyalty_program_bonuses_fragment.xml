@@ -49,7 +49,7 @@
                         app:sepMarginTop="@{8}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_base_count_desc}"
                         app:title="@{@string/loyalty_program_bonuses_base_count_title}" />
 
@@ -60,7 +60,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_base_conditions_desc}"
                         app:title="@{@string/loyalty_program_bonuses_base_conditions_title}" />
 
@@ -71,7 +71,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_base_life_span_desc}"
                         app:title="@{@string/loyalty_program_bonuses_base_life_span_title}" />
 
@@ -115,7 +115,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_welcome_count_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_welcome_count_title}" />
 
@@ -126,7 +126,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_welcome_conditions_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_welcome_conditions_title}" />
 
@@ -137,7 +137,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_welcome_accrual_period_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_welcome_accrual_period_title}" />
 
@@ -148,7 +148,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_welcome_life_span_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_welcome_life_span_title}" />
 
@@ -172,7 +172,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_promotional_count_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_promotional_count_title}" />
 
@@ -183,7 +183,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_promotional_conditions_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_promotional_conditions_title}" />
 
@@ -194,7 +194,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_promotional_accrual_period_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_promotional_accrual_period_title}" />
 
@@ -205,7 +205,7 @@
                         app:sepMarginTop="@{12}" />
 
                     <include
-                        layout="@layout/loyalty_program_bonuses_item_view"
+                        layout="@layout/legal_documens_loyalty_program_bonuses_item_view"
                         app:desc="@{@string/loyalty_program_bonuses_additional_promotional_life_span_desc}"
                         app:title="@{@string/loyalty_program_bonuses_additional_promotional_life_span_title}" />
 
