@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="16dp"
+                android:paddingHorizontal="16dp"
                 app:forItems="@{viewModel.notificationFilter.items}"
                 app:useTemplate="@{@layout/notification_filter_template}"
                 app:visibleIf="@{viewModel.notificationFilter.mediator}" />
@@ -68,7 +68,8 @@
             layout="@layout/shadow_view"
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            android:layout_above="@id/flNotificationsMakingOrder" />
+            android:layout_above="@id/flNotificationsMakingOrder"
+            app:visibleIf="@{!viewModel.isLoading}" />
 
         <!-- Кнопка -->
         <FrameLayout

@@ -5,6 +5,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
+import ru.apteka.contacts.data.models.ContactsWorkingConditionModel
 import javax.inject.Inject
 
 
@@ -20,6 +21,39 @@ class ContactsViewModel @Inject constructor(
     navigationManager,
     messageService
 ) {
+    val workingConditionsFake = listOf(
+        ContactsWorkingConditionModel(
+            title = "Результаты проведения специальной оценки условий труда",
+            onClick = {
+
+            }
+        ),
+        ContactsWorkingConditionModel(
+            title = "Результаты проведения специальной оценки условий труда",
+            onClick = {
+
+            }
+        ),
+        ContactsWorkingConditionModel(
+            title = "Результаты проведения специальной оценки условий труда",
+            onClick = {
+
+            }
+        ),
+        ContactsWorkingConditionModel(
+            title = "Результаты проведения специальной оценки условий труда",
+            onClick = {
+
+            }
+        ),
+        ContactsWorkingConditionModel(
+            title = "Результаты проведения специальной оценки условий труда",
+            onClick = {
+
+            }
+        ),
+    )
+
 
 
     init {

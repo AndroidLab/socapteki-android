@@ -34,7 +34,7 @@ data class OrderModel(
     /**
      * Возвращает форматированную дату.
      */
-    fun getFormatDate(context: Context) = Calendar(date).formatDate(context)
+    fun getFormatDate() = Calendar(date).formatDate("dd.MM.yyyy")
 
     /**
      * Возвращает список продуктов.

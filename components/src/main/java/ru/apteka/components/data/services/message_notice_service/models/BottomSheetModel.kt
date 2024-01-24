@@ -14,6 +14,6 @@ import kotlinx.parcelize.RawValue
 data class BottomSheetModel(
     @LayoutRes val layoutId: Int? = null,
     val binding: @RawValue ViewDataBinding? = null,
-    val onLayoutInflate: ((ViewDataBinding, BottomSheetDialogFragment, BottomSheetBehavior<View>) -> Unit)? = null,
+    val onLayoutInflate: ((ViewDataBinding, BottomSheetDialogFragment, BottomSheetBehavior<View>) -> Unit)? = null, //binding, dialog, behavior
     val useScrollableContainer: Boolean = true,
 ) : Parcelable

@@ -1,6 +1,5 @@
 package ru.apteka.listing.data.models
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -128,6 +127,7 @@ sealed interface IFilter {
             selectedMinProgress.value = _selectedMinPrice
             selectedMaxProgress.value = _selectedMaxPrice
             apply()
+            _stringValue.value = ""
         }
 
         override fun cancel() {
@@ -140,6 +140,12 @@ sealed interface IFilter {
             _selectedMinPrice = selectedMinProgress.value!!
             _selectedMaxPrice = selectedMaxProgress.value!!
             _anySelected.value = _selectedMinPrice != minPrice || _selectedMaxPrice != maxPrice
+
+            if (_selectedMinPrice == minPrice && _selectedMaxPrice == maxPrice) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": ${_selectedMinPrice}-${_selectedMaxPrice}"
+            }
             super.apply()
         }
 
@@ -204,6 +210,7 @@ sealed interface IFilter {
                 selectedItems[index] = false
             }
             apply()
+            _stringValue.value = ""
         }
 
         override fun cancel() {
@@ -219,6 +226,12 @@ sealed interface IFilter {
             }
             _anySelected.value = selectedItems.any { it }
 
+            val filterStringValue = items.filter { it.isSelected.value!! }.joinToString { it.title }
+            if (filterStringValue.isEmpty()) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": $filterStringValue"
+            }
             super.apply()
         }
 
@@ -314,6 +327,12 @@ sealed interface IFilter {
             }
             _anySelected.value = selectedItems.any { it }
 
+            val filterStringValue = items.filter { it.isSelected.value!! }.joinToString { it.title }
+            if (filterStringValue.isEmpty()) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": $filterStringValue"
+            }
             super.apply()
         }
 
@@ -350,7 +369,9 @@ sealed interface IFilter {
             val title: String,
             val enabled: MutableLiveData<Boolean> = MutableLiveData(false),
             val isSelected: MutableLiveData<Boolean> = MutableLiveData(false),
-            val onItemClick: (DiscountItemModel) -> Unit = { isSelected.value = !isSelected.value!! }
+            val onItemClick: (DiscountItemModel) -> Unit = {
+                isSelected.value = !isSelected.value!!
+            }
         )
 
         private val selectedItems: MutableList<Boolean> = items.map {
@@ -547,7 +568,13 @@ sealed interface IFilter {
                 selectedItems[index] = releaseFormModel.isSelected.value!!
             }
             _anySelected.value = selectedItems.any { it }
-            _stringValue.value = ": ${items.filter { it.isSelected.value!! }.joinToString { it.title }}"
+
+            val filterStringValue = items.filter { it.isSelected.value!! }.joinToString { it.title }
+            if (filterStringValue.isEmpty()) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": $filterStringValue"
+            }
             super.apply()
         }
 
@@ -641,6 +668,12 @@ sealed interface IFilter {
             }
             _anySelected.value = selectedItems.any { it }
 
+            val filterStringValue = items.filter { it.isSelected.value!! }.joinToString { it.title }
+            if (filterStringValue.isEmpty()) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": $filterStringValue"
+            }
             super.apply()
         }
 
@@ -736,6 +769,12 @@ sealed interface IFilter {
             }
             _anySelected.value = selectedItems.any { it }
 
+            val filterStringValue = items.filter { it.isSelected.value!! }.joinToString { it.title }
+            if (filterStringValue.isEmpty()) {
+                _stringValue.value = ""
+            } else {
+                _stringValue.value = ": $filterStringValue"
+            }
             super.apply()
         }
 

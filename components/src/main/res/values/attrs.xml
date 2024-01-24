@@ -112,7 +112,6 @@
 
     <!-- Параметры для NotificationBadge -->
     <declare-styleable name="NotificationBadge">
-        <attr name="android:textSize" />
         <attr name="android:textColor" />
         <attr name="nbBackground" format="reference" />
         <attr name="nbAnimationDuration" format="integer" />

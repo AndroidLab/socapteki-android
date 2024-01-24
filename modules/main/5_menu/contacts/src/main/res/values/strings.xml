@@ -1,10 +1,18 @@
 <resources>
 
     <string name="contacts_title">Контакты</string>
-
+    <string name="contacts_charity">Наши благотворительные проекты</string>
     <string name="contacts_map">Аптеки на карте</string>
     <string name="contacts_reception">Приемная</string>
     <string name="contacts_drug_reference">Справочная лекарств</string>
+    <string name="contacts_contact_us">Связаться с нами</string>
+    <string name="contacts_contact_us_title">Связаться с нами 24/7</string>
+    <string name="contacts_contact_us_help_desk">Справочная служба. Звонок бесплатный</string>
+    <string name="contacts_contact_us_online_pharmacy">Интернет-аптека</string>
+    <string name="contacts_contact_us_time">(с 8:00 до 21:00 по МСК)</string>
+    <string name="contacts_contact_us_telegram">Telegram</string>
+    <string name="contacts_contact_us_vk">Вконтакте</string>
+    <string name="contacts_contact_us_ok">Одноклассники</string>
     <string name="contacts_requisites">Реквизиты</string>
     <string name="contacts_requisites_company_name">Наименование предприятия</string>
     <string name="contacts_requisites_inn">ИНН</string>
@@ -18,7 +26,9 @@
     <string name="contacts_write_to_us_work_in_company">Работа в компании</string>
     <string name="contacts_write_to_us_claims">Претензии</string>
 
-    <string name="contacts_social_networks">Мы в социальных сетях:</string>
+    <string name="contacts_working_conditions_title">Результаты проведения специальной оценки условий труда</string>
+    <string name="contacts_working_conditions_desc">По результатам проведения специальной оценки условий труда устанавливаются классы (подклассы) условий труда на рабочих местах.По результатам проведения специальной оценки условий труда устанавливаются классы (подклассы) условий труда на рабочих местах.По результатам проведения специальной оценки условий труда устанавливаются классы (подклассы) условий труда на рабочих местах.</string>
+
     <string name="contacts_write">Написать нам</string>
 
 </resources>

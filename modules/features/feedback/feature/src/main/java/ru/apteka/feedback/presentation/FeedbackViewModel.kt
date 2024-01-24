@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.R
+import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -16,6 +17,7 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
+import ru.apteka.feedback.data.FileModel
 import javax.inject.Inject
 
 
@@ -25,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedbackViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
+    loginRepository: LoginRepository,
     navigationManager: NavigationManager,
     messageService: MessageService
 ) : BaseViewModel(
@@ -34,12 +37,12 @@ class FeedbackViewModel @Inject constructor(
     /**
      * Возвращает или устанавливает ФИО.
      */
-    val fio = MutableLiveData("")
+    val fio = MutableLiveData(loginRepository.personalData.fio ?: "")
 
     /**
      * Возвращает или устанавливает почту.
      */
-    val email = MutableLiveData("")
+    val email = MutableLiveData(loginRepository.personalData.userMail?.mail ?: "")
 
     /**
      * Возвращает ошибку валидации.
@@ -77,6 +80,11 @@ class FeedbackViewModel @Inject constructor(
      * Возвращает или устанавливает текст обращения.
      */
     val message = MutableLiveData("")
+
+    /**
+     * Возвращает список прикрепленных файлов.
+     */
+    val files = MutableLiveData<List<FileModel>>(emptyList())
 
     /**
      * Возвращает или устанавливает флаг согласия на обработку перс. данных.

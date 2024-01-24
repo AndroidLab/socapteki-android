@@ -6,16 +6,16 @@ application_minify_debug_enabled = "false"
 library_minify_debug_enabled = "false"
 application_minify_release_enabled = "false"
 library_minify_release_enabled = "false"
-agp = "8.2.0"
+agp = "8.2.1"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
-lifecycle = "2.6.2"
+lifecycle = "2.7.0"
 retrofit = "2.9.0"
 glide = "4.16.0"
 room = "2.6.1"
 kotlinx_coroutines_android = "1.7.1"
 hilt = "2.48"
-navigation = "2.7.5"
+navigation = "2.7.6"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
@@ -49,11 +49,11 @@ coreKtx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0-alpha01" }
-material = { module = "com.google.android.material:material", version = "1.10.0" }
+material = { module = "com.google.android.material:material", version = "1.11.0" }
 gson = { module = "com.google.code.gson:gson", version = "2.10.1" }
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version = "2.9.0" }
 coreSplashscreen = { module = "androidx.core:core-splashscreen", version = "1.1.0-alpha02" }
-firebaseBom = { module = "com.google.firebase:firebase-bom", version = "32.7.0" }
+firebaseBom = { module = "com.google.firebase:firebase-bom", version = "32.7.1" }
 firebaseMessaging = { module = "com.google.firebase:firebase-messaging", version = "23.4.0" }
 firebaseAnalytics = { module = "com.google.firebase:firebase-analytics", version = "21.5.0" }
 

@@ -26,14 +26,13 @@
     <string name="comments_feedback_no_feedbacks">К сожалению, вы еще не оставляли комментарии либо отзывы</string>
 
 
-    <string name="notifications_title">Настройка уведомлений</string>
-    <string name="notifications_online_order_status">Статус интернет-заказа</string>
-    <string name="notifications_stocks">Акции, новости, низкие цены, промокоды и подарки</string>
-    <string name="notifications_points">Сгорание баллов:</string>
-
-    <string name="notifications_mail">Получать уведомления на e-mail</string>
-    <string name="notifications_sms">Получать СМС-уведомления</string>
-    <string name="notifications_push">Push-уведомления</string>
+    <string name="seting_notifications_title">Настройка уведомлений</string>
+    <string name="setting_notifications_online_order_status">Статус интернет-заказа</string>
+    <string name="setting_notifications_stocks">Акции, новости, низкие цены, промокоды и подарки</string>
+    <string name="setting_notifications_points">Сгорание баллов:</string>
+    <string name="setting_notifications_mail">Получать уведомления на e-mail</string>
+    <string name="setting_notifications_sms">Получать СМС-уведомления</string>
+    <string name="setting_notifications_push">Push-уведомления</string>
 
     <string name="personal_data">Личные данные</string>
     <string name="personal_data_not_specified">Не указан</string>

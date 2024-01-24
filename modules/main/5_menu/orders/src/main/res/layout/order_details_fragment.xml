@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.order.getFormatDate(context)}"
+                        android:text="@{viewModel.order.getFormatDate()}"
                         android:textColor="@color/dark_grey"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/orderDetailsTitle"

@@ -53,8 +53,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{model.getFormatDate(context)}"
-                android:textColor="@color/dark_grey"
+                android:text="@{model.getFormatDate()}"
+                android:textColor="@color/light_black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/orderPayStatusSeparator"
                 app:layout_constraintEnd_toEndOf="parent"

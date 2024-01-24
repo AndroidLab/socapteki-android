@@ -45,7 +45,7 @@
                         style="@style/Theme.Socapteki.SemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/notifications_online_order_status"
+                        android:text="@string/setting_notifications_online_order_status"
                         android:textColor="@color/dark_black" />
 
                     <!-- Email уведомления -->
@@ -56,7 +56,7 @@
                         android:checked="@={viewModel.notificationsOnlineOrderStatusMail}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
+                        android:text="@string/setting_notifications_mail"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>
@@ -77,7 +77,7 @@
                         style="@style/Theme.Socapteki.SemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/notifications_stocks"
+                        android:text="@string/setting_notifications_stocks"
                         android:textColor="@color/dark_black" />
 
                     <!-- Email уведомления -->
@@ -88,7 +88,7 @@
                         android:checked="@={viewModel.notificationsStocksMail}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
+                        android:text="@string/setting_notifications_mail"
                         android:textColor="@color/light_black" />
 
                     <include layout="@layout/separator_view" />
@@ -100,7 +100,7 @@
                         android:checked="@={viewModel.notificationsStocksSms}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_sms"
+                        android:text="@string/setting_notifications_sms"
                         android:textColor="@color/light_black" />
 
                     <include layout="@layout/separator_view" />
@@ -112,7 +112,7 @@
                         android:checked="@={viewModel.notificationsStocksPush}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_push"
+                        android:text="@string/setting_notifications_push"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>
@@ -133,7 +133,7 @@
                         style="@style/Theme.Socapteki.SemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/notifications_points"
+                        android:text="@string/setting_notifications_points"
                         android:textColor="@color/dark_black" />
 
                     <!-- Sms или email уведомления -->
@@ -144,7 +144,7 @@
                         android:checked="@={viewModel.notificationsPointsSmsOrMail}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_mail"
+                        android:text="@string/setting_notifications_mail"
                         android:textColor="@color/light_black" />
 
                     <include layout="@layout/separator_view" />
@@ -156,7 +156,7 @@
                         android:checked="@={viewModel.notificationsPointsPush}"
                         android:enabled="@{!viewModel.isLoading}"
                         android:paddingHorizontal="16dp"
-                        android:text="@string/notifications_push"
+                        android:text="@string/setting_notifications_push"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>

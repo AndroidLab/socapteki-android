@@ -32,7 +32,6 @@ class NotificationBadge @JvmOverloads constructor(
 
     @Volatile
     private var _number: Int? = null
-    private var _textSize = 12.dp
     var animationDuration: Int = 250
     var countLimit: Int = 99
     var badgeVisible = false
@@ -152,9 +151,8 @@ class NotificationBadge @JvmOverloads constructor(
             binding.ivBadge.layoutParams = iconBigSize
             INVISIBLE
         }
-        minimumWidth = 22.dp
-        minimumHeight = 20.dp
-        setPadding(3.dp, 3.dp, 3.dp, 3.dp)
+        minimumWidth = 18.dp
+        minimumHeight = 16.dp
 
         val typedArray =
             context.theme.obtainStyledAttributes(attrs, R.styleable.NotificationBadge, 0, 0)
@@ -162,11 +160,6 @@ class NotificationBadge @JvmOverloads constructor(
             textColor = typedArray.getColor(
                 R.styleable.NotificationBadge_android_textColor,
                 textColor
-            )
-
-            _textSize = typedArray.getDimensionPixelSize(
-                R.styleable.NotificationBadge_android_textSize,
-                _textSize
             )
 
             animationDuration = typedArray.getInt(
@@ -180,7 +173,7 @@ class NotificationBadge @JvmOverloads constructor(
 
             countLimit = typedArray.getInt(
                 R.styleable.NotificationBadge_nbCountLimit,
-                countLimit.toInt()
+                countLimit
             )
             typedArray.getString(R.styleable.NotificationBadge_nbEllipsizeText)?.let {
                 ellipsizeText = it
@@ -192,7 +185,7 @@ class NotificationBadge @JvmOverloads constructor(
 
         binding.tsBadger.setFactory {
             TextView(context).apply {
-                setTextSize(TypedValue.COMPLEX_UNIT_PX, _textSize.toFloat())
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f)
                 gravity = Gravity.CENTER
                 maxLines = 1
                 setTextColor(textColor)
@@ -201,7 +194,7 @@ class NotificationBadge @JvmOverloads constructor(
                     LayoutParams.MATCH_PARENT,
                     Gravity.CENTER
                 ).apply {
-                    setMargins(2.dp, 0, 2.dp, 0)
+                    setMargins(3.dp, 0, 3.dp, 0)
                 }
             }
         }

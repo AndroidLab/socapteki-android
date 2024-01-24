@@ -33,7 +33,7 @@ class ProfileNotificationsSettingFragment :
         viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.notificationsToolbar.apply {
             toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            tvToolbarTitle.text = getString(R.string.notifications_title)
+            tvToolbarTitle.text = getString(R.string.seting_notifications_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }

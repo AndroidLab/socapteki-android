@@ -3,14 +3,21 @@ package ru.apteka.contacts.presentation
 import android.content.Intent
 import android.net.Uri
 import androidx.core.os.bundleOf
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.parcelize.RawValue
+import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
+import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
+import ru.apteka.components.data.services.message_notice_service.showBottomSheet
 import ru.apteka.components.data.utils.NAVIGATE_REQUEST_KEY_TO_HOME
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.contacts.R
+import ru.apteka.contacts.databinding.ContactsContactUsDialogBinding
 import ru.apteka.contacts.databinding.ContactsFragmentBinding
 import ru.apteka.feedback_api.api.FEEDBACK_REQUEST_KEY_SUCCESS
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
@@ -31,6 +38,10 @@ class ContactsFragment : BaseFragment<ContactsViewModel, ContactsFragmentBinding
             viewModel.navigationManager.generalNavController.popBackStack()
         }
         binding.viewModel = viewModel
+
+        binding.contactsCharity.setOnClickListener {
+
+        }
 
         binding.contactsPharmacyMap.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
@@ -63,16 +74,36 @@ class ContactsFragment : BaseFragment<ContactsViewModel, ContactsFragmentBinding
             mail("info@social-apteka.ru")
         }
 
-        binding.contactsTelegram.setOnClickListener {
-            openSocNetwork("https://t.me/socialaptekaru")
-        }
-
-        binding.contactsVk.setOnClickListener {
-            openSocNetwork("https://vk.com/socialapteka")
-        }
-
-        binding.contactsOk.setOnClickListener {
-            openSocNetwork("https://ok.ru/socialapteka")
+        binding.contactsContactUs.setOnClickListener {
+            showBottomSheet(
+                commonBottomSheet = CommonBottomSheetModel(
+                    fragmentManager = parentFragmentManager,
+                    bottomSheetModel = BottomSheetModel(
+                        layoutId = R.layout.contacts_contact_us_dialog,
+                        onLayoutInflate = { binding, dialog, behavior ->
+                            binding as ContactsContactUsDialogBinding
+                            binding.contactsContactUsCancel.setOnClickListener {
+                                dialog.dismiss()
+                            }
+                            binding.contactsContactUsHelpDeskItem.setOnClickListener {
+                                call(binding.tvContactsContactUsHelpDeskPhone.text.toString())
+                            }
+                            binding.contactsContactUsOnlinePharmacyItem.setOnClickListener {
+                                call(binding.tvContactsContactUsOnlinePharmacyPhone.text.toString())
+                            }
+                            binding.contactsContactUsTelegramItem.setOnClickListener {
+                                openSocNetwork("https://t.me/socialaptekaru")
+                            }
+                            binding.contactsContactUsVKItem.setOnClickListener {
+                                openSocNetwork("https://vk.com/socialapteka")
+                            }
+                            binding.contactsContactUsOKItem.setOnClickListener {
+                                openSocNetwork("https://ok.ru/socialapteka")
+                            }
+                        }
+                    )
+                )
+            )
         }
 
         binding.mbContacts.setOnClickListener {
