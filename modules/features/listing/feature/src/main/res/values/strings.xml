@@ -16,5 +16,9 @@
     <string name="listing_product_search_products">Поиск…</string>
     <string name="listing_product_filter_price_from">От</string>
     <string name="listing_product_filter_price_before">До</string>
+    <string name="listing_product_filter_all_brands">Все бренды</string>
+    <string name="listing_product_filter_all_countries">Все страны</string>
+    <string name="listing_product_filter_all_substance">Все вещества</string>
+    <string name="listing_product_filter_all_manufacturer">Все производители</string>
 
 </resources>

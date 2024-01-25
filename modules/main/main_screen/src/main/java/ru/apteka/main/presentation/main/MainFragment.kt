@@ -36,7 +36,7 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
         navigationManager.showSearchProduct = {
             fun navigateToSearch() {
                 navigationManager.currentBottomNavControllerLiveData.value!!.navigate(
-                    CatalogFragmentDirections.toCatalogProductsFragment()
+                    CatalogFragmentDirections.toSearchProductsFragment()
                 )
             }
 
@@ -62,7 +62,7 @@ class MainFragment : BaseFragment<Nothing, MainFragmentBinding>() {
                             navigateToSearch()
                         }
                     } else {
-                        if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != CatalogR.id.catalogProductsFragment) {
+                        if (navigationManager.currentBottomNavControllerLiveData.value!!.currentDestination!!.id != CatalogR.id.searchProductsFragment) {
                             mainThread {
                                 navigateBackToProfile()
                             }

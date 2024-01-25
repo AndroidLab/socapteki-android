@@ -485,11 +485,8 @@ fun <T> ViewGroup.inflateTemplateByItems(
             null
         }
 
-    if (items != null && template != null) {
-        if (items.isEmpty()) {
-            this.removeAllViews()
-            return
-        }
+    this.removeAllViews()
+    if (!items.isNullOrEmpty() && template != null) {
         val inflater = LayoutInflater.from(context)
         if (this.childCount == 0) {
             items.forEach { item ->
@@ -530,8 +527,6 @@ fun <T> ViewGroup.inflateTemplateByItems(
             }
             inflateTemplateByItems(items, template, _lifecycleOwner)
         }
-    } else {
-        this.removeAllViews()
     }
 }
 

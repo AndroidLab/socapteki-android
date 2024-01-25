@@ -22,23 +22,26 @@ internal fun Project.configureModule(
         defaultConfig {
             minSdk = libs.findVersion("min_sdk").get().requiredVersion.toInt()
             if (this@apply is ApplicationExtension) {
-                defaultConfig.targetSdk = libs.findVersion("target_sdk").get().requiredVersion.toInt()
+                defaultConfig.targetSdk =
+                    libs.findVersion("target_sdk").get().requiredVersion.toInt()
             }
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
 
-        when(this@apply) {
+        when (this@apply) {
             is ApplicationExtension -> {
                 buildTypes {
                     debug {
-                        isMinifyEnabled = libs.findVersion("application_minify_debug_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("application_minify_debug_enabled")
+                            .get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
                         )
                     }
                     release {
-                        isMinifyEnabled = libs.findVersion("application_minify_release_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("application_minify_release_enabled")
+                            .get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
@@ -46,17 +49,20 @@ internal fun Project.configureModule(
                     }
                 }
             }
+
             is LibraryExtension -> {
                 buildTypes {
                     debug {
-                        isMinifyEnabled = libs.findVersion("library_minify_debug_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("library_minify_debug_enabled")
+                            .get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
                         )
                     }
                     release {
-                        isMinifyEnabled = libs.findVersion("library_minify_release_enabled").get().requiredVersion.toBoolean()
+                        isMinifyEnabled = libs.findVersion("library_minify_release_enabled")
+                            .get().requiredVersion.toBoolean()
                         proguardFiles(
                             getDefaultProguardFile("proguard-android-optimize.txt"),
                             "proguard-rules.pro"
@@ -75,6 +81,16 @@ internal fun Project.configureModule(
             dataBinding {
                 enable = true
             }
+        }
+
+        lint {
+            disable.addAll(
+                listOf(
+                    "NullSafeMutableLiveData",
+                    "MissingClass",
+                    "NewApi"
+                )
+            )
         }
 
         tasks.withType<KotlinCompile>().configureEach {

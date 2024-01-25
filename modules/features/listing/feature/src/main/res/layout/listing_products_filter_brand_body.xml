@@ -18,6 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <include
@@ -37,12 +38,23 @@
                 android:layout_height="wrap_content"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
-                app:visibleIf="@{listingProductFilterModel.mediator}"
+                app:forItems="@{listingProductFilterModel.filterItems}"
                 app:lifecycleOwner="@{lifecycle}"
-                app:forItems="@{listingProductFilterModel.items}"
-                app:useTemplate="@{@layout/listing_products_filter_brand_template}" />
+                app:useTemplate="@{@layout/listing_products_filter_brand_template}"
+                app:visibleIf="@{listingProductFilterModel.mediator}" />
 
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{() -> listingProductFilterModel.showAllItems()}"
+            android:paddingHorizontal="16dp"
+            android:text="@string/listing_product_filter_all_brands"
+            android:textColor="@color/color_primary"
+            app:visibleIf="@{listingProductFilterModel.items.size > 5 &amp; listingProductFilterModel.filterItems.size &lt; 5}" />
 
     </LinearLayout>
 

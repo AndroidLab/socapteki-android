@@ -197,7 +197,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/productPrice"
-                app:model="@{model.itemCounter}" />
+                app:product="@{model.product}"
+                app:model="@{model.basket}" />
 
             <!-- Аналоги -->
             <com.google.android.material.button.MaterialButton

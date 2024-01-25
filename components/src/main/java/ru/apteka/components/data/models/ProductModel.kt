@@ -1,7 +1,11 @@
 package ru.apteka.components.data.models
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.annotation.Keep
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.util.UUID
@@ -34,4 +38,21 @@ data class ProductModel(
     val labels: List<Label> = emptyList(),
     val countInBasket: Int = 0,
     val id: UUID = UUID.randomUUID(),
-) : Parcelable
+) : Parcelable {
+    
+    @IgnoredOnParcel
+    private val _countInBasketLiveData = MutableLiveData(countInBasket)
+
+    /**
+     * Возвращает или устанавливает значения кол-ва товара в корзине.
+     */
+    @IgnoredOnParcel
+    val countInBasketLiveData: LiveData<Int> = _countInBasketLiveData
+
+    /**
+     * Устанавливает кол-во товаров в корзине.
+     */
+    fun setCount(count: Int) {
+        _countInBasketLiveData.value = if (count < 0) 0 else count
+    }
+}

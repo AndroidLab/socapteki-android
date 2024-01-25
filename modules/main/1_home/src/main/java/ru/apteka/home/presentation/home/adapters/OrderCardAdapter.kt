@@ -27,9 +27,9 @@ class OrderCardAdapter(private val onItemClick: (OrderModel) -> Unit) :
 
         model = item
         executePendingBindings()
-        orderCardItem.setOnClickListener {
+        /*orderCardItem.setOnClickListener {
             onItemClick(item)
-        }
+        }*/
     }
 
     override fun isForViewType(item: Any) = item is OrderModel

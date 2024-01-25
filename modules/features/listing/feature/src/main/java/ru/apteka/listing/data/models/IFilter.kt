@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
+import ru.apteka.components.data.utils.subListOrNull
 
 
 /**
@@ -277,6 +278,20 @@ sealed interface IFilter {
             it.isSelected.value!!
         }.toMutableList()
 
+        private val _filterItems = MutableLiveData(items.subListOrNull(0, 4)!!)
+
+        /**
+         * Возвращает пункты для отображения.
+         */
+        val filterItems: LiveData<List<ManufacturerModel>> = _filterItems
+
+        /**
+         * Показывает все пункты.
+         */
+        fun showAllItems() {
+            _filterItems.value = items
+        }
+
         override val isChanged = MediatorLiveData(false).apply {
             items.forEach {
                 addSource(it.isSelected) {
@@ -519,6 +534,20 @@ sealed interface IFilter {
             it.isSelected.value!!
         }.toMutableList()
 
+        private val _filterItems = MutableLiveData(items.subListOrNull(0, 4)!!)
+
+        /**
+         * Возвращает пункты для отображения.
+         */
+        val filterItems: LiveData<List<BrandItemModel>> = _filterItems
+
+        /**
+         * Показывает все пункты.
+         */
+        fun showAllItems() {
+            _filterItems.value = items
+        }
+
         override val isChanged = MediatorLiveData(false).apply {
             items.forEach {
                 addSource(it.isSelected) {
@@ -617,6 +646,20 @@ sealed interface IFilter {
         private val selectedItems: MutableList<Boolean> = items.map {
             it.isSelected.value!!
         }.toMutableList()
+
+        private val _filterItems = MutableLiveData(items.subListOrNull(0, 4)!!)
+
+        /**
+         * Возвращает пункты для отображения.
+         */
+        val filterItems: LiveData<List<CountryItemModel>> = _filterItems
+
+        /**
+         * Показывает все пункты.
+         */
+        fun showAllItems() {
+            _filterItems.value = items
+        }
 
         override val isChanged = MediatorLiveData(false).apply {
             items.forEach {
@@ -718,6 +761,20 @@ sealed interface IFilter {
         private val selectedItems: MutableList<Boolean> = items.map {
             it.isSelected.value!!
         }.toMutableList()
+
+        private val _filterItems = MutableLiveData(items.subListOrNull(0, 4)!!)
+
+        /**
+         * Возвращает пункты для отображения.
+         */
+        val filterItems: LiveData<List<ActiveSubstanceItemModel>> = _filterItems
+
+        /**
+         * Показывает все пункты.
+         */
+        fun showAllItems() {
+            _filterItems.value = items
+        }
 
         override val isChanged = MediatorLiveData(false).apply {
             items.forEach {

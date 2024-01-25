@@ -1,24 +1,22 @@
 package ru.apteka.components.data.services.message_notice_service
 
-import android.text.Html
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
+import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
 import ru.apteka.components.data.services.message_notice_service.models.SnackBarModel
 import ru.apteka.components.data.services.message_notice_service.models.ToastModel
-import com.google.android.material.snackbar.Snackbar
-import ru.apteka.components.data.services.message_notice_service.models.CommonBottomSheetModel
 import ru.apteka.components.data.utils.getSpannedFromHtml
 import ru.apteka.components.data.utils.getStringFrom
-import ru.apteka.components.ui.CommonDialogFragment
-import ru.apteka.components.databinding.SnackbarLayoutBinding
 import ru.apteka.components.ui.BottomSheet
+import ru.apteka.components.ui.CommonDialogFragment
 
 /**
  * Показывает Snackbar.
  */
 fun showSnackBar(snackBarModel: SnackBarModel) {
     Snackbar.make(snackBarModel.activity.findViewById(android.R.id.content), "", snackBarModel.duration).apply {
-        (view as Snackbar.SnackbarLayout).addView(
+        /*(view as Snackbar.SnackbarLayout).addView(
             SnackbarLayoutBinding.inflate(snackBarModel.activity.layoutInflater).apply {
                 this.imageRes = imageRes
                 this.message = message
@@ -30,7 +28,7 @@ fun showSnackBar(snackBarModel: SnackBarModel) {
                     dismiss()
                 }
             }.root
-        )
+        )*/
     }.show()
 
 }

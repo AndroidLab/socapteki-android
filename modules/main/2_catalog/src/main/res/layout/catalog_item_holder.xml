@@ -7,12 +7,12 @@
 
         <variable
             name="model"
-            type="ru.apteka.catalog.data.models.CatalogMenuItem" />
+            type="ru.apteka.catalog.data.models.CatalogItem" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/catalogMenuItem"
+        android:id="@+id/catalogItem"
         style="@style/Theme.Socapteki.BackgroundCard"
         android:layout_width="match_parent"
         android:layout_height="162dp"

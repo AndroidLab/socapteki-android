@@ -11,11 +11,11 @@ import ru.apteka.components.data.models.OrderDeliveryMethod
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderPayStatus
 import ru.apteka.components.data.models.OrderStatus
-import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -293,9 +293,8 @@ class HomeViewModel @Inject constructor(
                                             favoriteService = favoriteService,
                                             isFavorite = product.isFavorite,
                                         )
-                                        itemCounter = ProductCounterModel(
+                                        basket = BasketModel(
                                             basketService = basketService,
-                                            productCard = this,
                                             countInBasket = product.countInBasket
                                         )
                                     }
@@ -330,9 +329,8 @@ class HomeViewModel @Inject constructor(
                                         favoriteService = favoriteService,
                                         isFavorite = product.isFavorite,
                                     )
-                                    itemCounter = ProductCounterModel(
+                                    basket = BasketModel(
                                         basketService = basketService,
-                                        productCard = this,
                                         countInBasket = product.countInBasket
                                     )
                                 }

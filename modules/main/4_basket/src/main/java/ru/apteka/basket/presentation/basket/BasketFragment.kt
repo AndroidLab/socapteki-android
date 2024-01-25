@@ -65,7 +65,7 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
         binding.basketMakingOrder.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 MakingOrderApiR.id.making_order_graph, bundleOf(
-                    MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.basketProducts.value!!.map { it.productCard.product }.toTypedArray()
+                    MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.basketProducts.value!!.toTypedArray()
                 )
             )
         }

@@ -1,5 +1,6 @@
 package ru.apteka.components.data.utils
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

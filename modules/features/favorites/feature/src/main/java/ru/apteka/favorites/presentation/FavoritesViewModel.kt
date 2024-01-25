@@ -1,18 +1,13 @@
 package ru.apteka.favorites.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.models.ProductCounterModel
-import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.favorites.data.model.FavoriteCardModel
 import javax.inject.Inject

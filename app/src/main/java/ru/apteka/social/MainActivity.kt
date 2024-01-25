@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity() {
             }
             generalNavController = this@MainActivity.generalNavController
             onBottomAppBarShowed = {
-                if (it) {
+                if (it && generalNavController.currentBackStackEntry?.destination?.id == R.id.featureFragment) {
                     binding.bottomAppBar.performShow()
                     binding.bottomAppBarFab.show()
                 } else {

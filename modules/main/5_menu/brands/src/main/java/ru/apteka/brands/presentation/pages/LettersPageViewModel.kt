@@ -1,6 +1,7 @@
 package ru.apteka.brands.presentation.pages
 
 import android.util.Log
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,8 +15,11 @@ import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
+import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import javax.inject.Inject
+import ru.apteka.listing_api.R as ListingApiR
 
 
 /**
@@ -32,131 +36,191 @@ class LettersPageViewModel @Inject constructor(
 ) {
 
     private val fakeBrands = listOf(
-        BrandModel().apply {
-            title = "А"
+        BrandModel(
+            title = "А",
             items = listOf(
                 LettersItemModel(
                     item = "Авангард 1"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Авангард 1")
                 },
                 LettersItemModel(
                     item = "Авангард 2"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Авангард 2")
                 },
                 LettersItemModel(
                     item = "Авангард 3"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Авангард 3")
                 },
                 LettersItemModel(
                     item = "Авангард 4"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Авангард 4")
+                },
+                LettersItemModel(
+                    item = "Авангард 5"
+                ) {
+                    navigateToListing("Авангард 5")
+                },
+                LettersItemModel(
+                    item = "Авангард 6"
+                ) {
+                    navigateToListing("Авангард 6")
+                },
+                LettersItemModel(
+                    item = "Авангард 7"
+                ) {
+                    navigateToListing("Авангард 7")
+                },
+                LettersItemModel(
+                    item = "Авангард 8"
+                ) {
+                    navigateToListing("Авангард 8")
                 },
             )
-        },
-        BrandModel().apply {
-            title = "Б"
+        ),
+        BrandModel(
+            title = "Б",
             items = listOf(
                 LettersItemModel(
                     item = "Биокад 1"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Биокад 1")
                 },
                 LettersItemModel(
                     item = "Биокад 2"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Биокад 2")
                 },
                 LettersItemModel(
                     item = "Биокад 3"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Биокад 3")
                 },
                 LettersItemModel(
                     item = "Биокад 4"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Биокад 4")
+                },
+                LettersItemModel(
+                    item = "Биокад 5"
+                ) {
+                    navigateToListing("Биокад 5")
+                },
+                LettersItemModel(
+                    item = "Биокад 6"
+                ) {
+                    navigateToListing("Биокад 6")
+                },
+                LettersItemModel(
+                    item = "Биокад 7"
+                ) {
+                    navigateToListing("Биокад 7")
+                },
+                LettersItemModel(
+                    item = "Биокад 8"
+                ) {
+                    navigateToListing("Биокад 8")
                 },
             )
-        },
-        BrandModel().apply {
-            title = "В"
+        ),
+        BrandModel(
+            title = "В",
             items = listOf(
                 LettersItemModel(
                     item = "Валексфарм 1"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Валексфарм 1")
                 },
                 LettersItemModel(
                     item = "Валексфарм 2"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Валексфарм 2")
                 },
                 LettersItemModel(
                     item = "Валексфарм 3"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Валексфарм 3")
                 },
                 LettersItemModel(
                     item = "Валексфарм 4"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Валексфарм 4")
+                },
+                LettersItemModel(
+                    item = "Валексфарм 5"
+                ) {
+                    navigateToListing("Валексфарм 5")
+                },
+                LettersItemModel(
+                    item = "Валексфарм 6"
+                ) {
+                    navigateToListing("Валексфарм 6")
+                },
+                LettersItemModel(
+                    item = "Валексфарм 7"
+                ) {
+                    navigateToListing("Валексфарм 7")
+                },
+                LettersItemModel(
+                    item = "Валексфарм 8"
+                ) {
+                    navigateToListing("Валексфарм 8")
                 },
             )
-        },
-        BrandModel().apply {
-            title = "Г"
+        ),
+        BrandModel(
+            title = "Г",
             items = listOf(
                 LettersItemModel(
                     item = "Галичфарм 1"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Галичфарм 1")
                 },
                 LettersItemModel(
                     item = "Галичфарм 2"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Галичфарм 2")
                 },
                 LettersItemModel(
                     item = "Галичфарм 3"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Галичфарм 3")
                 },
                 LettersItemModel(
                     item = "Галичфарм 4"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Галичфарм 4")
                 },
             )
-        },
-        BrandModel().apply {
-            title = "Д"
+        ),
+        BrandModel(
+            title = "Д",
             items = listOf(
                 LettersItemModel(
                     item = "Дарница 1"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Дарница 1")
                 },
                 LettersItemModel(
                     item = "Дарница 2"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Дарница 2")
                 },
                 LettersItemModel(
                     item = "Дарница 3"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Дарница 3")
                 },
                 LettersItemModel(
                     item = "Дарница 4"
                 ) {
-                    Log.d("myL", it)
+                    navigateToListing("Дарница 4")
                 },
             )
-        },
+        ),
     )
 
     private val _letters = MutableLiveData<List<LettersCardModel>>(emptyList())
@@ -202,10 +266,10 @@ class LettersPageViewModel @Inject constructor(
             delay(1500)
             _letters.postValue(
                 fakeBrands.filter { it.items.any { it.item.contains(value, true) } }.map {
-                    BrandModel().apply {
-                        title = it.title
+                    BrandModel(
+                        title = it.title,
                         items = it.items.filter { it.item.contains(value, true) }
-                    }
+                    )
                 }
             )
             _isSearchProgress.postValue(false)
@@ -222,6 +286,14 @@ class LettersPageViewModel @Inject constructor(
             _letters.postValue(fakeBrands)
             _isLoading.postValue(false)
         }
+    }
+
+    private fun navigateToListing(title: String) {
+        navigationManager.generalNavController.navigateWithAnim(
+            ListingApiR.id.listing_graph, bundleOf(
+                LISTING_ARGUMENT to title
+            )
+        )
     }
 
 }

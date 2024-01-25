@@ -6,8 +6,12 @@
     <data>
 
         <variable
+            name="product"
+            type="ru.apteka.components.data.models.ProductModel" />
+
+        <variable
             name="model"
-            type="ru.apteka.components.data.models.ProductCounterModel" />
+            type="ru.apteka.components.data.services.basket_service.models.BasketModel" />
 
     </data>
 
@@ -21,9 +25,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="@{() -> model.onPlus.invoke()}"
+            android:onClick="@{() -> model.onPlus.invoke(product)}"
             android:text="@string/into_basket"
-            app:visibleIf="@{model.counterLiveData == 0}" />
+            app:visibleIf="@{product.countInBasketLiveData == 0}" />
 
         <!-- Счетчик -->
         <LinearLayout
@@ -32,14 +36,14 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:visibleIf="@{model.counterLiveData > 0}">
+            app:visibleIf="@{product.countInBasketLiveData > 0}">
 
             <!-- Минус -->
             <FrameLayout
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:onClick="@{() -> model.onMinus.invoke()}">
+                android:onClick="@{() -> model.onMinus.invoke(product)}">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -70,7 +74,7 @@
                     android:background="@color/color_surface_variant"
                     android:gravity="center"
                     android:onClick="@{null}"
-                    android:text="@{String.valueOf(model.counterLiveData)}" />
+                    android:text="@{String.valueOf(product.countInBasketLiveData)}" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -79,7 +83,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:onClick="@{() -> model.onPlus.invoke()}">
+                android:onClick="@{() -> model.onPlus.invoke(product)}">
 
                 <ImageView
                     android:layout_width="match_parent"

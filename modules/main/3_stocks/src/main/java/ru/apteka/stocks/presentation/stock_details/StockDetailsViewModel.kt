@@ -7,9 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
-import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -60,9 +60,8 @@ class StockDetailsViewModel @Inject constructor(
                             favoriteService = favoriteService,
                             isFavorite = product.isFavorite,
                         )
-                        itemCounter = ProductCounterModel(
+                        basket = BasketModel(
                             basketService = basketService,
-                            productCard = this,
                             countInBasket = product.countInBasket
                         )
                     }

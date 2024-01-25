@@ -2,17 +2,23 @@ package ru.apteka.basket.presentation.basket
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.basket.data.models.AlwaysUsefulFilterModel
+import ru.apteka.basket.data.models.BasketCardModel
+import ru.apteka.components.R
 import ru.apteka.components.data.models.FavoriteModel
-import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
+import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
+import ru.apteka.components.data.services.message_notice_service.models.DialogModel
+import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
@@ -27,8 +33,8 @@ import javax.inject.Inject
 class BasketViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val productsRepository: ProductsRepository,
+    private val favoriteService: FavoriteService,
     val basketService: BasketService,
-    val favoriteService: FavoriteService,
     navigationManager: NavigationManager,
     messageService: IMessageService
 ) : BaseViewModel(
@@ -60,6 +66,46 @@ class BasketViewModel @Inject constructor(
         items[0].isItemSelected.value = true
     }
 
+    /**
+     * Возвращает продукты в корзине.
+     */
+    val productsInBasket = basketService.basketProducts.map {
+        it.map { product ->
+            BasketCardModel(
+                product = product
+            ).apply {
+                favorite = FavoriteModel(
+                    favoriteService = favoriteService,
+                    isFavorite = favoriteService.isContainsInFavorite(product.id),
+                )
+                basket = BasketModel(
+                    basketService = basketService,
+                    countInBasket = product.countInBasket
+                )
+                onShowRemoveDialog = {
+                    messageService.showCommonDialog(
+                        dialogModel = DialogModel(
+                            message = MessageModel(
+                                message = R.string.dialog_remove_product_desk
+                            ),
+                            buttonCancel = DialogButtonModel(
+                                text = R.string.cancel,
+                                textColor = R.color.light_black,
+                                borderColor = R.color.grey,
+                            ),
+                            buttonConfirm = DialogButtonModel(
+                                text = R.string.remove,
+                                backgroundColor = R.color.red
+                            ) {
+                                removeProduct()
+                            }
+                        )
+                    )
+                }
+            }
+        }
+    }
+
     private val _alwaysUsefulProducts = MutableLiveData<List<ProductCardModel>>(emptyList())
 
     /**
@@ -88,9 +134,8 @@ class BasketViewModel @Inject constructor(
                                     favoriteService = favoriteService,
                                     isFavorite = product.isFavorite,
                                 )
-                                itemCounter = ProductCounterModel(
+                                basket = BasketModel(
                                     basketService = basketService,
-                                    productCard = this,
                                     countInBasket = product.countInBasket
                                 )
                             }

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
-                android:text="@{model.title}"
+                android:text="@{model._title}"
                 android:textColor="@color/dark_black"
                 android:textSize="16sp" />
 
@@ -42,18 +42,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:forItems="@{model.items}"
+                app:forItems="@{model.itemsLiveData}"
                 app:useTemplate="@{@layout/letters_item_template}" />
 
             <TextView
-                android:id="@+id/allBrandsByLetter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
+                android:onClick="@{() -> model.showAll()}"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{model instanceof BrandModel ? String.format(@string/brands_all_brands_by_letter, model.title) : String.format(@string/brands_all_manufactures_by_letter, model.title)}"
-                android:textColor="@color/color_primary" />
+                android:text="@{model instanceof BrandModel ? String.format(@string/brands_all_brands_by_letter, model._title) : String.format(@string/brands_all_manufactures_by_letter, model._title)}"
+                android:textColor="@color/color_primary"
+                app:visibleIf="@{model._items.size > 5 &amp; model.itemsLiveData.size &lt; 5}"/>
 
         </LinearLayout>
 

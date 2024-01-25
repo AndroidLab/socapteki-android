@@ -17,7 +17,7 @@ class CharityFragment : BaseFragment<CharityViewModel, CharityFragmentBinding>()
     override val layoutId: Int = R.layout.charity_fragment
 
     override fun onViewBindingInflated(binding: CharityFragmentBinding) {
-		binding.viewModel = viewModel
+        binding.viewModel = viewModel
 
         binding.mbCharityFoundation.setOnClickListener {
 

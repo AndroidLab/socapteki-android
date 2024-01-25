@@ -1,7 +1,7 @@
 package ru.apteka.favorites.data.model
 
-import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.services.basket_service.models.BasketModel
 
 
 /**
@@ -19,5 +19,5 @@ data class FavoriteCardModel(
     /**
      * Возвращает или устанавливает счетчик товара в корзине.
      */
-    lateinit var itemCounter: ProductCounterModel
+    lateinit var basket: BasketModel
 }

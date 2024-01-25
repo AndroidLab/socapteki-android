@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(project(":components"))
+    implementation(project(":modules:features:listing:api"))
 
     implementation(libs.bundles.navigationDeps)
 }

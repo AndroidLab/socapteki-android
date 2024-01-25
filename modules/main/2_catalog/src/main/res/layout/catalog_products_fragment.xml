@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="ru.apteka.catalog.presentation.catalog_products.CatalogProductsViewModel" />
+            type="ru.apteka.catalog.presentation.catalog_products.SearchProductsViewModel" />
 
     </data>
 
@@ -33,33 +33,25 @@
                 android:fillViewport="true"
                 android:overScrollMode="never">
 
-                <!-- Контейнер для перекючения между поиском и результатом -->
+                <!-- Список результатов поиска -->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <!-- Список результатов поиска -->
-                    <FrameLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSearchResult"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvSearchResult"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:overScrollMode="never"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                        <include
-                            layout="@layout/progress_bar"
-                            app:isLoading="@{viewModel.isSearchProductsLoading}" />
-
-                    </FrameLayout>
+                    <include
+                        layout="@layout/progress_bar"
+                        app:isLoading="@{viewModel.isSearchProductsLoading}" />
 
                 </FrameLayout>
-
 
             </androidx.core.widget.NestedScrollView>
 

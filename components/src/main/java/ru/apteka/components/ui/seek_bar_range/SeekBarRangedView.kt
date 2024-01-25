@@ -341,9 +341,6 @@ class SeekBarRangedView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun setBackgroundColor(color: Color) {
-        setBackgroundColor(color.toArgb())
-    }
 
     /**
      * You can simulate the use of this method with by calling [.setBackgroundColor] with ContextCompat:
@@ -382,9 +379,6 @@ class SeekBarRangedView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun setProgressColor(color: Color) {
-        setProgressColor(color.toArgb())
-    }
 
     /**
      * You can simulate the use of this method with by calling [.setProgressColor] with ContextCompat:

@@ -9,10 +9,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
-import ru.apteka.components.data.models.ProductCounterModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
+import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IBottomSheetService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
@@ -130,9 +130,8 @@ class ListingViewModel @Inject constructor(
                                     favoriteService = favoriteService,
                                     isFavorite = product.isFavorite,
                                 )
-                                itemCounter = ProductCounterModel(
+                                basket = BasketModel(
                                     basketService = basketService,
-                                    productCard = this,
                                     countInBasket = product.countInBasket
                                 )
                             }
@@ -206,6 +205,18 @@ class ListingViewModel @Inject constructor(
                 IFilter.FilterManufacturerModel.ManufacturerModel(
                     title = "Johnson & Johnson",
                 ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Еще производитель 1",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Еще производитель 2",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Еще производитель 3",
+                ),
+                IFilter.FilterManufacturerModel.ManufacturerModel(
+                    title = "Еще производитель 4",
+                ),
             )
         ),
         IFilter.FilterDiscountsModel(
@@ -271,7 +282,19 @@ class ListingViewModel @Inject constructor(
                 ),
                 IFilter.FilterBrandModel.BrandItemModel(
                     title = "Сеафор",
-                )
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Еще бренд 1",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Еще бренд 2",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Еще бренд 3",
+                ),
+                IFilter.FilterBrandModel.BrandItemModel(
+                    title = "Еще бренд 4",
+                ),
             )
         ),
         IFilter.FilterCountryModel(
@@ -293,7 +316,19 @@ class ListingViewModel @Inject constructor(
                 ),
                 IFilter.FilterCountryModel.CountryItemModel(
                     title = "Франция",
-                )
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Еще страна 1",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Еще страна 2",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Еще страна 3",
+                ),
+                IFilter.FilterCountryModel.CountryItemModel(
+                    title = "Еще страна 4",
+                ),
             )
         ),
         IFilter.FilterActiveSubstanceModel(
@@ -321,6 +356,18 @@ class ListingViewModel @Inject constructor(
                 ),
                 IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
                     title = "Метформин"
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Еще вещество 1",
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Еще вещество 2",
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Еще вещество 3",
+                ),
+                IFilter.FilterActiveSubstanceModel.ActiveSubstanceItemModel(
+                    title = "Еще вещество 4",
                 ),
             )
         )

@@ -16,17 +16,16 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.text.Html
 import android.text.Spanned
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.IdRes
-import androidx.core.animation.addListener
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,9 +39,6 @@ import kotlinx.coroutines.*
 import ru.apteka.components.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -95,13 +91,6 @@ fun Calendar.formatDate(context: Context): String {
 fun Calendar.formatDate(format: String): String {
     return SimpleDateFormat(format, Locale.getDefault()).format(time)
 }
-
-/**
- * Возвращает милисекунды из текстовой даты.
- */
-fun getMillsByDate(date: String, formatter: String) =
-    LocalDateTime.parse(date, DateTimeFormatter.ofPattern(formatter, Locale.ENGLISH))
-        .atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
 
 /**
@@ -465,7 +454,7 @@ fun <T> MutableLiveData<T>.asLiveData() = this as LiveData<T>
  * @param text Текст.
  */
 fun getSpannedFromHtml(text: String): Spanned {
-    return Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+    return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY);
 }
 
 /**
@@ -513,7 +502,6 @@ fun BouncyRecyclerView.setPullForward(
 
         override fun onOverScrollStart(overscrollMode: Int) {}
 
-        @SuppressLint("MissingPermission")
         override fun onOverScrollOffset(overscrollMode: Int, offset: Int) {
             if (offset < view.width) {
                 view.translationX = offset * -1f
@@ -540,12 +528,16 @@ fun BouncyRecyclerView.setPullForward(
                     })
                     playAnim()
                     val vibrator = getSystemService(context, Vibrator::class.java)!!
-                    vibrator.vibrate(
-                        VibrationEffect.createOneShot(
-                            50,
-                            1
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(
+                                50,
+                                1
+                            )
                         )
-                    )
+                    } else {
+                        vibrator.vibrate(50)
+                    }
                 }
             }
         }
@@ -577,6 +569,13 @@ fun Fragment.setSoftInputModeResize() {
  */
 fun Fragment.setSoftInputModeNothing() {
     requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+}
+
+/**
+ * Устанавливает режим открытия клавиатуры без здвига контента.
+ */
+fun Fragment.setSoftInputModeHidden() {
+    requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 }
 
 /**

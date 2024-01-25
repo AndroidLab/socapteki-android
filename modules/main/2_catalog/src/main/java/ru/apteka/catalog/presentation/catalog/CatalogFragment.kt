@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.catalog.R
 import ru.apteka.listing_api.R as ListingApiR
-import ru.apteka.catalog.data.models.CatalogMenuItem
+import ru.apteka.catalog.data.models.CatalogItem
 import ru.apteka.catalog.databinding.CatalogFragmentBinding
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.databinding.ToolbarMenuBinding
@@ -29,15 +29,15 @@ class CatalogFragment : BaseFragment<CatalogViewModel, CatalogFragmentBinding>()
 
     private val catalogMenuAdapter by lazy {
         CompositeDelegateAdapter(
-            CatalogMenuAdapter(::onMenuItemClick)
+            CatalogAdapter(::onMenuItemClick)
         )
     }
 
     override fun onViewBindingInflated(binding: CatalogFragmentBinding) {
-        binding.rvCatalogMenu.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rvCatalogMenu.adapter = catalogMenuAdapter
+        binding.rvCatalog.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvCatalog.adapter = catalogMenuAdapter
 
-        viewModel.catalogs.observe(viewLifecycleOwner) {
+        viewModel.catalogItems.observe(viewLifecycleOwner) {
             catalogMenuAdapter.swapData(
                 it
             )
@@ -45,11 +45,9 @@ class CatalogFragment : BaseFragment<CatalogViewModel, CatalogFragmentBinding>()
     }
 
 
-    private fun onMenuItemClick(item: CatalogMenuItem) {
-        viewModel.navigationManager.generalNavController.navigateWithAnim(
-            ListingApiR.id.listing_graph, bundleOf(
-                LISTING_ARGUMENT to item.title
-            )
+    private fun onMenuItemClick(item: CatalogItem) {
+        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+            CatalogFragmentDirections.toSubCatalogFragment(item, false)
         )
     }
 

@@ -25,7 +25,7 @@ class LettersPageFragment :
 
     private val lettersAdapter by lazy {
         CompositeDelegateAdapter(
-            LettersCardAdapter(::onAllByLetter)
+            LettersCardAdapter(viewLifecycleOwner)
         )
     }
 
@@ -46,10 +46,6 @@ class LettersPageFragment :
         }
 
         viewModel.getLetters(lettersType!!)
-    }
-
-    private fun onAllByLetter(letter: String) {
-        Log.d("myL", "letter " + letter)
     }
 
     companion object {

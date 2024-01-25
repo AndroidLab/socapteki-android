@@ -10,13 +10,35 @@
         android:name="ru.apteka.catalog.presentation.catalog.CatalogFragment">
 
         <action
-            android:id="@+id/toCatalogProductsFragment"
-            app:destination="@id/catalogProductsFragment" />
+            android:id="@+id/toSubCatalogFragment"
+            app:destination="@id/subCatalogFragment" />
+
+        <action
+            android:id="@+id/toSearchProductsFragment"
+            app:destination="@id/searchProductsFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/catalogProductsFragment"
-        android:name="ru.apteka.catalog.presentation.catalog_products.CatalogProductsFragment"/>
+        android:id="@+id/subCatalogFragment"
+        android:name="ru.apteka.catalog.presentation.subcatalog.SubCatalogFragment">
+
+        <action
+            android:id="@+id/toSubCatalogFragment"
+            app:destination="@id/subCatalogFragment" />
+
+        <argument
+            android:name="catalogItem"
+            app:argType="ru.apteka.catalog.data.models.CatalogItem" />
+
+        <argument
+            android:name="isLevel3"
+            app:argType="boolean" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchProductsFragment"
+        android:name="ru.apteka.catalog.presentation.catalog_products.SearchProductsFragment" />
 
 </navigation>

@@ -29,6 +29,7 @@ import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.listing_api.R as ListingApiR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
+import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет фрагмент "Главная".
@@ -156,7 +157,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeMenuBrands.homeMenuItem.setOnClickListener {
             viewModel.navigationManager.onSelectItemMenu(
-                ru.apteka.components.R.id.brands_graph,
+                ComponentsR.id.brands_graph,
                 bundleOf()
             )
         }
@@ -166,39 +167,46 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         }
 
+        binding.mbBonusProgramReferal.setOnClickListener {
+            viewModel.navigationManager.onSelectItemMenu(
+                ComponentsR.id.referral_program_graph,
+                bundleOf()
+            )
+        }
+
         //viewModel.navigationManager.onStartAnimCompleted = {
-            viewModel.productsDay.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    binding.homeProductsDay1.model = it[0]
-                    binding.homeProductsDay2.model = it[1]
-                }
+        viewModel.productsDay.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                binding.homeProductsDay1.model = it[0]
+                binding.homeProductsDay2.model = it[1]
             }
+        }
 
-            viewModel.productsDiscount.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    binding.homeProductsDiscount1.model = it[0]
-                    binding.homeProductsDiscount2.model = it[1]
-                }
+        viewModel.productsDiscount.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                binding.homeProductsDiscount1.model = it[0]
+                binding.homeProductsDiscount2.model = it[1]
             }
+        }
 
-            viewModel.ordersCard.observe(viewLifecycleOwner) {
-                ordersAdapter.swapData(it)
-            }
+        viewModel.ordersCard.observe(viewLifecycleOwner) {
+            ordersAdapter.swapData(it)
+        }
 
-            viewModel.adverts.observe(viewLifecycleOwner) {
-                advertsAdapter.swapData(it)
-                if (it.isNotEmpty()) {
-                    lifecycleScope.launchIO { recyclerAutoScroll(binding.rvAdvert) }
-                }
+        viewModel.adverts.observe(viewLifecycleOwner) {
+            advertsAdapter.swapData(it)
+            if (it.isNotEmpty()) {
+                lifecycleScope.launchIO { recyclerAutoScroll(binding.rvAdvert) }
             }
+        }
 
-            viewModel.promotions.observe(viewLifecycleOwner) {
-                promotionsAdapter.swapData(it)
-            }
+        viewModel.promotions.observe(viewLifecycleOwner) {
+            promotionsAdapter.swapData(it)
+        }
 
-            viewModel.categories.observe(viewLifecycleOwner) {
-                categoriesAdapter.swapData(it)
-            }
+        viewModel.categories.observe(viewLifecycleOwner) {
+            categoriesAdapter.swapData(it)
+        }
         //}
 
         binding.rlHomeScreen.cameraDistance = 8000.dp.toFloat()
@@ -258,7 +266,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             toolbarCustomViewContainer.addView(
                 DataBindingUtil.inflate<ToolbarMenuBinding>(
                     layoutInflater,
-                    ru.apteka.components.R.layout.toolbar_menu,
+                    ComponentsR.layout.toolbar_menu,
                     null,
                     false
                 ).apply {
@@ -271,7 +279,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         binding.homeToolbar.toolbar.setLogo(R.drawable.logo)
 
         binding.bonusProgramToolbar.apply {
-            toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
+            toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
             tvToolbarTitle.text = getString(R.string.bonus_program_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.onFabClick()

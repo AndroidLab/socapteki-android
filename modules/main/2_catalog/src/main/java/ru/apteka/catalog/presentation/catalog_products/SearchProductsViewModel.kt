@@ -18,10 +18,10 @@ import javax.inject.Inject
 
 
 /**
- * Представляет модель представления "Товары каталога".
+ * Представляет модель представления "Поиск по каталогу".
  */
 @HiltViewModel
-class CatalogProductsViewModel @Inject constructor(
+class SearchProductsViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val catalogRepository: CatalogRepository,
     val searchProductPreferences: SearchProductPreferences,

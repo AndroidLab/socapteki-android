@@ -1,5 +1,7 @@
 package ru.apteka.components.data.models
 
+import ru.apteka.components.data.services.basket_service.models.BasketModel
+
 
 /**
  * Представляет модель для карточки продукта.
@@ -14,7 +16,7 @@ data class ProductCardModel(
     lateinit var favorite: FavoriteModel
 
     /**
-     * Возвращает или устанавливает счетчик товара в корзине.
+     * Возвращает или устанавливает модель обработки корзины.
      */
-    lateinit var itemCounter: ProductCounterModel
+    lateinit var basket: BasketModel
 }

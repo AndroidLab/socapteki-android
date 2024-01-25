@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.speech.RecognizerIntent
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
@@ -39,13 +38,13 @@ import ru.apteka.listing_api.R as ListingApiR
 
 
 /**
- * Представляет фрагмент "Товары каталога".
+ * Представляет фрагмент "Поиск товаров каталога".
  */
 @AndroidEntryPoint
-class CatalogProductsFragment :
-    BaseFragment<CatalogProductsViewModel, CatalogProductsFragmentBinding>() {
+class SearchProductsFragment :
+    BaseFragment<SearchProductsViewModel, CatalogProductsFragmentBinding>() {
 
-    override val viewModel: CatalogProductsViewModel by viewModels()
+    override val viewModel: SearchProductsViewModel by viewModels()
     override val layoutId: Int = R.layout.catalog_products_fragment
 
     private val productSearchResultAdapter by lazy {
@@ -135,7 +134,7 @@ class CatalogProductsFragment :
                         val middleProgress = 0.25f
                         val endProgress = 0.48f
                         etToolBarSearch.doAfterTextChanged {
-                            this@CatalogProductsFragment.viewModel.onSearchTextChange.invoke(
+                            this@SearchProductsFragment.viewModel.onSearchTextChange.invoke(
                                 it.toString()
                             )
                             val progress = searchToolbarSearch.progress

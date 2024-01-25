@@ -8,6 +8,6 @@
 
     <fragment
         android:id="@+id/referralProgramFragment"
-        android:name="ru.apteka.loyalty_program.presentation.ReferralProgramFragment"/>
+        android:name="ru.apteka.referral_program.presentation.ReferralProgramFragment"/>
 
 </navigation>

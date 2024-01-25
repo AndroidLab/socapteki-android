@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id(libs.plugins.applicationConventionPlugin.get().pluginId)
@@ -20,8 +22,34 @@ android {
         versionCode = major * 10000 + minor * 100 + patch
         versionName = "${major}.${minor}.${patch}"
 
-        project.ext.set("archivesBaseName", "Apteki-${defaultConfig.versionName}")
+        project.setProperty("archivesBaseName", "Apteki-$versionName")
     }
+
+    signingConfigs {
+        create("signing") {
+            storeFile = file("../socapteki.jks")
+            storePassword = properties["STORE_PASSWORD"].toString()
+            keyAlias = "socapteka"
+            keyPassword = properties["KEY_PASSWORD"].toString()
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("signing")
+        }
+    }
+
+    /*signingConfigs {
+        create("signing") {
+            storeFile = file("../socapteki.jks")
+            storePassword = System.getenv("STORE_PASSWORD")
+            keyAlias = "socapteka"
+            keyPassword = System.getenv("KEY_PASSWORD")
+        }
+    }*/
+
+
 
     buildFeatures {
         buildConfig = true

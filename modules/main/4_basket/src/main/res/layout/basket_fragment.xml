@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:animateLayoutChanges="true"
                             android:orientation="vertical"
-                            app:forItems="@{viewModel.basketService.basketProducts}"
+                            app:forItems="@{viewModel.productsInBasket}"
                             app:useTemplate="@{@layout/basket_product_card_template}" />
 
                     </FrameLayout>

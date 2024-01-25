@@ -7,7 +7,7 @@
 
         <variable
             name="bindingItem"
-            type="ru.apteka.components.data.services.basket_service.models.BasketProductCardModel" />
+            type="ru.apteka.basket.data.models.BasketCardModel" />
 
     </data>
 
@@ -40,7 +40,7 @@
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:layout_gravity="center"
-                        app:imageUrl="@{bindingItem.productCard.product.image}"
+                        app:imageUrl="@{bindingItem.product.image}"
                         app:isBorderNotShow="@{false}" />
 
                     <ImageView
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="@{bindingItem.productCard.product.title}"
+                        android:text="@{bindingItem.product.title}"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="@{bindingItem.productCard.product.desc}"
+                        android:text="@{bindingItem.product.desc}"
                         android:textColor="@color/light_black" />
 
                 </LinearLayout>
@@ -184,7 +184,7 @@
                         android:id="@+id/basketProductCardOldPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{bindingItem.productCard.product.discount.oldPrice}"
+                        android:text="@{bindingItem.product.discount.oldPrice}"
                         android:textColor="@color/light_black"
                         app:isStrikethrough="@{true}" />
 
@@ -195,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="@{bindingItem.productCard.product.price}"
+                        android:text="@{bindingItem.product.price}"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -205,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        app:discount="@{bindingItem.productCard.product.discount}" />
+                        app:discount="@{bindingItem.product.discount}" />
 
                 </LinearLayout>
 
@@ -296,16 +296,16 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:onClick="@{() -> bindingItem.productCard.favorite.clickFavorite(bindingItem.productCard.product)}">
+                        android:onClick="@{() -> bindingItem.favorite.clickFavorite(bindingItem.product)}">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/shape_circle"
                             android:padding="6dp"
-                            android:src="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                            android:src="@{bindingItem.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
                             app:backgroundTint="@color/light_grey"
-                            app:imageTint="@{bindingItem.productCard.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                            app:imageTint="@{bindingItem.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
                             tools:ignore="ContentDescription" />
 
                     </FrameLayout>
@@ -316,7 +316,7 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:onClick="@{() -> bindingItem.onShowRemoveDialog.invoke(bindingItem)}">
+                        android:onClick="@{() -> bindingItem.onShowRemoveDialog.invoke()}">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -340,7 +340,8 @@
                         layout="@layout/product_counter_view"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        app:model="@{bindingItem.productCard.itemCounter}" />
+                        app:model="@{bindingItem.basket}"
+                        app:product="@{bindingItem.product}" />
 
                 </LinearLayout>
 
@@ -349,7 +350,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
-                    android:onClick="@{() -> bindingItem.onProductRestore()}"
+                    android:onClick="@{() -> bindingItem.restoreProduct()}"
                     android:text="@{String.format(@string/basket_product_restore, bindingItem.productLeftTime)}"
                     app:visibleIf="@{bindingItem.productLeftTime != null}" />
 
