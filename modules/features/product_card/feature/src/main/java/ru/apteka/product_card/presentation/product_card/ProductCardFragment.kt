@@ -219,7 +219,10 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.llProductCardManufacturerProgram.setOnClickListener {
-            showCommonDialog(
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ProductCardFragmentDirections.toProductCardManufacturerProgramFragment()
+            )
+            /*showCommonDialog(
                 commonDialogModel = CommonDialogModel(
                     fragmentManager = parentFragmentManager,
                     dialogModel = DialogModel(
@@ -233,7 +236,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                         }
                     )
                 )
-            )
+            )*/
         }
 
         binding.tvProductCardAnaloguesAll.setOnClickListener {

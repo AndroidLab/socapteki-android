@@ -18,6 +18,10 @@
             android:id="@+id/toProductCardWriteReviewFragment"
             app:destination="@id/productCardWriteReviewFragment" />
 
+        <action
+            android:id="@+id/toProductCardManufacturerProgramFragment"
+            app:destination="@id/productCardManufacturerProgramFragment" />
+
     </fragment>
 
     <fragment
@@ -27,6 +31,12 @@
         <argument
             android:name="product"
             app:argType="ru.apteka.components.data.models.ProductModel" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/productCardManufacturerProgramFragment"
+        android:name="ru.apteka.product_card.presentation.product_card_manufacturer_program.ProductCardManufacturerProgramFragment">
 
     </fragment>
 

@@ -2,6 +2,7 @@ package ru.apteka.product_card.presentation.product_card
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.components.data.models.FavoriteModel
@@ -44,6 +45,24 @@ class ProductCardViewModel @Inject constructor(
      * Возвращает продукцию.
      */
     val product = MutableLiveData<ProductModel?>(null)
+
+    val favorite = product.map {
+        it?.let { product ->
+            FavoriteModel(
+                favoriteService = favoriteService,
+                isFavorite = product.isFavorite,
+            )
+        }
+    }
+
+    val basket = product.map {
+        it?.let { product ->
+            BasketModel(
+                basketService = basketService,
+                countInBasket = product.countInBasket
+            )
+        }
+    }
 
     private val _analoguesProducts = MutableLiveData<List<ProductCardModel>>()
 

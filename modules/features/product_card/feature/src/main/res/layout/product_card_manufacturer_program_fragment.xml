@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.product_card.presentation.product_card_manufacturer_program.ProductCardManufacturerProgramViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/writeReviewToolbar"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Баннер -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/tvManufacturerProgramBanner"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/corners_shape"
+                        android:src="@drawable/product_card_programm_banner"
+                        app:layout_constraintDimensionRatio="1.64"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Акция действует до 30.09.2023"
+                        android:textColor="@color/light_black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvManufacturerProgramBanner" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Описание -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical">
+
+                    <!-- Текст -->
+                    <LinearLayout
+                        android:id="@+id/llManufacturerProgramDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/corners_shape"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:extraBackgroundTint="@{@color/color_secondary_container}">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_info"
+                            app:tint="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tvManufacturerProgramDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="5"
+                            android:text="@string/manufacturer_program_desc"
+                            android:textColor="@color/dark_black" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvManufacturerProgramDescReadCompletely"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="16dp"
+                        android:text="Читать полностью"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Theme.Socapteki.SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/top_corners_shape"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:text="Товары, участвующие в акции:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <!-- Список товаров -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvManufacturerProgramProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2" />
+
+            </LinearLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <include
+            android:id="@+id/writeReviewToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>

@@ -11,7 +11,7 @@ plugins {
 }
 
 private val major = 0
-private val minor = 1
+private val minor = 2
 private val patch = 0
 
 android {

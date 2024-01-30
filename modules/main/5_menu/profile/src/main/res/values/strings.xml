@@ -17,8 +17,6 @@
     <string name="pharmacies_not_found_desc">Нажмите ❤️ на аптеке, которую хотите сохранить</string>
 
     <string name="comments_reviews_title">Комментарии и отзывы</string>
-    <string name="comments_read_completely">Читать полностью</string>
-    <string name="comments_hide">Скрыть</string>
     <string name="comments_responses_comments">Ответы на комментарии (%s)</string>
     <string name="comments_product_reviews_page">Отзывы о товаре</string>
     <string name="comments_reviews_online_pharmacy_page">Отзывы об интернет-аптеке</string>

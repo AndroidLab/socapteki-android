@@ -13,6 +13,7 @@ import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
 import ru.apteka.profile.R
+import ru.apteka.components.R as ComponentsR
 import ru.apteka.profile.data.models.CommentModel
 import ru.apteka.profile.databinding.CommentHolderBinding
 
@@ -33,10 +34,10 @@ class CommentsAdapter(private val _lifecycleOwner: LifecycleOwner) :
 
         var llCollapsedHeight = 0
         llCommentsReadCompletely.setOnClickListener {
-            if (tvCommentsReadCompletely.text == root.context.getString(R.string.comments_read_completely)) {
+            if (tvCommentsReadCompletely.text == root.context.getString(ComponentsR.string.read_completely)) {
                 llCollapsedHeight = flCommentText.height
                 flCommentText.layoutParams.height = llCollapsedHeight
-                tvCommentsReadCompletely.text = root.context.getString(R.string.comments_hide)
+                tvCommentsReadCompletely.text = root.context.getString(ComponentsR.string.hide)
                 tvCommentText.maxLines = Int.MAX_VALUE
                 GlobalScope.launchMain {
                     delay(100)
@@ -72,7 +73,7 @@ class CommentsAdapter(private val _lifecycleOwner: LifecycleOwner) :
                                 override fun onAnimationStart(animation: Animator) {}
                                 override fun onAnimationEnd(animation: Animator) {
                                     tvCommentsReadCompletely.text =
-                                        root.context.getString(R.string.comments_read_completely)
+                                        root.context.getString(ComponentsR.string.read_completely)
                                     tvCommentText.maxLines = 5
                                 }
 

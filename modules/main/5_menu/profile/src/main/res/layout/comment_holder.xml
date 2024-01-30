@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/comments_read_completely"
+                android:text="@string/read_completely"
                 android:textColor="@color/color_primary" />
 
         </LinearLayout>

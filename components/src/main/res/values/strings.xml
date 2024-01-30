@@ -42,6 +42,8 @@
     <string name="update">Обновить</string>
     <string name="comment">Комментарий</string>
     <string name="all_products">Все товары</string>
+    <string name="read_completely">Читать полностью</string>
+    <string name="hide">Скрыть</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
