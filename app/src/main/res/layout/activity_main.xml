@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="32dp"
-                android:src="@drawable/ic_home"
+                android:src="@drawable/ic_card"
                 app:backgroundTint="@color/light_grey"
                 app:elevation="0dp"
                 app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
@@ -147,9 +147,9 @@
             android:id="@+id/flStartAnim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/gradient_1"
             android:onClick="@{null}"
-            android:visibility="gone"
-            android:background="@drawable/gradient_1">
+            android:visibility="gone">
 
             <View
                 android:id="@+id/vStartAnimLeft"

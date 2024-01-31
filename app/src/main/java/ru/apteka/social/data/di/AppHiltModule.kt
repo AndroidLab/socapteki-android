@@ -29,16 +29,7 @@ internal class AppHiltModule {
         addInterceptor(Interceptor { chain ->
             return@Interceptor chain.proceed(
                 chain.request().newBuilder().apply {
-                    addHeader(
-                        "Authorization",
-                        "Bearer vk1.a.SLZwPtBAPSy1ATAGR_-z5EKYuYB78jK5WzeDqTUXZdHkkYaoiV0wIay0627f360qd3x3k4l7m12NyHsYB8B6jC44QQj09bw-2eEBWBQdDQGteZ4t0omFQ6jCiG9K4f3_qCH9w786bvaGwyvPeHEvIz-upYLevqEB-6Q0OAQNxi00qauDHWZLD34VDW1ak4WyrQlTwVtZxflgN54_CTwJMg"
-                    )
                     addHeader("Content-Type", "application/json")
-                    url(
-                        (chain.request().url.toString() + if (chain.request().url.toString()
-                                .contains("?")
-                        ) { "&" } else { "?" } + "v=5.131")
-                    ).build()
                 }.build()
             )
         })

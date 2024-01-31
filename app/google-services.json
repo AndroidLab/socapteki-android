@@ -1,33 +1,13 @@
 {
   "project_info": {
-    "project_number": "12821905613",
-    "firebase_url": "https://myproject-1-341818-default-rtdb.firebaseio.com",
-    "project_id": "myproject-1-341818",
-    "storage_bucket": "myproject-1-341818.appspot.com"
+    "project_number": "615887312240",
+    "project_id": "socapteki-62cc6",
+    "storage_bucket": "socapteki-62cc6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:12821905613:android:df0959547c3039c6b36984",
-        "android_client_info": {
-          "package_name": "com.example.cicd"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDOViZxl9HX7o-ihmaFFa6xpXSKsAvAyWs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:12821905613:android:0b61d67b83a2f214b36984",
+        "mobilesdk_app_id": "1:615887312240:android:28f957099f3a2cd6f92bb5",
         "android_client_info": {
           "package_name": "ru.apteka.social"
         }
@@ -35,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDOViZxl9HX7o-ihmaFFa6xpXSKsAvAyWs"
+          "current_key": "AIzaSyBR1lOiOomNcVb8T0UZGrKOOfNwz3M988o"
         }
       ],
       "services": {

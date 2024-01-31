@@ -8,7 +8,6 @@ import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.social.data.services.AppUpdateService
 import javax.inject.Inject
 
 
@@ -17,7 +16,6 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
-    val appUpdateService: AppUpdateService,
     val bottomSheetService: BottomSheetService,
     val accountsPreferences: AccountsPreferences,
     val userPreferences: UserPreferences,
@@ -29,10 +27,5 @@ class ActivityViewModel @Inject constructor(
     messageService
 ) {
 
-    init {
-        viewModelScopeLaunch {
-            appUpdateService.checkUpdate()
-        }
-    }
 
 }

@@ -263,7 +263,6 @@ class MainActivity : AppCompatActivity() {
                     binding = MenuNavigationViewBinding.inflate(layoutInflater, null, false)
                         .also { binding ->
                             binding.account = viewModel.accountsPreferences.account
-                            binding.appUpdateService = viewModel.appUpdateService
 
                             binding.appMenuItemProfile.item.setOnClickListener {
                                 viewModel.navigationManager.onSelectItemMenu(
@@ -559,7 +558,7 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomAppBarFabState(isHomeFront: Boolean) {
         if (isHomeFront) {
             binding.bottomAppBarFab.apply {
-                setImageResource(ComponentsR.drawable.ic_home)
+                setImageResource(ComponentsR.drawable.ic_card)
                 setImageTint(
                     ContextCompat.getColor(
                         this@MainActivity,
@@ -569,7 +568,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             binding.bottomAppBarFab.apply {
-                setImageResource(MainR.drawable.ic_card)
+                setImageResource(ComponentsR.drawable.ic_home)
                 setImageTint(
                     ContextCompat.getColor(
                         this@MainActivity,

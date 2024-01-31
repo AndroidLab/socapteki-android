@@ -1,5 +1,3 @@
-import java.util.Properties
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id(libs.plugins.applicationConventionPlugin.get().pluginId)
@@ -39,17 +37,6 @@ android {
             signingConfig = signingConfigs.getByName("signing")
         }
     }
-
-    /*signingConfigs {
-        create("signing") {
-            storeFile = file("../socapteki.jks")
-            storePassword = System.getenv("STORE_PASSWORD")
-            keyAlias = "socapteka"
-            keyPassword = System.getenv("KEY_PASSWORD")
-        }
-    }*/
-
-
 
     buildFeatures {
         buildConfig = true
