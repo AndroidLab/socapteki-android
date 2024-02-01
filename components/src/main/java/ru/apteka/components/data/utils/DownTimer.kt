@@ -1,10 +1,10 @@
 package ru.apteka.components.data.utils
 
 import android.os.CountDownTimer
-import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+private const val MILLISECOND = 1000L
 
 /**
  * Представляет таймер обратного отсчета.
@@ -14,12 +14,12 @@ class DownTimer(
     timeInSecond: Int,
     private val onTimeTick: (Int) -> Unit = {},
     private val onTimeFinish: () -> Unit = {}
-) : CountDownTimer(timeInSecond * 1000L, 1000) {
+) : CountDownTimer(timeInSecond * MILLISECOND, MILLISECOND) {
 
     private val _lefTimeFlow = MutableStateFlow<Int?>(null)
 
     override fun onTick(p0: Long) {
-        val leftTime = (p0 / 1000).toInt()
+        val leftTime = (p0 / MILLISECOND).toInt()
         onTimeTick(leftTime)
         _lefTimeFlow.value = leftTime
     }

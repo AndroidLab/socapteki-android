@@ -3,7 +3,6 @@ package ru.apteka.components.data.services.favorites_service
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.contains
 import java.util.UUID
@@ -35,8 +34,8 @@ class FavoriteService @Inject constructor(
     /**
      * Добавляет товар в избранное.
      */
-    fun addProduct(productCard: ProductModel) {
-        _products.value = _products.value!!.plus(productCard)
+    fun addProduct(product: ProductModel) {
+        _products.value = _products.value!!.plus(product)
     }
 
     /**

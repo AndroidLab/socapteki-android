@@ -65,7 +65,7 @@
                     android:onClick="@{() -> model.favorite.clickFavorite(model.product)}"
                     android:padding="4dp"
                     android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                    app:imageTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                    app:extraTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
                     tools:ignore="ContentDescription" />
 
             </FrameLayout>
@@ -216,11 +216,11 @@
                 android:layout_marginStart="4dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                app:visibleIf="@{model.product.additionalDesc != null &amp; !model.product.additionalDesc.empty}"
                 android:text="@{model.product.additionalDesc}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productCardAnalogs" />
+                app:layout_constraintTop_toBottomOf="@id/productCardAnalogs"
+                app:visibleIf="@{model.product.additionalDesc != null &amp; !model.product.additionalDesc.empty}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

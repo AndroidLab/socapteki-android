@@ -22,7 +22,6 @@ import ru.apteka.work_with_us.databinding.WorkWithUsQuestionnaireFragmentBinding
 import java.util.Calendar
 import javax.inject.Inject
 
-
 /**
  * Представляет фрагмент "Работа у нас, Анкета".
  */
@@ -98,5 +97,4 @@ class WorkWithUsQuestionnaireFragment :
             }
         }
     }
-
 }

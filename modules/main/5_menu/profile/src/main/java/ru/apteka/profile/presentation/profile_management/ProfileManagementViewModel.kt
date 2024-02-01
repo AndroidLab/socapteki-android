@@ -9,7 +9,6 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Управление профилем".
  */
@@ -23,10 +22,4 @@ class ProfileManagementViewModel @Inject constructor(
 ) : BaseViewModel(
     navigationManager,
     messageService
-) {
-
-    init {
-
-    }
-
-}
+)

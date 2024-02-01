@@ -26,7 +26,6 @@ import ru.tinkoff.decoro.slots.Slot
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import ru.apteka.components.R as ComponentsR
 
-
 /**
  * Представляет фрагмент "Оформление заказа".
  */
@@ -118,5 +117,4 @@ class MakingOrderFragment : BaseFragment<MakingOrderViewModel, MakingOrderFragme
             tvToolbarTitle.text = getString(R.string.making_order_title)
         }
     }
-
 }

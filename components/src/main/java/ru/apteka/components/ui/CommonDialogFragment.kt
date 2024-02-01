@@ -4,28 +4,21 @@ import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
-import kotlin.properties.Delegates
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
+import kotlinx.parcelize.Parcelize
 import ru.apteka.components.R
 import ru.apteka.components.data.services.message_notice_service.models.CommonDialogModel
-import ru.apteka.components.data.utils.dp
 import ru.apteka.components.databinding.CommonDialogFragmentBinding
-
+import kotlin.properties.Delegates
 
 /**
  * Представляет общий диалог.
@@ -131,7 +124,6 @@ class CommonDialogFragment : DialogFragment() {
         val width: Int,
         val height: Int
     ) : Parcelable
-
 }
 
 /**
@@ -142,9 +134,9 @@ class CommonDialogFragment : DialogFragment() {
 fun MaterialButton.setExtraBackgroundTint(@ColorRes color: Int?) {
     val states = arrayOf(
         intArrayOf(android.R.attr.state_enabled), // enabled
-        //intArrayOf(-android.R.attr.state_enabled), // disabled
-        //intArrayOf(-android.R.attr.state_checked), // unchecked
-        //intArrayOf(android.R.attr.state_pressed)  // pressed
+        // intArrayOf(-android.R.attr.state_enabled), // disabled
+        // intArrayOf(-android.R.attr.state_checked), // unchecked
+        // intArrayOf(android.R.attr.state_pressed)  // pressed
     )
     val colors = intArrayOf(
         color?.let { context.getColor(it) } ?: context.getColor(R.color.color_primary)
@@ -160,9 +152,9 @@ fun MaterialButton.setExtraBackgroundTint(@ColorRes color: Int?) {
 fun MaterialButton.setExtraBorderTint(@ColorRes color: Int?) {
     val states = arrayOf(
         intArrayOf(android.R.attr.state_enabled), // enabled
-        //intArrayOf(-android.R.attr.state_enabled), // disabled
-        //intArrayOf(-android.R.attr.state_checked), // unchecked
-        //intArrayOf(android.R.attr.state_pressed)  // pressed
+        // intArrayOf(-android.R.attr.state_enabled), // disabled
+        // intArrayOf(-android.R.attr.state_checked), // unchecked
+        // intArrayOf(android.R.attr.state_pressed)  // pressed
     )
     val colors = intArrayOf(
         color?.let { context.getColor(it) } ?: context.getColor(R.color.color_primary)

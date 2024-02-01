@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.*
+import androidx.core.view.children
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -37,7 +40,6 @@ import com.github.florent37.expansionpanel.ExpansionHeader
 import com.github.florent37.expansionpanel.ExpansionLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
@@ -233,9 +235,6 @@ fun MaterialAutoCompleteTextView.setAutoCompleteItems(
     setAdapter(
         ArrayAdapter(context, R.layout.item_auto_complete_holder, autoCompleteItems ?: emptyList())
     )
-    /*if (inputType != InputType.TYPE_NULL) {
-        showDropDown()
-    }*/
     onItemClickListener = onAutoCompleteItemClick
 }
 
@@ -244,11 +243,12 @@ fun MaterialAutoCompleteTextView.setAutoCompleteItems(
  */
 @BindingAdapter("app:helperTextSingleLine")
 fun TextInputLayout.setHelperTextSingleLine(value: Boolean?) {
-    findViewById<TextView>(R.id.textinput_helper_text)?.let {
-        it.isSingleLine = true
+    value?.let {
+        findViewById<TextView>(R.id.textinput_helper_text)?.let {
+            it.isSingleLine = value
+        }
     }
 }
-
 
 /**
  * Устанавливает ширину бордера CardView.
@@ -351,8 +351,8 @@ fun setHighlightColor(
  * Устанавливает цвет векторного изображения в [ImageView].
  * @param color Цвет выделения.
  */
-@BindingAdapter("app:imageTint")
-fun ImageView.setImageTint(@ColorInt color: Int?) {
+@BindingAdapter("app:extraTint")
+fun ImageView.setExtraTint(@ColorInt color: Int?) {
     if (color != null && color != 0) {
         setColorFilter(color)
     }
@@ -488,7 +488,7 @@ fun <T> ViewGroup.inflateTemplateByItems(
     this.removeAllViews()
     if (!items.isNullOrEmpty() && template != null) {
         val inflater = LayoutInflater.from(context)
-        if (this.childCount == 0) {
+        if (childCount == 0) {
             items.forEach { item ->
                 val viewBinding =
                     DataBindingUtil.inflate<ViewDataBinding>(inflater, template, this, true)
@@ -496,15 +496,15 @@ fun <T> ViewGroup.inflateTemplateByItems(
                 viewBinding.setVariable(BR.bindingItem, item)
                 viewBinding.executePendingBindings()
             }
-            val lastView = this.children.last()
+            val lastView = children.last()
             if (lastView is ViewGroup) {
                 val separator = lastView.findViewById<View>(R.id.separator)
                 lastView.removeView(separator)
             }
             return
         }
-        if (this.childCount == items.size) {
-            this.children.forEachIndexed { index, view ->
+        if (childCount == items.size) {
+            children.forEachIndexed { index, view ->
                 val viewBinding = DataBindingUtil.getBinding<ViewDataBinding>(view)
                 viewBinding?.lifecycleOwner = _lifecycleOwner
                 viewBinding?.setVariable(BR.bindingItem, items.toList()[index])
@@ -512,11 +512,11 @@ fun <T> ViewGroup.inflateTemplateByItems(
             }
             return
         }
-        if (this.childCount != items.size) {
-            if (this.childCount > items.size) {
-                this.removeViews(0, this.childCount - items.size)
+        if (childCount != items.size) {
+            if (childCount > items.size) {
+                removeViews(0, childCount - items.size)
             } else {
-                for (i in (items.size - this.childCount) downTo 1) {
+                for (i in (items.size - childCount) downTo 1) {
                     DataBindingUtil.inflate<ViewDataBinding>(
                         inflater,
                         template,
@@ -625,7 +625,7 @@ private fun addExpansionLayoutListener(title: TextView?, indicator: ImageView?) 
                 if (expanded) R.color.color_primary else R.color.dark_black
             )
         )
-        indicator?.setImageTint(
+        indicator?.setExtraTint(
             ContextCompat.getColor(
                 indicator.context,
                 if (expanded) R.color.color_primary else R.color.dark_grey

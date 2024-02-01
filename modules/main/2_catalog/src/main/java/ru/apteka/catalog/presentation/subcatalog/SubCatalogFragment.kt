@@ -1,6 +1,5 @@
 package ru.apteka.catalog.presentation.subcatalog
 
-
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
@@ -9,21 +8,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.catalog.R
-import ru.apteka.listing_api.R as ListingApiR
 import ru.apteka.catalog.data.models.CatalogItem
 import ru.apteka.catalog.databinding.SubCatalogFragmentBinding
 import ru.apteka.components.data.utils.equalsWithDeviation
 import ru.apteka.components.data.utils.launchAfter
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
-import ru.apteka.components.data.utils.setSoftInputModeAdjustPan
-import ru.apteka.components.data.utils.setSoftInputModeHidden
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.components.R as ComponentsR
-
+import ru.apteka.listing_api.R as ListingApiR
 
 /**
  * Представляет фрагмент "Подкаталог".
@@ -58,18 +54,19 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
         }
     }
 
-
     private fun onItemClick(item: CatalogItem) {
         if (_args.isLevel3) {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+                ListingApiR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to item.title
                 )
             )
         } else {
             viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
                 SubCatalogFragmentDirections.toSubCatalogFragment(
-                    item, true
+                    item,
+                    true
                 )
             )
         }
@@ -92,7 +89,7 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
                         false
                     ).apply {
                         lifecycleOwner = viewLifecycleOwner
-                        //isLoading = viewModel.isSearchProductsLoading
+                        // isLoading = viewModel.isSearchProductsLoading
                         searchText = viewModel.searchText
                         hint = getString(ComponentsR.string.find)
                         isMicIconVisible = false
@@ -134,5 +131,4 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
             }
         }
     }
-
 }

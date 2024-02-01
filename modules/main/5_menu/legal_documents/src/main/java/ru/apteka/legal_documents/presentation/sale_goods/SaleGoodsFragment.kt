@@ -7,7 +7,6 @@ import ru.apteka.legal_documents.R
 import ru.apteka.legal_documents.databinding.SaleGoodsFragmentBinding
 import javax.inject.Inject
 
-
 /**
  * Представляет фрагмент "Условия продажи товаров".
  */
@@ -19,9 +18,7 @@ class SaleGoodsFragment : BaseFragment<Nothing, SaleGoodsFragmentBinding>() {
     lateinit var navigationManager: NavigationManager
 
     override fun onViewBindingInflated(binding: SaleGoodsFragmentBinding) {
-
     }
-
 
     override fun onResume() {
         super.onResume()

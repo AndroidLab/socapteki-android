@@ -1,14 +1,12 @@
 package ru.apteka.components.data.services.account
 
-
 import android.content.Context
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import ru.apteka.components.data.utils.PreferencesDelegate
 import ru.apteka.components.data.services.account.models.Account
-import ru.apteka.components.data.services.user.models.CityModel
+import ru.apteka.components.data.utils.PreferencesDelegate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -35,19 +33,19 @@ class AccountsPreferences @Inject constructor(
      */
     val accountFlow: SharedFlow<Account?> = _accountFlow
 
-
     /**
      * Возвращет текущий аккаунт.
      */
     var account: Account? by PreferencesDelegate(
         accountPref,
         ACCOUNT,
-        null, {
+        null,
+        {
             it?.let { Gson().toJson(it) } ?: ""
-        }, {
+        },
+        {
             if (it == "") null else Gson().fromJson(it, Account::class.java)
         },
         prefFlow = _accountFlow
     )
-
 }

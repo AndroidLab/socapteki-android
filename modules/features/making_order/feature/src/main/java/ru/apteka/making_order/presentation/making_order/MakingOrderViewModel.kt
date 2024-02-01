@@ -13,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.DiscountModel
 import ru.apteka.components.data.models.Label
-import ru.apteka.components.data.models.PersonalData
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
@@ -36,7 +35,6 @@ import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import java.util.UUID
 import javax.inject.Inject
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
-
 
 /**
  * Представляет модель представления "Оформление заказа".
@@ -99,7 +97,6 @@ class MakingOrderViewModel @Inject constructor(
         savedStateHandle.get<Array<ProductModel>>(MAKING_ORDER_ARGUMENT_PRODUCT)!!.toList()
     )
 
-
     /**
      * Возвращает медель выбора способа оплаты.
      */
@@ -149,7 +146,8 @@ class MakingOrderViewModel @Inject constructor(
         when (item) {
             is DeliveryMethodsModel.Item.PickPharmacy -> {
                 navigationManager.generalNavController.navigateWithAnim(
-                    PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                    PharmaciesMapApiR.id.pharmacies_map_graph,
+                    bundleOf(
                         PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.SELECT_PHARMACY
                     )
                 )
@@ -164,7 +162,6 @@ class MakingOrderViewModel @Inject constructor(
             }
         }
     }
-
 
     /**
      * Возвращает или устанавливает фио.
@@ -226,11 +223,13 @@ class MakingOrderViewModel @Inject constructor(
      * Добавляет получателя заказа.
      */
     fun addRecipientOrder(recipient: RecipientModel) {
-        recipients.value = recipients.value!!.plus(recipient.apply {
-            onRemove = {
-                removeRecipientOrder(this)
+        recipients.value = recipients.value!!.plus(
+            recipient.apply {
+                onRemove = {
+                    removeRecipientOrder(this)
+                }
             }
-        })
+        )
     }
 
     /**
@@ -252,7 +251,6 @@ class MakingOrderViewModel @Inject constructor(
      */
     val isPromoCodeApplyLoading: LiveData<Boolean> = _isPromoCodeApplyLoading
 
-
     /**
      * Применяет промокод.
      */
@@ -263,7 +261,6 @@ class MakingOrderViewModel @Inject constructor(
             _isPromoCodeApplyLoading.postValue(false)
         }
     }
-
 
     /**
      * Возвращает или устанавливает кол-во бонусов для списания.
@@ -276,7 +273,6 @@ class MakingOrderViewModel @Inject constructor(
      * Возвращает флаг загрузки применения бонусов.
      */
     val isBonusesApplyLoading: LiveData<Boolean> = _isBonusesApplyLoading
-
 
     /**
      * Применяет бонусы.
@@ -299,11 +295,11 @@ class MakingOrderViewModel @Inject constructor(
      */
     val isMakingOrderEnabled = MediatorLiveData<Boolean>().apply {
         fun check() {
-            value = !isPromoCodeApplyLoading.value!!
-                    && !isBonusesApplyLoading.value!!
-                    && paymentsMethods.selectedItem.value != null
-                    && (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null)
-                    && recipients.value!!.isNotEmpty()
+            value = !isPromoCodeApplyLoading.value!! &&
+                !isBonusesApplyLoading.value!! &&
+                paymentsMethods.selectedItem.value != null &&
+                (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null) &&
+                recipients.value!!.isNotEmpty()
         }
 
         addSource(isPromoCodeApplyLoading) {
@@ -338,8 +334,6 @@ class MakingOrderViewModel @Inject constructor(
         fun checkFieldFilled() {
             value = selectedDeliveryDate.value != null && recipients.value!!.isNotEmpty()
         }
-
-
     }
 
     init {
@@ -355,5 +349,4 @@ class MakingOrderViewModel @Inject constructor(
             )
         }*/
     }
-
 }

@@ -2,17 +2,12 @@ package ru.apteka.loyalty_program.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.loyalty_program.data.models.HistoryRecommendationModel
 import javax.inject.Inject
-
 
 /**
  * Представляет модель представления "Программа лояльности".
@@ -26,11 +21,13 @@ class LoyaltyProgramViewModel @Inject constructor(
     navigationManager,
     messageService
 ) {
-    private val fakeBanners = MutableLiveData(listOf(
-        Unit,
-        Unit,
-        Unit,
-    ))
+    private val fakeBanners = MutableLiveData(
+        listOf(
+            Unit,
+            Unit,
+            Unit,
+        )
+    )
 
     /**
      *
@@ -45,5 +42,4 @@ class LoyaltyProgramViewModel @Inject constructor(
             _historyRecommendationIsLoading.postValue(false)
         }*/
     }
-
 }

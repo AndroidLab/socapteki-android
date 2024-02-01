@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.making_order.presentation.making_order_address.MakingOrderAddressViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Theme.Socapteki.SemiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="@string/making_order_address_date_time_title"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/makingOrderAddressDataCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:text="@string/cancel"
+                android:textColor="@color/color_primary" />
+
+        </LinearLayout>
+
+        <!-- Дата -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_padding">
+
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/making_order_address_date_time_hint"
+                app:endIconDrawable="@drawable/ic_making_order_date"
+                app:endIconMode="custom"
+                app:errorText="@{viewModel.isDateFiledError &amp; viewModel.selectedDeliveryDate.empty ? ` ` : ``}"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:text="@{viewModel.selectedDeliveryDate}"
+                    android:textColor="@color/dark_black" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+            <View
+                android:id="@+id/vMakingOrderAddressDate"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:color/transparent" />
+
+        </FrameLayout>
+
+        <!--  Выбор времени -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Theme.Socapteki.BackgroundCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            app:strokeColor="@color/red"
+            app:strokeWidth="@{viewModel.isDateFiledError &amp; viewModel.selectedDeliveryTime == null ? ExtensionsMethodsKt.getDp(1) : 0}">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap"
+                app:forItems="@{viewModel.deliveryTime.items}"
+                app:useTemplate="@{@layout/making_order_time_view}"
+                app:visibleIf="@{viewModel.deliveryTime.mediator}" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp" />
+
+        <!-- Кнопка -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbMakingOrderAddressDate"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</layout>

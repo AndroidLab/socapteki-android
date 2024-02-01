@@ -67,7 +67,7 @@
                     android:onClick="@{() -> model.favoriteModel.clickFavorite(model.product)}"
                     android:padding="8dp"
                     android:src="@{model.favoriteModel.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                    app:imageTint="@{model.favoriteModel.isFavoriteLiveData ? @color/red : @color/light_black}"
+                    app:extraTint="@{model.favoriteModel.isFavoriteLiveData ? @color/red : @color/light_black}"
                     tools:ignore="ContentDescription" />
 
             </FrameLayout>

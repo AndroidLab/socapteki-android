@@ -6,7 +6,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.utils.launchMain
@@ -18,7 +17,6 @@ import ru.apteka.product_card.R
 import ru.apteka.product_card.databinding.ProductCardManufacturerProgramFragmentBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.components.R as ComponentsR
-
 
 /**
  * Представляет фрагмент "Карточка товара, программы производителя".
@@ -109,7 +107,8 @@ class ProductCardManufacturerProgramFragment :
 
     private fun onProductsCardClick(product: ProductModel) {
         viewModel.navigationManager.generalNavController.navigateWithAnim(
-            ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+            ru.apteka.product_card_api.R.id.product_card_graph,
+            bundleOf(
                 PRODUCT_CARD_ARGUMENT_PRODUCT to product
             )
         )
@@ -124,6 +123,5 @@ class ProductCardManufacturerProgramFragment :
                 viewModel.navigationManager.generalNavController.popBackStack()
             }
         }
-
     }
 }

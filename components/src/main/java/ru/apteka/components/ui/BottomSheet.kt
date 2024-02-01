@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -14,7 +15,6 @@ import ru.apteka.components.R
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
 import ru.apteka.components.data.utils.screenHeight
 import java.lang.IllegalArgumentException
-
 
 /**
  * Представляет нижнюю таблицу.
@@ -78,17 +78,24 @@ class BottomSheet private constructor() : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (bottomSheetModel.flagDimBehind) {
+            dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }
+    }
+
     private fun getBottomSheetContainer(
         inflater: LayoutInflater
     ): ViewDataBinding =
-        if (bottomSheetModel.useScrollableContainer)
+        if (bottomSheetModel.useScrollableContainer) {
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_scrollable, null, false)
-        else
+        } else {
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet, null, false)
+        }
 
     override fun onPause() {
         this.dismiss()
         super.onPause()
     }
-
 }

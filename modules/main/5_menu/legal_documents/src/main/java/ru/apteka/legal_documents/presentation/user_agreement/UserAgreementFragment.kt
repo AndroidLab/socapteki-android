@@ -7,7 +7,6 @@ import ru.apteka.legal_documents.R
 import ru.apteka.legal_documents.databinding.UserAgreementFragmentBinding
 import javax.inject.Inject
 
-
 /**
  * Представляет фрагмент "Пользовательское соглашение".
  */
@@ -19,10 +18,7 @@ class UserAgreementFragment : BaseFragment<Nothing, UserAgreementFragmentBinding
     lateinit var navigationManager: NavigationManager
 
     override fun onViewBindingInflated(binding: UserAgreementFragmentBinding) {
-
-
     }
-
 
     override fun onResume() {
         super.onResume()

@@ -14,7 +14,6 @@ import ru.apteka.orders.databinding.OrderCancelFragmentBinding
 import ru.apteka.orders.databinding.OrderCancelSheetBinding
 import ru.apteka.components.R as ComponentsR
 
-
 /**
  * Представляет фрагмент "Отмена заказа".
  */
@@ -47,18 +46,17 @@ class OrderCancelFragment : BaseFragment<OrderCancelViewModel, OrderCancelFragme
                                 bottomSheet.dismiss()
                                 viewModel.cancelOrder {
                                     setFragmentResult(
-                                        ORDER_CANCEL, bundleOf()
+                                        ORDER_CANCEL,
+                                        bundleOf()
                                     )
                                     viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
                                 }
-
                             }
                         }
                     )
                 )
             )
         }
-
     }
 
     override fun onResume() {
@@ -76,5 +74,4 @@ class OrderCancelFragment : BaseFragment<OrderCancelViewModel, OrderCancelFragme
     companion object {
         const val ORDER_CANCEL = "ORDER_CANCEL"
     }
-
 }

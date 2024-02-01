@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.pharmacies_map.data.models.MapAddressModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> bindingItem.onItemClick.invoke()}"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="@{bindingItem.title}"
+            android:textColor="@color/color_primary"
+            android:textSize="16sp" />
+
+        <include
+            android:id="@id/separator"
+            layout="@layout/separator_view"
+            app:sepMarginEnd="@{16}"
+            app:sepMarginStart="@{16}" />
+
+    </LinearLayout>
+
+</layout>
+

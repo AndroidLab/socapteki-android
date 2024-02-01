@@ -30,7 +30,6 @@ fun showSnackBar(snackBarModel: SnackBarModel) {
             }.root
         )*/
     }.show()
-
 }
 
 /**
@@ -44,14 +43,18 @@ fun showCommonDialog(commonDialogModel: CommonDialogModel) {
  * Показывает Toast.
  */
 fun showToast(toastModel: ToastModel) {
-    val _text = toastModel.run {
+    val text = toastModel.run {
         context.getStringFrom(message.message)
     }
-    Toast.makeText(toastModel.context, if (toastModel.message.isHtml) {
-        getSpannedFromHtml(_text)
-    } else {
-        _text
-    }, toastModel.duration).show()
+    Toast.makeText(
+        toastModel.context,
+        if (toastModel.message.isHtml) {
+            getSpannedFromHtml(text)
+        } else {
+            text
+        },
+        toastModel.duration
+    ).show()
 }
 
 /**

@@ -9,7 +9,6 @@ import ru.apteka.notifications.R
 import ru.apteka.notifications.data.model.NotificationModel
 import ru.apteka.notifications.databinding.NotificationsFragmentBinding
 
-
 /**
  * Представляет фрагмент "Уведомления".
  */
@@ -29,7 +28,7 @@ class NotificationsFragment : BaseFragment<NotificationsViewModel, Notifications
     }
 
     override fun onViewBindingInflated(binding: NotificationsFragmentBinding) {
-		binding.viewModel = viewModel
+        binding.viewModel = viewModel
         binding.rvNotification.adapter = notificationAdapter
 
         viewModel.notificationFiltered.observe(viewLifecycleOwner) {

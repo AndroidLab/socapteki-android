@@ -2,16 +2,8 @@
 plugins {
     id(libs.plugins.libraryConventionPlugin.get().pluginId)
     id(libs.plugins.kotlinAndroid.get().pluginId)
-    id(libs.plugins.kotlinParcelize.get().pluginId)
-    id(libs.plugins.navigationConventionPlugin.get().pluginId)
 }
 
 android {
     namespace = "ru.apteka.barcode_scaner_api"
-}
-
-dependencies {
-    implementation(project(":components"))
-
-    implementation(libs.bundles.navigationDeps)
 }

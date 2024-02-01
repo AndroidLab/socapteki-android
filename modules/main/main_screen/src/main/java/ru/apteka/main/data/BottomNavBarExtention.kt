@@ -1,10 +1,8 @@
 package ru.apteka.main.data
 
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import androidx.fragment.app.commitNow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -73,7 +71,7 @@ fun BottomAppBar.setupWithNavController(
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val newSelectedFragment = fragmentManager.findFragmentByTag(newSelectedItemTag)
-                        as NavHostFragment
+                    as NavHostFragment
 
                 if (firstFragmentTag != newSelectedItemTag) {
                     fragmentManager.commit {
@@ -102,9 +100,9 @@ fun BottomAppBar.setupWithNavController(
         }
     }
 
-   // setupItemReselected(graphIdToTagMap, fragmentManager)
+    // setupItemReselected(graphIdToTagMap, fragmentManager)
 
-    //setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
+    // setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
 
     fragmentManager.addOnBackStackChangedListener {
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag!!)) {
@@ -148,11 +146,12 @@ private fun BottomNavigationView.setupItemReselected(
     setOnItemReselectedListener { menuItem ->
         val newlySelectedItemTag = graphIdToTagMap[menuItem.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
-                as NavHostFragment
+            as NavHostFragment
         val navController = selectedFragment.navController
 
         navController.popBackStack(
-            navController.graph.startDestinationId, false
+            navController.graph.startDestinationId,
+            false
         )
     }
 }
@@ -165,7 +164,6 @@ private fun detachNavHostFragment(
         detach(navHostFragment)
     }
 }
-
 
 private fun attachNavHostFragment(
     fragmentManager: FragmentManager,
@@ -181,7 +179,6 @@ private fun attachNavHostFragment(
         }
     }
 }
-
 
 private fun obtainNavHostFragment(
     fragmentManager: FragmentManager,

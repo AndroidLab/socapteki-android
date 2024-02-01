@@ -7,7 +7,6 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Работа у нас".
  */
@@ -19,10 +18,4 @@ class WorkWithUsViewModel @Inject constructor(
 ) : BaseViewModel(
     navigationManager,
     messageService
-) {
-
-    init {
-
-    }
-
-}
+)

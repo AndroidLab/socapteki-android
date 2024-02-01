@@ -17,7 +17,6 @@ import ru.apteka.notifications.data.model.NotificationFilterModel
 import ru.apteka.notifications.data.model.NotificationModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Уведомления".
  */
@@ -27,28 +26,31 @@ class NotificationsViewModel @Inject constructor(
     navigationManager: NavigationManager,
     messageService: IMessageService
 ) : BaseViewModel(
-    navigationManager, messageService
+    navigationManager,
+    messageService
 ) {
     private val fakeNotifications = listOf(
         NotificationModel(
             title = "«Социальная Аптека»",
             desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
             type = NotificationModel.NotificationType.ORDERS
-        ), NotificationModel(
+        ),
+        NotificationModel(
             title = "«Социальная Аптека»",
             desc = "Заказ №507505552 готов и ожидает вас еще 2 дн. Справка 8 800 200 9001",
             type = NotificationModel.NotificationType.ORDERS
-        ), NotificationModel(
+        ),
+        NotificationModel(
             title = "-20% на Johnsons Baby",
             desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
             type = NotificationModel.NotificationType.STOCKS
-        ), NotificationModel(
+        ),
+        NotificationModel(
             title = "Эссенциале  по акции 2+1",
             desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
             type = NotificationModel.NotificationType.STOCKS
         )
     )
-
 
     private val _notificationFilter = MutableLiveData<NotificationFilterModel?>(null)
 
@@ -66,7 +68,7 @@ class NotificationsViewModel @Inject constructor(
      */
     val notifications: LiveData<List<NotificationModel>> = _notifications
 
-    //private val _notificationFiltered = MutableLiveData<List<NotificationModel>>(emptyList())
+    // private val _notificationFiltered = MutableLiveData<List<NotificationModel>>(emptyList())
 
     /**
      *
@@ -78,7 +80,7 @@ class NotificationsViewModel @Inject constructor(
                 NotificationFilter.ORDERS -> _notifications.value!!.filter { it.type == NotificationModel.NotificationType.ORDERS }
                 NotificationFilter.STOCKS -> _notifications.value!!.filter { it.type == NotificationModel.NotificationType.STOCKS }
                 else -> _notifications.value
-            }//?.sortedByDescending { it.date }
+            } // ?.sortedByDescending { it.date }
         }
 
         addSource(notifications) {
@@ -94,7 +96,6 @@ class NotificationsViewModel @Inject constructor(
      * Возвращает флаг прочтения всех уведомлений.
      */
     val isAllNotificationRead = MediatorLiveData<Boolean>()
-
 
     init {
         viewModelScope.launchIO {
@@ -120,7 +121,7 @@ class NotificationsViewModel @Inject constructor(
                         ),
                     )
                 ) {
-                    //ordersPreferences.orderFilter = it.status
+                    // ordersPreferences.orderFilter = it.status
                     selectedNotificationFilter.value = it
                 }.apply {
                     setItemSelected(0)
@@ -141,5 +142,4 @@ class NotificationsViewModel @Inject constructor(
             }
         }
     }
-
 }

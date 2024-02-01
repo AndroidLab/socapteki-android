@@ -6,33 +6,37 @@ import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.animation.DecelerateInterpolator
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import ru.apteka.components.R
-import ru.apteka.components.ui.PinCodeView
-import java.util.*
-import kotlin.math.*
+import kotlin.math.abs
+import kotlin.math.ceil
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class SeekBarRangedView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private lateinit var thumbImage: Bitmap
@@ -97,7 +101,7 @@ class SeekBarRangedView @JvmOverloads constructor(
         fun onStopTrackingTouch(view: SeekBarRangedView)
     }
 
-    fun setOnStopTrackingTouchListener(l: IStopTrackingTouchListener?)  {
+    fun setOnStopTrackingTouchListener(l: IStopTrackingTouchListener?) {
         stopTrackingTouchListener = l
     }
 
@@ -118,19 +122,41 @@ class SeekBarRangedView @JvmOverloads constructor(
             currentMin = a.getFloat(R.styleable.SeekBarRangedView_currentMin, min)
             max = a.getFloat(R.styleable.SeekBarRangedView_max, DEFAULT_MAX_PROGRESS)
             currentMax = a.getFloat(R.styleable.SeekBarRangedView_currentMax, max)
-            progressHeight = a.getDimensionPixelSize(R.styleable.SeekBarRangedView_progressHeight, DEFAULT_PROGRESS_HEIGHT)
-            bgProgressHeight = a.getDimensionPixelSize(R.styleable.SeekBarRangedView_backgroundHeight, DEFAULT_PROGRESS_HEIGHT)
+            progressHeight = a.getDimensionPixelSize(
+                R.styleable.SeekBarRangedView_progressHeight,
+                DEFAULT_PROGRESS_HEIGHT
+            )
+            bgProgressHeight = a.getDimensionPixelSize(
+                R.styleable.SeekBarRangedView_backgroundHeight,
+                DEFAULT_PROGRESS_HEIGHT
+            )
             isRounded = a.getBoolean(R.styleable.SeekBarRangedView_rounded, false)
             progressColor = a.getColor(R.styleable.SeekBarRangedView_progressColor, DEFAULT_COLOR)
-            progressBackgroundColor = a.getColor(R.styleable.SeekBarRangedView_backgroundColor, DEFAULT_BACKGROUND_COLOR)
+            progressBackgroundColor =
+                a.getColor(R.styleable.SeekBarRangedView_backgroundColor, DEFAULT_BACKGROUND_COLOR)
             if (a.hasValue(R.styleable.SeekBarRangedView_thumbsResource)) {
-                setThumbsImageResource(a.getResourceId(R.styleable.SeekBarRangedView_thumbsResource, R.drawable.thumb_normal))
+                setThumbsImageResource(
+                    a.getResourceId(
+                        R.styleable.SeekBarRangedView_thumbsResource,
+                        R.drawable.thumb_normal
+                    )
+                )
             } else {
                 if (a.hasValue(R.styleable.SeekBarRangedView_thumbNormalResource)) {
-                    setThumbNormalImageResource(a.getResourceId(R.styleable.SeekBarRangedView_thumbNormalResource, R.drawable.thumb_normal))
+                    setThumbNormalImageResource(
+                        a.getResourceId(
+                            R.styleable.SeekBarRangedView_thumbNormalResource,
+                            R.drawable.thumb_normal
+                        )
+                    )
                 }
                 if (a.hasValue(R.styleable.SeekBarRangedView_thumbPressedResource)) {
-                    setThumbPressedImageResource(a.getResourceId(R.styleable.SeekBarRangedView_thumbPressedResource, R.drawable.thumb_pressed))
+                    setThumbPressedImageResource(
+                        a.getResourceId(
+                            R.styleable.SeekBarRangedView_thumbPressedResource,
+                            R.drawable.thumb_pressed
+                        )
+                    )
                 }
             }
         } finally {
@@ -139,7 +165,14 @@ class SeekBarRangedView @JvmOverloads constructor(
         init(min, currentMin, max, currentMax, progressHeight, bgProgressHeight)
     }
 
-    private fun init(min: Float, currentMin: Float, max: Float, currentMax: Float, progressHeight: Int, bgProgressHeight: Int) {
+    private fun init(
+        min: Float,
+        currentMin: Float,
+        max: Float,
+        currentMax: Float,
+        progressHeight: Int,
+        bgProgressHeight: Int
+    ) {
         if (::thumbImage.isInitialized.not() && ::thumbPressedImage.isInitialized.not()) {
             setThumbNormalImageResource(R.drawable.thumb_normal)
             setThumbPressedImageResource(R.drawable.thumb_pressed)
@@ -177,7 +210,7 @@ class SeekBarRangedView @JvmOverloads constructor(
             return false
         }
         minValue = value
-        selectedMinValue = selectedMinValue
+        setSelectedMinVal(value)
         return true
     }
 
@@ -205,7 +238,9 @@ class SeekBarRangedView @JvmOverloads constructor(
             if (::minValueAnimator.isInitialized) {
                 minValueAnimator.cancel()
             }
-            minValueAnimator = getAnimator(selectedMinValue, value, duration) { valueAnimator -> setSelectedMinVal(valueAnimator.animatedValue as Float) }
+            minValueAnimator = getAnimator(selectedMinValue, value, duration) { valueAnimator ->
+                setSelectedMinVal(valueAnimator.animatedValue as Float)
+            }
             minValueAnimator.start()
         } else {
             setSelectedMinVal(value)
@@ -231,7 +266,9 @@ class SeekBarRangedView @JvmOverloads constructor(
             if (::maxValueAnimator.isInitialized) {
                 maxValueAnimator.cancel()
             }
-            maxValueAnimator = getAnimator(selectedMaxValue, value, duration) { valueAnimator -> setSelectedMaxVal(valueAnimator.animatedValue as Float) }
+            maxValueAnimator = getAnimator(selectedMaxValue, value, duration) { valueAnimator ->
+                setSelectedMaxVal(valueAnimator.animatedValue as Float)
+            }
             maxValueAnimator.start()
         } else {
             setSelectedMaxVal(value)
@@ -248,7 +285,12 @@ class SeekBarRangedView @JvmOverloads constructor(
         onChangedValues()
     }
 
-    private fun getAnimator(current: Float, next: Float, duration: Long, updateListener: AnimatorUpdateListener) = ValueAnimator().apply {
+    private fun getAnimator(
+        current: Float,
+        next: Float,
+        duration: Long,
+        updateListener: AnimatorUpdateListener
+    ) = ValueAnimator().apply {
         this.interpolator = DecelerateInterpolator()
         this.duration = duration
         this.setObjectValues(current, next)
@@ -341,7 +383,6 @@ class SeekBarRangedView @JvmOverloads constructor(
         invalidate()
     }
 
-
     /**
      * You can simulate the use of this method with by calling [.setBackgroundColor] with ContextCompat:
      * setBackgroundColor(ContextCompat.getColor(resId));
@@ -379,7 +420,6 @@ class SeekBarRangedView @JvmOverloads constructor(
         invalidate()
     }
 
-
     /**
      * You can simulate the use of this method with by calling [.setProgressColor] with ContextCompat:
      * setProgressColor(ContextCompat.getColor(resId));
@@ -405,19 +445,22 @@ class SeekBarRangedView @JvmOverloads constructor(
 
     fun setThumbNormalImage(bitmap: Bitmap) {
         thumbImage = bitmap
-        thumbPressedImage = if (::thumbPressedImage.isInitialized.not()) thumbImage else thumbPressedImage
+        thumbPressedImage =
+            if (::thumbPressedImage.isInitialized.not()) thumbImage else thumbPressedImage
         measureThumb()
         updatePadding()
         requestLayout()
     }
 
     fun setThumbNormalImageResource(@DrawableRes resId: Int) {
-        val d = resources.getDrawable(resId, null)
-        setThumbNormalImageDrawable(d)
+        ResourcesCompat.getDrawable(resources, resId, null)?.let {
+            setThumbNormalImageDrawable(it)
+        }
     }
 
     fun setThumbNormalImageDrawable(d: Drawable) {
-        thumbImage = Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        thumbImage =
+            Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
         d.setBounds(0, 0, d.intrinsicWidth, d.intrinsicHeight)
         d.draw(Canvas(thumbImage))
         setThumbNormalImage(thumbImage)
@@ -432,14 +475,20 @@ class SeekBarRangedView @JvmOverloads constructor(
     }
 
     fun setThumbPressedImageResource(@DrawableRes resId: Int) {
-        val d = resources.getDrawable(resId, null)
-        thumbPressedImage = Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        d.setBounds(0, 0, d.intrinsicWidth, d.intrinsicHeight)
-        d.draw(Canvas(thumbPressedImage))
-        setThumbPressedImage(thumbPressedImage)
+        ResourcesCompat.getDrawable(resources, resId, null)?.let { drawable ->
+            thumbPressedImage =
+                Bitmap.createBitmap(
+                    drawable.intrinsicWidth,
+                    drawable.intrinsicHeight,
+                    Bitmap.Config.ARGB_8888
+                )
+            drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            drawable.draw(Canvas(thumbPressedImage))
+            setThumbPressedImage(thumbPressedImage)
+        }
     }
 
-    //</editor-fold>
+    // </editor-fold>
     private fun onChangedValues() {
         actionCallbacks.forEach { actionCallback ->
             actionCallback.onChanged(selectedMinValue, selectedMaxValue)
@@ -507,14 +556,14 @@ class SeekBarRangedView @JvmOverloads constructor(
     private fun screenToNormalized(screenCoordinate: Float): Float {
         val width = width
         return if (width <= 2 * padding) {
-            0f //prevent division by zero
+            0f // prevent division by zero
         } else {
             val result = (screenCoordinate - padding) / (width - 2 * padding)
             min(1f, max(0f, result))
         }
     }
 
-    //<editor-fold desc="Touch logic">
+    // <editor-fold desc="Touch logic">
     private fun trackTouchEvent(event: MotionEvent) {
         val pointerIndex = event.findPointerIndex(activePointerId)
         var x = event.getX(pointerIndex)
@@ -590,9 +639,9 @@ class SeekBarRangedView @JvmOverloads constructor(
     private fun isInThumbRange(touchX: Float, normalizedThumbValue: Float): Boolean {
         return abs(touchX - normalizedToScreen(normalizedThumbValue)) <= thumbHalfWidth
     }
-    //</editor-fold>
+    // </editor-fold>
 
-    //<editor-fold desc="Progress-by-Step logic">
+    // <editor-fold desc="Progress-by-Step logic">
     /**
      * When enabled, min and max are set to 0 and 100 (default values) and cannot be changed
      *
@@ -667,9 +716,9 @@ class SeekBarRangedView @JvmOverloads constructor(
         return colesest
     }
 
-    //</editor-fold>
+    // </editor-fold>
 
-    //<editor-fold desc="View life-cycle">
+    // <editor-fold desc="View life-cycle">
     @Synchronized
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var width = 200
@@ -692,15 +741,18 @@ class SeekBarRangedView @JvmOverloads constructor(
         paint.isAntiAlias = true
 
         // draw seek bar background line
-        val corners: Float = max(backgroundLineHeight, progressLineHeight) * if (isRounded) 0.5f else 0f
-        backgroundLineRect[padding, 0.5f * (height - backgroundLineHeight), width - padding] = 0.5f * (height + backgroundLineHeight)
+        val corners: Float =
+            max(backgroundLineHeight, progressLineHeight) * if (isRounded) 0.5f else 0f
+        backgroundLineRect[padding, 0.5f * (height - backgroundLineHeight), width - padding] =
+            0.5f * (height + backgroundLineHeight)
         paint.color = progressBackgroundColor
         canvas.drawRoundRect(backgroundLineRect, corners, corners, paint)
         backgroundLineRect.left = normalizedToScreen(normalizedMinValue)
         backgroundLineRect.right = normalizedToScreen(normalizedMaxValue)
 
         // draw seek bar progress line
-        progressLineRect[padding, 0.5f * (height - progressLineHeight), width - padding] = 0.5f * (height + progressLineHeight)
+        progressLineRect[padding, 0.5f * (height - progressLineHeight), width - padding] =
+            0.5f * (height + progressLineHeight)
         progressLineRect.left = normalizedToScreen(normalizedMinValue)
         progressLineRect.right = normalizedToScreen(normalizedMaxValue)
         paint.color = progressColor
@@ -713,7 +765,8 @@ class SeekBarRangedView @JvmOverloads constructor(
             var stepX: Float
             for (step in progressStepList) {
                 stepX = normalizedToScreen(step)
-                paint.color = if (stepX > maxX || stepX < minX) progressBackgroundColor else progressColor
+                paint.color =
+                    if (stepX > maxX || stepX < minX) progressBackgroundColor else progressColor
                 drawStep(canvas, normalizedToScreen(step), stepRadius, paint)
             }
         }
@@ -730,9 +783,11 @@ class SeekBarRangedView @JvmOverloads constructor(
      */
     private fun drawThumb(canvas: Canvas, screenCoordinate: Float, pressed: Boolean) {
         canvas.drawBitmap(
-                if (pressed) thumbPressedImage else thumbImage,
-                screenCoordinate - if (pressed) thumbPressedHalfWidth else thumbHalfWidth,
-                0.5f * height - if (pressed) thumbPressedHalfHeight else thumbHalfHeight, paint)
+            if (pressed) thumbPressedImage else thumbImage,
+            screenCoordinate - if (pressed) thumbPressedHalfWidth else thumbHalfWidth,
+            0.5f * height - if (pressed) thumbPressedHalfHeight else thumbHalfHeight,
+            paint
+        )
     }
 
     /**
@@ -770,6 +825,7 @@ class SeekBarRangedView @JvmOverloads constructor(
                 trackTouchEvent(event)
                 attemptClaimDrag()
             }
+
             MotionEvent.ACTION_MOVE -> if (pressedThumb != null) {
                 if (isDragging) {
                     trackTouchEvent(event)
@@ -787,6 +843,7 @@ class SeekBarRangedView @JvmOverloads constructor(
                 }
                 onChangingValues()
             }
+
             MotionEvent.ACTION_UP -> {
                 if (isDragging) {
                     trackTouchEvent(event)
@@ -806,6 +863,7 @@ class SeekBarRangedView @JvmOverloads constructor(
                 }
                 stopTrackingTouchListener?.onStopTrackingTouch(this)
             }
+
             MotionEvent.ACTION_POINTER_DOWN -> {
                 val index = event.pointerCount - 1
                 // final int index = ev.getActionIndex();
@@ -813,10 +871,12 @@ class SeekBarRangedView @JvmOverloads constructor(
                 activePointerId = event.getPointerId(index)
                 invalidate()
             }
+
             MotionEvent.ACTION_POINTER_UP -> {
                 onSecondaryPointerUp(event)
                 invalidate()
             }
+
             MotionEvent.ACTION_CANCEL -> {
                 if (isDragging) {
                     onStopTrackingTouch()
@@ -824,6 +884,7 @@ class SeekBarRangedView @JvmOverloads constructor(
                 }
                 invalidate() // see above explanation
             }
+
             else -> {
             }
         }
@@ -851,9 +912,10 @@ class SeekBarRangedView @JvmOverloads constructor(
         onChangingValues()
     }
 
-    //</editor-fold>
+    // </editor-fold>
 
-    private fun dpToPx(dp: Float) = ceil(dp * Resources.getSystem().displayMetrics.density.toDouble()).toInt()
+    private fun dpToPx(dp: Float) =
+        ceil(dp * Resources.getSystem().displayMetrics.density.toDouble()).toInt()
 
     private enum class Thumb {
         MIN, MAX
@@ -888,7 +950,6 @@ inline fun SeekBarRangedView.addActionListener(
         override fun onChanging(minValue: Float, maxValue: Float) {
             onChanging.invoke(minValue, maxValue)
         }
-
     }
     actionCallbacks.add(callback)
     return callback
@@ -936,7 +997,6 @@ fun setSelectedMinValueListener(
         )
     }
 }
-
 
 @BindingAdapter("app:maxValue")
 fun setMaxValue(

@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -17,12 +16,12 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.orders.R
-import ru.apteka.product_card_api.R as ProductCardApiR
 import ru.apteka.orders.data.models.OrderDetailProductCard
 import ru.apteka.orders.data.models.OrderExtendBookingModel
+import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import javax.inject.Inject
-
+import ru.apteka.product_card_api.R as ProductCardApiR
 
 /**
  * Представляет модель представления "Детали заказа".
@@ -53,7 +52,8 @@ class OrderDetailsViewModel @Inject constructor(
                 product = product,
                 onCardClick = {
                     navigationManager.generalNavController.navigateWithAnim(
-                        ProductCardApiR.id.product_card_graph, bundleOf(
+                        ProductCardApiR.id.product_card_graph,
+                        bundleOf(
                             PRODUCT_CARD_ARGUMENT_PRODUCT to it
                         )
                     )
@@ -83,7 +83,6 @@ class OrderDetailsViewModel @Inject constructor(
             ),
         ),
     ) {
-
     }
 
     /**
@@ -111,7 +110,6 @@ class OrderDetailsViewModel @Inject constructor(
         }
     }
 
-
     private fun getOrderDetail(order: OrderModel) {
         /*viewModelScope.launchIO {
             requestHandler.handleApiRequest(
@@ -123,6 +121,4 @@ class OrderDetailsViewModel @Inject constructor(
             )
         }*/
     }
-
-
 }

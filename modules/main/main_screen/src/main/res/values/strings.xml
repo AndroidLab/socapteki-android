@@ -1,5 +1,4 @@
 <resources>
-    <string name="menu_city_not_selected">Город не выбран</string>
 
     <string name="menu_my_orders">Мои заказы</string>
     <string name="menu_notifications">Уведомления</string>
@@ -15,13 +14,9 @@
     <string name="menu_legal_documents">Юридические документы</string>
     <string name="menu_rate_app">Оценить приложение</string>
     <string name="menu_enter">Войти</string>
-
     <string name="menu_contacts">Контакты</string>
-    <string name="menu_reviews">Отзывы</string>
-    <string name="menu_cooperation">Сотрудничество</string>
-    <string name="menu_partners">Партнерам</string>
-    <string name="menu_faq">Вопрос-ответ</string>
     <string name="rate_app_desc">Ваше мнение важно для нас, поскольку оно помогает нам предоставлять вам лучший пользовательский опыт.</string>
     <string name="rate_app_cancel">Не сейчас</string>
     <string name="rate_app_confirm">Отправить</string>
+
 </resources>

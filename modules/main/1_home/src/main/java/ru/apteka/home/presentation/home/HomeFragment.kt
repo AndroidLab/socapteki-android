@@ -81,7 +81,6 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         AnimatorInflater.loadAnimator(requireContext(), R.anim.flip_pop_exit_anim) as AnimatorSet
     }
 
-
     override fun onViewBindingInflated(binding: HomeFragmentBinding) {
         if (!viewModel.navigationManager.isHomeFront.value!!) {
             binding.llBonusProgram.bringToFront()
@@ -94,7 +93,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homePharmaciesMap.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph,
+                bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
@@ -102,10 +102,10 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.svHome.canScrolling = false
 
-
         binding.tvHomeProductsDayAll.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+                ListingApiR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "Товары дня"
                 )
             )
@@ -113,7 +113,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDay1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ProductCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDay.value!![0].product
                 )
             )
@@ -121,7 +122,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDay2.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ProductCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDay.value!![1].product
                 )
             )
@@ -133,7 +135,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.tvHomeProductsDiscountAll.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+                ListingApiR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "Товары со скидкой"
                 )
             )
@@ -141,7 +144,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDiscount1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ProductCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDiscount.value!![0].product
                 )
             )
@@ -149,7 +153,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
         binding.homeProductsDiscount2.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ProductCardApiR.id.product_card_graph, bundleOf(
+                ProductCardApiR.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.productsDiscount.value!![1].product
                 )
             )
@@ -287,6 +292,5 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             }
         }
     }
-
 }
 

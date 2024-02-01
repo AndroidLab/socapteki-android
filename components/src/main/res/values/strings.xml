@@ -44,6 +44,7 @@
     <string name="all_products">Все товары</string>
     <string name="read_completely">Читать полностью</string>
     <string name="hide">Скрыть</string>
+    <string name="further">Далее</string>
     <string name="confirm_code_hint">Код подтверждения</string>
     <string name="confirm_code_is_missing">Не пришел код?</string>
     <string name="confirm_code_repeat"><u>Отправить повторно</u></string>
@@ -56,6 +57,9 @@
     <string name="confirmation_code_by_sms_desc">Введите СМС код, отправленный на указанный номер телефона. Введите его ниже:</string>
     <string name="confirmation_code_by_number_desc">Введите последние 4 цифры номера, который вам сейчас позвонит. Введите его ниже:</string>
     <string name="confirmation_code_limit">Превышен лимит отправки кодов</string>
+    <string name="city_not_selected">Город не выбран</string>
+    <string name="add_favorite">Добавить в избранное</string>
+    <string name="in_favorite">В избранном</string>
 
     <string name="label_hit_sales">Хит продаж</string>
     <string name="label_product_day">Товар дня</string>

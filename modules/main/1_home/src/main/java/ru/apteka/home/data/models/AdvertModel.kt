@@ -1,9 +1,7 @@
 package ru.apteka.home.data.models
 
-import androidx.annotation.Keep
 import ru.apteka.components.data.models.Label
 import java.util.UUID
-
 
 /**
  * Представляет модель для карточки рекламы.

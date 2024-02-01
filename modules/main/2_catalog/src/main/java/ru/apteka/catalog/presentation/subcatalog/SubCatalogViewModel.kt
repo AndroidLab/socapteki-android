@@ -1,20 +1,15 @@
 package ru.apteka.catalog.presentation.subcatalog
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.services.RequestHandler
-import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.catalog.data.models.CatalogItem
+import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
-import ru.apteka.components.data.utils.debounce
+import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 import kotlin.properties.Delegates
-
 
 /**
  * Представляет модель представления "Подкаталог".
@@ -132,13 +127,15 @@ class SubCatalogViewModel @Inject constructor(
             value = if (searchText.value!!.isEmpty()) {
                 listOf(catalogItem!!.title) + (subCatalogItems.value ?: emptyList())
             } else {
-                listOf(catalogItem!!.title) + (subCatalogItems.value?.filter {
-                    it.title.contains(
-                        searchText.value!!,
-                        true
-                    )
-                }
-                    ?: emptyList())
+                listOf(catalogItem!!.title) + (
+                        subCatalogItems.value?.filter {
+                            it.title.contains(
+                                searchText.value!!,
+                                true
+                            )
+                        }
+                            ?: emptyList()
+                        )
             }
         }
 
@@ -150,6 +147,4 @@ class SubCatalogViewModel @Inject constructor(
             setCatalogItems()
         }
     }
-
-
 }

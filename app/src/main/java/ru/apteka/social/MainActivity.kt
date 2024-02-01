@@ -37,7 +37,7 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.onAnimationEndListener
 import ru.apteka.components.data.utils.screenWidth
-import ru.apteka.components.data.utils.setImageTint
+import ru.apteka.components.data.utils.setExtraTint
 import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BottomSheet
 import ru.apteka.main.data.CircleEdgeTreatment
@@ -55,7 +55,6 @@ import ru.apteka.home.R as HomeR
 import ru.apteka.main.R as MainR
 import ru.apteka.menu.R as MenuR
 import ru.apteka.stocks.R as StocksR
-
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -90,7 +89,8 @@ class MainActivity : AppCompatActivity() {
                     binding.vStartAnimLeft.visibility = View.VISIBLE
                     binding.vStartAnimRight.visibility = View.VISIBLE
                     ValueAnimator.ofFloat(
-                        vStartAnimRightStartPosition, vStartAnimRightEndPosition
+                        vStartAnimRightStartPosition,
+                        vStartAnimRightEndPosition
                     ).apply {
                         addUpdateListener { valueAnimator ->
                             binding.vStartAnimRight.x = valueAnimator.animatedValue as Float
@@ -99,7 +99,8 @@ class MainActivity : AppCompatActivity() {
                     }.start()
 
                     ValueAnimator.ofFloat(
-                        vStartAnimLeftStartPosition, vStartAnimLeftEndPosition
+                        vStartAnimLeftStartPosition,
+                        vStartAnimLeftEndPosition
                     ).apply {
                         addUpdateListener { valueAnimator ->
                             binding.vStartAnimLeft.x = valueAnimator.animatedValue as Float
@@ -116,7 +117,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun startLogoAnim() {
         ValueAnimator.ofFloat(
-            0f, 1f
+            0f,
+            1f
         ).apply {
             addUpdateListener { valueAnimator ->
                 binding.ivStartAnimLogo.alpha = valueAnimator.animatedValue as Float
@@ -130,7 +132,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun startDescAnim() {
         ValueAnimator.ofFloat(
-            0f, 1f
+            0f,
+            1f
         ).apply {
             addUpdateListener { valueAnimator ->
                 binding.tvStartAnimLogo.alpha = valueAnimator.animatedValue as Float
@@ -148,7 +151,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchAfter(1000) {
             mainThread {
                 ValueAnimator.ofFloat(
-                    1f, 0f
+                    1f,
+                    0f
                 ).apply {
                     addUpdateListener { valueAnimator ->
                         val value = valueAnimator.animatedValue as Float
@@ -167,7 +171,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
 
-        //startAnim()
+        // startAnim()
 
         /*lifecycleScope.launchIO {
             delay(6000)
@@ -201,13 +205,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomAppBarModel = viewModel.navigationManager.bottomAppBarModel
 
-        binding.bottomAppBarFab.addOnShowAnimationListener(onAnimationEndListener {
-            binding.bottomAppBar.visibility = View.VISIBLE
-        })
+        binding.bottomAppBarFab.addOnShowAnimationListener(
+            onAnimationEndListener {
+                binding.bottomAppBar.visibility = View.VISIBLE
+            }
+        )
 
-        binding.bottomAppBarFab.addOnHideAnimationListener(onAnimationEndListener {
-            binding.bottomAppBar.visibility = View.GONE
-        })
+        binding.bottomAppBarFab.addOnHideAnimationListener(
+            onAnimationEndListener {
+                binding.bottomAppBar.visibility = View.GONE
+            }
+        )
 
         binding.bottomAppBar.apply {
             background = MaterialShapeDrawable(
@@ -272,7 +280,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             binding.appMenuItemCity.title = viewModel.userPreferences.city?.name
-                                ?: getString(ru.apteka.main.R.string.menu_city_not_selected)
+                                ?: getString(ComponentsR.string.city_not_selected)
                             binding.appMenuItemCity.item.setOnClickListener {
                                 viewModel.navigationManager.generalNavController.navigateWithAnim(
                                     ru.apteka.choosing_city_api.R.id.choosing_city_graph,
@@ -396,12 +404,14 @@ class MainActivity : AppCompatActivity() {
                                                 text = ru.apteka.main.R.string.rate_app_confirm
                                             ) {
                                                 val uri: Uri =
-                                                    Uri.parse("market://details?id=${it.applicationContext.packageName}")
+                                                    Uri.parse(
+                                                        "market://details?id=${it.applicationContext.packageName}"
+                                                    )
                                                 val goToMarket = Intent(Intent.ACTION_VIEW, uri)
                                                 goToMarket.addFlags(
                                                     Intent.FLAG_ACTIVITY_NO_HISTORY or
-                                                            Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
-                                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                                                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                                                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK
                                                 )
                                                 try {
                                                     startActivity(goToMarket)
@@ -409,7 +419,9 @@ class MainActivity : AppCompatActivity() {
                                                     startActivity(
                                                         Intent(
                                                             Intent.ACTION_VIEW,
-                                                            Uri.parse("http://play.google.com/store/apps/details?id=${it.applicationContext.packageName}")
+                                                            Uri.parse(
+                                                                "http://play.google.com/store/apps/details?id=${it.applicationContext.packageName}"
+                                                            )
                                                         )
                                                     )
                                                 }
@@ -534,10 +546,10 @@ class MainActivity : AppCompatActivity() {
         if (currentGeneralDestinationId != R.id.featureFragment) {
             viewModel.navigationManager.generalNavController.popBackStack()
         } else {
-            if (currentMainDestinationId == CatalogR.id.catalogFragment
-                || currentMainDestinationId == StocksR.id.stocksFragment
-                || currentMainDestinationId == BasketR.id.basketFragment
-                || previousMainDestinationId == MenuR.id.menuFragment
+            if (currentMainDestinationId == CatalogR.id.catalogFragment ||
+                currentMainDestinationId == StocksR.id.stocksFragment ||
+                currentMainDestinationId == BasketR.id.basketFragment ||
+                previousMainDestinationId == MenuR.id.menuFragment
             ) {
                 if (previousMainDestinationId == MenuR.id.menuFragment) {
                     viewModel.navigationManager.currentBottomNavControllerLiveData.value?.popBackStack()
@@ -559,7 +571,7 @@ class MainActivity : AppCompatActivity() {
         if (isHomeFront) {
             binding.bottomAppBarFab.apply {
                 setImageResource(ComponentsR.drawable.ic_card)
-                setImageTint(
+                setExtraTint(
                     ContextCompat.getColor(
                         this@MainActivity,
                         ComponentsR.color.color_primary
@@ -569,7 +581,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.bottomAppBarFab.apply {
                 setImageResource(ComponentsR.drawable.ic_home)
-                setImageTint(
+                setExtraTint(
                     ContextCompat.getColor(
                         this@MainActivity,
                         ComponentsR.color.color_primary
@@ -595,5 +607,4 @@ class MainActivity : AppCompatActivity() {
                 intent = intent,
             )
     }
-
 }

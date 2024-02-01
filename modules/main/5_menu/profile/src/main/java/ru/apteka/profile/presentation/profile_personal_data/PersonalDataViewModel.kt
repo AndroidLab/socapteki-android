@@ -17,7 +17,6 @@ import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.profile.data.models.SexModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Персональные данные".
  */
@@ -113,7 +112,6 @@ class PersonalDataViewModel @Inject constructor(
      */
     val isReceiveReceipts = MutableLiveData(false)
 
-
     init {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
@@ -136,5 +134,4 @@ class PersonalDataViewModel @Inject constructor(
             )
         }
     }
-
 }

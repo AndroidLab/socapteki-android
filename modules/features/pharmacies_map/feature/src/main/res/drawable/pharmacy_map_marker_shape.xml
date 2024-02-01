@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <shape
+            android:shape="oval">
+            <solid
+                android:color="#FFFFFF"/>
+            <size
+                android:width="32dp"
+                android:height="32dp"/>
+        </shape>
+
+    </item>
+
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/ic_pharmacy_map_marker_shape_1" />
+
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/ic_pharmacy_map_marker_shape_2" />
+
+</layer-list>

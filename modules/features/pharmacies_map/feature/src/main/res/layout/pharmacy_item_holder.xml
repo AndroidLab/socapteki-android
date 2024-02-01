@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.pharmacies_map_api.api.TypeInteraction" />
+
+        <variable
+            name="model"
+            type="ru.apteka.components.data.models.PharmacyCardModel" />
+
+        <variable
+            name="typeInteraction"
+            type="TypeInteraction" />
+
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pharmacyItem"
+        style="@style/Theme.Socapteki.BackgroundCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/light_grey">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- В избранном -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pharmacyItemFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.favorite.clickFavorite(model.pharmacy)}"
+                app:cardBackgroundColor="@{model.favorite.isFavoriteLiveData ? @color/map_favorite_background_color : @color/white}"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/map_favorite_background_color"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_heart"
+                        app:extraTint="@{model.favorite.isFavoriteLiveData ? @color/white : @color/map_favorite_background_color}"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="4dp"
+                        android:text="@{model.favorite.isFavoriteLiveData ? @string/in_favorite : @string/add_favorite}"
+                        android:textColor="@{model.favorite.isFavoriteLiveData ? @color/white : @color/map_favorite_background_color}" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Название -->
+            <TextView
+                android:id="@+id/pharmacyItemName"
+                style="@style/Theme.Socapteki.SemiBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:text="@{model.pharmacy.name}"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemFavorite" />
+
+            <!-- Адрес -->
+            <ImageView
+                android:id="@+id/ivPharmacyItemAddress"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemName"
+                app:tint="@color/color_primary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{model.pharmacy.address}"
+                android:textColor="@color/light_black"
+                app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemAddress"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyItemAddress"
+                app:layout_constraintTop_toTopOf="@id/ivPharmacyItemAddress" />
+
+            <!-- Метро -->
+            <ImageView
+                android:id="@+id/ivPharmacyItemMetro"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_metro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemAddress"
+                app:tint="@color/color_primary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{model.pharmacy.metro}"
+                android:textColor="@color/light_black"
+                app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemMetro"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyItemMetro"
+                app:layout_constraintTop_toTopOf="@id/ivPharmacyItemMetro" />
+
+            <!-- Время работы -->
+            <ImageView
+                android:id="@+id/ivPharmacyItemTime"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemMetro"
+                app:tint="@color/color_primary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{model.pharmacy.time}"
+                android:textColor="@color/light_black"
+                app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemTime"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyItemTime"
+                app:layout_constraintTop_toTopOf="@id/ivPharmacyItemTime" />
+
+            <!-- Телефон -->
+            <ImageView
+                android:id="@+id/ivPharmacyItemPhone"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemTime"
+                app:tint="@color/color_primary"
+                app:visibleIf="@{typeInteraction == TypeInteraction.NAVIGATION}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{model.pharmacy.phone}"
+                android:textColor="@color/light_black"
+                app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemPhone"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyItemPhone"
+                app:layout_constraintTop_toTopOf="@id/ivPharmacyItemPhone"
+                app:visibleIf="@{typeInteraction == TypeInteraction.NAVIGATION}" />
+
+            <!-- Доступно -->
+            <include
+                android:id="@+id/pharmacyItemAvailableSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemTime"
+                app:sepMarginTop="@{16}"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <ImageView
+                android:id="@+id/ivPharmacyItemAvailable"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/ic_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemAvailableSeparator"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Доступно 1 из 2"
+                android:textColor="@color/light_black"
+                app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemAvailable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyItemAvailable"
+                app:layout_constraintTop_toTopOf="@id/ivPharmacyItemAvailable"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <!-- Детали заказа -->
+            <include
+                android:id="@+id/pharmacyItemOrderDetailsSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemAvailable"
+                app:sepMarginTop="@{8}"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <LinearLayout
+                android:id="@+id/pharmacyItemOrderDetailsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemOrderDetailsSeparator"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}">
+
+                <com.github.florent37.expansionpanel.ExpansionHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="16dp"
+                    app:expansionChangeColor="@{true}"
+                    app:expansion_headerIndicator="@id/pharmacyItemOrderDetailsHeaderIndicator"
+                    app:expansion_layout="@id/pharmacyItemOrderDetailsExpansionLayout">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:tag="title"
+                        android:text="Детали заказа"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/pharmacyItemOrderDetailsHeaderIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:src="@drawable/ic_arrow_expand"
+                        android:tag="indicator"
+                        tools:ignore="ContentDescription" />
+
+                </com.github.florent37.expansionpanel.ExpansionHeader>
+
+                <com.github.florent37.expansionpanel.ExpansionLayout
+                    android:id="@+id/pharmacyItemOrderDetailsExpansionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:expansion_expanded="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <include
+                                layout="@layout/image_card"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                app:imageUrl="@{`https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp`}" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="5 200 ₽"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Бак-сет форте капсулы 210мг, 20 шт"
+                                    android:textColor="@color/dark_black" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 шт"
+                                android:textColor="@color/light_black" />
+
+                        </LinearLayout>
+
+                        <include
+                            layout="@layout/separator_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemTime"
+                            app:sepMarginTop="@{16}" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            style="@style/Theme.Socapteki.BackgroundCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="4dp"
+                            app:cardBackgroundColor="@color/pink"
+                            app:contentPadding="16dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/pharmacyItemOrderProductTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Привезем для Вас"
+                                    android:textColor="@color/red"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/pharmacyItemOrderProductDesc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Срок доставки - до 5 дней"
+                                    android:textColor="@color/light_black"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/pharmacyItemOrderProductTitle" />
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_close"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:ignore="ContentDescription" />
+
+                                <include
+                                    android:id="@+id/pharmacyItemOrderProductImage"
+                                    layout="@layout/image_card"
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+                                    android:layout_marginTop="8dp"
+                                    app:imageUrl="@{`https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp`}"
+                                    app:layout_constraintTop_toBottomOf="@id/pharmacyItemOrderProductDesc" />
+
+                                <TextView
+                                    android:id="@+id/pharmacyItemOrderProductPrice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="5 200 ₽"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    app:layout_constraintStart_toEndOf="@id/pharmacyItemOrderProductImage"
+                                    app:layout_constraintTop_toTopOf="@id/pharmacyItemOrderProductImage" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Бак-сет форте капсулы 210мг, 20 шт"
+                                    android:textColor="@color/dark_black"
+                                    app:layout_constraintStart_toEndOf="@id/pharmacyItemOrderProductImage"
+                                    app:layout_constraintTop_toBottomOf="@id/pharmacyItemOrderProductPrice" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </com.github.florent37.expansionpanel.ExpansionLayout>
+
+            </LinearLayout>
+
+            <!-- Самовывоз -->
+            <include
+                android:id="@+id/pharmacyItemPickupSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemOrderDetailsContainer"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <ImageView
+                android:id="@+id/pharmacyItemPickupImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/shape_circle"
+                android:padding="6dp"
+                android:src="@drawable/ic_pickup"
+                app:backgroundTint="@color/color_secondary_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemPickupSeparator"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/pharmacyItemPickupDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Самовывоз:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/pharmacyItemPickupImage"
+                app:layout_constraintEnd_toStartOf="@id/pharmacyItemPickupDate"
+                app:layout_constraintStart_toEndOf="@id/pharmacyItemPickupImage"
+                app:layout_constraintTop_toTopOf="@id/pharmacyItemPickupImage"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <TextView
+                android:id="@+id/pharmacyItemPickupDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13 сентября"
+                app:layout_constraintBottom_toBottomOf="@id/pharmacyItemPickupImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/pharmacyItemPickupDesc"
+                app:layout_constraintTop_toTopOf="@id/pharmacyItemPickupImage"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <include
+                android:id="@+id/pharmacyItemAnalogsSeparator"
+                layout="@layout/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemPickupImage"
+                app:sepMarginTop="@{4}"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+            <LinearLayout
+                android:id="@+id/pharmacyItemAnalogsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemAnalogsSeparator"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Посмотреть ближайшие аптеки где есть все товары"
+                    android:textColor="@color/light_black" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_expand"
+                    android:tag="indicator"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <!-- Забрать здесь -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pharmacyItemPickupHere"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/pharmacies_map_pick_here"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyItemAnalogsContainer"
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
+

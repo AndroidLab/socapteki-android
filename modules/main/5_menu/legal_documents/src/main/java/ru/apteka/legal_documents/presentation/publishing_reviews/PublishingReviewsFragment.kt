@@ -7,7 +7,6 @@ import ru.apteka.legal_documents.R
 import ru.apteka.legal_documents.databinding.PublishingReviewsFragmentBinding
 import javax.inject.Inject
 
-
 /**
  * Представляет фрагмент "Правила публикации отзывов на сайте social-apteka.ru".
  */
@@ -19,9 +18,7 @@ class PublishingReviewsFragment : BaseFragment<Nothing, PublishingReviewsFragmen
     lateinit var navigationManager: NavigationManager
 
     override fun onViewBindingInflated(binding: PublishingReviewsFragmentBinding) {
-
     }
-
 
     override fun onResume() {
         super.onResume()

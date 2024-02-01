@@ -3,7 +3,6 @@ package ru.apteka.components.data.utils
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -35,7 +34,15 @@ import androidx.navigation.NavOptions
 import com.airbnb.lottie.LottieAnimationView
 import com.alab.extra_bouncy.BouncyRecyclerView
 import com.alab.extra_bouncy.util.OnOverScrollOffsetListener
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.apteka.components.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -43,7 +50,6 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.ceil
-
 
 /**
  * Возвращает календарь с указзаной датой.
@@ -57,21 +63,19 @@ fun Calendar(timeInMils: Long) = Calendar.getInstance().apply {
     timeInMillis = timeInMils
 }
 
-
 /**
  * Конвертирует дату в удобный для чтения вид.
  */
 fun Calendar.formatDate(context: Context): String {
     var publishTime =
-        if (get(Calendar.DAY_OF_MONTH) == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+        if (get(Calendar.DAY_OF_MONTH) == Calendar.getInstance()[Calendar.DAY_OF_MONTH]) {
             context.getString(R.string.common_today)
         } else {
-            if (get(Calendar.DAY_OF_MONTH) == Calendar.getInstance()
-                    .get(Calendar.DAY_OF_MONTH) - 1
+            if (get(Calendar.DAY_OF_MONTH) == Calendar.getInstance()[Calendar.DAY_OF_MONTH] - 1
             ) {
                 context.getString(R.string.common_yesterday)
             } else {
-                if (get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
+                if (get(Calendar.YEAR) == Calendar.getInstance()[Calendar.YEAR]) {
                     SimpleDateFormat("dd MMMM", Locale.getDefault()).format(time)
                 } else {
                     DateFormat.getDateInstance(DateFormat.MEDIUM).format(time)
@@ -126,7 +130,7 @@ val Number.sp
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun CoroutineScope.launchIO(block: suspend CoroutineScope.() -> Unit): Job {
-    return this.launch(Dispatchers.IO) {
+    return launch(Dispatchers.IO) {
         block()
     }
 }
@@ -136,7 +140,7 @@ fun CoroutineScope.launchIO(block: suspend CoroutineScope.() -> Unit): Job {
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun CoroutineScope.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
-    return this.launch(Dispatchers.Main) {
+    return launch(Dispatchers.Main) {
         block()
     }
 }
@@ -146,7 +150,7 @@ fun CoroutineScope.launchMain(block: suspend CoroutineScope.() -> Unit): Job {
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun CoroutineScope.launchDefault(block: suspend CoroutineScope.() -> Unit): Job {
-    return this.launch(Dispatchers.Default) {
+    return launch(Dispatchers.Default) {
         block()
     }
 }
@@ -156,7 +160,7 @@ fun CoroutineScope.launchDefault(block: suspend CoroutineScope.() -> Unit): Job 
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun <T> CoroutineScope.asyncIO(block: suspend CoroutineScope.() -> T): Deferred<T> {
-    return this.async(Dispatchers.IO) {
+    return async(Dispatchers.IO) {
         block()
     }
 }
@@ -166,7 +170,7 @@ fun <T> CoroutineScope.asyncIO(block: suspend CoroutineScope.() -> T): Deferred<
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun <T> CoroutineScope.asyncMain(block: suspend CoroutineScope.() -> T): Deferred<T> {
-    return this.async(Dispatchers.Main) {
+    return async(Dispatchers.Main) {
         block()
     }
 }
@@ -176,7 +180,7 @@ fun <T> CoroutineScope.asyncMain(block: suspend CoroutineScope.() -> T): Deferre
  * @param block Прерываемая функция в вызываемой области корутины.
  */
 fun <T> CoroutineScope.asyncDefault(block: suspend CoroutineScope.() -> T): Deferred<T> {
-    return this.async(Dispatchers.Default) {
+    return async(Dispatchers.Default) {
         block()
     }
 }
@@ -326,10 +330,11 @@ fun String?.crop(length: Int): String? {
     return if (this == null) {
         null
     } else {
-        if ((this.length) > length)
+        if ((this.length) > length) {
             this.substring(0, length) + "..."
-        else
+        } else {
             this
+        }
     }
 }
 
@@ -351,7 +356,9 @@ fun Activity.transparentStatusBar() {
  */
 val View.bitmap
     get() = Bitmap.createBitmap(
-        width, height, Bitmap.Config.ARGB_8888
+        width,
+        height,
+        Bitmap.Config.ARGB_8888
     ).also {
         val canvas = Canvas(it)
         this.draw(canvas)
@@ -454,7 +461,7 @@ fun <T> MutableLiveData<T>.asLiveData() = this as LiveData<T>
  * @param text Текст.
  */
 fun getSpannedFromHtml(text: String): Spanned {
-    return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY);
+    return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
 
 /**

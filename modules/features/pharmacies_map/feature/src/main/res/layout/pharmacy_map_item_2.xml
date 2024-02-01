@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+
+    <FrameLayout
+        android:id="@+id/pharmacyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="@drawable/pharmacy_map_marker_background_shape">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/pharmacy_map_marker_shape"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvPharmacyMapItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="8dp"
+            android:text="1 из 2"
+            android:textColor="@color/white" />
+
+    </FrameLayout>
+
+</layout>
+

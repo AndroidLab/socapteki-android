@@ -53,7 +53,7 @@
                         <include
                             layout="@layout/no_element_view"
                             app:desc="@{@string/pharmacies_not_found_desc}"
-                            app:icon="@{@drawable/ic_profile_pharmacy}"
+                            app:icon="@{@drawable/profile_pharmacy}"
                             app:title="@{@string/pharmacies_not_found_title}"
                             app:visibleIf="@{!viewModel.isLoading &amp; viewModel.pharmacies.empty}" />
 

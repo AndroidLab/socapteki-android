@@ -2,29 +2,26 @@ package ru.apteka.profile.presentation.pharmacies
 
 
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-import ru.apteka.profile.data.models.AptekaCardModel
-import ru.apteka.profile.databinding.AptekaHolderBinding
+import ru.apteka.profile.data.models.ProfilePharmacyCardModel
+import ru.apteka.profile.databinding.ProfilePharmacyHolderBinding
 
 
 /**
  * Представляет адаптер для спика аптек.
  */
-class PharmaciesAdapter(private val onItemClick: (AptekaCardModel) -> Unit) :
-    ViewBindingDelegateAdapter<AptekaCardModel, AptekaHolderBinding>(AptekaHolderBinding::inflate) {
+class PharmaciesAdapter :
+    ViewBindingDelegateAdapter<ProfilePharmacyCardModel, ProfilePharmacyHolderBinding>(ProfilePharmacyHolderBinding::inflate) {
 
-    override fun AptekaHolderBinding.onBind(
-        item: AptekaCardModel, position: Int,
+    override fun ProfilePharmacyHolderBinding.onBind(
+        item: ProfilePharmacyCardModel, position: Int,
         isFirst: Boolean,
         isLast: Boolean
     ) {
         model = item
         executePendingBindings()
-        aptekaItem.setOnClickListener {
-            onItemClick(item)
-        }
     }
 
-    override fun isForViewType(item: Any) = item is AptekaCardModel
+    override fun isForViewType(item: Any) = item is ProfilePharmacyCardModel
 
-    override fun AptekaCardModel.getItemId() = apteka.uuid
+    override fun ProfilePharmacyCardModel.getItemId() = pharmacy.id
 }

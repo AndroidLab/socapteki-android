@@ -1,7 +1,6 @@
 package ru.apteka.profile.data.models
 
-import androidx.lifecycle.LiveData
-import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductModel
 
 
@@ -15,7 +14,7 @@ data class ProductNotificationModel(
     /**
      * Возвращает или устанавливает модель избранного.
      */
-    lateinit var favoriteModel: FavoriteModel
+    lateinit var favoriteModel: ProductFavoriteModel
 
     /**
      * Возвращает или устанавливает модель обработки избранного.

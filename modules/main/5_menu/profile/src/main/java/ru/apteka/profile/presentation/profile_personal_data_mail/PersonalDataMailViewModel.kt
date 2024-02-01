@@ -14,7 +14,6 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Персональные данныеб ищменить почту".
  */
@@ -39,7 +38,6 @@ class PersonalDataMailViewModel @Inject constructor(
      * Возвращает флаг ошибки формата почты.
      */
     val isMailFormatValid: LiveData<Boolean> = _isMailFormatValid
-
 
     /**
      * Возвращает модель подтверждения кода.
@@ -76,5 +74,4 @@ class PersonalDataMailViewModel @Inject constructor(
             )
         }
     }
-
 }

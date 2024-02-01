@@ -1,9 +1,7 @@
 package ru.apteka.components.data.services.basket_service.models
 
-import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.basket_service.BasketService
-
 
 /**
  * Представляет модель продукта в корзине.

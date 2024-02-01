@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.basket_service.BasketService
@@ -56,7 +56,7 @@ class StockDetailsViewModel @Inject constructor(
                     ProductCardModel(
                         product = product,
                     ).apply {
-                        favorite = FavoriteModel(
+                        favorite = ProductFavoriteModel(
                             favoriteService = favoriteService,
                             isFavorite = product.isFavorite,
                         )

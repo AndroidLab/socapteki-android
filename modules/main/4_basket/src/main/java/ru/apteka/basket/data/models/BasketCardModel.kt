@@ -2,13 +2,9 @@ package ru.apteka.basket.data.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.apteka.components.R
-import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.basket_service.models.BasketModel
-import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
-import ru.apteka.components.data.services.message_notice_service.models.DialogModel
-import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.utils.DownTimer
 import java.text.DecimalFormat
 
@@ -23,7 +19,7 @@ data class BasketCardModel(
     /**
      * Возвращает или устанавливает модель обработки избранного.
      */
-    lateinit var favorite: FavoriteModel
+    lateinit var favorite: ProductFavoriteModel
 
     /**
      * Возвращает или устанавливает модель обработки корзины.

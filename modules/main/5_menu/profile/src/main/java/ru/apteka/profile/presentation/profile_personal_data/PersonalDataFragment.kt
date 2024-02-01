@@ -25,7 +25,6 @@ import ru.apteka.profile.presentation.profile_personal_data_mail.PersonalDataMai
 import ru.apteka.profile.presentation.profile_personal_data_phone.PersonalDataPhoneFragment
 import java.util.Calendar
 
-
 /**
  * Представляет фрагмент "Личные данные".
  */
@@ -55,7 +54,6 @@ class PersonalDataFragment : BaseFragment<PersonalDataViewModel, PersonalDataFra
                 PersonalDataFragmentDirections.toPersonalDataFioFragment(viewModel.fio.value)
             )
         }
-
 
         binding.personalDataDate.apply {
             personalDataInfo.visibility = View.VISIBLE

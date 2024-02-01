@@ -126,7 +126,7 @@
                 android:src="@drawable/ic_card"
                 app:backgroundTint="@color/light_grey"
                 app:elevation="0dp"
-                app:imageTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
+                app:extraTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
                 app:maxImageSize="32dp"
                 app:rippleColor="@color/grey"
                 tools:ignore="ContentDescription" />

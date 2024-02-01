@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.apteka.basket.data.models.AlwaysUsefulFilterModel
 import ru.apteka.basket.data.models.BasketCardModel
 import ru.apteka.components.R
-import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.repository.products.ProductsRepository
 import ru.apteka.components.data.services.RequestHandler
@@ -74,7 +74,7 @@ class BasketViewModel @Inject constructor(
             BasketCardModel(
                 product = product
             ).apply {
-                favorite = FavoriteModel(
+                favorite = ProductFavoriteModel(
                     favoriteService = favoriteService,
                     isFavorite = favoriteService.isContainsInFavorite(product.id),
                 )
@@ -130,7 +130,7 @@ class BasketViewModel @Inject constructor(
                             ProductCardModel(
                                 product = product
                             ).apply {
-                                favorite = FavoriteModel(
+                                favorite = ProductFavoriteModel(
                                     favoriteService = favoriteService,
                                     isFavorite = product.isFavorite,
                                 )

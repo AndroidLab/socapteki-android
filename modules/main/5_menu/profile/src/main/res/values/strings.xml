@@ -5,7 +5,6 @@
     <string name="profile_favorites">Избранное</string>
     <string name="profile_orders">Заказы</string>
     <string name="profile_pharmacies">Мои аптеки</string>
-    <string name="profile_bonus_program">Бонусная программа</string>
     <string name="profile_comments_reviews">Комментарии и отзывы</string>
     <string name="profile_setting_notifications">Настройка уведомлений</string>
     <string name="profile_product_notifications">Уведомления о товарах</string>
@@ -49,18 +48,14 @@
     <string name="personal_data_mail_question_2">Подтвердите e-mail для получения электронных чеков</string>
 
     <string name="personal_data_fio_title">Изменить ФИО</string>
-
     <string name="personal_data_phone_title">Изменить номер</string>
     <string name="personal_data_phone_receive_code">Получить смс</string>
-    <string name="personal_data_phone_receive_code_desc">Введите последние 4 цифры номера, который вам сейчас позвонит.\nВведите его ниже:</string>
     <string name="personal_data_sex_title">Изменить пол</string>
     <string name="personal_data_sex_male">Мужской</string>
     <string name="personal_data_sex_female">Женский</string>
-
     <string name="personal_data_mail_title">Изменить почту</string>
     <string name="personal_data_mail_invalid_format">Не верный формат почты</string>
     <string name="personal_data_mail_receive_code">Отправить код</string>
-    <string name="personal_data_mail_receive_code_desc">Введите код, отправленный на указанную электронную почту\nВведите его ниже:</string>
 
     <string name="profile_management_title">Управление профилем</string>
     <string name="profile_management_logout">Выйти из профиля</string>

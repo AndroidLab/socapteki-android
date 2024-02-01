@@ -16,6 +16,7 @@ class HiltConventionPlugin : Plugin<Project> {
 
             dependencies {
                 "implementation"(libs.findLibrary("hiltAndroid").get())
+                "implementation"(libs.findLibrary("hiltNavigationFragment").get())
                 "kapt"(libs.findLibrary("hiltAndroidCompiler").get())
                 "kapt"(libs.findLibrary("daggerAndroidProcessor").get())
             }

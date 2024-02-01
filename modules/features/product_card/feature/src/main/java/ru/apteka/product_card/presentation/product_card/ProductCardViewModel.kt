@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.models.FavoriteModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductCardModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.repository.products.ProductsRepository
@@ -48,7 +48,7 @@ class ProductCardViewModel @Inject constructor(
 
     val favorite = product.map {
         it?.let { product ->
-            FavoriteModel(
+            ProductFavoriteModel(
                 favoriteService = favoriteService,
                 isFavorite = product.isFavorite,
             )
@@ -145,7 +145,7 @@ class ProductCardViewModel @Inject constructor(
                                 ProductCardModel(
                                     product = product,
                                 ).apply {
-                                    favorite = FavoriteModel(
+                                    favorite = ProductFavoriteModel(
                                         favoriteService = favoriteService,
                                         isFavorite = product.isFavorite,
                                     )
@@ -170,7 +170,7 @@ class ProductCardViewModel @Inject constructor(
                                 ProductCardModel(
                                     product = product,
                                 ).apply {
-                                    favorite = FavoriteModel(
+                                    favorite = ProductFavoriteModel(
                                         favoriteService = favoriteService,
                                         isFavorite = product.isFavorite,
                                     )

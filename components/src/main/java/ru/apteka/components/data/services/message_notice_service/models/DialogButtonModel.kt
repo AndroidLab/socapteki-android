@@ -5,7 +5,6 @@ import android.os.Parcelable
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
-import ru.apteka.components.R
 
 /**
  * Представляет кнопку диалога.
@@ -19,4 +18,4 @@ data class DialogButtonModel(
     @ColorRes val backgroundColor: Int? = null,
     @ColorRes val borderColor: Int? = null,
     val action: (context: Context) -> Unit = {}
-): Parcelable
+) : Parcelable

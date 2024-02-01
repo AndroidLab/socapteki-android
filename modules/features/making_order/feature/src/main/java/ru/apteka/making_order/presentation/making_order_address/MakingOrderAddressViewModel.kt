@@ -1,9 +1,7 @@
 package ru.apteka.making_order.presentation.making_order_address
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,14 +16,12 @@ import ru.apteka.making_order.data.model.DeliveryTimeModel
 import java.util.Calendar
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Оформление заказа выбор адресса доставки".
  */
 @HiltViewModel
 class MakingOrderAddressViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    private val savedStateHandle: SavedStateHandle,
     private val loginRepository: LoginRepository,
     val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
@@ -105,16 +101,33 @@ class MakingOrderAddressViewModel @Inject constructor(
     val selectedComment = MutableLiveData("")
 
     /**
-     * Возвращает или устанавливает дату доставки.
+     * Проверка заполнености обязательности полей адреса.
      */
-    val _selectedDeliveryDate = MutableLiveData<Calendar?>(null)
+    fun checkAddressFieldsFilled() = selectedStreet.value!!.isNotEmpty() &&
+        selectedHome.value!!.isNotEmpty() &&
+        selectedFlat.value!!.isNotEmpty()
+
+    /**
+     * Возвращает флаг ошибки заполнения обязательных полей адреса доставки.
+     */
+    val isAddressFiledError = MutableLiveData(false)
+
+    /**
+     * Возвращает или устанавливает календарь.
+     */
+    val selectedDeliveryCalendar = MutableLiveData<Calendar>(null)
 
     /**
      * Возвращает или устанавливает дату доставки.
      */
-    val selectedDeliveryDate: LiveData<String> = _selectedDeliveryDate.map {
+    val selectedDeliveryDate: LiveData<String> = selectedDeliveryCalendar.map {
         it?.let { calendar ->
-            "${String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH))}.${String.format("%02d", calendar.get(Calendar.MONTH) + 1)}.${calendar.get(Calendar.YEAR)}"
+            "${String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH))}.${
+                String.format(
+                    "%02d",
+                    calendar.get(Calendar.MONTH) + 1
+                )
+            }.${calendar.get(Calendar.YEAR)}"
         } ?: ""
     }
 
@@ -123,37 +136,16 @@ class MakingOrderAddressViewModel @Inject constructor(
      */
     val selectedDeliveryTime = MutableLiveData<DeliveryTimeModel.Item?>(null)
 
+    /**
+     * Проверка заполнености обязательности полей даты доставки.
+     */
+    fun checkDateFieldsFilled() = selectedDeliveryCalendar.value != null &&
+        selectedDeliveryTime.value != null
 
     /**
-     * Возвращает флаг заполнености всех полей.
+     * Возвращает флаг ошибки заполнения обязательных полей даты доставки.
      */
-    val isAllFieldFilled = MediatorLiveData<Boolean>().apply {
-        fun checkFieldsFilled() {
-            value = selectedStreet.value!!.isNotEmpty() && selectedHome.value!!.isNotEmpty()
-                    && selectedFlat.value!!.isNotEmpty() &&  _selectedDeliveryDate.value != null && selectedDeliveryTime.value != null
-        }
-
-        addSource(selectedStreet) {
-            checkFieldsFilled()
-        }
-
-        addSource(selectedHome) {
-            checkFieldsFilled()
-        }
-
-        addSource(selectedFlat) {
-            checkFieldsFilled()
-        }
-
-        addSource(_selectedDeliveryDate) {
-            checkFieldsFilled()
-        }
-
-        addSource(selectedDeliveryTime) {
-            checkFieldsFilled()
-        }
-
-    }
+    val isDateFiledError = MutableLiveData(false)
 
     init {
         val selectedAddressPref = userPreferences.selectedDeliveryAddress
@@ -176,5 +168,4 @@ class MakingOrderAddressViewModel @Inject constructor(
             )*/
         }
     }
-
 }

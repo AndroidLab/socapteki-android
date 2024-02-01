@@ -1,4 +1,4 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id(libs.plugins.applicationConventionPlugin.get().pluginId)
     id(libs.plugins.kotlinConventionPlugin.get().pluginId)
@@ -9,7 +9,7 @@ plugins {
 }
 
 private val major = 0
-private val minor = 2
+private val minor = 3
 private val patch = 0
 
 android {
@@ -18,7 +18,7 @@ android {
     defaultConfig {
         applicationId = "ru.apteka.social"
         versionCode = major * 10000 + minor * 100 + patch
-        versionName = "${major}.${minor}.${patch}"
+        versionName = "$major.$minor.$patch"
 
         project.setProperty("archivesBaseName", "Apteki-$versionName")
     }
@@ -62,7 +62,6 @@ dependencies {
     implementation(project(":modules:features:barcode_scanner:feature"))
     implementation(project(":modules:features:listing:feature"))
 
-    //Google & Android
     implementation(libs.coreKtx)
     implementation(libs.constraintlayout)
     implementation(libs.material)
@@ -73,4 +72,5 @@ dependencies {
     implementation(libs.measured)
     implementation(libs.glideGlide)
     implementation(libs.andRatingBar)
+    implementation(libs.sberIdSDK)
 }

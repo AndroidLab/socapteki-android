@@ -1,6 +1,5 @@
 package ru.apteka.symptoms_diseases.presentation
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.symptoms_diseases.R
 import ru.apteka.symptoms_diseases.data.model.SymptomModel
 import ru.apteka.symptoms_diseases.databinding.SymptomsDiseasesFragmentBinding
-
 
 /**
  * Представляет фрагмент "Симптомы и болезни".
@@ -47,12 +45,12 @@ class SymptomsDiseasesFragment :
 
     private fun onSymptomClick(symptom: SymptomModel) {
         viewModel.navigationManager.generalNavController.navigateWithAnim(
-            ru.apteka.listing_api.R.id.listing_graph, bundleOf(
+            ru.apteka.listing_api.R.id.listing_graph,
+            bundleOf(
                 LISTING_ARGUMENT to symptom.title
             )
         )
     }
-
 
     override fun onResume() {
         super.onResume()

@@ -1,6 +1,5 @@
 package ru.apteka.brands.presentation.pages
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +19,6 @@ import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import javax.inject.Inject
 import ru.apteka.listing_api.R as ListingApiR
-
 
 /**
  * Представляет модель представления "Страница бренды".
@@ -259,7 +257,6 @@ class LettersPageViewModel @Inject constructor(
         }
     }
 
-
     private suspend fun lettersSearch(value: String) {
         viewModelScope.launchIO {
             _isSearchProgress.postValue(true)
@@ -290,10 +287,10 @@ class LettersPageViewModel @Inject constructor(
 
     private fun navigateToListing(title: String) {
         navigationManager.generalNavController.navigateWithAnim(
-            ListingApiR.id.listing_graph, bundleOf(
+            ListingApiR.id.listing_graph,
+            bundleOf(
                 LISTING_ARGUMENT to title
             )
         )
     }
-
 }

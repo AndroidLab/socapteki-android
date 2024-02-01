@@ -1,9 +1,7 @@
 package ru.apteka.catalog.presentation.subcatalog
 
-
 import ru.apteka.catalog.databinding.SubCatalogItemTitleHolderBinding
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-
 
 /**
  * Представляет адаптер для заголовка подкаталога.
@@ -12,7 +10,8 @@ class SubCatalogTitleAdapter :
     ViewBindingDelegateAdapter<String, SubCatalogItemTitleHolderBinding>(SubCatalogItemTitleHolderBinding::inflate) {
 
     override fun SubCatalogItemTitleHolderBinding.onBind(
-        item: String, position: Int,
+        item: String,
+        position: Int,
         isFirst: Boolean,
         isLast: Boolean
     ) {

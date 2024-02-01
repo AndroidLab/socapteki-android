@@ -7,7 +7,6 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Покупателям".
  */
@@ -19,10 +18,4 @@ class CustomersViewModel @Inject constructor(
 ) : BaseViewModel(
     navigationManager,
     messageService
-) {
-
-    init {
-
-    }
-
-}
+)

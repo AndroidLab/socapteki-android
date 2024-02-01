@@ -1,6 +1,5 @@
 package ru.apteka.components.data.services.user
 
-
 import android.content.Context
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -55,14 +54,15 @@ class UserPreferences @Inject constructor(
     var city: CityModel? by PreferencesDelegate(
         userPref,
         CITY,
-        null, {
+        null,
+        {
             it?.let { Gson().toJson(it) } ?: ""
-        }, {
+        },
+        {
             if (it == "") null else Gson().fromJson(it, CityModel::class.java)
         },
         prefFlow = _cityFlow
     )
-
 
     private val _jobOpeningsCityFilterFlow = MutableSharedFlow<String>(replay = 1)
 
@@ -81,7 +81,6 @@ class UserPreferences @Inject constructor(
         prefFlow = _jobOpeningsCityFilterFlow
     )
 
-
     private val _selectedPharmacyFlow = MutableSharedFlow<PharmacyModel?>(replay = 1)
 
     /**
@@ -95,14 +94,15 @@ class UserPreferences @Inject constructor(
     var selectedPharmacy: PharmacyModel? by PreferencesDelegate(
         userPref,
         SELECTED_PHARMACY,
-        null, {
+        null,
+        {
             it?.let { Gson().toJson(it) } ?: ""
-        }, {
+        },
+        {
             if (it == "") null else Gson().fromJson(it, PharmacyModel::class.java)
         },
         _selectedPharmacyFlow
     )
-
 
     private val _selectedDeliveryAddressFlow = MutableSharedFlow<DeliveryAddressModel?>(replay = 1)
 
@@ -118,12 +118,13 @@ class UserPreferences @Inject constructor(
     var selectedDeliveryAddress: DeliveryAddressModel? by PreferencesDelegate(
         userPref,
         SELECTED_ADDRESS,
-        null, {
+        null,
+        {
             it?.let { Gson().toJson(it) } ?: ""
-        }, {
+        },
+        {
             if (it == "") null else Gson().fromJson(it, DeliveryAddressModel::class.java)
         },
         _selectedDeliveryAddressFlow
     )
-
 }

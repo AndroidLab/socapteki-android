@@ -6,12 +6,12 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.FavoriteModel
 import ru.apteka.components.data.models.OrderDeliveryMethod
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderPayStatus
 import ru.apteka.components.data.models.OrderStatus
 import ru.apteka.components.data.models.ProductCardModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.basket_service.BasketService
@@ -33,7 +33,6 @@ import ru.apteka.home.data.repository.advert.AdvertRepository
 import ru.apteka.home.data.repository.other.OtherRepository
 import ru.apteka.home.data.repository.promotion.PromotionRepository
 import javax.inject.Inject
-
 
 /**
  * Представляет модель представления "Главная".
@@ -114,7 +113,6 @@ class HomeViewModel @Inject constructor(
      */
     val ordersCardIsLoading: LiveData<Boolean> = _ordersCardIsLoading
 
-
     private val _adverts = MutableLiveData<List<AdvertModel>>(emptyList())
 
     /**
@@ -128,7 +126,6 @@ class HomeViewModel @Inject constructor(
      * Возвращает флаг загрузки рекламных блоков.
      */
     val advertsIsLoading: LiveData<Boolean> = _advertsIsLoading
-
 
     /**
      * Возвращат модель фильтра для акций.
@@ -149,7 +146,7 @@ class HomeViewModel @Inject constructor(
             ),
         )
     ) {
-        //ordersPreferences.orderFilter = it.status
+        // ordersPreferences.orderFilter = it.status
     }.apply {
         items[0].isItemSelected.value = true
     }
@@ -168,7 +165,6 @@ class HomeViewModel @Inject constructor(
      */
     val promotionsIsLoading: LiveData<Boolean> = _promotionsIsLoading
 
-
     private val _productsDay = MutableLiveData<List<ProductCardModel>>(emptyList())
 
     /**
@@ -183,7 +179,6 @@ class HomeViewModel @Inject constructor(
      */
     val productsDayIsLoading: LiveData<Boolean> = _productsDayIsLoading
 
-
     private val _productsDiscount = MutableLiveData<List<ProductCardModel>>(emptyList())
 
     /**
@@ -197,7 +192,6 @@ class HomeViewModel @Inject constructor(
      * Возвращает флаг загрузки продуктов со скидкой.
      */
     val productsDiscountIsLoading: LiveData<Boolean> = _productsDiscountIsLoading
-
 
     private val _categories = MutableLiveData<List<OtherModel>>(emptyList())
 
@@ -265,7 +259,7 @@ class HomeViewModel @Inject constructor(
             launchIO {
                 _ordersCardIsLoading.postValue(true)
                 delay(800)
-                _ordersCard.postValue(getOrdersFake()!!)
+                _ordersCard.postValue(getOrdersFake())
                 _ordersCardIsLoading.postValue(false)
             }
 
@@ -289,7 +283,7 @@ class HomeViewModel @Inject constructor(
                                     ProductCardModel(
                                         product = product,
                                     ).apply {
-                                        favorite = FavoriteModel(
+                                        favorite = ProductFavoriteModel(
                                             favoriteService = favoriteService,
                                             isFavorite = product.isFavorite,
                                         )
@@ -325,7 +319,7 @@ class HomeViewModel @Inject constructor(
                                 ProductCardModel(
                                     product = product
                                 ).apply {
-                                    favorite = FavoriteModel(
+                                    favorite = ProductFavoriteModel(
                                         favoriteService = favoriteService,
                                         isFavorite = product.isFavorite,
                                     )
@@ -361,5 +355,4 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
 }

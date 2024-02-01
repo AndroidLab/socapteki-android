@@ -2,12 +2,10 @@ package ru.apteka.home.data.repository.advert
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.delay
-import ru.apteka.components.R
 import ru.apteka.components.data.models.Label
 import ru.apteka.home.data.models.AdvertModel
 import java.util.UUID
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Представляет репозиторий рекламы.
@@ -68,6 +66,4 @@ class AdvertRepository @Inject constructor(
             ),
         )
     }
-
-
 }

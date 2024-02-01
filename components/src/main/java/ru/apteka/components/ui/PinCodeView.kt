@@ -139,7 +139,7 @@ class PinCodeView @JvmOverloads constructor(
         }
 
         _binding.etCode.setOnKeyListener { view, keyCode, keyEvent ->
-            if (keyCode == KeyEvent.KEYCODE_DEL && keyEvent.action == KeyEvent.ACTION_DOWN && codes.size > 0) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && keyEvent.action == KeyEvent.ACTION_DOWN && codes.isNotEmpty()) {
                 codes.removeAt(codes.size - 1)
                 showCode()
                 return@setOnKeyListener true

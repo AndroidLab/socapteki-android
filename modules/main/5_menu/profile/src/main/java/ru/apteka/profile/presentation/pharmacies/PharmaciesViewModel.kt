@@ -1,16 +1,15 @@
 package ru.apteka.profile.presentation.pharmacies
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.map
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.apteka.components.data.models.PharmacyFavoriteModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.services.pharmacy_favorite_service.PharmacyFavoriteService
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.profile.data.models.AptekaCardModel
-import ru.apteka.profile.data.repository.apteki.AptekiRepository
+import ru.apteka.profile.data.models.ProfilePharmacyCardModel
 import javax.inject.Inject
 
 
@@ -20,39 +19,24 @@ import javax.inject.Inject
 @HiltViewModel
 class PharmaciesViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
-    private val aptekiRepository: AptekiRepository,
+    private val pharmacyFavoriteService: PharmacyFavoriteService,
     navigationManager: NavigationManager,
     messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
     messageService
 ) {
-
-    private val _pharmacies = MutableLiveData<List<AptekaCardModel>>(emptyList())
-
     /**
      * Возвращает список аптек.
      */
-    val pharmacies: LiveData<List<AptekaCardModel>> = _pharmacies
-
-    init {
-        viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { aptekiRepository.getApteki() },
-                onSuccess = { pharmacies ->
-                    /*mainThread {
-                        _pharmacies.value = pharmacies.map { apteka ->
-                            AptekaCardModel(
-                                apteka = apteka,
-                                onFavoriteClick = {
-
-                                }
-                            )
-                        }
-                    }*/
-                },
-                isLoading = _isLoading
-            )
+    val pharmacies: LiveData<List<ProfilePharmacyCardModel>> = pharmacyFavoriteService.pharmacies.map {
+        it.map { pharmacy ->
+            ProfilePharmacyCardModel(pharmacy).apply {
+                favorite = PharmacyFavoriteModel(
+                    favoriteService = pharmacyFavoriteService,
+                    isFavorite = pharmacyFavoriteService.isContainsInFavorite(pharmacy.id),
+                )
+            }
         }
     }
 

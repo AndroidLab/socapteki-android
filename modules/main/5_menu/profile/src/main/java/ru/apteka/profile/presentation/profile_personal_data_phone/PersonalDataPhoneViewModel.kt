@@ -14,7 +14,6 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Персональные данные, изменить почту".
  */

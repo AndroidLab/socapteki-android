@@ -13,7 +13,6 @@ import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.profile.data.models.CommentModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Страница комментариев".
  */
@@ -96,6 +95,4 @@ class ProductReviewsPageViewModel @Inject constructor(
             )
         }*/
     }
-
-
 }

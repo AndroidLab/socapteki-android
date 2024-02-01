@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="ru.apteka.profile.data.models.ProfilePharmacyCardModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners_shape"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Иконка -->
+        <include
+            android:id="@+id/profilePharmacyItemImage"
+            layout="@layout/image_card"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:imageDrawable="@{@drawable/ic_profile_pharmacy_no_elements}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:padding="@{0}" />
+
+        <!-- В избранном -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pharmacyItemFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> model.favorite.clickFavorite(model.pharmacy)}"
+            app:cardBackgroundColor="@{model.favorite.isFavoriteLiveData ? @color/map_favorite_background_color : @color/white}"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/map_favorite_background_color"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_heart"
+                    app:extraTint="@{model.favorite.isFavoriteLiveData ? @color/white : @color/map_favorite_background_color}"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="4dp"
+                    android:text="@{model.favorite.isFavoriteLiveData ? @string/in_favorite : @string/add_favorite}"
+                    android:textColor="@{model.favorite.isFavoriteLiveData ? @color/white : @color/map_favorite_background_color}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Название -->
+        <TextView
+            android:id="@+id/pharmacyItemName"
+            style="@style/Theme.Socapteki.SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:text="@{model.pharmacy.name}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toBottomOf="@id/pharmacyItemFavorite" />
+
+        <!-- Адрес -->
+        <ImageView
+            android:id="@+id/ivPharmacyItemAddress"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_address"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toBottomOf="@id/pharmacyItemName"
+            app:tint="@color/color_primary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{model.pharmacy.address}"
+            android:textColor="@color/light_black"
+            app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemAddress"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyItemAddress"
+            app:layout_constraintTop_toTopOf="@id/ivPharmacyItemAddress" />
+
+        <!-- Метро -->
+        <ImageView
+            android:id="@+id/ivPharmacyItemMetro"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_metro"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemAddress"
+            app:tint="@color/color_primary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{model.pharmacy.metro}"
+            android:textColor="@color/light_black"
+            app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemMetro"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyItemMetro"
+            app:layout_constraintTop_toTopOf="@id/ivPharmacyItemMetro" />
+
+        <!-- Время работы -->
+        <ImageView
+            android:id="@+id/ivPharmacyItemTime"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemMetro"
+            app:tint="@color/color_primary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{model.pharmacy.time}"
+            android:textColor="@color/light_black"
+            app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemTime"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyItemTime"
+            app:layout_constraintTop_toTopOf="@id/ivPharmacyItemTime" />
+
+        <!-- Телефон -->
+        <ImageView
+            android:id="@+id/ivPharmacyItemPhone"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintStart_toEndOf="@+id/profilePharmacyItemImage"
+            app:layout_constraintTop_toBottomOf="@id/ivPharmacyItemTime"
+            app:tint="@color/color_primary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{model.pharmacy.phone}"
+            android:textColor="@color/light_black"
+            app:layout_constraintBottom_toBottomOf="@id/ivPharmacyItemPhone"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyItemPhone"
+            app:layout_constraintTop_toTopOf="@id/ivPharmacyItemPhone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

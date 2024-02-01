@@ -1,8 +1,6 @@
 package ru.apteka.components.data.services.message_notice_service
 
-import androidx.databinding.ViewDataBinding
 import ru.apteka.components.data.services.message_notice_service.models.BottomSheetModel
-import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import javax.inject.Singleton
 
 /**
@@ -20,5 +18,4 @@ interface IBottomSheetService {
      * Закрывает нижнюю таблицу.
      */
     fun close()
-
 }

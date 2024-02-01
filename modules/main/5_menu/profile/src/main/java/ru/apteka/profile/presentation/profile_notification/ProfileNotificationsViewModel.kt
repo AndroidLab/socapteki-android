@@ -1,20 +1,15 @@
 package ru.apteka.profile.presentation.profile_notification
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.models.FavoriteModel
-import ru.apteka.components.data.models.ProductModel
+import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
-import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -51,7 +46,7 @@ class ProfileNotificationsViewModel @Inject constructor(
                     ProductNotificationModel(
                         product
                     ).apply {
-                        favoriteModel = FavoriteModel(
+                        favoriteModel = ProductFavoriteModel(
                             favoriteService = favoriteService,
                             isFavorite = favoriteService.isContainsInFavorite(product.id)
                         )

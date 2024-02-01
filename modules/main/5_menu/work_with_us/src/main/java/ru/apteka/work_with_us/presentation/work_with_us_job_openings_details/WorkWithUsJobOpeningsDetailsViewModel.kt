@@ -14,7 +14,6 @@ import ru.apteka.work_with_us.data.model.JobOpeningModel
 import ru.apteka.work_with_us.data.model.WORK_WITH_US_JOB_OPENING
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Работа у нас, Вакансии".
  */
@@ -76,9 +75,6 @@ class WorkWithUsJobOpeningsDetailsViewModel @Inject constructor(
                     isLoading = _isLoading
                 )*/
             }
-
         }
     }
-
-
 }

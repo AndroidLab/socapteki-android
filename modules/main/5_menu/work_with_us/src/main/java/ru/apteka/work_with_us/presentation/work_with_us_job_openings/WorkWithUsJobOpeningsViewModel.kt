@@ -7,7 +7,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import ru.apteka.components.R as ComponentsR
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -21,7 +20,7 @@ import ru.apteka.work_with_us.data.model.JobOpeningModel
 import ru.apteka.work_with_us.data.model.JobOpeningsFilterModel
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
-
+import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет модель представления "Работа у нас, Вакансии".
@@ -101,7 +100,6 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
         }
     }
 
-
     private val _events = MutableLiveData<List<Int>>(emptyList())
 
     /**
@@ -116,7 +114,6 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
      */
     val eventsIsLoading: LiveData<Boolean> = _eventsIsLoading
 
-
     private val _employeeReviews = MutableLiveData<List<EmployeeReviewModel>>(emptyList())
 
     /**
@@ -130,7 +127,6 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
      *
      */
     val employeeReviewsIsLoading: LiveData<Boolean> = _employeeReviewsIsLoading
-
 
     init {
         viewModelScope.launchIO {
@@ -258,5 +254,4 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
             )
         )
     }
-
 }

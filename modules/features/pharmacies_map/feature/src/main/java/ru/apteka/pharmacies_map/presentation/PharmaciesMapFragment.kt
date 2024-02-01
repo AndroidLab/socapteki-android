@@ -1,27 +1,24 @@
 package ru.apteka.pharmacies_map.presentation
 
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.viewModels
-import com.yandex.mapkit.Animation
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayoutMediator
 import com.yandex.mapkit.MapKitFactory
-import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.MapObjectTapListener
-import com.yandex.mapkit.mapview.MapView
-import com.yandex.runtime.image.ImageProvider
 import dagger.hilt.android.AndroidEntryPoint
-import ru.apteka.components.data.models.PharmacyModel
-import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.equalsWithDeviation
+import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.playAnimation
+import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
-import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.components.ui.adapters.PagerAdapter
 import ru.apteka.pharmacies_map.R
 import ru.apteka.pharmacies_map.databinding.PharmaciesMapFragmentBinding
-
+import ru.apteka.pharmacies_map.presentation.pages.list_page.ListPageFragment
+import ru.apteka.pharmacies_map.presentation.pages.map_page.MapPageFragment
 
 /**
  * Представляет фрагмент "Аптеки на карте".
@@ -29,179 +26,99 @@ import ru.apteka.pharmacies_map.databinding.PharmaciesMapFragmentBinding
 @AndroidEntryPoint
 class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMapFragmentBinding>() {
 
-    override val viewModel: PharmaciesMapViewModel by viewModels()
+    override val viewModel: PharmaciesMapViewModel by activityViewModels()
     override val layoutId: Int = R.layout.pharmacies_map_fragment
 
-    private val mapView: MapView by lazy {
-        binding.mapview
-    }
-
-    private val map by lazy {
-        mapView.mapWindow.map
-    }
-
-    private val pharmacyAdapter by lazy {
-        CompositeDelegateAdapter(
-            PharmacyAdapter(
-                viewLifecycleOwner,
-                viewModel,
-                ::onPharmacyClick,
-                ::onNavigateClick
-            )
-        )
-    }
+    private val _args: PharmaciesMapFragmentArgs by navArgs()
 
     override fun onViewBindingInflated(binding: PharmaciesMapFragmentBinding) {
         MapKitFactory.initialize(requireContext())
-
+        viewModel.typeInteraction.value = _args.typeInteraction
         binding.viewModel = viewModel
-        map.move(POSITION)
 
-        binding.pharmaciesMapExpand.setOnClickListener {
-            keyBoardClose()
-            val appBarHeight = binding.pharmaciesMapAppbar.layoutParams.height
-            if (appBarHeight == CoordinatorLayout.LayoutParams.MATCH_PARENT) {
-                expandMap()
-            } else {
-                binding.lavPharmaciesMapExpand.playAnimation(0f, .5f)
-                binding.pharmaciesMapAppbar.layoutParams.height =
-                    CoordinatorLayout.LayoutParams.MATCH_PARENT
-                binding.pharmaciesMapAppbar.setExpanded(true)
-            }
+        binding.pharmaciesMapCityChange.setOnClickListener {
+            viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ru.apteka.choosing_city_api.R.id.choosing_city_graph,
+            )
         }
 
-
-        binding.etPharmaciesMap.setOnClickListener {
-            binding.pharmaciesMapAppbar.setExpanded(false)
-        }
-        binding.tilPharmaciesMap.addEditTextFocusChangeListener { view, b ->
-            if (b) {
-                binding.pharmaciesMapAppbar.setExpanded(false)
-            }
-        }
-
-        binding.pharmaciesMapClear.setOnClickListener {
-            viewModel.searchQuery.value = ""
-        }
-
-        val imageProvider = ImageProvider.fromResource(requireContext(), R.drawable.ic_apteca)
-        binding.rvPharmaciesMap.adapter = pharmacyAdapter
-
-        viewModel.pharmaciesFiltered.observe(viewLifecycleOwner) { pharmacies ->
-            pharmacyAdapter.swapData(pharmacies)
-            pharmacies.forEach { pharmacy ->
-                map.mapObjects.addPlacemark(
-                    Point(
-                        pharmacy.coordinates.first,
-                        pharmacy.coordinates.second
-                    ), imageProvider
-                ).apply {
-                    addTapListener(placemarkTapListener)
-                    userData = pharmacy
-                }
-            }
-        }
-
-        val deviation = 0.01f
-        val startProgress = 0.1f
-        val middleProgress = 0.25f
-        val endProgress = 0.48f
-        viewModel.searchQuery.observe(viewLifecycleOwner) {
-            val progress = binding.pharmaciesMapClear.progress
-            if (it.isNotEmpty()) {
-                if (progress.equalsWithDeviation(
-                        startProgress,
-                        deviation
-                    ) || progress.equalsWithDeviation(endProgress, deviation)
-                ) {
-                    binding.pharmaciesMapClear.playAnimation(
-                        startProgress,
-                        middleProgress
-                    )
-                }
-            } else {
-                if (progress.equalsWithDeviation(middleProgress, deviation)) {
-                    binding.pharmaciesMapClear.playAnimation(0.4f, endProgress)
-                }
-            }
-        }
-    }
-
-    private fun onPharmacyClick(pharmacy: PharmacyModel) {
-        moveMap(
-            pharmacy.coordinates.first,
-            pharmacy.coordinates.second
+        binding.pharmaciesMapPager.isUserInputEnabled = false
+        binding.pharmaciesMapPager.adapter = PagerAdapter(
+            requireActivity(),
+            arrayListOf(
+                MapPageFragment() as Fragment,
+                ListPageFragment() as Fragment,
+            )
         )
-    }
-
-    private fun onNavigateClick(pharmacy: PharmacyModel) {
-        val uri = Uri.parse("yandexmaps://maps.yandex.ru/?pt=${pharmacy.coordinates.second},${pharmacy.coordinates.first}&z=14")
-        var intent = Intent(Intent.ACTION_VIEW, uri)
-        val activities = requireContext().packageManager.queryIntentActivities(intent, 0)
-        if (activities.size > 0) {
-            startActivity(intent)
-        } else {
-            intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://details?id=ru.yandex.yandexmaps")
-            startActivity(intent)
-        }
-    }
-
-    private val placemarkTapListener = MapObjectTapListener { mapObject, point ->
-        val pharmacy = mapObject.userData as PharmacyModel
-        viewModel.searchQuery.value = pharmacy.name
-        moveMap(
-            pharmacy.coordinates.first,
-            pharmacy.coordinates.second
-        )
-        true
-    }
-
-    private fun moveMap(latitude: Double, longitude: Double) {
-        keyBoardClose()
-        expandMap()
-        binding.pharmaciesMapAppbar.setExpanded(true)
-        map.move(
-            CameraPosition(
-                Point(latitude, longitude),
-                15.0f,
-                0f,
-                0f
-            ),
-            Animation(Animation.Type.LINEAR, 1f),
-            null
-        )
-    }
-
-    private fun expandMap() {
-        binding.lavPharmaciesMapExpand.playAnimation(.5f, 1f)
-        binding.pharmaciesMapAppbar.layoutParams.height = EXPAND_MAP_HEIGHT
-        binding.pharmaciesMapAppbar.setExpanded(true)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        MapKitFactory.getInstance().onStart()
-        mapView.onStart()
+        TabLayoutMediator(binding.pharmaciesMapTabLayout, binding.pharmaciesMapPager) { tab, pos ->
+            tab.text = listOf(
+                getString(R.string.pharmacies_map_page),
+                getString(R.string.pharmacies_list_page),
+            )[pos]
+        }.attach()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.navigationManager.onBottomAppBarShowed(false)
-        binding.ivPharmaciesMapBack.setOnClickListener {
-            viewModel.navigationManager.generalNavController.popBackStack()
+        binding.choosingCityToolbar.apply {
+            toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
+            toolbar.setNavigationOnClickListener {
+                viewModel.navigationManager.generalNavController.popBackStack()
+            }
+            toolbarCustomViewContainer.removeAllViews()
+            toolbarCustomViewContainer.apply {
+                //layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT)
+                addView(
+                    DataBindingUtil.inflate<SearchToolbarViewBinding>(
+                        layoutInflater,
+                        ru.apteka.components.R.layout.search_toolbar_view,
+                        null,
+                        false
+                    ).apply {
+                        lifecycleOwner = viewLifecycleOwner
+                        hint = getString(ru.apteka.components.R.string.address)
+                        isMicIconVisible = false
+                        isBarCodeIconVisible = false
+
+                        searchToolbarSearch.setOnClickListener {
+                            etToolBarSearch.setText("")
+                        }
+                        viewModel.addressQueryColor.observe(viewLifecycleOwner) {
+                            etToolBarSearch.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    it
+                                )
+                            )
+                        }
+                        val deviation = 0.01f
+                        val startProgress = 0.1f
+                        val middleProgress = 0.25f
+                        val endProgress = 0.48f
+                        etToolBarSearch.doAfterTextChanged {
+                            viewModel.addressQuery.value = it.toString()
+                            val progress = searchToolbarSearch.progress
+                            if (it.isNullOrEmpty()) {
+                                if (progress.equalsWithDeviation(middleProgress, deviation)) {
+                                    searchToolbarSearch.playAnimation(0.4f, endProgress)
+                                }
+                            } else {
+                                if (progress.equalsWithDeviation(
+                                        startProgress,
+                                        deviation
+                                    ) || progress.equalsWithDeviation(endProgress, deviation)
+                                ) {
+                                    searchToolbarSearch.playAnimation(
+                                        startProgress,
+                                        middleProgress
+                                    )
+                                }
+                            }
+                        }
+                    }.root
+                )
+            }
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-        MapKitFactory.getInstance().onStop()
-    }
-
-    companion object {
-        @JvmStatic
-        private val EXPAND_MAP_HEIGHT = 400.dp
-        private val POSITION = CameraPosition(Point(55.753216, 37.619299), 12.0f, 0f, 0f)
     }
 }

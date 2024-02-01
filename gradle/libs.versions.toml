@@ -13,7 +13,7 @@ lifecycle = "2.7.0"
 retrofit = "2.9.0"
 glide = "4.16.0"
 room = "2.6.1"
-kotlinx_coroutines_android = "1.7.1"
+kotlinx_coroutines_android = "1.7.3"
 hilt = "2.48"
 navigation = "2.7.6"
 junit = "4.13.2"
@@ -41,6 +41,7 @@ kotlinParcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
 daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 androidxNavigationSafeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 googleServices = { id = "com.google.gms.google-services", version = "4.4.0" }
+orgSonarqube = { id = "org.sonarqube", version = "4.4.1.3373" }
 
 
 [libraries]
@@ -75,6 +76,7 @@ loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", vers
 
 #Hilt
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltNavigationFragment = { module = "androidx.hilt:hilt-navigation-fragment", version = "1.1.0" }
 hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 daggerAndroidProcessor = { module = "com.google.dagger:dagger-android-processor", version.ref = "hilt" }
 
@@ -109,6 +111,7 @@ extraBouncy = { module = "com.github.AndroidLab:ExtraBouncy", version = "1.0.2" 
 inputLayoutInnerHint = { module = "com.github.AndroidLab:InputLayoutInnerHint", version = "1.0.0" }
 pdfViewer = { module = "com.github.AndroidLab:AndroidPdfViewer", version = "3.3.0-beta.1" }
 andRatingBar = { module = "com.github.wdsqjq:AndRatingBar", version = "1.0.6" }
+sberIdSDK = { module = "io.github.sberid:SberIdSDK", version = "2.4.1" }
 
 
 # Dependencies of the included build-logic

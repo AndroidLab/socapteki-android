@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.making_order.presentation.making_order_address.MakingOrderAddressViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Theme.Socapteki.SemiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="@string/address"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/makingOrderAddressCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:text="@string/cancel"
+                android:textColor="@color/color_primary" />
+
+        </LinearLayout>
+
+        <!-- Выбор улицы -->
+        <com.alab.input_layout_inner_hint.TextInputLayout
+            style="@style/TextInputLayoutDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/making_order_address_street_hint"
+            app:errorText="@{viewModel.isAddressFiledError &amp; viewModel.selectedStreet.empty ? ` ` : ``}"
+            app:helperText=" ">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/etMakingOrderAddressStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_white_background_unfocused_shape"
+                android:text="@={viewModel.selectedStreet}"
+                app:autoCompleteItems="@{viewModel.streets}"
+                app:endIconMode="clear_text" />
+
+        </com.alab.input_layout_inner_hint.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- Выбор дома -->
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:hint="@string/making_order_address_home_hint"
+                app:errorText="@{viewModel.isAddressFiledError &amp; viewModel.selectedHome.empty ? ` ` : ``}"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="@={viewModel.selectedHome}" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+            <!-- Выбор этажа -->
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_weight="1"
+                android:hint="@string/making_order_address_floor_hint"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressFloor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="@={viewModel.selectedFloor}" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+            <!-- Выбор подъезда -->
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:hint="@string/making_order_address_entrance_hint"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressEntrance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="@={viewModel.selectedEntrance}" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- Квартира офис -->
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:hint="@string/making_order_address_flat_hint"
+                app:errorText="@{viewModel.isAddressFiledError &amp; viewModel.selectedFlat.empty ? ` ` : ``}"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressFlat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="@={viewModel.selectedFlat}" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+            <!-- Код домофона -->
+            <com.alab.input_layout_inner_hint.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_weight="1"
+                android:hint="@string/making_order_address_code_hint"
+                app:helperText=" ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMakingOrderAddressCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_white_background_unfocused_shape"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="@={viewModel.selectedCode}" />
+
+            </com.alab.input_layout_inner_hint.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Комментарий для курьера -->
+        <com.alab.input_layout_inner_hint.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/making_order_address_comment_hint"
+            app:helperText=" ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMakingOrderAddressComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_white_background_unfocused_shape"
+                android:maxLines="3"
+                android:text="@={viewModel.selectedComment}" />
+
+        </com.alab.input_layout_inner_hint.TextInputLayout>
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp" />
+
+        <!-- Кнопка -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbMakingOrderAddress"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/further" />
+
+    </LinearLayout>
+
+</layout>

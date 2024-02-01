@@ -27,6 +27,7 @@
     <color name="grey">#D0D5DD</color>
     <color name="light_grey">#F7F7FC</color>
     <color name="page_indicator_inactive">#9998A2B3</color>
+    <color name="map_favorite_background_color">#4FB7AB</color>
 
     <color name="order_status_transferred_to_courier_background">#D6BBFB</color>
     <color name="order_status_delivery_postponed_background">#89C3FF</color>

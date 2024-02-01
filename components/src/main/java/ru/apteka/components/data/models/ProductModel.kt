@@ -1,15 +1,12 @@
 package ru.apteka.components.data.models
 
 import android.os.Parcelable
-import android.util.Log
-import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.util.UUID
-
 
 /**
  * Представляет модель для карточки продукта.
@@ -39,7 +36,7 @@ data class ProductModel(
     val countInBasket: Int = 0,
     val id: UUID = UUID.randomUUID(),
 ) : Parcelable {
-    
+
     @IgnoredOnParcel
     private val _countInBasketLiveData = MutableLiveData(countInBasket)
 

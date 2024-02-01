@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
@@ -30,13 +28,11 @@ import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card.R
 import ru.apteka.product_card.databinding.ProductCardFragmentBinding
-import ru.apteka.product_card.databinding.ProductCardManufacturerProgramDialogBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import kotlin.math.abs
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.listing_api.R as ListingApiR
-
+import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 
 /**
  * Представляет фрагмент "Карточка товара".
@@ -168,14 +164,16 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.productCardPharmaciesLocation1.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph,
+                bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
         }
         binding.productCardPharmaciesLocation2.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph,
+                bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
@@ -183,7 +181,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.productCardReleaseForm.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+                ListingApiR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "Форма выпуска"
                 )
             )
@@ -191,7 +190,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.productCardPharmaciesInMap.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph, bundleOf(
+                PharmaciesMapApiR.id.pharmacies_map_graph,
+                bundleOf(
                     PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
                 )
             )
@@ -250,7 +250,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.withProduct1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+                ru.apteka.product_card_api.R.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.withProducts.value!![0].product
                 )
             )
@@ -258,7 +259,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.withProduct2.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+                ru.apteka.product_card_api.R.id.product_card_graph,
+                bundleOf(
                     PRODUCT_CARD_ARGUMENT_PRODUCT to viewModel.withProducts.value!![1].product
                 )
             )
@@ -266,7 +268,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.tvWithProductAll.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+                ListingApiR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "С этим товаром покупают"
                 )
             )
@@ -297,13 +300,13 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         /*viewModel.withProductProducts.observe(viewLifecycleOwner) {
             withProductProductsDayAdapter.swapData(it)
         }*/
-
     }
 
     private fun onProductsCardClick(product: ProductModel) {
         viewModel.navigationManager.generalNavController.popBackStack()
         viewModel.navigationManager.generalNavController.navigateWithAnim(
-            ru.apteka.product_card_api.R.id.product_card_graph, bundleOf(
+            ru.apteka.product_card_api.R.id.product_card_graph,
+            bundleOf(
                 PRODUCT_CARD_ARGUMENT_PRODUCT to product
             )
         )
@@ -350,7 +353,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         binding.productCardTabs.doOnLayout {
             it.translationY = -binding.productCardTabs.height.toFloat()
         }
-
 
         binding.toolbar.apply {
             binding.toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
@@ -410,7 +412,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 } else {
                     binding.productCardPharmaciesLocation2.hide()
                 }
-
             }
             binding.toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.generalNavController.popBackStack()

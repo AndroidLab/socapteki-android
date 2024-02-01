@@ -1,6 +1,5 @@
 package ru.apteka.brands.presentation.pages
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -8,11 +7,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.brands.R
 import ru.apteka.brands.databinding.LettersPageBinding
 import ru.apteka.brands.presentation.LettersCardAdapter
-import ru.apteka.components.data.utils.equalsWithDeviation
-import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-
 
 /**
  * Представляет фрагмент "Страница бренды".
@@ -59,5 +55,4 @@ class LettersPageFragment :
             )
         }
     }
-
 }

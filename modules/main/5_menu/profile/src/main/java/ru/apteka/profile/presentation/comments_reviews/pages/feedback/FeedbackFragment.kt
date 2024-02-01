@@ -6,8 +6,6 @@ import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.profile.R
 import ru.apteka.profile.databinding.CommentsFeedbackPageBinding
-import ru.apteka.profile.presentation.comments_reviews.CommentsAdapter
-
 
 /**
  * Представляет фрагмент "Обратная связь".
@@ -37,5 +35,4 @@ class FeedbackFragment :
     companion object {
         fun newInstance() = FeedbackFragment()
     }
-
 }

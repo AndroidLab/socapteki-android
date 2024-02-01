@@ -37,7 +37,7 @@
                 android:alpha="@{menuItem.itemId == @id/home_graph ? 0f : 1f}"
                 android:scaleType="fitXY"
                 android:src="@{context.getDrawable(menuItem.icon)}"
-                app:imageTint="@{isSelected ? @color/color_primary : @color/light_black}"
+                app:extraTint="@{isSelected ? @color/color_primary : @color/light_black}"
                 tools:ignore="ContentDescription" />
 
             <TextView

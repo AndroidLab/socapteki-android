@@ -1,45 +1,41 @@
 package ru.apteka.pharmacies_map.presentation
 
-
-import android.content.Intent
-import android.net.Uri
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LifecycleOwner
-import ru.apteka.components.data.models.PharmacyModel
+import ru.apteka.components.data.models.PharmacyCardModel
+import ru.apteka.components.data.utils.setExtraMargin
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-import ru.apteka.pharmacies_map.databinding.PharmacieItemHolderBinding
-
+import ru.apteka.pharmacies_map.databinding.PharmacyItemHolderBinding
+import ru.apteka.pharmacies_map_api.api.TypeInteraction
 
 /**
  * Представляет адаптер для списка аптек.
  */
 class PharmacyAdapter(
     private val lifeOwner: LifecycleOwner,
-    private val _viewModel: PharmaciesMapViewModel,
-    private val onItemClick: (PharmacyModel) -> Unit,
-    private val onNavigateClick: (PharmacyModel) -> Unit
+    private val interaction: TypeInteraction,
+    //private val _viewModel: PharmaciesMapViewModel,
+    private val onItemClick: (PharmacyCardModel) -> Unit,
 ) :
-    ViewBindingDelegateAdapter<PharmacyModel, PharmacieItemHolderBinding>(PharmacieItemHolderBinding::inflate) {
+    ViewBindingDelegateAdapter<PharmacyCardModel, PharmacyItemHolderBinding>(PharmacyItemHolderBinding::inflate) {
 
-    override fun PharmacieItemHolderBinding.onBind(
-        item: PharmacyModel,
+    override fun PharmacyItemHolderBinding.onBind(
+        item: PharmacyCardModel,
         position: Int,
         isFirst: Boolean,
         isLast: Boolean
     ) {
         lifecycleOwner = lifeOwner
-        viewModel = _viewModel
+        //viewModel = _viewModel
         model = item
-        pharmacyItem.setOnClickListener {
+        typeInteraction = interaction
+        pharmacyItem.setExtraMargin(0, 6, 0, 0)
+        /*pharmacyItem.setOnClickListener {
             onItemClick(item)
-        }
-        pharmacyMapNavigation.setOnClickListener {
-            onNavigateClick(item)
-        }
+        }*/
         executePendingBindings()
     }
 
-    override fun isForViewType(item: Any) = item is PharmacyModel
+    override fun isForViewType(item: Any) = item is PharmacyCardModel
 
-    override fun PharmacyModel.getItemId() = id
+    override fun PharmacyCardModel.getItemId() = pharmacy.id
 }

@@ -22,7 +22,6 @@ class ChoosingCityFragment : BaseFragment<ChoosingCityViewModel, ChoosingCityFra
     override val viewModel: ChoosingCityViewModel by viewModels()
     override val layoutId: Int = R.layout.choosing_city_fragment
 
-
     private val choosingCityAdapter by lazy {
         CompositeDelegateAdapter(
             ChoosingCityAdapter(this),

@@ -1,16 +1,10 @@
 package ru.apteka.catalog.data.services
 
-
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import ru.apteka.catalog.data.models.SearchResultModel
 import ru.apteka.components.data.utils.PreferencesDelegate
-import ru.apteka.components.data.services.account.models.Account
-import ru.apteka.components.data.utils.contains
 import ru.apteka.components.data.utils.subListOrNull
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,9 +34,11 @@ class SearchProductPreferences @Inject constructor(
     private var requests: List<String> by PreferencesDelegate(
         requestsPref,
         REQUESTS,
-        emptyList(), {
+        emptyList(),
+        {
             Gson().toJson(it)
-        }, {
+        },
+        {
             Gson().fromJson(it, object : TypeToken<List<String>>() {}.type)
         }
     )
@@ -71,5 +67,4 @@ class SearchProductPreferences @Inject constructor(
     fun clear() {
         requests = emptyList()
     }
-
 }

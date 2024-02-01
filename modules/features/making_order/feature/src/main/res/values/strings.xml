@@ -35,9 +35,8 @@
     <string name="making_order_address_flat_hint">Квартира/Офис</string>
     <string name="making_order_address_code_hint">Код домофона</string>
     <string name="making_order_address_comment_hint">Комментарий для курьера</string>
-    <string name="making_order_address_date_time">Желаемая дата и время доставки</string>
-    <string name="making_order_address_date_time_hint">Выберите дату и время</string>
-    <string name="making_order_address_required_field_hint">Обязательное поле</string>
+    <string name="making_order_address_date_time_title">Дата и время доставки</string>
+    <string name="making_order_address_date_time_hint">Дата доставки</string>
     <string name="making_order_address_date_time_error">Дата не может быть меньше текущей</string>
 
     <string name="making_order_recipients_title">Получатели</string>

@@ -13,7 +13,7 @@ data class ProductCardModel(
     /**
      * Возвращает или устанавливает модель обработки избранного.
      */
-    lateinit var favorite: FavoriteModel
+    lateinit var favorite: ProductFavoriteModel
 
     /**
      * Возвращает или устанавливает модель обработки корзины.

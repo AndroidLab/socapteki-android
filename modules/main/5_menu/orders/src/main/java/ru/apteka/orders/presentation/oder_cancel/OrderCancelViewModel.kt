@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.models.OrderModel
-import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -15,8 +14,8 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.orders.R
 import ru.apteka.orders.data.models.OrderCancelModel
+import ru.apteka.orders.data.repository.OrdersRepository
 import javax.inject.Inject
-
 
 /**
  * Представляет модель представления "Детали заказа".
@@ -37,7 +36,6 @@ class OrderCancelViewModel @Inject constructor(
      * Возвращает или устанавливает заказ.
      */
     val order = MutableLiveData<OrderModel?>(null)
-
 
     private fun getOrderDetail(order: OrderModel) {
         /*viewModelScope.launchIO {
@@ -81,7 +79,6 @@ class OrderCancelViewModel @Inject constructor(
             ),
         ),
     ) {
-
     }
 
     /**
@@ -97,5 +94,4 @@ class OrderCancelViewModel @Inject constructor(
             _isLoading.postValue(false)
         }
     }
-
 }

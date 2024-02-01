@@ -1,15 +1,12 @@
 package ru.apteka.components.data.utils
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
-import androidx.core.graphics.alpha
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-
 
 class CirclePagerIndicatorDecoration(
     private val verticalOffset: Int,
@@ -72,8 +69,11 @@ class CirclePagerIndicatorDecoration(
     }
 
     private fun drawHighlights(
-        c: Canvas, indicatorStartX: Float, indicatorPosY: Float,
-        highlightPosition: Int, progress: Float
+        c: Canvas,
+        indicatorStartX: Float,
+        indicatorPosY: Float,
+        highlightPosition: Int,
+        progress: Float
     ) {
         mPaint.color = colorActive
 
@@ -102,5 +102,4 @@ class CirclePagerIndicatorDecoration(
         super.getItemOffsets(outRect, view, parent, state)
         outRect.bottom = mIndicatorHeight
     }*/
-
 }

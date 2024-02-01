@@ -5,7 +5,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.profile.R
-import ru.apteka.profile.data.models.AptekaCardModel
 import ru.apteka.profile.databinding.PharmaciesFragmentBinding
 import ru.apteka.components.R as ComponentsR
 
@@ -20,7 +19,7 @@ class PharmaciesFragment : BaseFragment<PharmaciesViewModel, PharmaciesFragmentB
 
     private val pharmaciesAdapter by lazy {
         CompositeDelegateAdapter(
-            PharmaciesAdapter(::onPharmacyItemClick)
+            PharmaciesAdapter()
         )
     }
 
@@ -44,11 +43,5 @@ class PharmaciesFragment : BaseFragment<PharmaciesViewModel, PharmaciesFragmentB
             }
         }
     }
-
-
-    private fun onPharmacyItemClick(item: AptekaCardModel) {
-
-    }
-
 
 }

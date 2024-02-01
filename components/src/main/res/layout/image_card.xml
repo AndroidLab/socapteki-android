@@ -12,6 +12,10 @@
             type="String" />
 
         <variable
+            name="imageDrawable"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
             name="padding"
             type="Integer" />
 
@@ -34,7 +38,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:extraPadding="@{padding == null ? 8 : padding}"
-            app:glideImageRes="@{imageUrl}"
+            app:glideImageRes="@{imageUrl == null ? imageDrawable : imageUrl}"
             tools:ignore="ContentDescription" />
 
     </com.google.android.material.card.MaterialCardView>

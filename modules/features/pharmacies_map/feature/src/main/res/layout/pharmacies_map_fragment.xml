@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
         <import type="ru.apteka.pharmacies_map.presentation.PharmaciesMapFragment" />
 
         <variable
@@ -13,161 +15,147 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_secondary"
+        android:background="@color/white"
+        android:onClick="@{null}"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/pharmaciesMapAppbar"
+        <include
+            android:id="@+id/choosingCityToolbar"
+            layout="@layout/toolbar" />
+
+        <include layout="@layout/separator_view" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="@color/white"
-            android:fitsSystemWindows="false"
-            app:canScroll="@{false}">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/pharmaciesMapCollapsing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background_secondary"
-                android:fitsSystemWindows="true"
-                android:minHeight="120dp"
-                app:contentScrim="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-                <!-- Карта -->
-                <com.yandex.mapkit.mapview.MapView
-                    android:id="@+id/mapview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_collapseMode="parallax" />
-
-                <!-- Назад -->
-                <ImageView
-                    android:id="@+id/ivPharmaciesMapBack"
-                    android:layout_width="@dimen/toolbar_height"
-                    android:layout_height="@dimen/toolbar_height"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_navigation_back"
-                    app:layout_collapseMode="pin"
-                    tools:ignore="ContentDescription" />
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <!-- Свернуть/развернуть карту -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/pharmaciesMapExpand"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            app:strokeWidth="0dp">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lavPharmaciesMapExpand"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:lottie_autoPlay="false"
-                app:lottie_colorFilter="@color/color_primary"
-                app:lottie_rawRes="@raw/map_expand"
-                app:lottie_repeatCount="0" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/top_corners_shape"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <!-- Поле поиска аптек -->
-            <FrameLayout
+            <!-- Выбор города -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp">
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.alab.input_layout_inner_hint.TextInputLayout
-                    android:id="@+id/tilPharmaciesMap"
-                    style="@style/TextInputLayout"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="@{!viewModel.isLoading}"
-                    android:hint="@string/search"
-                    app:helperText="@{viewModel.isLoading ? `` : `Найдено: ` + viewModel.pharmaciesFiltered.size()}">
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="12dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPharmaciesMap"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_city_location"
+                        app:tint="@color/dark_black"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_input_white_background_unfocused_shape"
-                        android:text="@={viewModel.searchQuery}" />
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.city.name == null ? @string/city_not_selected : viewModel.city.name}" />
 
-                </com.alab.input_layout_inner_hint.TextInputLayout>
+                    <TextView
+                        android:id="@+id/pharmaciesMapCityChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/change"
+                        android:textColor="@color/color_primary" />
 
-                <FrameLayout
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="end">
+                </LinearLayout>
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/pharmaciesMapClear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end|center_vertical"
-                        android:scaleX="1.6"
-                        android:scaleY="1.6"
-                        app:lottie_autoPlay="false"
-                        app:lottie_colorFilter="@color/light_black"
-                        app:lottie_progress="0.1"
-                        app:lottie_rawRes="@raw/close"
-                        app:lottie_repeatCount="0"
-                        app:visibleIf="@{!viewModel.isLoading}" />
+                <include layout="@layout/separator_view" />
 
-                    <ProgressBar
-                        style="@style/Theme.Socapteki.ProgressBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminateOnly="true"
-                        android:padding="12dp"
-                        app:visibleIf="@{viewModel.isLoading}" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/pharmaciesMapTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
 
-                </FrameLayout>
+                <include layout="@layout/separator_view" />
 
-            </FrameLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pharmaciesMapPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
 
-            <include
-                layout="@layout/progress_bar"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"
-                app:isLoading="@{viewModel.isLoading}" />
+            </LinearLayout>
 
-            <com.alab.extra_bouncy.BouncyRecyclerView
-                android:id="@+id/rvPharmaciesMap"
+            <!-- Адреса -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_corners_shape"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:marginItemVertical="@{16}" />
+                app:forItems="@{viewModel.addresses}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:useTemplate="@{@layout/pharmacy_map_city_template}" />
 
-        </LinearLayout>
+            <!-- Кнопка 'Круглосуточные' -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mapPageRoundClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="32dp"
+                android:onClick="@{() -> viewModel.onRoundClockClick()}"
+                app:cardBackgroundColor="@{viewModel.isRoundClockSelected ? @color/color_secondary_container : @color/white}"
+                app:cardElevation="@{viewModel.isRoundClockSelected ? 0 : ExtensionsMethodsKt.getDp(5)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:strokeColor="@color/color_primary"
+                app:strokeWidth="@{viewModel.isRoundClockSelected ? ExtensionsMethodsKt.getDp(1) : 0}">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginVertical="4dp"
+                    android:text="@string/pharmacies_map_round_clock"
+                    android:textColor="@color/black" />
 
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Кнопка 'Мои аптеки' -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="32dp"
+                android:onClick="@{() -> viewModel.onMyPharmaciesClick()}"
+                app:cardBackgroundColor="@{viewModel.isMyPharmaciesSelected() ? @color/color_secondary_container : @color/white}"
+                app:cardElevation="@{viewModel.isMyPharmaciesSelected ? 0 : ExtensionsMethodsKt.getDp(5)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mapPageRoundClock"
+                app:strokeColor="@color/color_primary"
+                app:strokeWidth="@{viewModel.isMyPharmaciesSelected ? ExtensionsMethodsKt.getDp(1) : 0}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginVertical="4dp"
+                    android:text="@string/pharmacies_map_my_pharmacies"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </layout>

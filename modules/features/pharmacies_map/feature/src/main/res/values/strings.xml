@@ -1,5 +1,10 @@
 <resources>
+
     <string name="pharmacies_map_title">Аптеки на карте</string>
-    <string name="pharmacies_map_in_favorite">В избранном</string>
-    <string name="pharmacies_map_pick_here">Забрать здесь</string>
+    <string name="pharmacies_map_pick_here">Забрать здесь 1 из 2</string>
+    <string name="pharmacies_map_page">Карта</string>
+    <string name="pharmacies_list_page">Список</string>
+    <string name="pharmacies_map_round_clock">Круглосуточные</string>
+    <string name="pharmacies_map_my_pharmacies">Мои аптеки</string>
+
 </resources>

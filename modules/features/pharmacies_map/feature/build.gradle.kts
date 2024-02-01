@@ -15,8 +15,9 @@ android {
 dependencies {
     implementation(project(":components"))
     implementation(project(":modules:features:pharmacies_map:api"))
-    implementation("com.yandex.android:maps.mobile:4.4.0-lite")
+    implementation(project(":modules:features:choosing_city:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.bundles.lifecycleDeps)
+    implementation(libs.mapsMobile)
 }

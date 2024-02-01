@@ -18,14 +18,13 @@ import ru.apteka.components.data.models.ProductVariantModel
 import java.util.UUID
 import java.util.regex.Pattern
 
-
 /**
  * Валидирует емайл.
  */
 fun validateEmail(email: String): Boolean {
-    val VALID_EMAIL_ADDRESS_REGEX =
+    val validMailRegex =
         Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
-    return if (email.isEmpty()) true else VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()
+    return if (email.isEmpty()) true else validMailRegex.matcher(email).matches()
 }
 
 /**
@@ -62,11 +61,13 @@ fun getPersonalDataSpan(context: Context): SpannableString {
     }
 }
 
+private const val PRODUCT_IMAGE_URL =
+    "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp"
 
 private val images = listOf(
-    "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
-    "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
-    "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp"
+    PRODUCT_IMAGE_URL,
+    PRODUCT_IMAGE_URL,
+    PRODUCT_IMAGE_URL
 )
 
 private val variants = listOf(
@@ -119,7 +120,7 @@ suspend fun getProductsFake(): List<ProductModel> {
     return listOf(
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -134,14 +135,12 @@ suspend fun getProductsFake(): List<ProductModel> {
             desc = "Шрея Лайф Саенсиз Пвт.Лтд, Индия",
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        )
+                Label.ADVERT
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -155,17 +154,13 @@ suspend fun getProductsFake(): List<ProductModel> {
             ),
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        ),
-                (
-                        Label.PRODUCT_DAY
-                        )
+                Label.ADVERT,
+                Label.PRODUCT_DAY
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -174,17 +169,13 @@ suspend fun getProductsFake(): List<ProductModel> {
             rating = "4.7",
             comments = 321,
             labels = listOf(
-                (
-                        Label.ADVERT
-                        ),
-                (
-                        Label.PRODUCT_DAY
-                        )
+                Label.ADVERT,
+                Label.PRODUCT_DAY
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -195,7 +186,7 @@ suspend fun getProductsFake(): List<ProductModel> {
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -210,14 +201,12 @@ suspend fun getProductsFake(): List<ProductModel> {
             desc = "Шрея Лайф Саенсиз Пвт.Лтд, Индия",
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        )
+                Label.ADVERT
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -232,14 +221,12 @@ suspend fun getProductsFake(): List<ProductModel> {
             desc = "Шрея Лайф Саенсиз Пвт.Лтд, Индия",
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        )
+                Label.ADVERT
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -254,9 +241,7 @@ suspend fun getProductsFake(): List<ProductModel> {
             desc = "Шрея Лайф Саенсиз Пвт.Лтд, Индия",
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        )
+                Label.ADVERT
             )
         ),
     )
@@ -269,7 +254,7 @@ suspend fun getProductsFake2(): List<ProductModel> {
     return listOf(
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -284,14 +269,12 @@ suspend fun getProductsFake2(): List<ProductModel> {
             desc = "Шрея Лайф Саенсиз Пвт.Лтд, Индия",
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        )
+                Label.ADVERT
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -305,17 +288,13 @@ suspend fun getProductsFake2(): List<ProductModel> {
             ),
             additionalDesc = "Имеются  противопоказания Необходимо консультация со специалистом",
             labels = listOf(
-                (
-                        Label.ADVERT
-                        ),
-                (
-                        Label.PRODUCT_DAY
-                        )
+                Label.ADVERT,
+                Label.PRODUCT_DAY
             )
         ),
         ProductModel(
             id = UUID.randomUUID(),
-            image = "https://social-apteka.ru/upload/ammina.optimizer/jpg-webp/q80/upload/resize_cache/iblock/26a/4t2rwziwqy0985ppytp7tlwl473rihud/150_150_0/f2848cc6f2c04f92cd3876228dbdf81f.webp",
+            image = PRODUCT_IMAGE_URL,
             images = images,
             variants = variants,
             isFavorite = false,
@@ -324,12 +303,8 @@ suspend fun getProductsFake2(): List<ProductModel> {
             rating = "4.7",
             comments = 321,
             labels = listOf(
-                (
-                        Label.ADVERT
-                        ),
-                (
-                        Label.PRODUCT_DAY
-                        )
+                Label.ADVERT,
+                Label.PRODUCT_DAY
             )
         ),
     )

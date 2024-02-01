@@ -1,35 +1,29 @@
 package ru.apteka.profile.presentation.comments_reviews
 
-
 import android.animation.Animator
 import android.animation.ValueAnimator
-import androidx.core.view.doOnLayout
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import ru.apteka.components.data.utils.countLines
 import ru.apteka.components.data.utils.launchMain
-import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-import ru.apteka.profile.R
-import ru.apteka.components.R as ComponentsR
 import ru.apteka.profile.data.models.CommentModel
 import ru.apteka.profile.databinding.CommentHolderBinding
-
+import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет адаптер для комментариев.
  */
-class CommentsAdapter(private val _lifecycleOwner: LifecycleOwner) :
+class CommentsAdapter(private val lifeOwner: LifecycleOwner) :
     ViewBindingDelegateAdapter<CommentModel, CommentHolderBinding>(CommentHolderBinding::inflate) {
 
     override fun CommentHolderBinding.onBind(
-        item: CommentModel, position: Int,
+        item: CommentModel,
+        position: Int,
         isFirst: Boolean,
         isLast: Boolean
     ) {
-        lifecycleOwner = _lifecycleOwner
+        lifecycleOwner = lifeOwner
         model = item
 
         var llCollapsedHeight = 0
@@ -44,8 +38,8 @@ class CommentsAdapter(private val _lifecycleOwner: LifecycleOwner) :
                     ValueAnimator.ofInt(
                         flCommentText.height,
                         tvCommentText.layout.height
-                        //llCollapsedHeight,
-                        //tvCommentText.layout.height
+                        // llCollapsedHeight,
+                        // tvCommentText.layout.height
                     ).apply {
                         addUpdateListener { valueAnimator ->
                             val lp = flCommentText.layoutParams

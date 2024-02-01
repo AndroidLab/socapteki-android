@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
-
 /**
  * Представляет модель для показа общей нижней панели.
  * @param fragmentManager Менеджер фрагментов.
@@ -15,4 +14,4 @@ import kotlinx.parcelize.RawValue
 data class CommonBottomSheetModel(
     val fragmentManager: @RawValue FragmentManager,
     val bottomSheetModel: BottomSheetModel
-): Parcelable
+) : Parcelable

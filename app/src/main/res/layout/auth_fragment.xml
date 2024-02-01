@@ -73,6 +73,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
+            <!--<sberid.sdk.auth.view.SberIDButton
+                android:id="@+id/sberIDButton"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_margin="8dp"
+                android:background="?attr/selectableItemBackground"
+                app:buttonCornerRadius="16dp"
+                app:clientId="663f4083-5f20-462b-ac81-ef09bd5609d2" />-->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/authConfirmPhone"
                 android:layout_width="match_parent"
