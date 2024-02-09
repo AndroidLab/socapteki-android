@@ -38,7 +38,6 @@ abstract class BaseFragment<TViewModel : ViewModel, TDataBinding : ViewDataBindi
      */
     val mActivity: AppCompatActivity by lazy { requireActivity() as AppCompatActivity }
 
-
     /**
      * Возвращает навигационный контроллер.
      */
@@ -110,5 +109,4 @@ abstract class BaseFragment<TViewModel : ViewModel, TDataBinding : ViewDataBindi
     fun keyBoardClose() {
         imm?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
-
 }

@@ -51,6 +51,4 @@ class PromotionRepository @Inject constructor(
             )
         )
     }
-
-
 }

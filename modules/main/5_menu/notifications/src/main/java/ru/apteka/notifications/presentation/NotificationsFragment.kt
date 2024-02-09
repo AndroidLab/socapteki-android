@@ -1,6 +1,5 @@
 package ru.apteka.notifications.presentation
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.ui.BaseFragment
@@ -43,7 +42,6 @@ class NotificationsFragment : BaseFragment<NotificationsViewModel, Notifications
     }
 
     private fun onNotificationClick(notification: NotificationModel) {
-        Log.d("myL", "12135")
         /*viewModel.navigationManager.generalNavController.navigateWithAnim(
             OrdersFragmentDirections.toOrderDetailsFragment(order)
         )*/

@@ -60,5 +60,9 @@ gradlePlugin {
             id = libs.plugins.googleServicesConventionPlugin.get().pluginId
             implementationClass = libs.plugins.googleServicesConventionPlugin.get().pluginId
         }
+        register(libs.plugins.firebaseConventionPlugin.get().pluginId) {
+            id = libs.plugins.firebaseConventionPlugin.get().pluginId
+            implementationClass = libs.plugins.firebaseConventionPlugin.get().pluginId
+        }
     }
 }

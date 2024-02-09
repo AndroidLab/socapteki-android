@@ -9,10 +9,11 @@ plugins {
     alias(libs.plugins.daggerHiltAndroid) apply false
     alias(libs.plugins.androidxNavigationSafeargs) apply false
     alias(libs.plugins.googleServices) apply false
+    alias(libs.plugins.crashlytics) apply false
     alias(libs.plugins.orgSonarqube) apply true
 }
 
-/*val localProperties = Properties().apply {
+val localProperties = Properties().apply {
     load(project.rootProject.file("local.properties").inputStream())
 }
 
@@ -31,6 +32,6 @@ sonar {
         property("sonar.host.url", "http://localhost:9000")
         property("sonar.token", requireNotNull(localProperties["sonarToken"]))
     }
-}*/
+}
 
 true // Needed to make the Suppress annotation work for the plugins block

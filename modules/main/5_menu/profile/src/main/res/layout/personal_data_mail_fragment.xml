@@ -79,8 +79,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginHorizontal="8dp"
-                        android:enabled="@{!viewModel.isLoading}"
-                        android:onClick="@{(view) -> viewModel.confirmationCode.requestCode()}"
+                        android:enabled="@{!viewModel.isLoading &amp; viewModel.isMailFormatValid}"
+                        android:onClick="@{(view) -> viewModel.confirmCode()}"
                         android:text="@string/personal_data_mail_receive_code"
                         app:visibleIf="@{!viewModel.confirmationCode.isCodeRequested}" />
 

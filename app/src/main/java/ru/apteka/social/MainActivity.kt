@@ -47,6 +47,7 @@ import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.social.databinding.ActivityMainBinding
 import ru.apteka.social.databinding.MenuNavigationViewBinding
 import ru.apteka.social.presentation.auth.AuthActivity
+import java.lang.RuntimeException
 import javax.inject.Inject
 import ru.apteka.basket.R as BasketR
 import ru.apteka.catalog.R as CatalogR

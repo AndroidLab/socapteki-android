@@ -20,7 +20,6 @@ import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.feedback.data.FileModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Обратная свяь".
  */
@@ -96,10 +95,10 @@ class FeedbackViewModel @Inject constructor(
      */
     val isMessageSendEnabled = MediatorLiveData<Boolean>().apply {
         fun checkFieldsFilled() {
-            value = fio.value!!.isNotEmpty() && email.value!!.isNotEmpty()
-                    && isEmailValid.value == null && reason.value != null
-                    && reason.value!!.isNotEmpty() && message.value!!.isNotEmpty()
-                    && isPersonalDataChecked.value!! && !isLoading.value!!
+            value = fio.value!!.isNotEmpty() && email.value!!.isNotEmpty() &&
+                    isEmailValid.value == null && reason.value != null &&
+                    reason.value!!.isNotEmpty() && message.value!!.isNotEmpty() &&
+                    isPersonalDataChecked.value!! && !isLoading.value!!
         }
 
         addSource(fio) {
@@ -145,5 +144,4 @@ class FeedbackViewModel @Inject constructor(
             _isLoading.postValue(false)
         }
     }
-
 }

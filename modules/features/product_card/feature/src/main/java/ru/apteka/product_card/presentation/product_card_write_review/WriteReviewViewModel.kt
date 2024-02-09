@@ -17,7 +17,6 @@ import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Карточка товара, написать отзыв".
  */
@@ -69,12 +68,12 @@ class WriteReviewViewModel @Inject constructor(
     val canSendReview = MediatorLiveData<Boolean>().apply {
         fun checkDataFilled() {
             postValue(
-                _isLoading.value == false
-                        && rating.value!! > 0
-                        && fio.value!!.isNotEmpty()
-                        && mail.value!!.isNotEmpty()
-                        && comment.value!!.isNotEmpty()
-                        && isMailValid.value == null
+                _isLoading.value == false &&
+                        rating.value!! > 0 &&
+                        fio.value!!.isNotEmpty() &&
+                        mail.value!!.isNotEmpty() &&
+                        comment.value!!.isNotEmpty() &&
+                        isMailValid.value == null
             )
         }
 
@@ -121,9 +120,4 @@ class WriteReviewViewModel @Inject constructor(
             _isMailValid.value = R.string.email_not_valid
         }
     }
-
-    init {
-
-    }
-
 }

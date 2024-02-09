@@ -97,7 +97,7 @@ class SeekBarRangedView @JvmOverloads constructor(
 
     var stopTrackingTouchListener: IStopTrackingTouchListener? = null
 
-    interface IStopTrackingTouchListener {
+    fun interface IStopTrackingTouchListener {
         fun onStopTrackingTouch(view: SeekBarRangedView)
     }
 
@@ -883,9 +883,6 @@ class SeekBarRangedView @JvmOverloads constructor(
                     isPressed = false
                 }
                 invalidate() // see above explanation
-            }
-
-            else -> {
             }
         }
         return true

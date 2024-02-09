@@ -122,12 +122,12 @@ class MakingOrderAddressViewModel @Inject constructor(
      */
     val selectedDeliveryDate: LiveData<String> = selectedDeliveryCalendar.map {
         it?.let { calendar ->
-            "${String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH))}.${
+            "${String.format("%02d", calendar[Calendar.DAY_OF_MONTH])}.${
                 String.format(
                     "%02d",
-                    calendar.get(Calendar.MONTH) + 1
+                    calendar[Calendar.MONTH] + 1
                 )
-            }.${calendar.get(Calendar.YEAR)}"
+            }.${calendar[Calendar.YEAR]}"
         } ?: ""
     }
 

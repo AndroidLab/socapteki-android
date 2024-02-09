@@ -14,7 +14,6 @@ import ru.apteka.components.ui.BaseViewModel
 import java.util.UUID
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Сканирование баркода".
  */
@@ -27,12 +26,7 @@ class BarcodeScannerViewModel @Inject constructor(
     navigationManager,
     messageService
 ) {
-
     private val badCode = "800003674602"
-
-    init {
-
-    }
 
     private val _isScanError = MutableLiveData(false)
 
@@ -67,5 +61,4 @@ class BarcodeScannerViewModel @Inject constructor(
             _isLoading.postValue(false)
         }
     }
-
 }

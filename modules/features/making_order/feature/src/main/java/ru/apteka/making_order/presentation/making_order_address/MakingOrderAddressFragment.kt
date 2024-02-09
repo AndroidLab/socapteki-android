@@ -111,9 +111,9 @@ class MakingOrderAddressFragment :
                         }
                         sheetBinding.vMakingOrderAddressDate.setOnClickListener {
                             val mCalendar: Calendar = Calendar.getInstance()
-                            val _year: Int = mCalendar.get(Calendar.YEAR)
-                            val _month: Int = mCalendar.get(Calendar.MONTH)
-                            val _dayOfMonth: Int = mCalendar.get(Calendar.DAY_OF_MONTH)
+                            val _year: Int = mCalendar[Calendar.YEAR]
+                            val _month: Int = mCalendar[Calendar.MONTH]
+                            val _dayOfMonth: Int = mCalendar[Calendar.DAY_OF_MONTH]
                             DatePickerDialog(
                                 requireContext(),
                                 ru.apteka.components.R.style.Theme_Socapteki_DataPicker,

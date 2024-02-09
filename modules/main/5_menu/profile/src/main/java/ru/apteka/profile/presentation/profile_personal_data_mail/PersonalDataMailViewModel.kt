@@ -11,6 +11,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.launchIO
+import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
@@ -56,6 +57,17 @@ class PersonalDataMailViewModel @Inject constructor(
             mail.asFlow().collect {
                 _isMailFormatValid.postValue(true)
             }
+        }
+    }
+
+    /**
+     * Подтверждение кодом.
+     */
+    fun confirmCode() {
+        if (validateEmail(mail.value!!)) {
+            confirmationCode.requestCode()
+        } else {
+            _isMailFormatValid.value = false
         }
     }
 

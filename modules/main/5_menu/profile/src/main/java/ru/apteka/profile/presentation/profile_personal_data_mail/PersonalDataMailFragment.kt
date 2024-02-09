@@ -7,11 +7,9 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.PersonalData
 import ru.apteka.components.data.utils.setSoftInputModeAdjustPan
-import ru.apteka.components.data.utils.setSoftInputModeResize
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.profile.R
 import ru.apteka.profile.databinding.PersonalDataMailFragmentBinding
-
 
 /**
  * Представляет фрагмент "Личные данные, изменить почту".

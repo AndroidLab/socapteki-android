@@ -6,6 +6,7 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.googleServicesConventionPlugin.get().pluginId)
+    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 private val major = 0

@@ -8,7 +8,6 @@ import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.ui.BaseViewModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Оформление заказа, добавление получателей".
  */
@@ -46,9 +45,4 @@ class MakingOrderRecipientsViewModel @Inject constructor(
             checkFieldFilled()
         }
     }
-
-    init {
-
-    }
-
 }

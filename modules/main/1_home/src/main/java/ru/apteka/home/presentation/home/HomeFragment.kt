@@ -26,10 +26,10 @@ import ru.apteka.listing_api.api.LISTING_ARGUMENT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
+import ru.apteka.components.R as ComponentsR
 import ru.apteka.listing_api.R as ListingApiR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
-import ru.apteka.components.R as ComponentsR
 
 /**
  * Представляет фрагмент "Главная".
@@ -130,7 +130,6 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         }
 
         binding.tvHomePromotionsAll.setOnClickListener {
-
         }
 
         binding.tvHomeProductsDiscountAll.setOnClickListener {
@@ -167,9 +166,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             )
         }
 
-
         binding.bonusProgramHistoryAll.btn.setOnClickListener {
-
         }
 
         binding.mbBonusProgramReferal.setOnClickListener {
@@ -179,7 +176,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             )
         }
 
-        //viewModel.navigationManager.onStartAnimCompleted = {
+        // viewModel.navigationManager.onStartAnimCompleted = {
         viewModel.productsDay.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 binding.homeProductsDay1.model = it[0]
@@ -212,7 +209,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         viewModel.categories.observe(viewLifecycleOwner) {
             categoriesAdapter.swapData(it)
         }
-        //}
+        // }
 
         binding.rlHomeScreen.cameraDistance = 8000.dp.toFloat()
         binding.llBonusProgram.cameraDistance = 8000.dp.toFloat()
@@ -248,19 +245,15 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
     }
 
     private fun onOrderCardClick(item: OrderModel) {
-
     }
 
     private fun onAdvertCardClick() {
-
     }
 
     private fun onPromotionCardClick() {
-
     }
 
     private fun onCategoriesClick() {
-
     }
 
     override fun onResume() {
@@ -288,9 +281,8 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
             tvToolbarTitle.text = getString(R.string.bonus_program_title)
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.onFabClick()
-                //viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
+                // viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }
         }
     }
 }
-

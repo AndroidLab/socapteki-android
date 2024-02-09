@@ -12,7 +12,6 @@ import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.favorites.data.model.FavoriteCardModel
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Избранное".
  */
@@ -45,9 +44,4 @@ class FavoritesViewModel @Inject constructor(
             }
         }
     }
-
-    init {
-
-    }
-
 }

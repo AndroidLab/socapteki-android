@@ -10,13 +10,12 @@ import ru.apteka.making_order.data.model.CompletionDataModel
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_COMPLETION
 import javax.inject.Inject
 
-
 /**
  * Представляет модель представления "Оформление заказа, завершение".
  */
 @HiltViewModel
 class MakingOrderCompletionViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     navigationManager: NavigationManager,
     messageService: MessageService
 ) : BaseViewModel(
@@ -30,9 +29,4 @@ class MakingOrderCompletionViewModel @Inject constructor(
     val completionData = MutableLiveData(
         savedStateHandle.get<CompletionDataModel>(MAKING_ORDER_ARGUMENT_COMPLETION)!!
     )
-
-    init {
-
-    }
-
 }

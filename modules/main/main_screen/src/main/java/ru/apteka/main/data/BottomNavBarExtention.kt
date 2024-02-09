@@ -139,23 +139,6 @@ private fun BottomNavigationView.setupDeepLinks(
     }
 }
 
-private fun BottomNavigationView.setupItemReselected(
-    graphIdToTagMap: HashMap<Int, String>,
-    fragmentManager: FragmentManager
-) {
-    setOnItemReselectedListener { menuItem ->
-        val newlySelectedItemTag = graphIdToTagMap[menuItem.itemId]
-        val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
-            as NavHostFragment
-        val navController = selectedFragment.navController
-
-        navController.popBackStack(
-            navController.graph.startDestinationId,
-            false
-        )
-    }
-}
-
 private fun detachNavHostFragment(
     fragmentManager: FragmentManager,
     navHostFragment: NavHostFragment
