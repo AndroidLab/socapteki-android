@@ -1,7 +1,7 @@
-import ru.google.samples.apps.nowinandroid.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import ru.google.samples.apps.nowinandroid.libs
 
 /**
  * Представляет плагин соглашение к GoogleServices.
@@ -14,7 +14,6 @@ class GoogleServicesConventionPlugin : Plugin<Project> {
             }
             dependencies {
                 "implementation"(libs.findLibrary("firebaseMessaging").get())
-                "implementation"(libs.findLibrary("firebaseAnalytics").get())
             }
         }
     }

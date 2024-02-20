@@ -15,6 +15,7 @@ class FirebaseConventionPlugin : Plugin<Project> {
 
             dependencies {
                 "implementation"(libs.findLibrary("firebaseCrashlytics").get())
+                "implementation"(libs.findLibrary("firebaseAnalytics").get())
             }
         }
     }
