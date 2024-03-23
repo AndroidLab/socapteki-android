@@ -1,7 +1,6 @@
 package ru.apteka.home.presentation.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +18,7 @@ import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
@@ -99,33 +99,25 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    private val _ordersCard = MutableLiveData<List<OrderModel>>(emptyList())
-
     /**
      * Возвращает список заказоы.
      */
-    val ordersCard: LiveData<List<OrderModel>> = _ordersCard
-
-    private val _ordersCardIsLoading = MutableLiveData(false)
+    val ordersCard = ScopedLiveData<ViewModel, List<OrderModel>>(emptyList())
 
     /**
      * Возвращает фллг загрузки заказов.
      */
-    val ordersCardIsLoading: LiveData<Boolean> = _ordersCardIsLoading
-
-    private val _adverts = MutableLiveData<List<AdvertModel>>(emptyList())
+    val ordersCardIsLoading = ScopedLiveData(false)
 
     /**
      * Возвращает список рекламных блоков.
      */
-    val adverts: LiveData<List<AdvertModel>> = _adverts
-
-    private val _advertsIsLoading = MutableLiveData(false)
+    val adverts = ScopedLiveData<ViewModel, List<AdvertModel>>(emptyList())
 
     /**
      * Возвращает флаг загрузки рекламных блоков.
      */
-    val advertsIsLoading: LiveData<Boolean> = _advertsIsLoading
+    val advertsIsLoading = ScopedLiveData(false)
 
     /**
      * Возвращат модель фильтра для акций.
@@ -151,61 +143,45 @@ class HomeViewModel @Inject constructor(
         items[0].isItemSelected.value = true
     }
 
-    private val _promotions = MutableLiveData<List<PromotionModel>>(emptyList())
-
     /**
      * Возвращает акции.
      */
-    val promotions: LiveData<List<PromotionModel>> = _promotions
-
-    private val _promotionsIsLoading = MutableLiveData(false)
+    val promotions = ScopedLiveData(emptyList<PromotionModel>())
 
     /**
      * Возвращает флаг загрузки акций.
      */
-    val promotionsIsLoading: LiveData<Boolean> = _promotionsIsLoading
-
-    private val _productsDay = MutableLiveData<List<ProductCardModel>>(emptyList())
+    val promotionsIsLoading = ScopedLiveData(false)
 
     /**
      * Возвращает список продуктов дня.
      */
-    val productsDay: LiveData<List<ProductCardModel>> = _productsDay
-
-    private val _productsDayIsLoading = MutableLiveData(false)
+    val productsDay = ScopedLiveData(emptyList<ProductCardModel>())
 
     /**
      * Возвращает флаг загрузки продуктов дня.
      */
-    val productsDayIsLoading: LiveData<Boolean> = _productsDayIsLoading
-
-    private val _productsDiscount = MutableLiveData<List<ProductCardModel>>(emptyList())
+    val productsDayIsLoading = ScopedLiveData(false)
 
     /**
      * Возращает продукты со скидкой.
      */
-    val productsDiscount: LiveData<List<ProductCardModel>> = _productsDiscount
-
-    private val _productsDiscountIsLoading = MutableLiveData(false)
+    val productsDiscount = ScopedLiveData(emptyList<ProductCardModel>())
 
     /**
      * Возвращает флаг загрузки продуктов со скидкой.
      */
-    val productsDiscountIsLoading: LiveData<Boolean> = _productsDiscountIsLoading
-
-    private val _categories = MutableLiveData<List<OtherModel>>(emptyList())
+    val productsDiscountIsLoading = ScopedLiveData(false)
 
     /**
      * Возвращает список категорий.
      */
-    val categories: LiveData<List<OtherModel>> = _categories
-
-    private val _categoriesIsLoading = MutableLiveData(false)
+    val categories = ScopedLiveData(emptyList<OtherModel>())
 
     /**
      * Возвращает флаг загрузки категорий.
      */
-    val categoriesIsLoading: LiveData<Boolean> = _categoriesIsLoading
+    val categoriesIsLoading = ScopedLiveData(false)
 
     private val fakeBonuses = listOf(
         BonusModel(
@@ -240,46 +216,44 @@ class HomeViewModel @Inject constructor(
         ),
     )
 
-    private val _bonuses = MutableLiveData<List<BonusModel>>(emptyList())
+    /**
+     *
+     */
+    val bonuses = ScopedLiveData(emptyList<BonusModel>())
 
     /**
      *
      */
-    val bonuses: LiveData<List<BonusModel>> = _bonuses
-
-    private val _bonusesLoading = MutableLiveData(true)
-
-    /**
-     *
-     */
-    val bonusesLoading: LiveData<Boolean> = _bonusesLoading
+    val bonusesLoading = ScopedLiveData(true)
 
     init {
         viewModelScopeLaunch {
             launchIO {
-                _ordersCardIsLoading.postValue(true)
+                ordersCardIsLoading.postValue(true)
                 delay(800)
-                _ordersCard.postValue(getOrdersFake())
-                _ordersCardIsLoading.postValue(false)
+                ordersCard.postValue(getOrdersFake())
+                ordersCardIsLoading.postValue(false)
             }
 
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { advertRepository.getAdvert() },
-                    onSuccess = { adverts ->
-                        _adverts.postValue(adverts)
+                    onSuccess = {
+                        adverts.postValue(it)
                     },
-                    isLoading = _advertsIsLoading
+                    onLoading = {
+                        advertsIsLoading.postValue(it)
+                    }
                 )
             }
 
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { getProductsFake() },
-                    onSuccess = { productsDay ->
+                    onSuccess = {
                         mainThread {
-                            _productsDay.postValue(
-                                productsDay.map { product ->
+                            productsDay.postValue(
+                                it.map { product ->
                                     ProductCardModel(
                                         product = product,
                                     ).apply {
@@ -296,26 +270,30 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                     },
-                    isLoading = _productsDayIsLoading
+                    onLoading = {
+                        productsDayIsLoading.postValue(it)
+                    }
                 )
             }
 
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { promotionRepository.getPromotions() },
-                    onSuccess = { promotions ->
-                        _promotions.postValue(promotions)
+                    onSuccess = {
+                        promotions.postValue(it)
                     },
-                    isLoading = _promotionsIsLoading
+                    onLoading = {
+                        promotionsIsLoading.postValue(it)
+                    }
                 )
             }
 
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { getProductsFake() },
-                    onSuccess = { productsDiscount ->
-                        _productsDiscount.postValue(
-                            productsDiscount.map { product ->
+                    onSuccess = {
+                        productsDiscount.postValue(
+                            it.map { product ->
                                 ProductCardModel(
                                     product = product
                                 ).apply {
@@ -331,7 +309,9 @@ class HomeViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _productsDiscountIsLoading
+                    onLoading = {
+                        productsDiscountIsLoading.postValue(it)
+                    }
                 )
             }
 
@@ -339,18 +319,20 @@ class HomeViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { otherRepository.getOther() },
                     onSuccess = { others ->
-                        _categories.postValue(others)
+                        categories.postValue(others)
                     },
-                    isLoading = _categoriesIsLoading
+                    onLoading = {
+                        categoriesIsLoading.postValue(it)
+                    }
                 )
             }
 
             launchIO {
                 viewModelScope.launchIO {
-                    _bonusesLoading.postValue(true)
+                    bonusesLoading.postValue(true)
                     delay(750)
-                    _bonuses.postValue(fakeBonuses)
-                    _bonusesLoading.postValue(false)
+                    bonuses.postValue(fakeBonuses)
+                    bonusesLoading.postValue(false)
                 }
             }
         }

@@ -1,8 +1,8 @@
 package ru.apteka.feedback.presentation
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +12,7 @@ import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
@@ -61,18 +62,16 @@ class FeedbackViewModel @Inject constructor(
         "Тема обращения 5",
     )
 
-    private val _reason: MutableLiveData<String?> = MutableLiveData<String?>(null)
-
     /**
      * Возвращает выбранную причину.
      */
-    val reason: LiveData<String?> = _reason
+    val reason = ScopedLiveData<ViewModel, String?>()
 
     /**
      * Возвращает выбранную причину.
      */
     fun onReasonSelect(position: Int) {
-        _reason.value = reasons[position]
+        reason.setValue(reasons[position])
     }
 
     /**
@@ -97,7 +96,7 @@ class FeedbackViewModel @Inject constructor(
         fun checkFieldsFilled() {
             value = fio.value!!.isNotEmpty() && email.value!!.isNotEmpty() &&
                     isEmailValid.value == null && reason.value != null &&
-                    reason.value!!.isNotEmpty() && message.value!!.isNotEmpty() &&
+                    reason.getValue()!!.isNotEmpty() && message.value!!.isNotEmpty() &&
                     isPersonalDataChecked.value!! && !isLoading.value!!
         }
 
@@ -136,12 +135,12 @@ class FeedbackViewModel @Inject constructor(
      */
     fun sendMessage() {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             mainThread {
                 isMessageSendSuccess.call()
             }
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 }

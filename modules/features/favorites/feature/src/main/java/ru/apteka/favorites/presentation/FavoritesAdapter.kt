@@ -10,7 +10,7 @@ import ru.apteka.favorites.databinding.FavoriteCardHolferBinding
  * Представляет адаптер для избранного.
  */
 class FavoritesAdapter(
-    private val _lifecycleOwner: LifecycleOwner,
+    private val lifeOwner: LifecycleOwner,
     private val onItemClick: () -> Unit
 ) :
     ViewBindingDelegateAdapter<FavoriteCardModel, FavoriteCardHolferBinding>(FavoriteCardHolferBinding::inflate) {
@@ -20,7 +20,7 @@ class FavoritesAdapter(
         isFirst: Boolean,
         isLast: Boolean
     ) {
-        lifecycleOwner = _lifecycleOwner
+        lifecycleOwner = lifeOwner
 
         model = item
         executePendingBindings()

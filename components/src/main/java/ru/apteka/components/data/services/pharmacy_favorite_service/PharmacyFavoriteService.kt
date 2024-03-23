@@ -1,9 +1,9 @@
 package ru.apteka.components.data.services.pharmacy_favorite_service
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import ru.apteka.components.data.models.PharmacyModel
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.contains
 import java.util.UUID
 import javax.inject.Inject
@@ -17,12 +17,11 @@ import javax.inject.Singleton
 class PharmacyFavoriteService @Inject constructor(
 
 ) {
-    private val _pharmacies = MutableLiveData<List<PharmacyModel>>(emptyList())
 
     /**
      * Возвращает список продукции в избранном.
      */
-    val pharmacies: LiveData<List<PharmacyModel>> = _pharmacies
+    val pharmacies = ScopedLiveData(emptyList<PharmacyModel>())
 
     /**
      * Возвращает кол-во продукции в избранном.
@@ -35,18 +34,18 @@ class PharmacyFavoriteService @Inject constructor(
      * Добавляет товар в избранное.
      */
     fun addPharmacy(pharmacy: PharmacyModel) {
-        _pharmacies.value = _pharmacies.value!!.plus(pharmacy)
+        pharmacies.setValue(pharmacies.value!!.plus(pharmacy))
     }
 
     /**
      * Удаляет товар из избранного.
      */
     fun removePharmacy(pharmacy: PharmacyModel) {
-        _pharmacies.value = _pharmacies.value!!.minus(pharmacy)
+        pharmacies.setValue(pharmacies.value!!.minus(pharmacy))
     }
 
     /**
      * Возвращет флаг содержания продукции в избранном.
      */
-    fun isContainsInFavorite(uuid: UUID) = _pharmacies.value!!.contains { it.id == uuid }
+    fun isContainsInFavorite(uuid: UUID) = pharmacies.value!!.contains { it.id == uuid }
 }

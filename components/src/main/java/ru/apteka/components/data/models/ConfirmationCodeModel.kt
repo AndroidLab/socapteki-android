@@ -2,7 +2,6 @@ package ru.apteka.components.data.models
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.utils.DownTimer
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.tinkoff.decoro.MaskImpl
@@ -28,7 +28,6 @@ data class ConfirmationCodeModel(
     val getPhoneRaw: () -> String,
 ) {
     private val downTimer = DownTimer(60)
-    private val _leftTime = MutableLiveData<String?>(null)
 
     /**
      * Возвращает или устанавливает тип кода для получения (СМС или звонок).
@@ -38,7 +37,7 @@ data class ConfirmationCodeModel(
     /**
      * Осталось времени до повторения отправки кода.
      */
-    val leftTime: LiveData<String?> = _leftTime
+    val leftTime = ScopedLiveData<ConfirmationCodeModel, String?>(null)
 
     /**
      * Устанавливает или возвращает код.
@@ -53,33 +52,25 @@ data class ConfirmationCodeModel(
         it.replace(" ", "")
     }
 
-    private val _isLoading = MutableLiveData(false)
-
     /**
      * Возвращает флаг получения кода.
      */
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _isCodeRequested = MutableLiveData(false)
+    val isLoading = ScopedLiveData(false)
 
     /**
      * Возвращает флаг успешного запроса кода (Вызывается 1 раз, при первом успешном запросе).
      */
-    val isCodeRequested: LiveData<Boolean> = _isCodeRequested
-
-    private val _isCodeConfirmError = MutableLiveData(false)
+    val isCodeRequested = ScopedLiveData(false)
 
     /**
      * Возвращает флаг ошибки подтверждения кода.
      */
-    val isCodeConfirmError: LiveData<Boolean> = _isCodeConfirmError
-
-    private val _requestCounts = MutableLiveData(0)
+    val isCodeConfirmError = ScopedLiveData(false)
 
     /**
      * Возвращает кол-во запросов пин кода.
      */
-    val requestCounts: LiveData<Int> = _requestCounts
+    val requestCounts = ScopedLiveData(0)
 
     /**
      * Возвращает обработчмк получения нового кода.
@@ -90,10 +81,12 @@ data class ConfirmationCodeModel(
                 requestHandler.handleApiRequest(
                     onRequest = { loginRepository.requestCode(getPhoneRaw()) },
                     onSuccess = {
-                        _requestCounts.postValue(_requestCounts.value!! + 1)
-                        _isCodeRequested.postValue(true)
+                        requestCounts.postValue(requestCounts.value!! + 1)
+                        isCodeRequested.postValue(true)
                     },
-                    isLoading = _isLoading
+                    onLoading = {
+                        isLoading.postValue(it)
+                    }
                 )
                 startDownTime()
             }
@@ -113,7 +106,9 @@ data class ConfirmationCodeModel(
                     success()
                 }
             },
-            isLoading = _isLoading
+            onLoading = {
+                isLoading.postValue(it)
+            }
         )
     }
 
@@ -126,7 +121,7 @@ data class ConfirmationCodeModel(
                 "${format.format(minutes)}:${format.format(seconds)}"
             }
         }.collect {
-            _leftTime.postValue(it)
+            leftTime.postValue(it)
         }
     }
 

@@ -98,6 +98,7 @@ class ProductCardManufacturerProgramFragment :
         }
 
         binding.rvManufacturerProgramProducts.adapter = productsAdapter
+
         viewModel.products.observe(viewLifecycleOwner) {
             productsAdapter.swapData(
                 it

@@ -38,7 +38,7 @@ class MakingOrderAddressFragment :
     override val viewModel: MakingOrderAddressViewModel by viewModels()
     override val layoutId: Int = R.layout.making_order_address_fragment
 
-    private val _args: MakingOrderAddressFragmentArgs by navArgs()
+    private val args: MakingOrderAddressFragmentArgs by navArgs()
 
     private val mapView: MapView by lazy {
         binding.makingOrderAddressMapview

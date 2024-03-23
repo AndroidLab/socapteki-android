@@ -133,9 +133,9 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
      */
     fun sendQuestionnaire() {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
             mainThread {
                 isQuestionnaireSendSuccess.call()
             }
@@ -157,7 +157,9 @@ class WorkWithUsQuestionnaireViewModel @Inject constructor(
                         email.value = it.userMail?.mail ?: ""
                     }
                 },
-                isLoading = _isLoading
+                onLoading = {
+                    isLoading.postValue(it)
+                }
             )
         }
     }

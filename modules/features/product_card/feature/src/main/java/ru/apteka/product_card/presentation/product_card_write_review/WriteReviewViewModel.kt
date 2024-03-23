@@ -1,8 +1,8 @@
 package ru.apteka.product_card.presentation.product_card_write_review
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -11,6 +11,7 @@ import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.data.utils.validateEmail
@@ -50,12 +51,10 @@ class WriteReviewViewModel @Inject constructor(
      */
     val mail = MutableLiveData("")
 
-    private val _isMailValid = MutableLiveData<Int?>(null)
-
     /**
      * Возвращает ошибку валидации майла.
      */
-    val isMailValid: LiveData<Int?> = _isMailValid
+    val isMailValid = ScopedLiveData<ViewModel, Int?>(null)
 
     /**
      * Возвращает или устанавливает отзыв.
@@ -68,7 +67,7 @@ class WriteReviewViewModel @Inject constructor(
     val canSendReview = MediatorLiveData<Boolean>().apply {
         fun checkDataFilled() {
             postValue(
-                _isLoading.value == false &&
+                isLoading.value == false &&
                         rating.value!! > 0 &&
                         fio.value!!.isNotEmpty() &&
                         mail.value!!.isNotEmpty() &&
@@ -90,7 +89,7 @@ class WriteReviewViewModel @Inject constructor(
         }
 
         addSource(mail) {
-            _isMailValid.value = null
+            isMailValid.setValue(null)
             checkDataFilled()
         }
 
@@ -98,7 +97,7 @@ class WriteReviewViewModel @Inject constructor(
             checkDataFilled()
         }
 
-        addSource(_isMailValid) {
+        addSource(isMailValid) {
             checkDataFilled()
         }
     }
@@ -109,15 +108,15 @@ class WriteReviewViewModel @Inject constructor(
     fun sendReview() {
         if (validateEmail(mail.value!!)) {
             viewModelScope.launchIO {
-                _isLoading.postValue(true)
+                isLoading.postValue(true)
                 delay(1500)
                 mainThread {
                     navigationManager.generalNavController.popBackStack()
                 }
-                _isLoading.postValue(false)
+                isLoading.postValue(false)
             }
         } else {
-            _isMailValid.value = R.string.email_not_valid
+            isMailValid.setValue(R.string.email_not_valid)
         }
     }
 }

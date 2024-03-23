@@ -31,7 +31,7 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
 
     override val layoutId: Int = R.layout.sub_catalog_fragment
 
-    private val _args: SubCatalogFragmentArgs by navArgs()
+    private val args: SubCatalogFragmentArgs by navArgs()
 
     private val subCatalogAdapter by lazy {
         CompositeDelegateAdapter(
@@ -41,8 +41,8 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
     }
 
     override fun onViewBindingInflated(binding: SubCatalogFragmentBinding) {
-        viewModel.isLevel3 = _args.isLevel3
-        viewModel.catalogItem = _args.catalogItem
+        viewModel.isLevel3 = args.isLevel3
+        viewModel.catalogItem = args.catalogItem
 
         binding.viewModel = viewModel
         binding.rvSubCatalog.adapter = subCatalogAdapter
@@ -55,7 +55,7 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
     }
 
     private fun onItemClick(item: CatalogItem) {
-        if (_args.isLevel3) {
+        if (args.isLevel3) {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 ListingApiR.id.listing_graph,
                 bundleOf(

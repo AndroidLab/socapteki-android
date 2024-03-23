@@ -17,11 +17,10 @@ class WriteReviewFragment : BaseFragment<WriteReviewViewModel, WriteReviewFragme
     override val viewModel: WriteReviewViewModel by viewModels()
     override val layoutId: Int = R.layout.write_review_fragment
 
-    private val _args: WriteReviewFragmentArgs by navArgs()
-
+    private val args: WriteReviewFragmentArgs by navArgs()
 
     override fun onViewBindingInflated(binding: WriteReviewFragmentBinding) {
-        viewModel.product.value = _args.product
+        viewModel.product.value = args.product
         binding.viewModel = viewModel
 
     }

@@ -103,7 +103,7 @@ class ProfileNotificationsSettingViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             _notificationsOnlineOrderStatusMail = true
             _notificationsStocksMail = true
@@ -119,7 +119,7 @@ class ProfileNotificationsSettingViewModel @Inject constructor(
             notificationsPointsSmsOrMail.postValue(_notificationsPointsSmsOrMail)
             notificationsPointsPush.postValue(_notificationsPointsPush)
 
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 
@@ -129,12 +129,12 @@ class ProfileNotificationsSettingViewModel @Inject constructor(
      */
     fun save(success: () -> Unit) {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             mainThread {
                 success()
             }
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 

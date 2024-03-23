@@ -1,6 +1,5 @@
 package ru.apteka.profile.presentation.profile_personal_data_mail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
@@ -10,6 +9,7 @@ import ru.apteka.components.data.repository.kogin.LoginRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.validateEmail
 import ru.apteka.components.ui.BaseViewModel
@@ -33,12 +33,10 @@ class PersonalDataMailViewModel @Inject constructor(
      */
     val mail = MutableLiveData("")
 
-    private val _isMailFormatValid = MutableLiveData(true)
-
     /**
      * Возвращает флаг ошибки формата почты.
      */
-    val isMailFormatValid: LiveData<Boolean> = _isMailFormatValid
+    val isMailFormatValid = ScopedLiveData(true)
 
     /**
      * Возвращает модель подтверждения кода.
@@ -55,7 +53,7 @@ class PersonalDataMailViewModel @Inject constructor(
     init {
         viewModelScope.launchIO {
             mail.asFlow().collect {
-                _isMailFormatValid.postValue(true)
+                isMailFormatValid.postValue(true)
             }
         }
     }
@@ -67,7 +65,7 @@ class PersonalDataMailViewModel @Inject constructor(
         if (validateEmail(mail.value!!)) {
             confirmationCode.requestCode()
         } else {
-            _isMailFormatValid.value = false
+            isMailFormatValid.setValue(false)
         }
     }
 

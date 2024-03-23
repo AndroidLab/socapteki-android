@@ -32,13 +32,13 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
 
     override val layoutId: Int = R.layout.order_details_fragment
 
-    private val _args: OrderDetailsFragmentArgs by navArgs()
+    private val args: OrderDetailsFragmentArgs by navArgs()
 
     override fun onViewBindingInflated(binding: OrderDetailsFragmentBinding) {
         setFragmentResultListener(OrderCancelFragment.ORDER_CANCEL) { _, bundle ->
             viewModel.order.value = viewModel.order.value!!.copy(status = OrderStatus.CANCELED)
         }
-        viewModel.order.value = _args.order
+        viewModel.order.value = args.order
         binding.viewModel = viewModel
 
         binding.orderDetailsDeliveryDate.labelItem.setOnClickListener {
@@ -120,7 +120,7 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
 
         binding.btnOrderDetailsCancel.setOnClickListener {
             viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-                OrderDetailsFragmentDirections.toOrderCancelFragment(_args.order)
+                OrderDetailsFragmentDirections.toOrderCancelFragment(args.order)
             )
         }
 
@@ -142,7 +142,7 @@ class OrderDetailsFragment : BaseFragment<OrderDetailsViewModel, OrderDetailsFra
                 viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.popBackStack()
             }
             tvToolbarTitle.text =
-                String.format(getString(R.string.order_details_title), _args.order.number)
+                String.format(getString(R.string.order_details_title), args.order.number)
         }
     }
 

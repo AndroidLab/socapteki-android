@@ -1,7 +1,7 @@
 package ru.apteka.orders.presentation.orders
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -13,6 +13,7 @@ import ru.apteka.orders.data.repository.OrdersRepository
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -149,13 +150,10 @@ class OrdersViewModel @Inject constructor(
         items[0].isItemSelected.value = true
     }
 
-
-    private val _orders = MutableLiveData<List<OrderModel>>(emptyList())
-
     /**
      * Возвращает список всех заказов.
      */
-    val orders: MutableLiveData<List<OrderModel>> = _orders
+    val orders = ScopedLiveData<ViewModel, List<OrderModel>>(emptyList())
 
     /**
      * Возвращает фильтрованный список заказов.
@@ -165,19 +163,19 @@ class OrdersViewModel @Inject constructor(
         fun filterOrders() {
             postValue(
                 when (orderFilter.selectedItem.value?.status) {
-                    OrderStatus.NEW -> _orders.value!!.filter { it.status == OrderStatus.NEW }
-                    OrderStatus.READY_TO_RECEIVE -> _orders.value!!.filter { it.status == OrderStatus.READY_TO_RECEIVE }
-                    OrderStatus.TRANSFERRED_TO_COURIER -> _orders.value!!.filter { it.status == OrderStatus.TRANSFERRED_TO_COURIER }
-                    OrderStatus.DELIVERY_POSTPONED -> _orders.value!!.filter { it.status == OrderStatus.DELIVERY_POSTPONED }
-                    OrderStatus.RECEIVED -> _orders.value!!.filter { it.status == OrderStatus.RECEIVED }
-                    OrderStatus.CANCELED -> _orders.value!!.filter { it.status == OrderStatus.CANCELED }
-                    OrderStatus.AWAITING_PAYMENT -> _orders.value!!.filter { it.status == OrderStatus.AWAITING_PAYMENT }
-                    else -> _orders.value
+                    OrderStatus.NEW -> orders.value!!.filter { it.status == OrderStatus.NEW }
+                    OrderStatus.READY_TO_RECEIVE -> orders.value!!.filter { it.status == OrderStatus.READY_TO_RECEIVE }
+                    OrderStatus.TRANSFERRED_TO_COURIER -> orders.value!!.filter { it.status == OrderStatus.TRANSFERRED_TO_COURIER }
+                    OrderStatus.DELIVERY_POSTPONED -> orders.value!!.filter { it.status == OrderStatus.DELIVERY_POSTPONED }
+                    OrderStatus.RECEIVED -> orders.value!!.filter { it.status == OrderStatus.RECEIVED }
+                    OrderStatus.CANCELED -> orders.value!!.filter { it.status == OrderStatus.CANCELED }
+                    OrderStatus.AWAITING_PAYMENT -> orders.value!!.filter { it.status == OrderStatus.AWAITING_PAYMENT }
+                    else -> orders.value
                 }?.sortedByDescending { it.date }
             )
         }
 
-        addSource(_orders) {
+        addSource(orders) {
             filterOrders()
         }
 
@@ -194,10 +192,10 @@ class OrdersViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _orders.postValue(getOrdersFake()!!)
-            _isLoading.postValue(false)
+            orders.postValue(getOrdersFake())
+            isLoading.postValue(false)
         }
     }
 

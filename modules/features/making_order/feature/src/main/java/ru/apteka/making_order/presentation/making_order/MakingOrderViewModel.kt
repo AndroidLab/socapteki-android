@@ -2,7 +2,6 @@ package ru.apteka.making_order.presentation.making_order
 
 import android.util.Log
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -19,6 +18,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getPhoneRaw
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -244,21 +244,19 @@ class MakingOrderViewModel @Inject constructor(
      */
     val promoCodeValue = MutableLiveData("")
 
-    private val _isPromoCodeApplyLoading = MutableLiveData(false)
-
     /**
      * Возвращает флаг загрузки применения промокода.
      */
-    val isPromoCodeApplyLoading: LiveData<Boolean> = _isPromoCodeApplyLoading
+    val isPromoCodeApplyLoading = ScopedLiveData(false)
 
     /**
      * Применяет промокод.
      */
     fun applyPromoCode() {
         viewModelScope.launchIO {
-            _isPromoCodeApplyLoading.postValue(true)
+            isPromoCodeApplyLoading.postValue(true)
             delay(2000)
-            _isPromoCodeApplyLoading.postValue(false)
+            isPromoCodeApplyLoading.postValue(false)
         }
     }
 
@@ -267,21 +265,19 @@ class MakingOrderViewModel @Inject constructor(
      */
     val bonusesValue = MutableLiveData("")
 
-    private val _isBonusesApplyLoading = MutableLiveData(false)
-
     /**
      * Возвращает флаг загрузки применения бонусов.
      */
-    val isBonusesApplyLoading: LiveData<Boolean> = _isBonusesApplyLoading
+    val isBonusesApplyLoading = ScopedLiveData(false)
 
     /**
      * Применяет бонусы.
      */
     fun applyBonuses() {
         viewModelScope.launchIO {
-            _isBonusesApplyLoading.postValue(true)
+            isBonusesApplyLoading.postValue(true)
             delay(2000)
-            _isBonusesApplyLoading.postValue(false)
+            isBonusesApplyLoading.postValue(false)
         }
     }
 
@@ -295,8 +291,8 @@ class MakingOrderViewModel @Inject constructor(
      */
     val isMakingOrderEnabled = MediatorLiveData<Boolean>().apply {
         fun check() {
-            value = !isPromoCodeApplyLoading.value!! &&
-                !isBonusesApplyLoading.value!! &&
+            value = !isPromoCodeApplyLoading.getValue()!! &&
+                !isBonusesApplyLoading.getValue()!! &&
                 paymentsMethods.selectedItem.value != null &&
                 (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null) &&
                 recipients.value!!.isNotEmpty()

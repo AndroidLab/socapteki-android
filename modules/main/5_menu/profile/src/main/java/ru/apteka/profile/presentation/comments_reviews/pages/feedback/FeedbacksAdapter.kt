@@ -10,7 +10,7 @@ import ru.apteka.profile.databinding.FeedbackHolderBinding
 /**
  * Представляет адаптер для обратной связи.
  */
-class FeedbacksAdapter(private val _lifecycleOwner: LifecycleOwner) :
+class FeedbacksAdapter(private val lifeOwner: LifecycleOwner) :
     ViewBindingDelegateAdapter<FeedbackModel, FeedbackHolderBinding>(FeedbackHolderBinding::inflate) {
 
     override fun FeedbackHolderBinding.onBind(
@@ -18,7 +18,7 @@ class FeedbacksAdapter(private val _lifecycleOwner: LifecycleOwner) :
         isFirst: Boolean,
         isLast: Boolean
     ) {
-        lifecycleOwner = _lifecycleOwner
+        lifecycleOwner = lifeOwner
         model = item
 
         executePendingBindings()

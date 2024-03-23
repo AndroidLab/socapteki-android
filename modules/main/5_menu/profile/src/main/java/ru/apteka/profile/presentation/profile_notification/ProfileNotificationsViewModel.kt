@@ -1,7 +1,6 @@
 package ru.apteka.profile.presentation.profile_notification
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -10,6 +9,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -30,18 +30,17 @@ class ProfileNotificationsViewModel @Inject constructor(
     navigationManager,
     messageService
 ) {
-    private val _notifications = MutableLiveData<List<ProductNotificationModel>>(emptyList())
 
     /**
      * Возвращает уведомления о продукте.
      */
-    val notifications: LiveData<List<ProductNotificationModel>> = _notifications
+    val notifications = ScopedLiveData<ViewModel, List<ProductNotificationModel>>(emptyList())
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _notifications.postValue(
+            notifications.postValue(
                 getProductsFake2().map { product ->
                     ProductNotificationModel(
                         product
@@ -51,16 +50,16 @@ class ProfileNotificationsViewModel @Inject constructor(
                             isFavorite = favoriteService.isContainsInFavorite(product.id)
                         )
                         onNotificationRemove = { product ->
-                            _notifications.postValue(
-                                _notifications.value!!.minus(
-                                    _notifications.value!!.single { it.product.id == product.id }
+                            notifications.postValue(
+                                notifications.getValue()!!.minus(
+                                    notifications.getValue()!!.single { it.product.id == product.id }
                                 )
                             )
                         }
                     }
                 }
             )
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 

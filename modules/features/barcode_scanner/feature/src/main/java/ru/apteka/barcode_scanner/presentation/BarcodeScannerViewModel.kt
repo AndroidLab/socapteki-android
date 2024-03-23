@@ -1,7 +1,6 @@
 package ru.apteka.barcode_scanner.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -9,6 +8,7 @@ import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import java.util.UUID
@@ -28,25 +28,24 @@ class BarcodeScannerViewModel @Inject constructor(
 ) {
     private val badCode = "800003674602"
 
-    private val _isScanError = MutableLiveData(false)
-
     /**
      * Возвращает флаг ошибки сканирования.
      */
-    val isScanError: LiveData<Boolean> = _isScanError
+    val isScanError = ScopedLiveData(false)
 
-    private val _product = MutableLiveData<ProductModel?>(null)
-
-    val product: LiveData<ProductModel?> = _product
+    /**
+     * Возвращает продукт.
+     */
+    val product = ScopedLiveData<ViewModel, ProductModel?>(null)
 
     fun getProductByCode(code: String) {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(2500)
             if (code == badCode) {
-                _isScanError.postValue(true)
+                isScanError.postValue(true)
             } else {
-                _product.postValue(
+                product.postValue(
                     ProductModel(
                         id = UUID.randomUUID(),
                         image = "",
@@ -58,7 +57,7 @@ class BarcodeScannerViewModel @Inject constructor(
                     )
                 )
             }
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 }

@@ -39,7 +39,7 @@ class ChoosingCityViewModel @Inject constructor(
         Log.d("myL", "cityDetect")
     }
 
-    private val _cities = MutableLiveData<List<CityCardModel>>(emptyList())
+    private val cities = MutableLiveData<List<CityCardModel>>(emptyList())
 
     /**
      * Возвращает или устанавлитвает текст поиска города.
@@ -48,10 +48,10 @@ class ChoosingCityViewModel @Inject constructor(
 
     val citiesFilteredMediator = MediatorLiveData<List<CityCardModel>>().apply {
         fun filterCities() {
-            postValue(_cities.value!!.filter { it.city.name.contains(cityQuery.value!!, true) })
+            postValue(cities.value!!.filter { it.city.name.contains(cityQuery.value!!, true) })
         }
 
-        addSource(_cities) {
+        addSource(cities) {
             filterCities()
         }
 
@@ -65,9 +65,9 @@ class ChoosingCityViewModel @Inject constructor(
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { citiesRepository.getCities() },
-                    onSuccess = { cities ->
-                        _cities.postValue(
-                            cities.map { city ->
+                    onSuccess = {
+                        cities.postValue(
+                            it.map { city ->
                                 CityCardModel(
                                     city = city,
                                     onItemClick = {
@@ -82,7 +82,9 @@ class ChoosingCityViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _isLoading
+                    onLoading = {
+                        isLoading.postValue(it)
+                    }
                 )
             }
         }

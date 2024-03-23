@@ -1,8 +1,8 @@
 package ru.apteka.components.data.models
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import ru.apteka.components.data.utils.ScopedLiveData
 
 
 /**
@@ -23,19 +23,17 @@ abstract class SelectableModel<T: SelectableModel.SelectableItem>(
         }
     }
 
-    private val _selectedItem = MutableLiveData<T?>(null)
-
     /**
      * Возвращает или устанавливает выбранный элемент.
      */
-    val selectedItem: LiveData<T?> = _selectedItem
+    val selectedItem = ScopedLiveData<SelectableModel<T>, T?>(null)
 
     val mediator = MediatorLiveData(true).apply {
         items.forEach { item ->
             addSource(item.isItemSelected) {
                 if (it == true) {
                     onItemSelected(item)
-                    _selectedItem.value = item
+                    selectedItem.setValue(item)
                     items.forEach {
                         if (it != item) {
                             it.isItemSelected.value = false

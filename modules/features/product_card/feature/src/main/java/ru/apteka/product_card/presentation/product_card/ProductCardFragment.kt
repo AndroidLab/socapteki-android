@@ -42,7 +42,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
     override val viewModel: ProductCardViewModel by viewModels()
     override val layoutId: Int = R.layout.product_card_fragment
 
-    private val _args: ProductCardFragmentArgs by navArgs()
+    private val args: ProductCardFragmentArgs by navArgs()
 
     private val priceImageAdapter by lazy {
         CompositeDelegateAdapter(
@@ -68,7 +68,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
     }*/
 
     override fun onViewBindingInflated(binding: ProductCardFragmentBinding) {
-        viewModel.product.value = _args.product
+        viewModel.product.value = args.product
         binding.viewModel = viewModel
 
         binding.rvProductCardImages.adapter = priceImageAdapter
@@ -281,7 +281,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.btnProductCardSendComment.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ProductCardFragmentDirections.toProductCardWriteReviewFragment(_args.product)
+                ProductCardFragmentDirections.toProductCardWriteReviewFragment(args.product)
             )
         }
 
@@ -356,7 +356,7 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         binding.toolbar.apply {
             binding.toolbar.setNavigationIcon(ComponentsR.drawable.ic_navigation_back)
-            binding.toolbar.subtitle = _args.product.title
+            binding.toolbar.subtitle = args.product.title
             var maxOffsetForRecycler: Int? = null
             var maxOffsetForTitle: Int? = null
             var maxOffsetForFab: Int? = null

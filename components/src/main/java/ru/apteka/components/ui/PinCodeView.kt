@@ -26,7 +26,7 @@ class PinCodeView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    private val _binding = PinCodeViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = PinCodeViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var cellsCount = 4
     private var cellSize = 52.dp
@@ -95,7 +95,7 @@ class PinCodeView @JvmOverloads constructor(
             cells.add(
                 PinCodeItemBinding.inflate(
                     LayoutInflater.from(context),
-                    _binding.llCodeContainer,
+                    binding.llCodeContainer,
                     true
                 ).apply {
                     card.layoutParams = LinearLayout.LayoutParams(cellSize, cellSize)
@@ -128,9 +128,9 @@ class PinCodeView @JvmOverloads constructor(
     }
 
     private fun initEvent() {
-        _binding.etCode.addTextChangedListener { editable ->
+        binding.etCode.addTextChangedListener { editable ->
             if (!editable.isNullOrEmpty()) {
-                _binding.etCode.setText("")
+                binding.etCode.setText("")
                 if (codes.size < cells.size) {
                     codes.add(editable.toString())
                     showCode()
@@ -138,7 +138,7 @@ class PinCodeView @JvmOverloads constructor(
             }
         }
 
-        _binding.etCode.setOnKeyListener { view, keyCode, keyEvent ->
+        binding.etCode.setOnKeyListener { view, keyCode, keyEvent ->
             if (keyCode == KeyEvent.KEYCODE_DEL && keyEvent.action == KeyEvent.ACTION_DOWN && codes.isNotEmpty()) {
                 codes.removeAt(codes.size - 1)
                 showCode()
@@ -251,8 +251,8 @@ class PinCodeView @JvmOverloads constructor(
      * Показать клавиатуру
      */
     fun showSoftInput() {
-        _binding.etCode.postDelayed({
-            imm.showSoftInput(_binding.etCode, 0)
+        binding.etCode.postDelayed({
+            imm.showSoftInput(binding.etCode, 0)
         }, 200)
     }
 

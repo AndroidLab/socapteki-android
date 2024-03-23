@@ -34,7 +34,7 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
     override val viewModel: ListingViewModel by viewModels()
     override val layoutId: Int = R.layout.listing_fragment
 
-    private val _args: ListingFragmentArgs by navArgs()
+    private val args: ListingFragmentArgs by navArgs()
 
     private val listingProductsAdapter by lazy {
         CompositeDelegateAdapter(
@@ -50,7 +50,7 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
         binding.viewModel = viewModel
         binding.lifecycle = this
 
-        if (viewModel.products.value!!.isEmpty()) {
+        if (viewModel.products.getValue()!!.isEmpty()) {
             binding.catalogProductsSort.setOnClickListener {
                 viewModel.bottomSheetService.show(
                     BottomSheetModel(
@@ -222,7 +222,7 @@ class ListingFragment : BaseFragment<ListingViewModel, ListingFragmentBinding>()
         viewModel.navigationManager.onBottomAppBarShowed(false)
         binding.listingFragmentToolbar.apply {
             toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_navigation_back)
-            tvToolbarTitle.text = _args.name
+            tvToolbarTitle.text = args.name
             toolbar.setNavigationOnClickListener {
                 viewModel.navigationManager.generalNavController.popBackStack()
             }

@@ -1,7 +1,7 @@
 package ru.apteka.stocks.presentation.stock_details
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -13,6 +13,7 @@ import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -35,12 +36,10 @@ class StockDetailsViewModel @Inject constructor(
     messageService
 ) {
 
-    private val _products = MutableLiveData<List<ProductCardModel>>()
-
     /**
      * Возвращает продукцию.
      */
-    val products: LiveData<List<ProductCardModel>> = _products
+    val products = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
 
     /**
      * Возвращает или устанавливает акцию.
@@ -49,9 +48,9 @@ class StockDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _products.postValue(
+            products.postValue(
                 getProductsFake().map { product ->
                     ProductCardModel(
                         product = product,
@@ -67,7 +66,7 @@ class StockDetailsViewModel @Inject constructor(
                     }
                 }
             )
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 

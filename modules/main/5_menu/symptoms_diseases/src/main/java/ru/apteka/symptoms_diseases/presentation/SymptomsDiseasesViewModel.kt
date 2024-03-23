@@ -1,6 +1,5 @@
 package ru.apteka.symptoms_diseases.presentation
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +7,7 @@ import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -68,19 +68,17 @@ class SymptomsDiseasesViewModel @Inject constructor(
         SymptomModel("Дменория"),
     )
 
-    private val _symptoms = MutableLiveData<List<Any>>(emptyList())
+    private val symptoms = MutableLiveData<List<Any>>(emptyList())
 
     /**
      * Возвращает список симптомов.
      */
-    val letters: LiveData<List<Any>> = _symptoms
-
-    private val _isSearchProgress = MutableLiveData(false)
+    val letters = ScopedLiveData(emptyList<Any>())
 
     /**
      * Возвращает флаг прогресса поиска.
      */
-    val isSearchProgress: LiveData<Boolean> = _isSearchProgress
+    val isSearchProgress = ScopedLiveData(false)
 
     /**
      * Возвращает или устанавливает значение для поиска.
@@ -105,10 +103,10 @@ class SymptomsDiseasesViewModel @Inject constructor(
 
     private suspend fun symptomsSearch(value: String) {
         viewModelScope.launchIO {
-            _isSearchProgress.postValue(true)
+            isSearchProgress.postValue(true)
             delay(1500)
             symptomsHandler(fakeSymptoms.filter { it.title.contains(value, true) })
-            _isSearchProgress.postValue(false)
+            isSearchProgress.postValue(false)
         }
     }
 
@@ -117,15 +115,15 @@ class SymptomsDiseasesViewModel @Inject constructor(
      */
     private fun getSymptoms() {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             symptomsHandler(fakeSymptoms)
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 
     private fun symptomsHandler(list: List<SymptomModel>) {
-        _symptoms.postValue(
+        symptoms.postValue(
             buildList {
                 list.forEachIndexed { index, symptom ->
                     if (index == 0 || list[index-1].title.first() != symptom.title.first()) {

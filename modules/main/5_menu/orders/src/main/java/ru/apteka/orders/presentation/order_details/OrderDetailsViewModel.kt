@@ -90,12 +90,12 @@ class OrderDetailsViewModel @Inject constructor(
      */
     fun sendOpinion(success: () -> Unit) {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             mainThread {
                 success()
             }
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 
@@ -104,9 +104,9 @@ class OrderDetailsViewModel @Inject constructor(
      */
     fun extendBooking() {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 

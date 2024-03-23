@@ -1,8 +1,7 @@
 package ru.apteka.components.data.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.data.services.pharmacy_favorite_service.PharmacyFavoriteService
+import ru.apteka.components.data.utils.ScopedLiveData
 
 /**
  * Представляет модель избранного для карточки аптеки.
@@ -11,12 +10,10 @@ data class PharmacyFavoriteModel(
     private val favoriteService: PharmacyFavoriteService,
     private val isFavorite: Boolean,
 ) {
-    private val _isFavoriteLiveData = MutableLiveData(isFavorite)
-
     /**
      * Возвращает флаг наличия аптеки в избранном.
      */
-    val isFavoriteLiveData: LiveData<Boolean> = _isFavoriteLiveData
+    val isFavoriteLiveData = ScopedLiveData(isFavorite)
 
     /**
      * Возвращает обработчик клина на иконке избранного.
@@ -24,10 +21,10 @@ data class PharmacyFavoriteModel(
     fun clickFavorite(pharmacy: PharmacyModel) {
         if (favoriteService.isContainsInFavorite(pharmacy.id)) {
             favoriteService.removePharmacy(pharmacy)
-            _isFavoriteLiveData.value = false
+            isFavoriteLiveData.setValue(false)
         } else {
             favoriteService.addPharmacy(pharmacy)
-            _isFavoriteLiveData.value = true
+            isFavoriteLiveData.setValue(true)
         }
     }
 }

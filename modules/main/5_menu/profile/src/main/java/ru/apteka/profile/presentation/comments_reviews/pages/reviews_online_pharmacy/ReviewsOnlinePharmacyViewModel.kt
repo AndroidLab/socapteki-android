@@ -1,13 +1,13 @@
 package ru.apteka.profile.presentation.comments_reviews.pages.reviews_online_pharmacy
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.profile.data.models.CommentModel
@@ -69,19 +69,17 @@ class ReviewsOnlinePharmacyViewModel @Inject constructor(
         ),
     )
 
-    private val _comments = MutableLiveData<List<CommentModel>>(emptyList())
-
     /**
      * Возвращет список комментариев.
      */
-    val comments: LiveData<List<CommentModel>> = _comments
+    val comments = ScopedLiveData<ViewModel, List<CommentModel>>(emptyList())
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _comments.postValue(commentsFake)
-            _isLoading.postValue(false)
+            comments.postValue(commentsFake)
+            isLoading.postValue(false)
         }
 
         /*viewModelScope.launchIO {

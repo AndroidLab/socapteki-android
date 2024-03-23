@@ -1,7 +1,5 @@
 package ru.apteka.basket.presentation.basket
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +18,7 @@ import ru.apteka.components.data.services.message_notice_service.models.DialogBu
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.models.MessageModel
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -106,26 +105,22 @@ class BasketViewModel @Inject constructor(
         }
     }
 
-    private val _alwaysUsefulProducts = MutableLiveData<List<ProductCardModel>>(emptyList())
-
     /**
      * Возвращает товары 'Всегда пригодится'
      */
-    val alwaysUsefulProducts: LiveData<List<ProductCardModel>> = _alwaysUsefulProducts
-
-    private val _alwaysUsefulIsLoading = MutableLiveData(false)
+    val alwaysUsefulProducts = ScopedLiveData(emptyList<ProductCardModel>())
 
     /**
      * Ворзвращает флаг загрузки товаров.
      */
-    val alwaysUsefulIsLoading: LiveData<Boolean> = _alwaysUsefulIsLoading
+    val alwaysUsefulIsLoading = ScopedLiveData(false)
 
     init {
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = { getProductsFake() },
                 onSuccess = { products ->
-                    _alwaysUsefulProducts.postValue(
+                    alwaysUsefulProducts.postValue(
                         products.map { product ->
                             ProductCardModel(
                                 product = product
@@ -142,7 +137,9 @@ class BasketViewModel @Inject constructor(
                         }
                     )
                 },
-                isLoading = _alwaysUsefulIsLoading
+                onLoading = {
+                    alwaysUsefulIsLoading.setValue(it)
+                }
             )
         }
     }

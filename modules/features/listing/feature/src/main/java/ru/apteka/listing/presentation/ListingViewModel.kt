@@ -3,6 +3,7 @@ package ru.apteka.listing.presentation
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IBottomSheetService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -97,32 +99,28 @@ class ListingViewModel @Inject constructor(
      */
     val sortModel = SortModel()
 
-    private val _products = MutableLiveData<List<ProductCardModel>>(emptyList())
-
     /**
      * Возвращает список продуктов.
      */
-    val products: LiveData<List<ProductCardModel>> = _products
-
-    private val _isProductsLoading = MutableLiveData(false)
+    val products = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
 
     /**
      * Возвращает флаг загрузки продуктов.
      */
-    val isProductsLoading: LiveData<Boolean> = _isProductsLoading
+    val isProductsLoading = ScopedLiveData(false)
 
     /**
      * Получает продукты.
      */
     fun getCatalogProducts() {
-        _products.value = emptyList()
+        products.setValue(emptyList<ProductCardModel>())
         viewModelScope.launchIO {
             requestHandler.handleApiRequest(
                 onRequest = { getProductsFake() },
-                onSuccess = { products ->
-                    _filters.postValue(filtersFake)
-                    _products.postValue(
-                        products.map { product ->
+                onSuccess = {
+                    filters.postValue(filtersFake)
+                    products.postValue(
+                        it.map { product ->
                             ProductCardModel(
                                 product = product
                             ).apply {
@@ -139,7 +137,7 @@ class ListingViewModel @Inject constructor(
                     )
                 },
                 onLoading = {
-                    _isProductsLoading.postValue(it)
+                    isProductsLoading.postValue(it)
                 }
             )
         }
@@ -373,12 +371,10 @@ class ListingViewModel @Inject constructor(
         )
     )
 
-    private val _filters = MutableLiveData<List<IFilter>>(emptyList())
-
     /**
      * Возвращает список доступных фильтров.
      */
-    val filters: MutableLiveData<List<IFilter>> = _filters
+    val filters = ScopedLiveData<ViewModel, List<IFilter>>(emptyList())
 
     /**
      *

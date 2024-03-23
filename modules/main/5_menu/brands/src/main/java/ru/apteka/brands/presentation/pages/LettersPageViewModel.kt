@@ -1,8 +1,6 @@
 package ru.apteka.brands.presentation.pages
 
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,6 +10,7 @@ import ru.apteka.brands.data.model.LettersItemModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
@@ -221,19 +220,15 @@ class LettersPageViewModel @Inject constructor(
         ),
     )
 
-    private val _letters = MutableLiveData<List<LettersCardModel>>(emptyList())
-
     /**
      * Возвращает список брендов или производителей.
      */
-    val letters: LiveData<List<LettersCardModel>> = _letters
-
-    private val _isSearchProgress = MutableLiveData(false)
+    val letters = ScopedLiveData(emptyList<LettersCardModel>())
 
     /**
      * Возвращает флаг прогресса поиска.
      */
-    val isSearchProgress: LiveData<Boolean> = _isSearchProgress
+    val isSearchProgress = ScopedLiveData(false)
 
     /**
      * Возвращает или устанавливает значение для поиска.
@@ -251,7 +246,7 @@ class LettersPageViewModel @Inject constructor(
             }
         } else {
             valueQuery = ""
-            _letters.postValue(
+            letters.postValue(
                 fakeBrands
             )
         }
@@ -259,9 +254,9 @@ class LettersPageViewModel @Inject constructor(
 
     private suspend fun lettersSearch(value: String) {
         viewModelScope.launchIO {
-            _isSearchProgress.postValue(true)
+            isSearchProgress.postValue(true)
             delay(1500)
-            _letters.postValue(
+            letters.postValue(
                 fakeBrands.filter { it.items.any { it.item.contains(value, true) } }.map {
                     BrandModel(
                         title = it.title,
@@ -269,7 +264,7 @@ class LettersPageViewModel @Inject constructor(
                     )
                 }
             )
-            _isSearchProgress.postValue(false)
+            isSearchProgress.postValue(false)
         }
     }
 
@@ -278,10 +273,10 @@ class LettersPageViewModel @Inject constructor(
      */
     fun getLetters(type: String) {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _letters.postValue(fakeBrands)
-            _isLoading.postValue(false)
+            letters.postValue(fakeBrands)
+            isLoading.postValue(false)
         }
     }
 

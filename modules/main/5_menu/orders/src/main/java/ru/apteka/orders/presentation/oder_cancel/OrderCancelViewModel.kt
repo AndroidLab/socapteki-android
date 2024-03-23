@@ -86,12 +86,12 @@ class OrderCancelViewModel @Inject constructor(
      */
     fun cancelOrder(success: () -> Unit) {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
             mainThread {
                 success()
             }
-            _isLoading.postValue(false)
+            isLoading.postValue(false)
         }
     }
 }

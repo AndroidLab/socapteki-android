@@ -1,7 +1,6 @@
 package ru.apteka.stocks.presentation.stocks
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -11,6 +10,7 @@ import ru.apteka.components.data.services.basket_service.BasketService
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -114,12 +114,10 @@ class StocksViewModel @Inject constructor(
         ),
     )
 
-    private val _stocks = MutableLiveData<List<StockModel>>(emptyList())
-
     /**
      * Возвращает список акций.
      */
-    val stocks: LiveData<List<StockModel>> = _stocks
+    val stocks = ScopedLiveData<ViewModel, List<StockModel>>(emptyList())
 
     /**
      * Возвращает или устанавливает значение для поиска.
@@ -146,10 +144,10 @@ class StocksViewModel @Inject constructor(
 
     private fun searchSocks() {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _stocks.postValue(stocksFake)
-            _isLoading.postValue(false)
+            stocks.postValue(stocksFake)
+            isLoading.postValue(false)
         }
     }
 

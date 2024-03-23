@@ -1,7 +1,7 @@
 package ru.apteka.profile.presentation.profile_personal_data
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +11,7 @@ import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.ui.BaseViewModel
@@ -64,20 +65,17 @@ class PersonalDataViewModel @Inject constructor(
      */
     val isEmailVerified = MutableLiveData(false)
 
-    private val _sex = MutableLiveData<Int?>(null)
-
     /**
      * Возвращает пол.
      */
-    val sex: LiveData<Int?> = _sex
+    val sex = ScopedLiveData<ViewModel, Int?>(null)
 
-    private val _sexIsLoading = MutableLiveData(false)
     private var sexSaveError = false
 
     /**
      * Возвращает флаг загрузки пола.
      */
-    val sexIsLoading: LiveData<Boolean> = _sexIsLoading
+    val sexIsLoading = ScopedLiveData(false)
 
     val sexModel = SexModel(
         _items = listOf(SexModel.Item(1), SexModel.Item(2))
@@ -91,7 +89,7 @@ class PersonalDataViewModel @Inject constructor(
 
     private fun saveSex(sex: Int) {
         viewModelScope.launchIO {
-            _sexIsLoading.postValue(true)
+            sexIsLoading.postValue(true)
             loginRepository.savePersonalDataSex(sex)
             /*delay(1500)
             sexSaveError = true
@@ -103,7 +101,7 @@ class PersonalDataViewModel @Inject constructor(
                     sexModel.items[1].isItemSelected.postValue(false)
                 }
             }*/
-            _sexIsLoading.postValue(false)
+            sexIsLoading.postValue(false)
         }
     }
 
@@ -125,12 +123,14 @@ class PersonalDataViewModel @Inject constructor(
                         date.value = _date
                         phone.value = it.phone ?: accountsPreferences.account!!.phoneNumber!!
                         _email.value = it.userMail
-                        _sex.value = it.sex
+                        sex.setValue(it.sex)
                         isEmailVerified.value = it.userMail?.isVerified ?: false
                         isReceiveReceipts.value = it.isReceiveReceipts
                     }
                 },
-                isLoading = _isLoading
+                onLoading = {
+                    isLoading.postValue(it)
+                }
             )
         }
     }

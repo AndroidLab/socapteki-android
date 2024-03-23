@@ -1,11 +1,10 @@
 package ru.apteka.basket.data.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.data.models.ProductFavoriteModel
 import ru.apteka.components.data.models.ProductModel
 import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.utils.DownTimer
+import ru.apteka.components.data.utils.ScopedLiveData
 import java.text.DecimalFormat
 
 
@@ -30,24 +29,22 @@ data class BasketCardModel(
 
     private val downTimer = DownTimer(
         10, {
-            _productLeftTime.value = it.let {
+            productLeftTime.setValue(it.let {
                 val minutes = it / 60
                 val seconds = it % 60
                 val format = DecimalFormat("00")
                 "${format.format(minutes)}:${format.format(seconds)}"
-            }
+            })
         }, {
-            _productLeftTime.value = null
+            productLeftTime.setValue(null)
             basket.clear(product)
         }
     )
 
-    private val _productLeftTime = MutableLiveData<String?>(null)
-
     /**
      * Возвращает время до удаления продукта.
      */
-    val productLeftTime: LiveData<String?> = _productLeftTime
+    val productLeftTime = ScopedLiveData<BasketCardModel, String?>(null)
 
     /**
      * Обработчик удаления продукта.
@@ -61,7 +58,7 @@ data class BasketCardModel(
      */
     fun restoreProduct() {
         downTimer.cancelTimer()
-        _productLeftTime.value = null
+        productLeftTime.setValue(null)
     }
 
 }

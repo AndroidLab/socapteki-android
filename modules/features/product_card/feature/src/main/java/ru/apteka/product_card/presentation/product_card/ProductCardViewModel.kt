@@ -1,7 +1,7 @@
 package ru.apteka.product_card.presentation.product_card
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +15,7 @@ import ru.apteka.components.data.services.basket_service.models.BasketModel
 import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
@@ -64,64 +65,46 @@ class ProductCardViewModel @Inject constructor(
         }
     }
 
-    private val _analoguesProducts = MutableLiveData<List<ProductCardModel>>()
-
     /**
      * Возвращает ссписок аннологичных товаров.
      */
-    val analoguesProducts: LiveData<List<ProductCardModel>> = _analoguesProducts
-
-    private val _isAnaloguesProductsLoading = MutableLiveData(false)
+    val analoguesProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>()
 
     /**
      * Возвращает флаг загрузки аннологичных товаров.
      */
-    val isAnaloguesProductsLoading: LiveData<Boolean> = _isAnaloguesProductsLoading
+    val isAnaloguesProductsLoading = ScopedLiveData(false)
 
-
-    private val _withProductProducts = MutableLiveData<List<ProductCardModel>>()
 
     /**
      * Возвращает ссписок с этим товаром покупают.
      */
-    val withProducts: LiveData<List<ProductCardModel>> = _withProductProducts
-
-    private val _isWithProductsLoading = MutableLiveData(false)
+    val withProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>()
 
     /**
      * Возвращает флаг загрузки с этим товаром покупают.
      */
-    val isWithProductsLoading: LiveData<Boolean> = _isWithProductsLoading
-
-
-    private val _productInstruction = MutableLiveData<List<InstructionModel.InstructionItem>>()
+    val isWithProductsLoading = ScopedLiveData(false)
 
     /**
      * Возвращает инструкцию к товару.
      */
-    val productInstruction: LiveData<List<InstructionModel.InstructionItem>> = _productInstruction
-
-    private val _isProductInstructionLoading = MutableLiveData(false)
+    val productInstruction = ScopedLiveData<ViewModel, List<InstructionModel.InstructionItem>>()
 
     /**
      * Возвращает флаг загрузки инструкции товара.
      */
-    val isProductInstructionLoading: LiveData<Boolean> = _isProductInstructionLoading
-
-
-    private val _productComments = MutableLiveData<CommentModel>()
+    val isProductInstructionLoading = ScopedLiveData(false)
 
     /**
      * Возвращает комментарии к товару.
      */
-    val productComments: LiveData<CommentModel> = _productComments
-
-    private val _isProductCommentsLoading = MutableLiveData(false)
+    val productComments = ScopedLiveData<ViewModel, CommentModel>()
 
     /**
      * Возвращает флаг загрузки комментариев.
      */
-    val isProductCommentsLoading: LiveData<Boolean> = _isProductCommentsLoading
+    val isProductCommentsLoading = ScopedLiveData(false)
 
 
     init {
@@ -140,7 +123,7 @@ class ProductCardViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { getProductsFake() },
                     onSuccess = { products ->
-                        _analoguesProducts.postValue(
+                        analoguesProducts.postValue(
                             products.map { product ->
                                 ProductCardModel(
                                     product = product,
@@ -157,7 +140,9 @@ class ProductCardViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _isAnaloguesProductsLoading
+                    onLoading = {
+                        isAnaloguesProductsLoading.postValue(it)
+                    }
                 )
             }
 
@@ -165,7 +150,7 @@ class ProductCardViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { getProductsFake() },
                     onSuccess = { products ->
-                        _withProductProducts.postValue(
+                        withProducts.postValue(
                             products.map { product ->
                                 ProductCardModel(
                                     product = product,
@@ -182,7 +167,9 @@ class ProductCardViewModel @Inject constructor(
                             }
                         )
                     },
-                    isLoading = _isWithProductsLoading
+                    onLoading = {
+                        isWithProductsLoading.postValue(it)
+                    }
                 )
             }
 
@@ -190,9 +177,11 @@ class ProductCardViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { productCardRepository.getInstruction() },
                     onSuccess = { instruction ->
-                        _productInstruction.postValue(instruction.instructions)
+                        productInstruction.postValue(instruction.instructions)
                     },
-                    isLoading = _isProductInstructionLoading
+                    onLoading = {
+                        isProductInstructionLoading.postValue(it)
+                    }
                 )
             }
 
@@ -200,9 +189,11 @@ class ProductCardViewModel @Inject constructor(
                 requestHandler.handleApiRequest(
                     onRequest = { productCardRepository.getProductComments() },
                     onSuccess = { comments ->
-                        _productComments.postValue(comments)
+                        productComments.postValue(comments)
                     },
-                    isLoading = _isProductCommentsLoading
+                    onLoading = {
+                        isProductCommentsLoading.postValue(it)
+                    }
                 )
             }
         }

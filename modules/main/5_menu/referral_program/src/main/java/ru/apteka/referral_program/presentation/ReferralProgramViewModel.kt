@@ -1,13 +1,12 @@
 package ru.apteka.referral_program.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.referral_program.data.models.HistoryRecommendationModel
@@ -34,26 +33,22 @@ class ReferralProgramViewModel @Inject constructor(
         HistoryRecommendationModel("01.01.23", "+150"),
     )
 
-    private val _historyRecommendation = MutableLiveData<List<HistoryRecommendationModel>>(emptyList())
+    /**
+     *
+     */
+    val historyRecommendation = ScopedLiveData(emptyList<HistoryRecommendationModel>())
 
     /**
      *
      */
-    val historyRecommendation: LiveData<List<HistoryRecommendationModel>> = _historyRecommendation
-
-    private val _historyRecommendationIsLoading = MutableLiveData(false)
-
-    /**
-     *
-     */
-    val historyRecommendationIsLoading: LiveData<Boolean> = _historyRecommendationIsLoading
+    val historyRecommendationIsLoading = ScopedLiveData(false)
 
     init {
         viewModelScope.launchIO {
-            _historyRecommendationIsLoading.postValue(true)
+            historyRecommendationIsLoading.postValue(true)
             delay(1500)
-            _historyRecommendation.postValue(fakeHistoryRecommendation)
-            _historyRecommendationIsLoading.postValue(false)
+            historyRecommendation.postValue(fakeHistoryRecommendation)
+            historyRecommendationIsLoading.postValue(false)
         }
     }
 

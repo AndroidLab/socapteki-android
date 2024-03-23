@@ -2,15 +2,23 @@ package ru.apteka.work_with_us.presentation.work_with_us_job_openings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flow
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
@@ -59,12 +67,10 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
         setItemSelected(0)
     }
 
-    private val _jobOpenings = MutableLiveData<List<JobOpeningModel>>(emptyList())
-
     /**
      * Возвращает список всех вакансий.
      */
-    val jobOpenings: MutableLiveData<List<JobOpeningModel>> = _jobOpenings
+    val jobOpenings = ScopedLiveData(emptyList<JobOpeningModel>())
 
     /**
      * Возвращает фильтрованный список заказов.
@@ -74,10 +80,10 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
         fun filterJobOpenings() {
             postValue(
                 when (userPreferences.jobOpeningsCityFilter) {
-                    "Все города" -> _jobOpenings.value
-                    "Москва" -> _jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
-                    "Ростов-на Дону" -> _jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
-                    "Батайск" -> _jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
+                    "Все города" -> jobOpenings.value
+                    "Москва" -> jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
+                    "Ростов-на Дону" -> jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
+                    "Батайск" -> jobOpenings.value!!.filter { it.city == userPreferences.jobOpeningsCityFilter }
                     else -> {
                         throw IllegalArgumentException()
                     }
@@ -85,7 +91,7 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
             )
         }
 
-        addSource(_jobOpenings) {
+        addSource(jobOpenings) {
             filterJobOpenings()
         }
 
@@ -100,40 +106,34 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
         }
     }
 
-    private val _events = MutableLiveData<List<Int>>(emptyList())
 
     /**
      *
      */
-    val events: LiveData<List<Int>> = _events
-
-    private val _eventsIsLoading = MutableLiveData(false)
+    val events = ScopedLiveData(emptyList<Int>())
 
     /**
      *
      */
-    val eventsIsLoading: LiveData<Boolean> = _eventsIsLoading
-
-    private val _employeeReviews = MutableLiveData<List<EmployeeReviewModel>>(emptyList())
+    val eventsIsLoading = ScopedLiveData(false)
 
     /**
      *
      */
-    val employeeReviews: LiveData<List<EmployeeReviewModel>> = _employeeReviews
-
-    private val _employeeReviewsIsLoading = MutableLiveData(false)
+    val employeeReviews = ScopedLiveData(emptyList<EmployeeReviewModel>())
 
     /**
      *
      */
-    val employeeReviewsIsLoading: LiveData<Boolean> = _employeeReviewsIsLoading
+    val employeeReviewsIsLoading = ScopedLiveData(false)
+
 
     init {
         viewModelScope.launchIO {
             launchIO {
-                _isLoading.postValue(true)
+                isLoading.postValue(true)
                 delay(1500)
-                _jobOpenings.postValue(
+                jobOpenings.postValue(
                     listOf(
                         JobOpeningModel(
                             name = "Фармацевт-провизор",
@@ -193,7 +193,7 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
                         },
                     )
                 )
-                _isLoading.postValue(false)
+                isLoading.postValue(false)
 
                 /*requestHandler.handleApiRequest(
                     onRequest = { ordersRepository.getOrders() },
@@ -205,22 +205,22 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
             }
 
             launchIO {
-                _eventsIsLoading.postValue(true)
+                eventsIsLoading.postValue(true)
                 delay(1500)
-                _events.postValue(
+                events.postValue(
                     listOf(
                         ComponentsR.drawable.banner,
                         ComponentsR.drawable.banner,
                         ComponentsR.drawable.banner
                     )
                 )
-                _eventsIsLoading.postValue(false)
+                eventsIsLoading.postValue(false)
             }
 
             launchIO {
-                _employeeReviewsIsLoading.postValue(true)
+                employeeReviewsIsLoading.postValue(true)
                 delay(1500)
-                _employeeReviews.postValue(
+                employeeReviews.postValue(
                     listOf(
                         EmployeeReviewModel(
                             photo = R.drawable.emploee_photo,
@@ -242,7 +242,7 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
                         ),
                     )
                 )
-                _employeeReviewsIsLoading.postValue(false)
+                employeeReviewsIsLoading.postValue(false)
             }
         }
     }

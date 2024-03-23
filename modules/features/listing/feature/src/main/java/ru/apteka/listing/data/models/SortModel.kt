@@ -1,8 +1,8 @@
 package ru.apteka.listing.data.models
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.single_live_event.SingleLiveEvent
 import ru.apteka.listing.R
 
@@ -69,12 +69,10 @@ class SortModel {
         }
     }
 
-    private val _itemSelected = MutableLiveData(R.string.listing_product_sort_popular)
-
     /**
      * Возвращает выбранный тип сортировки.
      */
-    val itemSelected: LiveData<Int> = _itemSelected
+    val itemSelected = ScopedLiveData(R.string.listing_product_sort_popular)
 
     /**
      * Возвращает флаг завершения редактирования.
@@ -102,14 +100,16 @@ class SortModel {
         _expensive = expensive.value!!
         _stock = stock.value!!
         _discount = discount.value!!
-        _itemSelected.value = when(true) {
-            popular.value!! -> R.string.listing_product_sort_popular
-            cheaper.value!! -> R.string.listing_product_sort_cheaper
-            expensive.value!! -> R.string.listing_product_sort_expensive
-            stock.value!! -> R.string.listing_product_sort_stock
-            discount.value!! -> R.string.listing_product_sort_discount
-            else -> throw IllegalArgumentException("Такая сортировка не предусмотрена")
-        }
+        itemSelected.setValue(
+            when(true) {
+                popular.value!! -> R.string.listing_product_sort_popular
+                cheaper.value!! -> R.string.listing_product_sort_cheaper
+                expensive.value!! -> R.string.listing_product_sort_expensive
+                stock.value!! -> R.string.listing_product_sort_stock
+                discount.value!! -> R.string.listing_product_sort_discount
+                else -> throw IllegalArgumentException("Такая сортировка не предусмотрена")
+            }
+        )
         editingCompleted.call()
     }
 

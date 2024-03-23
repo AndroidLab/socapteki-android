@@ -23,10 +23,10 @@ class OrderCancelFragment : BaseFragment<OrderCancelViewModel, OrderCancelFragme
 
     override val layoutId: Int = R.layout.order_cancel_fragment
 
-    private val _args: OrderCancelFragmentArgs by navArgs()
+    private val args: OrderCancelFragmentArgs by navArgs()
 
     override fun onViewBindingInflated(binding: OrderCancelFragmentBinding) {
-        viewModel.order.value = _args.order
+        viewModel.order.value = args.order
         binding.viewModel = viewModel
 
         binding.btnOrderCancel.setOnClickListener {

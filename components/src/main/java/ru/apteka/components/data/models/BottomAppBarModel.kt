@@ -3,9 +3,8 @@ package ru.apteka.components.data.models
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.apteka.components.R
+import ru.apteka.components.data.utils.ScopedLiveData
 
 
 /**
@@ -46,18 +45,16 @@ class BottomAppBarModel {
      * Обработчик клика по вкладке.
      */
     fun onItemSelected(itemId: Int) {
-        _selectedItemId.value = itemId
+        selectedItemId.setValue(itemId)
         onItemSelectedListener?.onClick(itemId)
     }
 
     private var onItemSelectedListener: OnItemSelectedListener? = null
 
-    private val _selectedItemId = MutableLiveData(R.id.home_graph)
-
     /**
      * Возвращает индентификатор выбранного пункта.
      */
-    val selectedItemId: LiveData<Int> = _selectedItemId
+    val selectedItemId = ScopedLiveData(R.id.home_graph)
 
 
     /**

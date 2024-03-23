@@ -13,7 +13,7 @@ import ru.apteka.pharmacies_map_api.api.TypeInteraction
 class PharmacyAdapter(
     private val lifeOwner: LifecycleOwner,
     private val interaction: TypeInteraction,
-    //private val _viewModel: PharmaciesMapViewModel,
+    //private val viewModel: PharmaciesMapViewModel,
     private val onItemClick: (PharmacyCardModel) -> Unit,
 ) :
     ViewBindingDelegateAdapter<PharmacyCardModel, PharmacyItemHolderBinding>(PharmacyItemHolderBinding::inflate) {

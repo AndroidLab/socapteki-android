@@ -29,11 +29,11 @@ class PharmaciesMapFragment : BaseFragment<PharmaciesMapViewModel, PharmaciesMap
     override val viewModel: PharmaciesMapViewModel by activityViewModels()
     override val layoutId: Int = R.layout.pharmacies_map_fragment
 
-    private val _args: PharmaciesMapFragmentArgs by navArgs()
+    private val args: PharmaciesMapFragmentArgs by navArgs()
 
     override fun onViewBindingInflated(binding: PharmaciesMapFragmentBinding) {
         MapKitFactory.initialize(requireContext())
-        viewModel.typeInteraction.value = _args.typeInteraction
+        viewModel.typeInteraction.value = args.typeInteraction
         binding.viewModel = viewModel
 
         binding.pharmaciesMapCityChange.setOnClickListener {

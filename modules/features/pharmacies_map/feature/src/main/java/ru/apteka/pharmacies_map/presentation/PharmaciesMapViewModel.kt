@@ -1,9 +1,9 @@
 package ru.apteka.pharmacies_map.presentation
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
@@ -17,6 +17,7 @@ import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.pharmacy_favorite_service.PharmacyFavoriteService
 import ru.apteka.components.data.services.user.UserPreferences
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.pharmacies_map.data.models.MapAddressModel
@@ -79,40 +80,35 @@ class PharmaciesMapViewModel @Inject constructor(
         ),
     )
 
-    private val _isRoundClockSelected = MutableLiveData(false)
-
     /**
      * Возвращает выбор круглосуточных аптек.
      */
-    val isRoundClockSelected: LiveData<Boolean> = _isRoundClockSelected
+    val isRoundClockSelected = ScopedLiveData(false)
 
     /**
      * Обрабатывает клик по кнопку 'Круглосуточные'.
      */
     fun onRoundClockClick() {
-        _isRoundClockSelected.value = !_isRoundClockSelected.value!!
+        isRoundClockSelected.setValue(!isRoundClockSelected.value!!)
     }
-
-    private val _isMyPharmaciesSelected = MutableLiveData(false)
 
     /**
      * Возвращает выбор моих аптек.
      */
-    val isMyPharmaciesSelected: LiveData<Boolean> = _isMyPharmaciesSelected
+    val isMyPharmaciesSelected = ScopedLiveData(false)
 
     /**
      * Обрабатывает клик по кнопку 'Мои аптеки'.
      */
     fun onMyPharmaciesClick() {
-        _isMyPharmaciesSelected.value = !_isMyPharmaciesSelected.value!!
+        isMyPharmaciesSelected.setValue(!isMyPharmaciesSelected.value!!)
+        isMyPharmaciesSelected.setValue(!isMyPharmaciesSelected.value!!)
     }
-
-    private val _pharmacies = MutableLiveData<List<PharmacyCardModel>>(emptyList())
 
     /**
      * Возвращает список аптек.
      */
-    val pharmacies: LiveData<List<PharmacyCardModel>> = _pharmacies
+    val pharmacies = ScopedLiveData<ViewModel, List<PharmacyCardModel>>(emptyList())
 
     /**
      * Сохраняет выбранную аптеку.
@@ -182,9 +178,9 @@ class PharmaciesMapViewModel @Inject constructor(
                 onRequest = {
                     pharmaciesMapRepository.getPharmacies()
                 },
-                onSuccess = { pharmacies ->
-                    _pharmacies.postValue(
-                        pharmacies.map { pharmacy ->
+                onSuccess = {
+                    pharmacies.postValue(
+                        it.map { pharmacy ->
                             PharmacyCardModel(
                                 pharmacy = pharmacy,
                             ).apply {
@@ -196,7 +192,9 @@ class PharmaciesMapViewModel @Inject constructor(
                         }
                     )
                 },
-                isLoading = _isLoading
+                onLoading = {
+                    isLoading.postValue(it)
+                }
             )
         }
     }

@@ -1,14 +1,15 @@
 package ru.apteka.notifications.presentation
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
+import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
@@ -52,21 +53,17 @@ class NotificationsViewModel @Inject constructor(
         )
     )
 
-    private val _notificationFilter = MutableLiveData<NotificationFilterModel?>(null)
-
     /**
      *
      */
-    val notificationFilter: LiveData<NotificationFilterModel?> = _notificationFilter
+    val notificationFilter = ScopedLiveData<ViewModel, NotificationFilterModel?>(null)
 
     private val selectedNotificationFilter = MutableLiveData<NotificationFilterModel.Item?>(null)
 
-    private val _notifications = MutableLiveData<List<NotificationModel>>(emptyList())
-
     /**
      *
      */
-    val notifications: LiveData<List<NotificationModel>> = _notifications
+    val notifications = ScopedLiveData(emptyList<NotificationModel>())
 
     // private val _notificationFiltered = MutableLiveData<List<NotificationModel>>(emptyList())
 
@@ -76,10 +73,10 @@ class NotificationsViewModel @Inject constructor(
     val notificationFiltered = MediatorLiveData<List<NotificationModel>>().apply {
         fun filterNotifications() {
             value = when (selectedNotificationFilter.value?.status) {
-                NotificationFilter.ALL -> _notifications.value
-                NotificationFilter.ORDERS -> _notifications.value!!.filter { it.type == NotificationModel.NotificationType.ORDERS }
-                NotificationFilter.STOCKS -> _notifications.value!!.filter { it.type == NotificationModel.NotificationType.STOCKS }
-                else -> _notifications.value
+                NotificationFilter.ALL -> notifications.value
+                NotificationFilter.ORDERS -> notifications.value!!.filter { it.type == NotificationModel.NotificationType.ORDERS }
+                NotificationFilter.STOCKS -> notifications.value!!.filter { it.type == NotificationModel.NotificationType.STOCKS }
+                else -> notifications.value
             } // ?.sortedByDescending { it.date }
         }
 
@@ -99,25 +96,25 @@ class NotificationsViewModel @Inject constructor(
 
     init {
         viewModelScope.launchIO {
-            _isLoading.postValue(true)
+            isLoading.postValue(true)
             delay(1500)
-            _notifications.postValue(fakeNotifications)
-            _isLoading.postValue(false)
+            notifications.postValue(fakeNotifications)
+            isLoading.postValue(false)
 
             mainThread {
-                _notificationFilter.value = NotificationFilterModel(
+                notificationFilter.setValue(NotificationFilterModel(
                     _items = listOf(
                         NotificationFilterModel.Item(
                             status = NotificationFilter.ALL,
-                            count = _notifications.value!!.size
+                            count = notifications.value!!.size
                         ),
                         NotificationFilterModel.Item(
                             status = NotificationFilter.ORDERS,
-                            count = _notifications.value!!.filter { it.type == NotificationModel.NotificationType.ORDERS }.size
+                            count = notifications.value!!.filter { it.type == NotificationModel.NotificationType.ORDERS }.size
                         ),
                         NotificationFilterModel.Item(
                             status = NotificationFilter.STOCKS,
-                            count = _notifications.value!!.filter { it.type == NotificationModel.NotificationType.STOCKS }.size
+                            count = notifications.value!!.filter { it.type == NotificationModel.NotificationType.STOCKS }.size
                         ),
                     )
                 ) {
@@ -125,15 +122,15 @@ class NotificationsViewModel @Inject constructor(
                     selectedNotificationFilter.value = it
                 }.apply {
                     setItemSelected(0)
-                }
+                })
 
                 isAllNotificationRead.apply {
                     fun checkNotificationsRead() {
                         postValue(
-                            _notifications.value!!.all { it.isRead.value!! }
+                            notifications.value!!.all { it.isRead.value!! }
                         )
                     }
-                    _notifications.value!!.forEach {
+                    notifications.value!!.forEach {
                         addSource(it.isRead) {
                             checkNotificationsRead()
                         }
