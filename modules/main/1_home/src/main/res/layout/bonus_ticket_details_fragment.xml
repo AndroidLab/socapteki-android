@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.home.presentation.bonus_ticket_details.BonusTicketDetailsViewModel" />
+
+        <variable
+            name="ticketModel"
+            type="ru.apteka.home.data.models.BonusTicketModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsvTicketDetailsProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bonusTicketDetailsToolbar"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/separator_view" />
+
+                <!-- Баннер -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@{ticketModel.title}"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="20sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/banner"
+                            tools:ignore="ContentDescription" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="16 ноября 2023 - 29 ноября 2023"
+                        android:textColor="@color/color_text_secondary" />
+
+                </LinearLayout>
+
+                <!-- Зеленый блок -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Текст -->
+                    <LinearLayout
+                        android:id="@+id/llBonusTicketDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/corners_shape"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:extraBackgroundTint="@{@color/color_secondary_container}">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_info"
+                            app:tint="@color/color_primary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tvBonusTicketDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="5"
+                            android:text="Только с 1 сентября по 30 сентября 2023г. специальное предложение на товары для красоты - скидка до 45 %!Натуральный препарат с экстрактом французского артишока улучшает отток желчи и помогает защитить печень... Только с 1 сентября по 30 сентября 2023г. специальное предложение на товары для красоты - скидка до 45 %!Натуральный препарат с экстрактом французского артишока улучшает отток желчи и помогает защитить печень..."
+                            android:textColor="@color/dark_black" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvBonusTicketDescReadCompletely"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/read_completely"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <!-- Список товаров -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:padding="16dp">
+
+                    <!-- Сортировка -->
+                    <LinearLayout
+                        android:id="@+id/ticketDetailsProductsSort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            app:extraText="@{viewModel.sortModel.itemSelected}" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_drop"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBonusDetailsProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    app:visibleIf="@{!viewModel.products.empty}" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white"
+                    android:paddingVertical="8dp"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <TextView
+                        android:id="@+id/tvBonusDetailsProductsMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="12dp"
+                        android:text="@string/show_more"
+                        android:textColor="@color/color_primary" />
+
+                </FrameLayout>
+
+                <include
+                    layout="@layout/footer_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Кнопка оформить заказ -->
+        <LinearLayout
+            android:id="@+id/llTicketActivate"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
+
+            <include
+                layout="@layout/shadow_view"
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbTicketActivate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/bonus_program_activate" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/bonusTicketDetailsToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>

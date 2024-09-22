@@ -8,7 +8,7 @@ plugins {
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.roomConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 android {

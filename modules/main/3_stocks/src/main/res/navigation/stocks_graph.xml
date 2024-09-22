@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/stocks_graph"
     app:startDestination="@id/stocksFragment">
 
     <fragment
         android:id="@+id/stocksFragment"
-        android:name="ru.apteka.stocks.presentation.stocks.StocksFragment">
-
-        <action
-            android:id="@+id/toStockDetailsFragment"
-            app:destination="@id/stockDetailsFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/stockDetailsFragment"
-        android:name="ru.apteka.stocks.presentation.stock_details.StockDetailsFragment">
-
-        <argument
-            android:name="stock"
-            app:argType="ru.apteka.stocks.data.models.StockModel" />
-
-    </fragment>
+        android:name="ru.apteka.stocks.presentation.stocks.StocksFragment" />
 
 </navigation>

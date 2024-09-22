@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="16dp"
-                        android:text="Читать полностью"
+                        android:text="@string/read_completely"
                         android:textColor="@color/color_primary" />
 
                 </LinearLayout>
@@ -116,7 +116,7 @@
                     android:background="@drawable/top_corners_shape"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
-                    android:text="Товары, участвующие в акции:"
+                    android:text="@string/product_card_participating_in_promotion"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 

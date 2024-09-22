@@ -72,7 +72,7 @@
 
                             <!-- Значек фильтра -->
                             <FrameLayout
-                                android:id="@+id/catalogProductAllFilters"
+                                android:id="@+id/jobOpeningsAllFilters"
                                 android:layout_width="46dp"
                                 android:layout_height="46dp"
                                 android:layout_gravity="end|center_vertical"
@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:forItems="@{viewModel.jobOpeningsFiltered}"
-                            app:useTemplate="@{@layout/job_openings_view}" />
+                            app:useTemplate="@{@layout/job_opening_template}" />
 
                     </LinearLayout>
 
@@ -481,7 +481,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginHorizontal="16dp"
-                                android:text="Стань частью команды"
+                                android:text="@string/work_with_us_become_part_of_team"
                                 android:textColor="@color/dark_black"
                                 android:textSize="20sp" />
 
@@ -493,7 +493,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
-                            android:text="@string/work_with_us_job_openings_respond" />
+                            android:text="@string/work_with_us_we_respond" />
 
                     </LinearLayout>
 

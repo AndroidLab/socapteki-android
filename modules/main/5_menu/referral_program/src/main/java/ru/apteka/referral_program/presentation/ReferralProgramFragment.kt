@@ -20,7 +20,15 @@ class ReferralProgramFragment :
     override fun onViewBindingInflated(binding: ReferralProgramFragmentBinding) {
         binding.viewModel = viewModel
 
-        binding.historyRecommendationAll.setOnClickListener {
+        binding.mbReferalProgramAuth.setOnClickListener {
+            viewModel.navigationManager.goToAuth()
+        }
+
+        binding.mcReferalProgramUrl.setOnClickListener {
+
+        }
+
+        binding.mbReferalProgramShare.setOnClickListener {
 
         }
 

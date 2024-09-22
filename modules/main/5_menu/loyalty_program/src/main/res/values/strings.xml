@@ -1,28 +1,60 @@
 <resources>
 
+    <string-array name="loyalty_program_conditions">
+        <item>установите мобильное приложение и выпустите карту с повышенным процентом накопления</item>
+        <item>зарегистрируйтесь на сайте</item>
+        <item>совершите покупку в рознице и выпустите виртуальную карту</item>
+    </string-array>
+
+    <string-array name="loyalty_program_questions">
+        <item>Сколько карт лояльности я могу на себя оформить?</item>
+        <item>Как получать больше бонусных баллов?</item>
+        <item>Как узнать баланс карты?</item>
+        <item>Что делать, если не начислили бонусы за покупку?</item>
+    </string-array>
+
+    <string-array name="loyalty_program_answers">
+        <item>Вы можете оформить на себя только одну карту лояльности. Так удобнее копить бонусные баллы и быть в курсе всех акций</item>
+        <item>Вы можете оформить на себя только одну карту лояльности. Так удобнее копить бонусные баллы и быть в курсе всех акций</item>
+        <item>Вы можете оформить на себя только одну карту лояльности. Так удобнее копить бонусные баллы и быть в курсе всех акций</item>
+        <item>Вы можете оформить на себя только одну карту лояльности. Так удобнее копить бонусные баллы и быть в курсе всех акций</item>
+    </string-array>
+
+
     <string name="loyalty_program_title">Программа лояльности</string>
-    <string name="loyalty_program_desc">
-        Каждый зарегистрированный пользователь сайта может стать участником бонусной программы, зарабатывая бонусные баллы — «витаминки», которые можно использовать для получения скидки до 10% при оформлении заказа на сайте.
-        \nМаксимальное количество накопленных «витаминок» не ограничено. Максимальный суммарный размер скидки, действующей на весь заказ, — 10%, минимальный — 2%. Для получения скидки 10% необходимо использовать 100 витаминок.
-        \nСрок действия «витаминок» ограничен: если вы не сделали ни одного заказа в течение трех месяцев с даты последнего заказа или регистрации, ваши «витаминки» сгорают.
+    <string name="loyalty_program_get_it">Получайте</string>
+    <string name="loyalty_program_more_bonuses">больше бонусов</string>
+    <string name="loyalty_program_with_loyalty_card">с картой лояльности</string>
+    <string name="loyalty_program_make_purchase_one_our_pharmacies_1">Совершите любую покупку в одной из наших аптек</string>
+    <string name="loyalty_program_make_purchase_one_our_pharmacies_2">и выпустите виртуальную бонусную карту</string>
+    <string name="loyalty_program_save_up_double_bonuses_with_app_1">Копите двойные бонусы с приложением</string>
+    <string name="loyalty_program_save_up_double_bonuses_with_app_2">и оплачивайте покупки бонусами</string>
+    <string name="loyalty_program_use_privileges_bonus_card">Пользуйтесь привилегиями бонусной карты</string>
+    <string name="loyalty_program_use_privileges_bonus_card_more_bonuses">Чтобы получить в 2 раза больше бонусов, покажите на кассе карту из мобильного приложения перед покупкой</string>
+
+    <string name="loyalty_program_page_1">Ваша выгода</string>
+    <string name="loyalty_program_page_2">Как стать участником?</string>
+    <string name="loyalty_program_page_3">Как получить бонусные баллы?</string>
+    <string name="loyalty_program_page_4">Система начисления бонусных баллов</string>
+    <string name="loyalty_program_page_5">Как потратить бонусные баллы?</string>
+
+
+
+    <string name="loyalty_program_full_rules">
+        &lt;font color=\"#00A95D\">&lt;u>Полные правила программы лояльности&lt;/u>&lt;/font>
     </string>
 
-    <string name="loyalty_program_additional_title_item_1">Своевременно узнавайте</string>
-    <string name="loyalty_program_additional_desc_desc_item_1">о новых акциях и предложениях</string>
-    <string name="loyalty_program_additional_title_item_2">Доступ ко всему каталогу</string>
-    <string name="loyalty_program_additional_desc_desc_item_2">в вашем кармане</string>
-    <string name="loyalty_program_additional_title_item_3">Отслеживайте ваши заказы</string>
-    <string name="loyalty_program_additional_desc_desc_item_3">в режиме онлайн</string>
+    <string name="loyalty_program_mailing_title">Рассылка</string>
+    <string name="loyalty_program_mailing_desc">Подпишитесь на нашу рассылку, будьте в курсе всех актуальных новостей, скидок и акций.</string>
+    <string name="loyalty_program_mailing_our_mail">Ваш e-mail</string>
+    <string name="loyalty_program_personal_data">Соглашаюсь на «Обработку персональных данных»</string>
 
-    <string name="loyalty_program_advantages">Преимущества</string>
-    <string name="loyalty_program_advantages_title_item_1">Вошли в 10-ку</string>
-    <string name="loyalty_program_advantages_desc_item_1">по технологичности среди всех аптечных сетей России</string>
-    <string name="loyalty_program_advantages_title_item_2">37 место</string>
-    <string name="loyalty_program_advantages_desc_item_2">в рейтинге аптечных сетей России</string>
-    <string name="loyalty_program_advantages_title_item_3">Более 190</string>
-    <string name="loyalty_program_advantages_desc_item_3">аптек на октябрь 2022 года</string>
-
-    <string name="loyalty_program_acquainted_offer">Ознакомиться с офертой</string>
     <string name="loyalty_program_registration">Регистрация в программе лояльности</string>
+    <string name="loyalty_program_soc_pharmacy">«Социальная Аптека»</string>
+    <string name="loyalty_program_soc_pharmacy_desc">В ассортименте наших аптек широко представлены средства для наружного и внутреннего применения</string>
+    <string name="loyalty_program_activate_card">Активировать карту</string>
+    <string name="loyalty_program_question_and_answer">Вопрос-ответ</string>
+    <string name="loyalty_program_vitamins">Витаминки</string>
+    <string name="loyalty_program_take_part_in_action">Участвуй в акции и получай\nскидки при заказе</string>
 
 </resources>

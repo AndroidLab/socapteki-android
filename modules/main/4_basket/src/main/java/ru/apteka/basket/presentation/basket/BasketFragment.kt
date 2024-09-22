@@ -12,11 +12,11 @@ import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.listing_api.R as ListingApiR
+import ru.apteka.listing.R as ListingR
 import ru.apteka.making_order_api.R as MakingOrderApiR
 import ru.apteka.product_card_api.R as ProductCardApiR
 
@@ -50,8 +50,9 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
         }
 
         binding.tvBasketAlwaysUsefulAllProducts.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ListingR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "Всегда пригодится"
                 )
             )
@@ -62,12 +63,16 @@ class BasketFragment : BaseFragment<BasketViewModel, BasketFragmentBinding>() {
             productsWatchedRecentlyAdapter.swapData(it)
         }
 
-        binding.basketMakingOrder.setOnClickListener {
+        fun navigateToMakingOrder() {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
                 MakingOrderApiR.id.making_order_graph, bundleOf(
                     MAKING_ORDER_ARGUMENT_PRODUCT to viewModel.basketService.basketProducts.value!!.toTypedArray()
                 )
             )
+        }
+
+        binding.basketMakingOrder.setOnClickListener {
+            navigateToMakingOrder()
         }
 
         viewModel.basketService.totalCount.observe(viewLifecycleOwner) {

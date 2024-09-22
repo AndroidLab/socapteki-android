@@ -12,7 +12,7 @@ import ru.apteka.components.data.utils.ScopedLiveData
  */
 class BottomAppBarModel {
     val item_1 = MenuItemModel(
-        itemId = R.id.home_graph,
+        itemId = R.id.main_home_graph,
         icon = R.drawable.ic_home,
         title = R.string.menu_label_1
     )
@@ -54,7 +54,7 @@ class BottomAppBarModel {
     /**
      * Возвращает индентификатор выбранного пункта.
      */
-    val selectedItemId = ScopedLiveData(R.id.home_graph)
+    val selectedItemId = ScopedLiveData(R.id.main_home_graph)
 
 
     /**

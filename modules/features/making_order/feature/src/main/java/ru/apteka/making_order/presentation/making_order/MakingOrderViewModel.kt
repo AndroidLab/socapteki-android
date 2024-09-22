@@ -10,6 +10,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.map
 import ru.apteka.components.data.models.DiscountModel
 import ru.apteka.components.data.models.Label
 import ru.apteka.components.data.models.ProductModel
@@ -29,6 +30,7 @@ import ru.apteka.making_order.data.model.DeliveryMethodsModel
 import ru.apteka.making_order.data.model.DeliveryType
 import ru.apteka.making_order.data.model.PaymentsMethodsModel
 import ru.apteka.making_order.data.model.RecipientModel
+import ru.apteka.making_order.data.services.MakingOrderPreferences
 import ru.apteka.making_order_api.api.MAKING_ORDER_ARGUMENT_PRODUCT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
@@ -43,6 +45,7 @@ import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 class MakingOrderViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
     private val userPreferences: UserPreferences,
+    private val makingOrderPreferences: MakingOrderPreferences,
     private val savedStateHandle: SavedStateHandle,
     private val loginRepository: LoginRepository,
     navigationManager: NavigationManager,
@@ -160,6 +163,8 @@ class MakingOrderViewModel @Inject constructor(
             is DeliveryMethodsModel.Item.CourierDelivery -> {
                 navigateToAddressFragment(item.deliveryType)
             }
+
+            else -> {}
         }
     }
 
@@ -193,50 +198,52 @@ class MakingOrderViewModel @Inject constructor(
     /**
      * Возвращает флаг выбора самого себя в получатели.
      */
-    val isRecipientSameBuyer = MutableLiveData(false)
+    val isRecipientSameBuyer = MutableLiveData(true)
 
     /**
      * Возвращает список получателей.
      */
-    val recipients = MutableLiveData<List<RecipientModel>>(emptyList())
+    val recipients =
+        makingOrderPreferences.orderRecipientsFlow.map {
+            it.onEach { setRecipientsClickListeners(it) }
+        }.asLiveData()
 
     /**
-     * Устанавливает выбор самого себя в получатели заказа.
+     * Устанавливает флаг, что получателем заказа будет кто то другой.
      */
-    fun setRecipientSameBuyer(b: Boolean) {
-        val r = RecipientModel(
-            fio = fio.value!!,
-            phone = number.value!!
-        ).apply {
-            onRemove = {
-                removeRecipientOrder(this)
-            }
-        }
-        if (b) {
-            recipients.value = recipients.value!!.plus(r)
-        } else {
-            recipients.value = recipients.value!!.minus(r)
-        }
+    fun setRecipientSameBuyer() {
+        isRecipientSameBuyer.value = false
     }
 
     /**
      * Добавляет получателя заказа.
      */
     fun addRecipientOrder(recipient: RecipientModel) {
-        recipients.value = recipients.value!!.plus(
-            recipient.apply {
-                onRemove = {
-                    removeRecipientOrder(this)
-                }
-            }
+        makingOrderPreferences.orderRecipients = recipients.value!!.plus(
+            recipient.also { setRecipientsClickListeners(it) }
         )
     }
 
-    /**
-     * Удаляет получателя заказа.
-     */
-    fun removeRecipientOrder(recipient: RecipientModel) {
-        recipients.value = recipients.value!!.minus(recipient)
+    private fun removeRecipientOrder(recipient: RecipientModel) {
+        makingOrderPreferences.orderRecipients = recipients.value!!.minus(recipient)
+    }
+
+    private fun selectRecipientOrder(recipient: RecipientModel) {
+        recipients.value!!.onEach {
+            it.isItemSelected.value = it.phone == recipient.phone
+        }
+        checkFillData()
+    }
+
+    private fun setRecipientsClickListeners(recipient: RecipientModel) {
+        recipient.apply {
+            onClick = {
+                selectRecipientOrder(this)
+            }
+            onRemove = {
+                removeRecipientOrder(this)
+            }
+        }
     }
 
     /**
@@ -290,38 +297,43 @@ class MakingOrderViewModel @Inject constructor(
      * Возвращает флаг доступности кнопки оформления заказа.
      */
     val isMakingOrderEnabled = MediatorLiveData<Boolean>().apply {
-        fun check() {
-            value = !isPromoCodeApplyLoading.getValue()!! &&
-                !isBonusesApplyLoading.getValue()!! &&
-                paymentsMethods.selectedItem.value != null &&
-                (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null) &&
-                recipients.value!!.isNotEmpty()
-        }
-
         addSource(isPromoCodeApplyLoading) {
-            check()
+            checkFillData()
         }
 
         addSource(isBonusesApplyLoading) {
-            check()
+            checkFillData()
         }
 
         addSource(paymentsMethods.selectedItem) {
-            check()
+            checkFillData()
         }
 
         addSource(deliveryMethods.selectedItem) {
-            check()
+            checkFillData()
         }
 
         addSource(selectedDeliveryDate) {
-            check()
+            checkFillData()
         }
 
-        addSource(recipients) {
-            check()
+        addSource(fio) {
+            checkFillData()
+        }
+
+        addSource(rawNumber) {
+            checkFillData()
         }
     }
+
+    private fun checkFillData() {
+        isMakingOrderEnabled.value = !isPromoCodeApplyLoading.getValue()!! &&
+                !isBonusesApplyLoading.getValue()!! &&
+                paymentsMethods.selectedItem.value != null &&
+                (deliveryMethods.selectedItem.value?.deliveryType == DeliveryType.PICKUP || selectedDeliveryDate.value != null) &&
+                ((fio.value!!.isNotEmpty() && rawNumber.value!!.length == 10) || recipients.value!!.any { it.isItemSelected.value == true })
+    }
+
 
     /**
      * Возвращает флаг заполнения обязательных полей.
@@ -332,17 +344,4 @@ class MakingOrderViewModel @Inject constructor(
         }
     }
 
-    init {
-        /*viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = {
-                    loginRepository.getPersonalData()
-                },
-                onSuccess = {
-                    personalData.postValue(it)
-                },
-                isLoading = _isPersonalDataLoading
-            )
-        }*/
-    }
 }

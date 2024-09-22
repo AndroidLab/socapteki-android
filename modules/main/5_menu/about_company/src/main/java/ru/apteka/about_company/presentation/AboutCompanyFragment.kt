@@ -16,6 +16,7 @@ class AboutCompanyFragment : BaseFragment<AboutCompanyViewModel, AboutCompanyFra
     override val layoutId: Int = R.layout.about_company_fragment
 
     override fun onViewBindingInflated(binding: AboutCompanyFragmentBinding) {
+        binding.viewModel = viewModel
 
     }
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="kotlin.Pair" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/corners_shape"
+        android:orientation="vertical">
+
+        <com.github.florent37.expansionpanel.ExpansionHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:expansionChangeColor="@{true}"
+            app:expansion_headerIndicator="@id/loyaltyProgramFaqHeaderIndicator"
+            app:expansion_layout="@id/loyaltyProgramFaqExpansionLayout">
+
+            <TextView
+                style="@style/Theme.Socapteki.ManropeMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:tag="title"
+                android:text="@{(String)bindingItem.first}"
+                android:textColor="@color/color_text_primary"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/loyaltyProgramFaqHeaderIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/ic_arrow_expand"
+                android:tag="indicator"
+                tools:ignore="ContentDescription" />
+
+        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+        <com.github.florent37.expansionpanel.ExpansionLayout
+            android:id="@+id/loyaltyProgramFaqExpansionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expansion_expanded="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{16}"
+                    app:sepMarginStart="@{16}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="12dp"
+                    android:text="@{(String)bindingItem.second}" />
+
+            </LinearLayout>
+
+        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+    </LinearLayout>
+
+</layout>

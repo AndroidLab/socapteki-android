@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 /**
  * Представляет репозиторий деталей продукции.
- * @param Api  api.
+ * @param productCardApi  api.
  */
 class ProductCardRepository @Inject constructor(
     private val productCardApi: IProductCardApi
@@ -135,7 +135,15 @@ class ProductCardRepository @Inject constructor(
                 InstructionModel.InstructionItem(
                     title = "Организация, принимающая претензии потребителей",
                     desc = "Антиаритмическое средство класса IB, местный анестетик, производное ацетанилида."
-                )
+                ),
+                InstructionModel.InstructionItem(
+                    title = "Сертификаты",
+                    desc = "Антиаритмическое средство класса IB, местный анестетик, производное ацетанилида."
+                ),
+                InstructionModel.InstructionItem(
+                    title = "Форма выпуска",
+                    desc = "Антиаритмическое средство класса IB, местный анестетик, производное ацетанилида."
+                ),
             )
         )
     }

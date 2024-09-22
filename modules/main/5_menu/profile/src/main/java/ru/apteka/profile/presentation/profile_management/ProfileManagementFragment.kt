@@ -37,7 +37,7 @@ class ProfileManagementFragment :
 
         binding.llProfileManagementLogout.setOnClickListener {
             accountsPreferences.account = null
-            navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.home_graph)
+            navigationManager.bottomAppBarModel.onItemSelected(ru.apteka.components.R.id.main_home_graph)
         }
 
         binding.llProfileManagementRemove.setOnClickListener {

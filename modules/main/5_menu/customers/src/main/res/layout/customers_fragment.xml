@@ -139,7 +139,8 @@
                                 android:layout_margin="4dp"
                                 android:background="@color/background_secondary"
                                 android:scaleType="center"
-                                android:src="@drawable/place_order" />
+                                android:src="@drawable/place_order"
+                                tools:ignore="ContentDescription" />
 
                         </LinearLayout>
 

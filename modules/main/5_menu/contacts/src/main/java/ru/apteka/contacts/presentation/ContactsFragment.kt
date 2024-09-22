@@ -35,7 +35,7 @@ class ContactsFragment : BaseFragment<ContactsViewModel, ContactsFragmentBinding
         }
         binding.viewModel = viewModel
 
-        binding.contactsCharity.setOnClickListener {
+        binding.contactsCharity.mcvCharityProjects.setOnClickListener {
 
         }
 

@@ -78,62 +78,54 @@
                         layout="@layout/personal_data_view"
                         app:value="@{@string/personal_data_profile_management}" />
 
-
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/Theme.Socapteki.BackgroundCard"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginVertical="8dp"
-                        app:cardBackgroundColor="@{viewModel.isEmailVerified ? @color/color_secondary_container : @color/light_grey}">
+                        android:background="@drawable/corners_shape"
+                        android:orientation="horizontal"
+                        android:paddingVertical="16dp"
+                        android:paddingEnd="16dp"
+                        app:extraBackgroundTint="@{viewModel.isEmailVerified ? @color/color_secondary_container : @color/light_grey}">
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.isReceiveReceipts &amp; viewModel.isEmailVerified}"
+                            android:enabled="@{viewModel.isEmailVerified}"
+                            android:translationY="-10dp" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="16dp"
-                            android:paddingEnd="16dp">
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                            <CheckBox
+                            <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="@{viewModel.isReceiveReceipts &amp; viewModel.isEmailVerified}"
-                                android:enabled="@{viewModel.isEmailVerified}"
-                                android:translationY="-10dp" />
+                                android:layout_height="match_parent"
+                                android:text="@string/personal_data_mail_e_receipt_title"
+                                android:textColor="@color/dark_black" />
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="@string/personal_data_mail_e_receipt_title"
-                                    android:textColor="@color/dark_black" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="@string/personal_data_mail_e_receipt_desc"
-                                    android:textColor="@color/light_black" />
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/personalDataMailQuestion"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_question"
-                                tools:ignore="ContentDescription" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/personal_data_mail_e_receipt_desc"
+                                android:textColor="@color/light_black" />
 
                         </LinearLayout>
 
+                        <ImageView
+                            android:id="@+id/personalDataMailQuestion"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_question"
+                            tools:ignore="ContentDescription" />
 
-                    </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
 
                 </LinearLayout>
 

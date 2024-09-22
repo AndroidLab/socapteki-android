@@ -27,14 +27,14 @@ class BrandsFragment : BaseFragment<BrandsViewModel, BrandsFragmentBinding>() {
         binding.brandsPager.adapter = PagerAdapter(
             requireActivity(),
             arrayListOf(
-                LettersPageFragment.newInstance(LettersPageFragment.BRAND) as Fragment,
                 LettersPageFragment.newInstance(LettersPageFragment.MANUFACTURE) as Fragment,
+                LettersPageFragment.newInstance(LettersPageFragment.BRAND) as Fragment,
             )
         )
         TabLayoutMediator(binding.brandsTabLayout, binding.brandsPager) { tab, pos ->
             tab.text = listOf(
-                getString(R.string.brands_brands_page),
                 getString(R.string.brands_manufactures_page),
+                getString(R.string.brands_brands_page),
             )[pos]
         }.attach()
     }

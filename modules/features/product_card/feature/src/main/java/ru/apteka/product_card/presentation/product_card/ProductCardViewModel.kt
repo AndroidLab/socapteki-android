@@ -68,7 +68,7 @@ class ProductCardViewModel @Inject constructor(
     /**
      * Возвращает ссписок аннологичных товаров.
      */
-    val analoguesProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>()
+    val analoguesProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
 
     /**
      * Возвращает флаг загрузки аннологичных товаров.
@@ -79,12 +79,22 @@ class ProductCardViewModel @Inject constructor(
     /**
      * Возвращает ссписок с этим товаром покупают.
      */
-    val withProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>()
+    val withProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
 
     /**
      * Возвращает флаг загрузки с этим товаром покупают.
      */
     val isWithProductsLoading = ScopedLiveData(false)
+
+    /**
+     * Возвращает список 'Вы недавно`смотрели' товаров.
+     */
+    val watchedRecentlyProducts = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
+
+    /**
+     * Возвращает флаг загрузки 'Вы недавно`смотрели' товаров.
+     */
+    val isWatchedRecentlyProductsLoading = ScopedLiveData(false)
 
     /**
      * Возвращает инструкцию к товару.
@@ -136,6 +146,7 @@ class ProductCardViewModel @Inject constructor(
                                         basketService = basketService,
                                         countInBasket = product.countInBasket
                                     )
+                                    product.greenDesc = "Нормализует микрофлору кишечник, Содержит живые ацидофильные лактобактерии"
                                 }
                             }
                         )
@@ -169,6 +180,34 @@ class ProductCardViewModel @Inject constructor(
                     },
                     onLoading = {
                         isWithProductsLoading.postValue(it)
+                    }
+                )
+            }
+
+            launchIO {
+                requestHandler.handleApiRequest(
+                    onRequest = { getProductsFake() },
+                    onSuccess = { products ->
+                        watchedRecentlyProducts.postValue(
+                            products.map { product ->
+                                ProductCardModel(
+                                    product = product,
+                                ).apply {
+                                    favorite = ProductFavoriteModel(
+                                        favoriteService = favoriteService,
+                                        isFavorite = product.isFavorite,
+                                    )
+                                    basket = BasketModel(
+                                        basketService = basketService,
+                                        countInBasket = product.countInBasket
+                                    )
+                                    product.greenDesc = "Нормализует микрофлору кишечник, Содержит живые ацидофильные лактобактерии"
+                                }
+                            }
+                        )
+                    },
+                    onLoading = {
+                        isWatchedRecentlyProductsLoading.postValue(it)
                     }
                 )
             }

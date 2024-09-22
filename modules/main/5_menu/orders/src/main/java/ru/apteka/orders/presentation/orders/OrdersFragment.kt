@@ -1,12 +1,15 @@
 package ru.apteka.orders.presentation.orders
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
+import ru.apteka.order_details_api.api.ORDER_DETAILS_ARGUMENT
 import ru.apteka.orders.R
+import ru.apteka.order_details_api.R as OrderDetailsApi
 import ru.apteka.orders.databinding.OrdersFragmentBinding
 
 /**
@@ -43,8 +46,11 @@ class OrdersFragment : BaseFragment<OrdersViewModel, OrdersFragmentBinding>() {
     }
 
     private fun onOrdersClick(order: OrderModel) {
-        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            OrdersFragmentDirections.toOrderDetailsFragment(order)
+        viewModel.navigationManager.generalNavController.navigateWithAnim(
+            OrderDetailsApi.id.order_details_graph,
+            bundleOf(
+                ORDER_DETAILS_ARGUMENT to order
+            )
         )
     }
 

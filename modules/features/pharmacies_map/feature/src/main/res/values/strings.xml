@@ -6,5 +6,9 @@
     <string name="pharmacies_list_page">Список</string>
     <string name="pharmacies_map_round_clock">Круглосуточные</string>
     <string name="pharmacies_map_my_pharmacies">Мои аптеки</string>
+    <string name="pharmacies_map_order_details">Детали заказа</string>
+    <string name="pharmacies_map_we_will_bring_it_for_you">Привезем для Вас</string>
+    <string name="pharmacies_map_pickup">Самовывоз:</string>
+    <string name="pharmacies_map_nearest_pharmacies">Посмотреть ближайшие аптеки где есть все товары</string>
 
 </resources>

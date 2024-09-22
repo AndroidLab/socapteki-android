@@ -7,7 +7,7 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 android {
@@ -18,5 +18,6 @@ dependencies {
     implementation(project(":components"))
 
     implementation(libs.bundles.navigationDeps)
+    implementation(libs.bundles.lifecycleDeps)
     implementation(libs.circleimageview)
 }

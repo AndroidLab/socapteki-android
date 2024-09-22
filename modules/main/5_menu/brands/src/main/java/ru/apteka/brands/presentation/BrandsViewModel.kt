@@ -22,8 +22,4 @@ class BrandsViewModel @Inject constructor(
 ) {
 
 
-    init {
-
-    }
-
 }

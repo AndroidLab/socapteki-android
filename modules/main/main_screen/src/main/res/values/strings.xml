@@ -9,12 +9,12 @@
     <string name="menu_work_with_us">Работа у нас</string>
     <string name="menu_customers">Покупателям</string>
     <string name="menu_symptoms_and_diseases">Симптомы и болезни</string>
-    <string name="menu_brands">Бренды и производители</string>
+    <string name="menu_brands">Производители и бренды</string>
     <string name="menu_charity">Благотворительность</string>
     <string name="menu_legal_documents">Юридические документы</string>
     <string name="menu_rate_app">Оценить приложение</string>
     <string name="menu_enter">Войти</string>
-    <string name="menu_contacts">Контакты</string>
+    <string name="menu_contacts">Контакты и реквизиты</string>
     <string name="rate_app_desc">Ваше мнение важно для нас, поскольку оно помогает нам предоставлять вам лучший пользовательский опыт.</string>
     <string name="rate_app_cancel">Не сейчас</string>
     <string name="rate_app_confirm">Отправить</string>

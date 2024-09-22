@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/add_mail"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            style="@style/Theme.Socapteki.ManropeMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:text="@string/auth_confirm_mail_title_sheet"
+            android:textColor="@color/color_text_primary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:text="@string/auth_confirm_mail_desc_sheet"
+            android:textColor="@color/color_text_secondary" />
+
+        <Button
+            android:id="@+id/authConfirmMailAddSheet"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/auth_confirm_mail_add_sheet" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/authConfirmMailLaterSheet"
+            style="@style/Theme.Socapteki.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/auth_confirm_mail_remind_later_sheet" />
+
+    </LinearLayout>
+
+</layout>
+

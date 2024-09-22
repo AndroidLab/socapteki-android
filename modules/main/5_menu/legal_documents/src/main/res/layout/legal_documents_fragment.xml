@@ -137,54 +137,53 @@
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp">
 
-                    <ImageView
-                        android:id="@+id/legalDocumentsHelpDeskIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_help_desk"
-                        app:layout_constraintBottom_toBottomOf="@id/legalDocumentsHelpDeskPhone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/legalDocumentsHelpDesk"
-                        tools:ignore="ContentDescription" />
-
                     <TextView
                         android:id="@+id/legalDocumentsHelpDesk"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:singleLine="true"
                         android:text="@string/legal_documents_help_desk_title"
                         android:textColor="@color/light_black"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskIcon"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/legalDocumentsHelpDeskIcon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_help_desk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/legalDocumentsHelpDesk"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/legalDocumentsHelpDeskPhone"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
                         android:text="8 800 550 77 32"
-                        app:layout_constraintEnd_toStartOf="@id/legalDocumentsHelpDeskTime"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintHorizontal_chainStyle="packed"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskIcon"
                         app:layout_constraintTop_toBottomOf="@id/legalDocumentsHelpDesk" />
 
                     <TextView
                         android:id="@+id/legalDocumentsHelpDeskTime"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="4dp"
                         android:singleLine="true"
                         android:text="(с 8:00 до 21:00 по МСК)"
                         android:textColor="@color/light_black"
-                        app:layout_constraintBaseline_toBaselineOf="@id/legalDocumentsHelpDeskPhone"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskPhone" />
+                        app:layout_constraintStart_toEndOf="@id/legalDocumentsHelpDeskIcon"
+                        app:layout_constraintTop_toBottomOf="@id/legalDocumentsHelpDeskPhone" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </LinearLayout>
 

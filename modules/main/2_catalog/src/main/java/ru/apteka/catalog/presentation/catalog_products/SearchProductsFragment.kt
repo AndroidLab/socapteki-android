@@ -32,9 +32,9 @@ import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.listing_api.R as ListingApiR
+import ru.apteka.listing.R as ListingR
 
 
 /**
@@ -72,8 +72,9 @@ class SearchProductsFragment :
             viewModel.searchText.value = searchResult.text
         } else {
             keyBoardClose()
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ListingR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to searchResult.text
                 )
             )

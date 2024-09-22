@@ -7,7 +7,8 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    id(libs.plugins.kotlinSerialization.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 android {
@@ -24,4 +25,5 @@ dependencies {
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.expansionpanel)
     implementation(libs.mapsMobile)
+    implementation(libs.kotlinxSerializationJson)
 }

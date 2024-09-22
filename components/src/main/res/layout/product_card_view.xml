@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
         <variable
             name="model"
             type="ru.apteka.components.data.models.ProductCardModel" />
@@ -19,200 +21,243 @@
         app:contentPadding="8dp"
         app:strokeWidth="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
+            android:layout_height="wrap_content"
+            app:extraLayoutHeight="@{ (model.product.greenDesc == null ? 0 : 70) + 510}"
+            android:orientation="vertical">
 
-            <include
-                android:id="@+id/productImageCard"
-                layout="@layout/image_card"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:imageUrl="@{model.product.image}"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Лэйблы -->
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/productLabels"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="40dp"
-                app:flexWrap="wrap"
-                app:forItems="@{model.product.labels}"
-                app:layout_constraintEnd_toStartOf="@id/productImageCard"
-                app:layout_constraintStart_toStartOf="@+id/productImageCard"
-                app:layout_constraintTop_toTopOf="@+id/productImageCard"
-                app:useTemplate="@{@layout/label_template}" />
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
                 android:background="@android:color/transparent"
-                app:layout_constraintBottom_toBottomOf="@id/productImageCard"
-                app:layout_constraintEnd_toEndOf="@id/productImageCard"
-                app:layout_constraintStart_toStartOf="@id/productImageCard"
-                app:layout_constraintTop_toTopOf="@id/productImageCard">
+                app:extraLayoutHeight="@{(model.product.greenDesc == null ? 0 : 70) + 460}">
 
-                <!-- Иконка избранного -->
+                <include
+                    android:id="@+id/productImageCard"
+                    layout="@layout/image_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:imageUrl="@{model.product.image}"
+                    app:isBorderNotShow="@{true}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Лэйблы -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/productLabels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="40dp"
+                    app:flexWrap="wrap"
+                    app:forItems="@{model.product.labels}"
+                    app:layout_constraintEnd_toStartOf="@id/productImageCard"
+                    app:layout_constraintStart_toStartOf="@+id/productImageCard"
+                    app:layout_constraintTop_toTopOf="@+id/productImageCard"
+                    app:useTemplate="@{@layout/label_template}" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@id/productImageCard"
+                    app:layout_constraintEnd_toEndOf="@id/productImageCard"
+                    app:layout_constraintStart_toStartOf="@id/productImageCard"
+                    app:layout_constraintTop_toTopOf="@id/productImageCard">
+
+                    <!-- Иконка избранного -->
+                    <ImageView
+                        android:id="@+id/productFavorite"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> model.favorite.clickFavorite(model.product)}"
+                        android:padding="8dp"
+                        android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
+                        app:extraTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
+
+                <!-- Рейтинг -->
+                <include
+                    android:id="@+id/productRating"
+                    layout="@layout/icon_value_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:icon="@{@drawable/ic_star}"
+                    app:layout_constraintEnd_toStartOf="@id/productComments"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productImageCard"
+                    app:value="@{model.product.rating}" />
+
+                <!-- Комментарии -->
+                <include
+                    android:id="@+id/productComments"
+                    layout="@layout/icon_value_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:icon="@{@drawable/ic_comment}"
+                    app:layout_constraintStart_toEndOf="@id/productRating"
+                    app:layout_constraintTop_toBottomOf="@id/productImageCard"
+                    app:value="@{String.valueOf(model.product.comments)}" />
+
+                <!-- Заголовок -->
+                <TextView
+                    android:id="@+id/productTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="@{model.product.title}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productRating" />
+
+                <!-- Требование рецепта -->
                 <ImageView
-                    android:id="@+id/productFavorite"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> model.favorite.clickFavorite(model.product)}"
-                    android:padding="8dp"
-                    android:src="@{model.favorite.isFavoriteLiveData ? @drawable/ic_favorite : @drawable/ic_favorite_off}"
-                    app:extraTint="@{model.favorite.isFavoriteLiveData ? @color/red : @color/light_black}"
+                    android:id="@+id/productRecipe"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/ic_without_recipe"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productTitle"
                     tools:ignore="ContentDescription" />
 
-            </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@{model.product.needRecipe ? `Рецептурынй` : `Без рецепта`}"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintStart_toEndOf="@id/productRecipe"
+                    app:layout_constraintTop_toBottomOf="@id/productTitle" />
 
-            <!-- Рейтинг -->
-            <include
-                android:id="@+id/productRating"
-                layout="@layout/icon_value_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                app:icon="@{@drawable/ic_star}"
-                app:layout_constraintEnd_toStartOf="@id/productComments"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productImageCard"
-                app:value="@{model.product.rating}" />
+                <!-- Описание -->
+                <!--<TextView
+                     android:id="@+id/productDesc"
+                     android:layout_width="match_parent"
+                     android:layout_height="36dp"
+                     android:layout_marginHorizontal="8dp"
+                     android:layout_marginTop="6dp"
+                     android:text="@{model.product.desc}"
+                     android:textColor="@color/light_black"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toBottomOf="@id/productRecipe" />-->
 
-            <!-- Комментарии -->
-            <include
-                android:id="@+id/productComments"
-                layout="@layout/icon_value_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                app:icon="@{@drawable/ic_comment}"
-                app:layout_constraintStart_toEndOf="@id/productRating"
-                app:layout_constraintTop_toBottomOf="@id/productImageCard"
-                app:value="@{String.valueOf(model.product.comments)}" />
+                <!-- Производитель -->
+                <TextView
+                    android:id="@+id/productManufacturer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{model.product.manufacturer + `, ` + model.product.manufacturerCountry}"
+                    android:textColor="@color/light_black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productRecipe" />
 
-            <!-- Заголовок -->
+                <!-- Дополнительный зеленый текст -->
+                <TextView
+                    android:id="@+id/productGreenDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:text="@{model.product.greenDesc ?? ``}"
+                    android:textColor="@color/color_primary"
+                    app:visibleIf="@{model.product.greenDesc != null}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/productOldPrice" />
+
+                <!-- Старая цена -->
+                <TextView
+                    android:id="@+id/productOldPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@{model.product.discount == null ? `Последняя цена` : model.product.discount.oldPrice}"
+                    android:textColor="@color/dark_grey"
+                    app:isStrikethrough="@{model.product.discount != null}"
+                    app:layout_constraintBottom_toTopOf="@id/productPrice"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Актуальная цена -->
+                <TextView
+                    android:id="@+id/productPrice"
+                    style="@style/Theme.Socapteki.Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="@{model.product.price}"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toTopOf="@id/productCardCounter"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Процент скидки -->
+                <include
+                    android:id="@+id/productDiscountPercent"
+                    layout="@layout/discount_percentage_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    app:discount="@{model.product.discount}"
+                    app:layout_constraintBottom_toTopOf="@id/productCardCounter"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- Счетчик -->
+                <include
+                    android:id="@+id/productCardCounter"
+                    layout="@layout/product_counter_view"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toTopOf="@id/productCardAnalogs"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:model="@{model.basket}"
+                    app:product="@{model.product}" />
+
+                <!-- Аналоги -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/productCardAnalogs"
+                    style="@style/Theme.Socapteki.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:padding="0dp"
+                    android:text="Аналоги от 452 ₽"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Дисклаймер -->
             <TextView
-                android:id="@+id/productTitle"
+                android:id="@+id/productCardDisclaimer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{model.product.title}"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productRating" />
+                android:text="@{model.product.disclaimer ?? ``}"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="11sp"
+                app:visibleIf="@{model.product.disclaimer != null}" />
 
-            <!-- Требование рецепта -->
-            <ImageView
-                android:id="@+id/productRecipe"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/ic_without_recipe"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productTitle"
-                app:visibleIf="@{!model.product.needRecipe}"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="3dp"
-                android:text="Без рецепта"
-                android:textColor="@color/light_black"
-                app:layout_constraintStart_toEndOf="@id/productRecipe"
-                app:layout_constraintTop_toBottomOf="@id/productTitle" />
-
-            <!-- Доп описание -->
-            <TextView
-                android:id="@+id/productDesc"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="6dp"
-                android:text="@{model.product.desc}"
-                android:textColor="@color/light_black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productRecipe" />
-
-            <!-- Старая цена -->
-            <TextView
-                android:id="@+id/productOldPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:text="@{model.product.discount.oldPrice}"
-                android:textColor="@color/dark_grey"
-                app:isStrikethrough="@{true}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productDesc" />
-
-            <!-- Актуальная цена -->
-            <TextView
-                android:id="@+id/productPrice"
-                style="@style/Theme.Socapteki.Price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{model.product.price}"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productOldPrice" />
-
-            <!-- Процент скидки -->
-            <include
-                android:id="@+id/productDiscountPercent"
-                layout="@layout/discount_percentage_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                app:discount="@{model.product.discount}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productOldPrice" />
-
-            <!-- Счетчик -->
-            <include
-                android:id="@+id/productCardCounter"
-                layout="@layout/product_counter_view"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productPrice"
-                app:product="@{model.product}"
-                app:model="@{model.basket}" />
-
-            <!-- Аналоги -->
-            <com.google.android.material.button.MaterialButton
-                style="@style/Theme.Socapteki.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="8dp"
-                android:text="Аналоги от 452 ₽"
-                android:padding="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productCardCounter" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

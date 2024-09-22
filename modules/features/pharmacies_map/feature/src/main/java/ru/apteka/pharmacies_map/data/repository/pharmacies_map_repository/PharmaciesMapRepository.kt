@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 /**
  * Представляет репозиторий аптек.
- * @param ApiPharmacies Api pharmacies.
+ * @param pharmaciesMapApi Api pharmacies.
  */
 class PharmaciesMapRepository @Inject constructor(
     private val pharmaciesMapApi: IPharmaciesMapApi

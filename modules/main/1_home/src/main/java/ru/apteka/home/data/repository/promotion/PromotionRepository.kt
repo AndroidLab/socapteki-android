@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 /**
  * Представляет репозиторий акций.
- * @param promotionApi Promotion api.
  */
 @ViewModelScoped
 class PromotionRepository @Inject constructor(

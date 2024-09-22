@@ -2,7 +2,7 @@ package ru.apteka.stocks.presentation.stocks
 
 
 import ru.apteka.components.ui.delegate_adapter.ViewBindingDelegateAdapter
-import ru.apteka.stocks.data.models.StockModel
+import ru.apteka.components.data.models.StockModel
 import ru.apteka.stocks.databinding.StockHolderBinding
 
 

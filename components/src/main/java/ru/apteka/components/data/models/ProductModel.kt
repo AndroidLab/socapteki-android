@@ -25,6 +25,7 @@ data class ProductModel(
     val additionalDesc: String? = null,
     val releaseForm: String? = null,
     val manufacturer: String? = null,
+    val manufacturerCountry: String? = null,
     val activeSubstance: String? = null,
     val dosage: String? = null,
     val expirationDate: String? = null,
@@ -32,9 +33,16 @@ data class ProductModel(
     val homeDeliveryDate: String? = null,
     val variants: @RawValue List<ProductVariantModel> = emptyList(),
     val labels: List<Label> = emptyList(),
+    val disclaimer: String? = null,
     val countInBasket: Int = 0,
     val id: UUID = UUID.randomUUID(),
 ) : Parcelable {
+
+    /**
+     * Зеленый текст для некоторых карточек.
+     */
+    @IgnoredOnParcel
+    var greenDesc: String? = null
 
     /**
      * Возвращает или устанавливает значения кол-ва товара в корзине.

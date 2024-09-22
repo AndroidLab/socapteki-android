@@ -23,13 +23,13 @@ interface IDelegateAdapter {
     fun isForViewType(items: List<Any>, position: Int): Boolean
 
     /**
-     * [DiffUtilCallback] использует, чтобы знать, что два объекта одинаковы.
+     * Возвращает id.
      * @param item Объект для отображения.
      */
     fun itemId(item: Any): Any
 
     /**
-     * [DiffUtilCallback] использует, чтобы знать, что два объекта одинаковып по контенту.
+     * Возвращает контент.
      * @param item Объект для отображения.
      */
     fun itemContent(item: Any): Any

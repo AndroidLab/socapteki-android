@@ -12,7 +12,7 @@ import ru.apteka.components.data.models.SelectableModel
 @Parcelize
 class DeliveryTimeModel <T: SelectableModel.SelectableItem> (
     private val _items: @RawValue List<T>,
-    private val _onItemSelected: (T) -> Unit
+    private val _onItemSelected: (T?) -> Unit
 ) : SelectableModel<T>(
     _items,
     _onItemSelected

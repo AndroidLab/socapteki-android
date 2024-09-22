@@ -10,7 +10,7 @@ import ru.apteka.components.data.utils.ScopedLiveData
  */
 abstract class SelectableModel<T: SelectableModel.SelectableItem>(
     val items: List<T>,
-    val onItemSelected: (T) -> Unit
+    val onItemSelected: (T?) -> Unit
 ) {
 
     /**
@@ -38,6 +38,11 @@ abstract class SelectableModel<T: SelectableModel.SelectableItem>(
                         if (it != item) {
                             it.isItemSelected.value = false
                         }
+                    }
+                } else {
+                    if (items.all { !it.isItemSelected.value!! }) {
+                        onItemSelected(null)
+                        selectedItem.setValue(null)
                     }
                 }
             }

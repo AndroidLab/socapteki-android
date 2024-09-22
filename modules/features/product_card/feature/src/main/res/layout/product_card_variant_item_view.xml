@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -20,6 +19,7 @@
         android:layout_marginEnd="8dp"
         android:onClick="@{() -> bindingItem.onItemClick()}"
         android:text="@{bindingItem.name}"
+        android:textColor="@color/color_text_primary"
         app:chipBackgroundColor="@{bindingItem.isItemSelected ? @color/color_secondary_container : @color/background_secondary}"
         app:chipCornerRadius="100dp"
         app:chipStrokeColor="@{bindingItem.isItemSelected ? @color/color_primary : @android:color/transparent}"

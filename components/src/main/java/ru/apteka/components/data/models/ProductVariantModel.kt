@@ -9,7 +9,7 @@ import kotlinx.parcelize.RawValue
 class ProductVariantModel(
     val title: String,
     val variants: @RawValue List<VariantItem>,
-    val _onItemSelected: (VariantItem) -> Unit
+    val _onItemSelected: (VariantItem?) -> Unit
 ) : SelectableModel<ProductVariantModel.VariantItem>(
     items = variants,
     onItemSelected = _onItemSelected

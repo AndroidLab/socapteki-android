@@ -17,9 +17,10 @@ import ru.apteka.components.data.utils.playAnimation
 import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.listing_api.R as ListingApiR
+import ru.apteka.listing.R as ListingR
+
 
 /**
  * Представляет фрагмент "Подкаталог".
@@ -41,7 +42,6 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
     }
 
     override fun onViewBindingInflated(binding: SubCatalogFragmentBinding) {
-        viewModel.isLevel3 = args.isLevel3
         viewModel.catalogItem = args.catalogItem
 
         binding.viewModel = viewModel
@@ -55,21 +55,12 @@ class SubCatalogFragment : BaseFragment<SubCatalogViewModel, SubCatalogFragmentB
     }
 
     private fun onItemClick(item: CatalogItem) {
-        if (args.isLevel3) {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph,
-                bundleOf(
-                    LISTING_ARGUMENT to item.title
-                )
+        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+            ListingR.id.listing_graph,
+            bundleOf(
+                LISTING_ARGUMENT to item.title
             )
-        } else {
-            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-                SubCatalogFragmentDirections.toSubCatalogFragment(
-                    item,
-                    true
-                )
-            )
-        }
+        )
     }
 
     override fun onResume() {

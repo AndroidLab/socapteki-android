@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.home.presentation.main_home.MainViewModel" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Бонусная программа -->
+        <FrameLayout
+            android:id="@+id/flBonusNavHost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/bonus_nav_host"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/bonus_graph"
+                tools:ignore="FragmentTagUsage"/>
+
+        </FrameLayout>
+
+        <!-- Домашний экран -->
+        <FrameLayout
+            android:id="@+id/flHomeNavHost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/home_nav_host"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/home_graph"
+                tools:ignore="FragmentTagUsage"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</layout>

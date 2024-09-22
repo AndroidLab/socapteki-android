@@ -9,7 +9,7 @@ import ru.apteka.components.data.models.SelectableModel
  */
 class JobOpeningsFilterModel(
     _items: @RawValue List<Item>,
-    _onItemSelected: (Item) -> Unit
+    _onItemSelected: (Item?) -> Unit
 ) : SelectableModel<JobOpeningsFilterModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

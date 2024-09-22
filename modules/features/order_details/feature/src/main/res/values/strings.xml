@@ -1,0 +1,50 @@
+<resources>
+
+    <string name="order_details_title">Заказ №%s</string>
+    <string name="order_details_canceled_reason">Причина отмены</string>
+    <string name="order_details_pay_order">Оплатите заказ, чтобы мы начали его собирать и доставили вовремя</string>
+    <string name="order_details_canceled_after">Заказ отменится через %s</string>
+    <string name="order_details_opinion">Поделитесь своим мнением о работе аптеки, которая обработала ваш заказ</string>
+    <string name="order_details_delivery_method">Способ получения</string>
+    <string name="order_details_delivery_address">Адресс доставки</string>
+    <string name="order_details_delivery_time">Желаемое время доставки</string>
+    <string name="order_details_storage_up_to">Хранение до:</string>
+    <string name="order_details_pharmacy_address">Адрес аптеки:</string>
+    <string name="order_details_operating_mode">Режим работы:</string>
+
+    <string name="order_details_total_products">Всего товаров:</string>
+    <string name="order_details_discount">Скидка:</string>
+    <string name="order_details_bonuses_gone">Бонусов списано:</string>
+    <string name="order_details_bonuses_accrued">Бонусов начислено:</string>
+    <string name="order_details_payment_method">Способ оплаты:</string>
+    <string name="order_details_payment_delivery">Доставка:</string>
+    <string name="order_details_total_cost">Итоговая стоимость:</string>
+    <string name="order_details_extend_booking">Продлить бронирование</string>
+    <string name="order_details_cancel_btn">Отменить заказ</string>
+    <string name="order_details_repeat_btn">Повторить заказ</string>
+    <string name="order_details_buy_btn">Оплатить</string>
+    <string name="order_details_cancel_sheet_title">Почему вы решили отменить заказ?</string>
+    <string name="order_details_cancel_sheet_desc">Пожалуйста, поделитесь с нами причиной, почему вы отменить заказ?</string>
+    <string name="order_details_cancel_sheet_error_in_order">Ошибка в заказе</string>
+    <string name="order_details_cancel_sheet_not_buy">Не буду покупать</string>
+    <string name="order_details_cancel_sheet_another_pharmacy">Препараты куплены в другой аптеке</string>
+    <string name="order_details_cancel_sheet_long_time">Заказ долго собирается</string>
+    <string name="order_details_cancel_sheet_already_bought">Уже купил этот заказ</string>
+    <string name="order_details_cancel_sheet_other">Другое</string>
+    <string name="order_details_cancel_sheet_own_reason">Укажите свою причину</string>
+    <string name="order_details_cancel_sheet_not_cancel">Не отменять</string>
+    <string name="order_details_cancel_sheet_cancel">Отменить заказ</string>
+    <string name="order_details_opinion_hint">Ваш комментарий</string>
+    <string name="order_details_opinion_desc">Информация не публикуется, необходима для оценки качества</string>
+    <string name="order_details_extend_booking_desc">Выберите срок, на который хотите продлить бронирование заказа</string>
+    <string name="order_details_extend_booking_extend">Продлить</string>
+    <string name="order_details_extend_booking_1_day">Продлить на 1 день</string>
+    <string name="order_details_extend_booking_3_day">Продлить на 3 дня</string>
+    <string name="order_details_extend_booking_5_day">Продлить на 5 дней</string>
+
+    <string name="order_cancel_title">Отмена заказа</string>
+    <string name="order_cancel">Отменить заказ</string>
+    <string name="order_cancel_are_you_sure">Вы уверены, что хотите отменить этот заказ?</string>
+    <string name="order_cancel_number">Заказ №%s</string>
+
+</resources>

@@ -6,7 +6,6 @@ import javax.inject.Inject
 
 /**
  * Представляет репозиторий каталога.
- * @param catalogApi Api.
  */
 class CatalogRepository @Inject constructor(
 

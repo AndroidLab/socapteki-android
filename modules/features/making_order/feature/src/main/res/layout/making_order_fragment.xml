@@ -49,11 +49,12 @@
                         app:expansion_layout="@id/expansionLayout">
 
                         <TextView
+                            style="@style/Theme.Socapteki.ManropeMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:tag="title"
                             android:text="@string/making_order_your_order"
-                            android:textColor="@color/black"
+                            android:textColor="@color/color_text_primary"
                             android:textSize="16sp" />
 
                         <ImageView
@@ -174,10 +175,11 @@
                     app:visibleIf="@{viewModel.deliveryMethods.mediator}">
 
                     <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/making_order_shipping_methods"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_text_primary"
                         android:textSize="16sp" />
 
                     <!-- Забрать из аптеки -->
@@ -267,10 +269,11 @@
                     android:padding="16dp">
 
                     <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/making_order_payments_methods"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_text_primary"
                         android:textSize="16sp" />
 
                     <!-- Оплата в аптеке при получении -->
@@ -295,11 +298,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:text="@string/making_order_personal_data"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_text_primary"
                         android:textSize="16sp" />
 
                     <EditText
@@ -314,7 +318,8 @@
                         android:paddingVertical="8dp"
                         android:singleLine="true"
                         android:text="@={viewModel.fio}"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        tools:ignore="TextFields" />
 
                     <EditText
                         android:id="@+id/etMakingOrderPhoneNumber"
@@ -342,7 +347,8 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:text="@={viewModel.mail}"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        tools:ignore="TextFields" />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -356,54 +362,88 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:text="@={viewModel.comment}"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        tools:ignore="TextFields" />
 
                 </LinearLayout>
 
 
                 <!-- Блок получателей -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/corners_shape"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/makingOrderRecipientsTitle"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/making_order_recipients"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/makingOrderRecipientsAdd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:paddingHorizontal="16dp"
-                        android:paddingTop="16dp"
-                        android:textColor="@color/color_primary"
-                        app:extraText="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10 ? @string/add : @string/change}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:paddingVertical="8dp"
+                        app:visibleIf="@{viewModel.isRecipientSameBuyer}">
 
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/cbMakingOrderRecipientSameBuyer"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            style="@style/Theme.Socapteki.ManropeMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="32dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/making_order_recipient_same_buyer"
+                            android:textColor="@color/color_text_primary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/makingOrderRecipientsBtn"
+                            style="@style/Theme.Socapteki.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> viewModel.setRecipientSameBuyer()}"
+                            android:padding="4dp"
+                            android:text="@string/no" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="8dp"
-                        android:enabled="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10}"
-                        android:paddingStart="8dp"
-                        android:text="@string/making_order_recipient_same_buyer"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/makingOrderRecipientsTitle"
-                        app:onCheckedChangeListener="@{(view, b) -> viewModel.setRecipientSameBuyer(b)}" />
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:visibleIf="@{!viewModel.isRecipientSameBuyer}">
+
+                        <TextView
+                            android:id="@+id/makingOrderRecipientsTitle"
+                            style="@style/Theme.Socapteki.ManropeMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/making_order_recipients"
+                            android:textColor="@color/color_text_primary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/makingOrderRecipientsAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:text="@string/change"
+                            android:textColor="@color/color_primary"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_horizontal"
+                        android:text="Нажмите 'Изменить' для добавления получателей"
+                        android:textColor="@color/color_text_secondary"
+                        app:visibleIf="@{!viewModel.isRecipientSameBuyer &amp; viewModel.recipients.empty}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -414,11 +454,23 @@
                         android:paddingHorizontal="16dp"
                         app:extraPaddingBottom="@{viewModel.recipients.empty ? 0 : 16}"
                         app:forItems="@{viewModel.recipients}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cbMakingOrderRecipientSameBuyer"
-                        app:useTemplate="@{@layout/making_order_recipient_template}" />
+                        app:useTemplate="@{@layout/making_order_recipient_template}"
+                        app:visibleIf="@{!viewModel.isRecipientSameBuyer}" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!--<com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cbMakingOrderRecipientSameBuyer"
+                        style="@style/Theme.Socapteki.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:enabled="@{!viewModel.fio.empty &amp; viewModel.rawNumber.length == 10}"
+                        android:paddingStart="8dp"
+                        android:text="@string/making_order_recipient_same_buyer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/makingOrderRecipientsTitle"
+                        app:onCheckedChangeListener="@{(view, b) -> viewModel.setRecipientSameBuyer(b)}" />-->
+
+                </LinearLayout>
 
                 <!-- Блок итоговой стоимости -->
                 <LinearLayout
@@ -435,12 +487,13 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            style="@style/Theme.Socapteki.ManropeMedium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             android:layout_weight="1"
                             android:text="@string/making_order_price_paid"
-                            android:textColor="@color/black"
+                            android:textColor="@color/color_text_primary"
                             android:textSize="20sp" />
 
                         <TextView
@@ -529,10 +582,12 @@
                         android:padding="16dp">
 
                         <TextView
+                            style="@style/Theme.Socapteki.ManropeMedium"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/making_order_price_bonus"
+                            android:textColor="@color/color_text_primary"
                             android:textSize="16sp" />
 
                         <TextView
@@ -626,7 +681,9 @@
 
                     </LinearLayout>
 
-                    <include layout="@layout/separator_view" />
+                    <include
+                        layout="@layout/separator_view"
+                        tools:ignore="TooManyViews" />
 
                     <!-- Скидка -->
                     <LinearLayout
@@ -726,6 +783,7 @@
 
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/cbMakingOrderElectronicReceipt"
+                            style="@style/Theme.Socapteki.CheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"

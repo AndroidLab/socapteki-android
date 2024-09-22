@@ -1,12 +1,11 @@
 package ru.apteka.referral_program.data.repository.referral_program
 
 import kotlinx.coroutines.delay
-import ru.apteka.referral_program.data.repository.referral_program.IApi
 import javax.inject.Inject
 
 /**
  * Представляет репозиторий .
- * @param Api  api.
+ * @param newModuleApi api.
  */
 class Repository @Inject constructor(
     private val newModuleApi: IApi

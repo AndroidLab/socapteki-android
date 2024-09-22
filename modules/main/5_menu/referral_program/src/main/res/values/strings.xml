@@ -2,6 +2,14 @@
 
     <string name="referral_program_title">Реферальная программа</string>
     <string name="referral_program_desc">Наблюдайте, как копятся бонусы\nЧем больше друзей получат заказы из нашей аптеки, тем больше бонусов придёт на ваш счёт</string>
+    <string name="referral_program_earned_it">Вы заработали:</string>
+    <string name="referral_program_bonuses">БОНУСОВ</string>
+    <string name="referral_program_acquainted_with_offer">Ознакомиться с офертой</string>
+    <string name="referral_program_your_link">Ваша уникальная ссылка\nдля приглашения друзей:</string>
+    <string name="referral_program_share_social">Поделиться в соц.сетях</string>
+    <string name="referral_program_terms_referral_program">Условия реферальной программы</string>
+    <string name="referral_program_how_it_works">Как это работает:</string>
+    <string name="referral_program_accrual">Начисление</string>
 
 
 </resources>

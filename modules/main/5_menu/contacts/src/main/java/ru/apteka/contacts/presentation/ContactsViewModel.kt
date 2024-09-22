@@ -54,10 +54,4 @@ class ContactsViewModel @Inject constructor(
         ),
     )
 
-
-
-    init {
-
-    }
-
 }

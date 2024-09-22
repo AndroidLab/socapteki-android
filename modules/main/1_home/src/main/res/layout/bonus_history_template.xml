@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -43,7 +42,8 @@
             android:layout_marginTop="16dp"
             android:text="@{bindingItem.value > 0 ? `+` + bindingItem.value : ``+bindingItem.value}"
             android:textColor="@{bindingItem.value > 0 ? @color/color_primary : @color/red}"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/bonusHistoryDesc"

@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 /**
  * Представляет репозиторий .
- * @param Api  api.
+ * @param newModuleApi api.
  */
 class Repository @Inject constructor(
     private val newModuleApi: WorkWithUsIApi

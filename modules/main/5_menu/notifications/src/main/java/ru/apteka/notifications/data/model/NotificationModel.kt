@@ -11,6 +11,7 @@ data class NotificationModel(
     val title: String,
     val desc: String,
     val type: NotificationType,
+    val orderOrStock: Any,
     val id: UUID = UUID.randomUUID()
 ) {
     enum class NotificationType {

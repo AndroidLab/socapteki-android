@@ -97,6 +97,7 @@ class MakingOrderFragment : BaseFragment<MakingOrderViewModel, MakingOrderFragme
                         ),
                         recipients = viewModel.recipients.value!!.map {
                             it.copy().apply {
+                                onClick = null
                                 onRemove = null
                             }
                         }

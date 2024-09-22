@@ -1,14 +1,18 @@
 package ru.apteka.components.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.annotation.FloatRange
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.apteka.components.R
@@ -67,6 +71,31 @@ class BottomSheet private constructor() : BottomSheetDialogFragment() {
             val bottomSheetInternal = (dialog as BottomSheetDialog)
                 .findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             val behavior = BottomSheetBehavior.from(bottomSheetInternal!!)
+
+            var offset: Float? = null
+            var needDismiss = false
+
+            behavior.addBottomSheetCallback(object : BottomSheetCallback() {
+                // offset 0 -полностью открыто -1 -полностью скрыто
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_SETTLING) {
+                        if (offset!! < -0.2) {
+                            behavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+                            needDismiss = true
+                        }
+                    }
+                    // STATE_HIDDEN, STATE_COLLAPSED, STATE_EXPANDED - выпадают рандомно
+                    if (needDismiss && (newState == BottomSheetBehavior.STATE_HIDDEN || newState == BottomSheetBehavior.STATE_COLLAPSED || newState == BottomSheetBehavior.STATE_EXPANDED)) {
+                        needDismiss = false
+                        dismiss()
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    offset = slideOffset
+                }
+            })
+
             behavior.peekHeight = screenHeight
             bottomSheetModel.onLayoutInflate?.invoke(
                 binding,
@@ -97,5 +126,10 @@ class BottomSheet private constructor() : BottomSheetDialogFragment() {
     override fun onPause() {
         this.dismiss()
         super.onPause()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        bottomSheetModel.onCancel?.invoke(dialog)
+        super.onCancel(dialog)
     }
 }

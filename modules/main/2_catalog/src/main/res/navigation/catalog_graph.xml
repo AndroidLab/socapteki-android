@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/catalog_graph"
     app:startDestination="@id/catalogFragment">
 
@@ -23,22 +22,16 @@
         android:id="@+id/subCatalogFragment"
         android:name="ru.apteka.catalog.presentation.subcatalog.SubCatalogFragment">
 
-        <action
-            android:id="@+id/toSubCatalogFragment"
-            app:destination="@id/subCatalogFragment" />
-
         <argument
             android:name="catalogItem"
             app:argType="ru.apteka.catalog.data.models.CatalogItem" />
-
-        <argument
-            android:name="isLevel3"
-            app:argType="boolean" />
 
     </fragment>
 
     <fragment
         android:id="@+id/searchProductsFragment"
         android:name="ru.apteka.catalog.presentation.catalog_products.SearchProductsFragment" />
+
+    <include app:graph="@navigation/listing_graph" />
 
 </navigation>

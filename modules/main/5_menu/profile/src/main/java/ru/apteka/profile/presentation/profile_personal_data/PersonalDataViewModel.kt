@@ -1,5 +1,6 @@
 package ru.apteka.profile.presentation.profile_personal_data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
@@ -15,7 +16,7 @@ import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.launchMain
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.profile.data.models.SexModel
+import ru.apteka.components.data.models.SexModel
 import javax.inject.Inject
 
 /**
@@ -38,8 +39,6 @@ class PersonalDataViewModel @Inject constructor(
      * Устанавливает или возвращает ФИО.
      */
     val fio = MutableLiveData<String?>(null)
-
-    private var _date: String? = null
 
     /**
      * Устанавливает или возвращает дату рождения.
@@ -83,7 +82,7 @@ class PersonalDataViewModel @Inject constructor(
         if (sexSaveError) {
             sexSaveError = false
         } else {
-            saveSex(it.sex)
+            saveSex(it?.sex ?: 1)
         }
     }
 
@@ -120,7 +119,7 @@ class PersonalDataViewModel @Inject constructor(
                     personalData.postValue(it)
                     launchMain {
                         fio.value = it.fio
-                        date.value = _date
+                        date.value = it.date
                         phone.value = it.phone ?: accountsPreferences.account!!.phoneNumber!!
                         _email.value = it.userMail
                         sex.setValue(it.sex)

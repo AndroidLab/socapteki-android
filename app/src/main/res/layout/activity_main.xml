@@ -32,7 +32,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 app:defaultNavHost="true"
-                app:navGraph="@navigation/general_nav_graph" />
+                app:navGraph="@navigation/general_nav_graph"
+                tools:ignore="FragmentTagUsage" />
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBar"
@@ -105,6 +106,7 @@
                         android:id="@+id/nbTab4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@id/bottomNavigationBasketItem"
                         app:layout_constraintEnd_toEndOf="@id/bottomNavigationBasketItem"
                         app:layout_constraintHorizontal_bias=".755"
@@ -126,7 +128,7 @@
                 android:src="@drawable/ic_card"
                 app:backgroundTint="@color/light_grey"
                 app:elevation="0dp"
-                app:extraTint="@{bottomAppBarModel.selectedItemId == @id/home_graph ? @color/color_primary : @color/light_black}"
+                app:extraTint="@{bottomAppBarModel.selectedItemId == @id/main_home_graph ? @color/color_primary : @color/light_black}"
                 app:maxImageSize="32dp"
                 app:rippleColor="@color/grey"
                 tools:ignore="ContentDescription" />
@@ -184,7 +186,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="90dp"
                 android:alpha="0"
-                android:text="Добрый день!"
+                android:text="@string/good_afternoon"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
@@ -196,7 +198,7 @@
                 android:layout_marginBottom="35dp"
                 android:alpha="0"
                 android:gravity="center"
-                android:text="Редкие лекарства\nдоступны в одном месте"
+                android:text="@string/rare_medicines_available_one_place"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

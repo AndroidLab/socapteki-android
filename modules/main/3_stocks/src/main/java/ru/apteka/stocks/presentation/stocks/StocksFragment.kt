@@ -1,5 +1,6 @@
 package ru.apteka.stocks.presentation.stocks
 
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -11,7 +12,10 @@ import ru.apteka.components.databinding.SearchToolbarViewBinding
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
 import ru.apteka.stocks.R
-import ru.apteka.stocks.data.models.StockModel
+import ru.apteka.components.R as ComponentR
+import ru.apteka.stock_details_api.R as StockDetailsApiR
+import ru.apteka.components.data.models.StockModel
+import ru.apteka.order_details_api.api.STOCK_DETAILS_ARGUMENT
 import ru.apteka.stocks.databinding.StocksFragmentBinding
 
 
@@ -40,8 +44,11 @@ class StocksFragment : BaseFragment<StocksViewModel, StocksFragmentBinding>() {
     }
 
     private fun onStockCardClick(item: StockModel) {
-        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            StocksFragmentDirections.toStockDetailsFragment(item)
+        viewModel.navigationManager.generalNavController.navigateWithAnim(
+            StockDetailsApiR.id.stock_details_graph,
+            bundleOf(
+                STOCK_DETAILS_ARGUMENT to item
+            )
         )
     }
 
@@ -50,14 +57,14 @@ class StocksFragment : BaseFragment<StocksViewModel, StocksFragmentBinding>() {
         viewModel.navigationManager.onBottomAppBarShowed(true)
 
         binding.stocksToolbar.apply {
-            toolbar.setNavigationIcon(ru.apteka.components.R.drawable.ic_search)
+            toolbar.setNavigationIcon(ComponentR.drawable.ic_search)
             toolbarCustomViewContainer.removeAllViews()
             toolbarCustomViewContainer.apply {
                 //layoutParams = Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT)
                 addView(
                     DataBindingUtil.inflate<SearchToolbarViewBinding>(
                         layoutInflater,
-                        ru.apteka.components.R.layout.search_toolbar_view,
+                        ComponentR.layout.search_toolbar_view,
                         null,
                         false
                     ).apply {

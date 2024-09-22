@@ -245,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:tag="title"
-                        android:text="Детали заказа"
+                        android:text="@string/pharmacies_map_order_details"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -337,7 +337,7 @@
                                     android:id="@+id/pharmacyItemOrderProductTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Привезем для Вас"
+                                    android:text="@string/pharmacies_map_we_will_bring_it_for_you"
                                     android:textColor="@color/red"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -429,7 +429,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Самовывоз:"
+                android:text="@string/pharmacies_map_pickup"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/pharmacyItemPickupImage"
                 app:layout_constraintEnd_toStartOf="@id/pharmacyItemPickupDate"
@@ -468,13 +468,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pharmacyItemAnalogsSeparator"
-                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}">
+                app:visibleIf="@{typeInteraction == TypeInteraction.SELECT_PHARMACY}"
+                tools:ignore="UseCompoundDrawables">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Посмотреть ближайшие аптеки где есть все товары"
+                    android:text="@string/pharmacies_map_nearest_pharmacies"
                     android:textColor="@color/light_black" />
 
                 <ImageView

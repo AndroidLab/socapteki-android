@@ -7,10 +7,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
 import ru.apteka.symptoms_diseases.R
 import ru.apteka.symptoms_diseases.data.model.SymptomModel
 import ru.apteka.symptoms_diseases.databinding.SymptomsDiseasesFragmentBinding
+import ru.apteka.listing.R as ListingR
+
 
 /**
  * Представляет фрагмент "Симптомы и болезни".
@@ -34,7 +36,7 @@ class SymptomsDiseasesFragment :
 
         binding.rvSymptoms.adapter = lettersAdapter
 
-        viewModel.letters.observe(viewLifecycleOwner) {
+        viewModel.symptoms.observe(viewLifecycleOwner) {
             lettersAdapter.swapData(it)
         }
 
@@ -44,8 +46,8 @@ class SymptomsDiseasesFragment :
     }
 
     private fun onSymptomClick(symptom: SymptomModel) {
-        viewModel.navigationManager.generalNavController.navigateWithAnim(
-            ru.apteka.listing_api.R.id.listing_graph,
+        viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+            ListingR.id.listing_graph,
             bundleOf(
                 LISTING_ARGUMENT to symptom.title
             )

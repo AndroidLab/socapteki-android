@@ -13,7 +13,6 @@ import java.io.File
 
 /**
  * Представляет адаптер списка страниц pdf.
- * @param viewModel Модель отображения.
  */
 class PdfAdapter(
     private val count: Int,

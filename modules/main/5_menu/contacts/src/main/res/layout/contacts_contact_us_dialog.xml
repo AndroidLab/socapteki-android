@@ -68,7 +68,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:text="@string/contacts_contact_us_help_desk"
                     android:textColor="@color/light_black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,25 +77,27 @@
 
                 <TextView
                     android:id="@+id/tvContactsContactUsHelpDeskPhone"
+                    style="@style/Theme.Socapteki.ManropeMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="8 800 550 77 32"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_text_primary"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/ivContactsContactUsHelpDesk"
                     app:layout_constraintTop_toBottomOf="@id/tvContactsContactUsHelpDesk" />
 
                 <TextView
+                    android:id="@+id/tvContactsContactUsHelpDeskPhoneWorkTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginHorizontal="16dp"
                     android:singleLine="true"
                     android:text="@string/contacts_contact_us_time"
                     android:textColor="@color/light_black"
                     android:textSize="12sp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tvContactsContactUsHelpDeskPhone"
-                    app:layout_constraintStart_toEndOf="@id/tvContactsContactUsHelpDeskPhone" />
+                    app:layout_constraintStart_toEndOf="@id/ivContactsContactUsHelpDesk"
+                    app:layout_constraintTop_toBottomOf="@id/tvContactsContactUsHelpDeskPhone" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -141,11 +143,12 @@
 
                 <TextView
                     android:id="@+id/tvContactsContactUsOnlinePharmacyPhone"
+                    style="@style/Theme.Socapteki.ManropeMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="+7 (863) 333-50-40"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_text_primary"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/ivContactsContactUsOnlinePharmacy"
                     app:layout_constraintTop_toBottomOf="@id/tvContactsContactUsOnlinePharmacy" />
@@ -153,13 +156,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginHorizontal="16dp"
                     android:singleLine="true"
                     android:text="@string/contacts_contact_us_time"
                     android:textColor="@color/light_black"
                     android:textSize="12sp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tvContactsContactUsOnlinePharmacyPhone"
-                    app:layout_constraintStart_toEndOf="@id/tvContactsContactUsOnlinePharmacyPhone" />
+                    app:layout_constraintStart_toEndOf="@id/ivContactsContactUsOnlinePharmacy"
+                    app:layout_constraintTop_toBottomOf="@id/tvContactsContactUsOnlinePharmacyPhone" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -180,7 +183,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="12dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/ivContactsContactUsTelegram"
@@ -221,7 +225,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="12dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/ivContactsContactUsVK"
@@ -263,7 +268,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="12dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/ivContactsContactUsOK"

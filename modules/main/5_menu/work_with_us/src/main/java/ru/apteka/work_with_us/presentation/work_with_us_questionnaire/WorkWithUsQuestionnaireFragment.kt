@@ -20,6 +20,7 @@ import ru.apteka.work_with_us.R
 import ru.apteka.work_with_us.databinding.WorkWithUsQuestionnaireDialogSuccessBinding
 import ru.apteka.work_with_us.databinding.WorkWithUsQuestionnaireFragmentBinding
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -48,7 +49,13 @@ class WorkWithUsQuestionnaireFragment :
                 ru.apteka.components.R.style.Theme_Socapteki_DataPicker,
                 { view, year, month, day ->
                     viewModel.birthday.value =
-                        "${String.format("%02d", day)}.${String.format("%02d", month + 1)}.$year"
+                        "${
+                            String.format(
+                                Locale.getDefault(),
+                                "%02d",
+                                day
+                            )
+                        }.${String.format(Locale.getDefault(), "%02d", month + 1)}.$year"
                 },
                 _year,
                 _month,

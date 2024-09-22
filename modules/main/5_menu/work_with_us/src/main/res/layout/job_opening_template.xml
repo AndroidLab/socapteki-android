@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bindingItem"
+            type="ru.apteka.work_with_us.data.model.JobOpeningModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/corners_shape"
+        android:orientation="vertical">
+
+        <com.github.florent37.expansionpanel.ExpansionHeader
+            android:id="@+id/jobOpeningExpansionHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expansionChangeColor="@{true}"
+            app:expansion_headerIndicator="@id/jobOpeningHeaderIndicator"
+            app:expansion_layout="@id/jobOpeningExpansionLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingVertical="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="32dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{bindingItem.name}"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{bindingItem.address}"
+                    android:textColor="@color/color_text_secondary" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/jobOpeningHeaderIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_arrow_expand"
+                tools:ignore="ContentDescription" />
+
+        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+        <com.github.florent37.expansionpanel.ExpansionLayout
+            android:id="@+id/jobOpeningExpansionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expansion_expanded="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp">
+
+                <include
+                    layout="@layout/job_opening_desc_view"
+                    app:desc="@{bindingItem.experience}"
+                    app:icon="@{@drawable/ic_job_opening_experience}"
+                    app:title="@{`Опыт:`}" />
+
+                <include
+                    layout="@layout/job_opening_desc_view"
+                    app:desc="@{bindingItem.education}"
+                    app:icon="@{@drawable/ic_job_opening_education}"
+                    app:title="@{`Образование:`}" />
+
+                <include
+                    layout="@layout/job_opening_desc_view"
+                    app:desc="@{bindingItem.workingDay}"
+                    app:icon="@{@drawable/ic_job_opening_working_day}"
+                    app:title="@{`Рабочий день:`}" />
+
+                <include
+                    layout="@layout/job_opening_desc_view"
+                    app:desc="@{bindingItem.salary}"
+                    app:icon="@{@drawable/ic_job_opening_salary}"
+                    app:title="@{`Зарплата:`}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="16dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:extraBackgroundTint="@{@color/color_secondary_container}">
+
+                    <!-- Обязанности -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_with_us_responsibilities"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        app:forItems="@{bindingItem.responsibilities}"
+                        app:useTemplate="@{@layout/items_template}" />
+
+                    <!-- Требования -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_with_us_requirements"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        app:forItems="@{bindingItem.requirements}"
+                        app:useTemplate="@{@layout/items_template}" />
+
+                    <!-- Условия -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_with_us_conditions"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        app:forItems="@{bindingItem.condition}"
+                        app:useTemplate="@{@layout/items_template}" />
+
+                    <!-- Условия -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/work_with_us_key_skills"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        app:forItems="@{bindingItem.keySkills}"
+                        app:useTemplate="@{@layout/items_template}" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> bindingItem.onItemClick.invoke(bindingItem)}"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/work_with_us_fill_out_questionnaire" />
+
+            </LinearLayout>
+
+        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+    </LinearLayout>
+
+</layout>

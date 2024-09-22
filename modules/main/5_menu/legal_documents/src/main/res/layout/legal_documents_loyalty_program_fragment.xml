@@ -594,7 +594,8 @@
 
                             <include
                                 layout="@layout/legal_documents_item_view"
-                                app:desc="@{@string/loyalty_program_write_off_rules_desc}" />
+                                app:desc="@{@string/loyalty_program_write_off_rules_desc}"
+                                tools:ignore="TooManyViews" />
 
                             <include
                                 layout="@layout/legal_documents_item_view"

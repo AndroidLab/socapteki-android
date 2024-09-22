@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="ru.apteka.profile.data.models.SexModel" />
+            type="ru.apteka.components.data.models.SexModel" />
 
         <variable
             name="isLoading"
@@ -52,47 +52,40 @@
 
             </LinearLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Socapteki.BackgroundCard"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@color/light_grey">
+                android:background="@drawable/corners_shape"
+                android:orientation="vertical"
+                app:extraBackgroundTint="@{@color/light_grey}"
+                app:visibleIf="@{model.mediator}">
 
-                <LinearLayout
+                <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:orientation="vertical"
-                    app:visibleIf="@{model.mediator}">
+                    android:checked="@{model.items.get(0).isItemSelected}"
+                    android:enabled="@{!isLoading}"
+                    android:onClick="@{() -> model.items.get(0).onItemClick()}"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/personal_data_sex_male" />
 
-                    <RadioButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="@{model.items.get(0).isItemSelected}"
-                        android:enabled="@{!isLoading}"
-                        android:onClick="@{() -> model.items.get(0).onItemClick()}"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/personal_data_sex_male" />
+                <include
+                    layout="@layout/separator_view"
+                    app:sepMarginEnd="@{8}"
+                    app:sepMarginStart="@{8}" />
 
-                    <include
-                        layout="@layout/separator_view"
-                        app:sepMarginEnd="@{8}"
-                        app:sepMarginStart="@{8}" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@{model.items.get(1).isItemSelected}"
+                    android:enabled="@{!isLoading}"
+                    android:onClick="@{() -> model.items.get(1).onItemClick()}"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/personal_data_sex_female" />
 
-                    <RadioButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="@{model.items.get(1).isItemSelected}"
-                        android:enabled="@{!isLoading}"
-                        android:onClick="@{() -> model.items.get(1).onItemClick()}"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/personal_data_sex_female" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
         </LinearLayout>
 

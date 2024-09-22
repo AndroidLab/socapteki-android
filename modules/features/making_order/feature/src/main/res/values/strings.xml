@@ -3,7 +3,6 @@
     <string name="making_order_title">Оформление заказа</string>
     <string name="making_order_your_order">Ваш заказ</string>
     <string name="making_order_shipping_methods">Способы доставки</string>
-    <string name="making_order_shipping_delivery">Доставка</string>
     <string name="making_order_shipping_methods_pick_pharmacy_title">Забрать из аптеки</string>
     <string name="making_order_shipping_methods_pick_pharmacy_desc">Доступно 45 аптек для самовывоза</string>
     <string name="making_order_shipping_methods_yandex_delivery">Яндекс доставка</string>
@@ -13,9 +12,8 @@
     <string name="making_order_payments_methods_online">Онлайн</string>
     <string name="making_order_payments_methods_spb">Оплата СБП</string>
     <string name="making_order_personal_data">Указать личные данные</string>
-    <string name="making_order_recipients">Получатели</string>
+    <string name="making_order_recipients">Сохранненые получатели</string>
     <string name="making_order_recipient_same_buyer">Получатель совпадает с покупателем?</string>
-    <string name="making_order_recipient_same_buyer_hint">Для выбора заполните личные данные</string>
     <string name="making_order_price_paid">Сумма к оплате</string>
     <string name="making_order_price_promo_code">Промокод</string>
     <string name="making_order_price_bonus">На вашем балансе</string>

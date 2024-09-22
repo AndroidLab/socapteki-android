@@ -46,9 +46,6 @@ class BasketViewModel @Inject constructor(
     val alwaysUsefulFilter = AlwaysUsefulFilterModel(
         _items = listOf(
             AlwaysUsefulFilterModel.Item(
-                status = "Все"
-            ),
-            AlwaysUsefulFilterModel.Item(
                 status = "Годен менее 3 месяцев"
             ),
             AlwaysUsefulFilterModel.Item(
@@ -62,7 +59,7 @@ class BasketViewModel @Inject constructor(
             ),
         )
     ).apply {
-        items[0].isItemSelected.value = true
+        //items[0].isItemSelected.value = true
     }
 
     /**
@@ -133,12 +130,13 @@ class BasketViewModel @Inject constructor(
                                     basketService = basketService,
                                     countInBasket = product.countInBasket
                                 )
+                                product.greenDesc = "Нормализует микрофлору кишечник, Содержит живые ацидофильные лактобактерии"
                             }
                         }
                     )
                 },
                 onLoading = {
-                    alwaysUsefulIsLoading.setValue(it)
+                    alwaysUsefulIsLoading.postValue(it)
                 }
             )
         }

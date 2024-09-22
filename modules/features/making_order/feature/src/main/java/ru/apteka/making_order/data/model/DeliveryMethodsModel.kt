@@ -14,7 +14,7 @@ class DeliveryMethodsModel<T : SelectableModel.SelectableItem>(
     val pickPharmacy: T,
     val yandexDelivery: T,
     val courierDelivery: T,
-    onItemSelected: (T) -> Unit
+    onItemSelected: (T?) -> Unit
 ) : SelectableModel<T>(
     items = listOf(pickPharmacy, yandexDelivery, courierDelivery),
     onItemSelected = onItemSelected

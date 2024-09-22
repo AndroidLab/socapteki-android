@@ -28,13 +28,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvStocks"
+            <!-- Список акций -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.alab.extra_bouncy.BouncyRecyclerView
+                        android:id="@+id/rvStocks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <include layout="@layout/footer_stub" />
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
 
             <include
                 layout="@layout/progress_bar"

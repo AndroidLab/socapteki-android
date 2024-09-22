@@ -8,7 +8,7 @@ import ru.apteka.components.data.models.SelectableModel
  */
 class AlwaysUsefulFilterModel(
     _items: List<Item>,
-    _onItemSelected: (Item) -> Unit = {}
+    _onItemSelected: (Item?) -> Unit = {}
 ) : SelectableModel<AlwaysUsefulFilterModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

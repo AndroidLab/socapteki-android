@@ -24,5 +24,5 @@ class LoyaltyProgramAdapter :
 
     override fun isForViewType(item: Any) = item is Unit
 
-    override fun Unit.getItemId() = UUID.randomUUID()
+    override fun Unit.getItemId(): UUID = UUID.randomUUID()
 }

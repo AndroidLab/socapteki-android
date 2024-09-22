@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ru.apteka.listing.data.models.FilterChipModel" />
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.listing.presentation.ListingViewModel" />
+
+        <variable
+            name="filterChips"
+            type="java.util.List&lt;FilterChipModel&gt;" />
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/listingProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/listingFragmentToolbar"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Список товаров -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListingProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/catalog_products_header"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    app:visibleIf="@{!viewModel.products.empty}" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white"
+                    android:paddingVertical="8dp"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <TextView
+                        android:id="@+id/tvListingProductsMore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="12dp"
+                        android:text="@string/show_more"
+                        android:textColor="@color/color_primary" />
+
+                </FrameLayout>
+
+                <!-- С этим товаром покупают -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/top_corners_shape"
+                    android:orientation="horizontal"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        android:text="@string/listing_product_with_products"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvProductsWithProductsAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/all"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:minHeight="150dp"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <com.alab.extra_bouncy.BouncyRecyclerView
+                        android:id="@+id/rvProductsWithProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/background_secondary"
+                        android:orientation="horizontal"
+                        app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:visibleIf="@{!viewModel.withProducts.empty}" />
+
+                    <include
+                        layout="@layout/progress_bar"
+                        app:isLoading="@{viewModel.withProductsIsLoading}" />
+
+                </FrameLayout>
+
+                <!-- Вы недавно смотрели -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/top_corners_shape"
+                    android:orientation="horizontal"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        android:text="@string/listing_product_watched_recently"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvProductsWatchedRecentlyAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/all"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:minHeight="150dp"
+                    app:visibleIf="@{!viewModel.products.empty}">
+
+                    <com.alab.extra_bouncy.BouncyRecyclerView
+                        android:id="@+id/rvProductsWatchedRecently"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/background_secondary"
+                        android:orientation="horizontal"
+                        app:bouncyRecyclerviewOverscrollType="OVERSCROLL_PADDING"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:visibleIf="@{!viewModel.watchedRecently.empty}" />
+
+                    <include
+                        layout="@layout/progress_bar"
+                        app:isLoading="@{viewModel.watchedRecentlyIsLoading}" />
+
+                </FrameLayout>
+
+                <include
+                    layout="@layout/footer_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Прогресс загрузки -->
+        <include
+            layout="@layout/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isLoading="@{viewModel.isProductsLoading}" />
+
+        <!-- Шапка с фильтрами и чипсами -->
+        <LinearLayout
+            android:id="@+id/catalogProductsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/catalog_products_header"
+            android:layout_below="@id/listingFragmentToolbar"
+            android:background="@color/white"
+            android:onClick="@{null}"
+            android:orientation="vertical"
+            app:visibleIf="@{!viewModel.products.empty}">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Сортировка -->
+                <LinearLayout
+                    android:id="@+id/catalogProductsSort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/base_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:extraText="@{viewModel.sortModel.itemSelected}" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_drop"
+                        tools:ignore="ContentDescription" />
+
+                </LinearLayout>
+
+                <!-- Значек фильтра -->
+                <FrameLayout
+                    android:id="@+id/catalogProductAllFilters"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_filters"
+                        tools:ignore="ContentDescription" />
+
+                    <ru.apteka.components.ui.badge.NotificationBadge
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        app:number="@{viewModel.filterAll.countSelected}" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <!-- Список фильтров -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="16dp"
+                    app:forItems="@{filterChips}"
+                    app:useTemplate="@{@layout/listing_filter_chip_template}" />
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/listingFragmentToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>
+
+    <!-- Алфовит -->
+    <!--<HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{() -> viewModel.alphabet.items[0].onItemClick()}"
+                android:padding="12dp"
+                android:text="@{viewModel.alphabet.items[0].name}"
+                android:textColor="@{viewModel.alphabet.items[0].isItemSelected ? @color/black : @color/light_black}"
+                app:extraTextStyle="@{viewModel.alphabet.items[0].isItemSelected ? 1 : 0}"
+                app:setTextSize="@{viewModel.alphabet.items[0].isItemSelected ? 20 : 16}" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:background="@color/light_black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:forItems="@{viewModel.alphabet.items.subList(1, viewModel.alphabet.items.size())}"
+                app:lifecycleOwner="@{lifecycle}"
+                app:useTemplate="@{@layout/alphabet_item_template}"
+                app:visibleIf="@{viewModel.alphabet.mediator}" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>-->

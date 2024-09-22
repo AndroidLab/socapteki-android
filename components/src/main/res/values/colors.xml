@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_primary">#FFFFFF</color>
     <color name="background_secondary">#F2F4F7</color>
     <color name="color_primary">#00A95D</color>
     <color name="color_primary_variant">#015a3e</color>
     <color name="color_secondary_container">#E7F3EC</color>
-    <color name="color_secondary">#e7f3ec</color>
     <color name="color_surface_variant">#E0F5EC</color>
 
     <!--<color name="color_on_primary_variant">#FFFFFF</color>
     <color name="color_secondary_variant">#5796ba</color>
     <color name="color_on_secondary_variant">#dddddd</color>-->
     <color name="black">#000000</color>
+    <color name="color_text_primary">#2E2C34</color>
+    <color name="color_text_secondary">#667085</color>
+    <color name="color_text_hint">#98A2B3</color>
+    <color name="color_icon_hint">#98A2B3</color>
     <color name="dark_black">#2E2C34</color>
     <color name="light_black">#667085</color>
     <color name="white">#FFFFFF</color>

@@ -35,8 +35,8 @@
             android:src="@{icon}"
             app:extraBackgroundTint="@{iconBackgroundTint}"
             app:extraPadding="@{iconBackgroundTint == null ? 0 : 5}"
-            app:extra_layout_height="@{iconBackgroundTint == null ? 20 : 30}"
-            app:extra_layout_width="@{iconBackgroundTint == null ? 20 : 30}"
+            app:extraLayoutHeight="@{iconBackgroundTint == null ? 20 : 30}"
+            app:extraLayoutWidth="@{iconBackgroundTint == null ? 20 : 30}"
             tools:ignore="ContentDescription" />
 
         <TextView

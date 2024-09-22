@@ -14,7 +14,7 @@ import ru.apteka.components.data.utils.ScopedLiveData
 import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.stocks.data.models.StockModel
+import ru.apteka.components.data.models.StockModel
 import javax.inject.Inject
 
 

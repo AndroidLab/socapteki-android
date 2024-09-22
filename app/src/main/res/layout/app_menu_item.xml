@@ -46,16 +46,19 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/Theme.Socapteki.ManropeMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:text="@{title}" />
+                android:text="@{title}"
+                android:textColor="@color/color_text_primary" />
 
             <ru.apteka.components.ui.badge.NotificationBadge
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:number="@{count}"
                 app:visibleIf="@{count != null}" />

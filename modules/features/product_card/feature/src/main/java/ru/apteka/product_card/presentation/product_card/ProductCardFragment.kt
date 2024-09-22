@@ -2,6 +2,7 @@ package ru.apteka.product_card.presentation.product_card
 
 import android.animation.ValueAnimator
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
@@ -15,6 +16,7 @@ import ru.apteka.components.data.services.message_notice_service.models.CommonDi
 import ru.apteka.components.data.services.message_notice_service.models.DialogButtonModel
 import ru.apteka.components.data.services.message_notice_service.models.DialogModel
 import ru.apteka.components.data.services.message_notice_service.showCommonDialog
+import ru.apteka.components.data.utils.addOnAnimationEndListener
 import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.data.utils.screenHeight
@@ -23,7 +25,7 @@ import ru.apteka.components.data.utils.visibleIf
 import ru.apteka.components.ui.BaseFragment
 import ru.apteka.components.ui.adapters.ProductCardViewAdapter
 import ru.apteka.components.ui.delegate_adapter.CompositeDelegateAdapter
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
 import ru.apteka.pharmacies_map_api.api.PHARMACIES_MAP_TYPE_INTERACTION
 import ru.apteka.pharmacies_map_api.api.TypeInteraction
 import ru.apteka.product_card.R
@@ -31,7 +33,7 @@ import ru.apteka.product_card.databinding.ProductCardFragmentBinding
 import ru.apteka.product_card_api.api.PRODUCT_CARD_ARGUMENT_PRODUCT
 import kotlin.math.abs
 import ru.apteka.components.R as ComponentsR
-import ru.apteka.listing_api.R as ListingApiR
+import ru.apteka.listing.R as ListingR
 import ru.apteka.pharmacies_map_api.R as PharmaciesMapApiR
 
 /**
@@ -60,6 +62,16 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         )
     }
 
+    private val watchedRecentlyProductsAdapter by lazy {
+        CompositeDelegateAdapter(
+            ProductCardViewAdapter(
+                this,
+                ::onProductsCardClick,
+                true
+            )
+        )
+    }
+
     /*private val withProductProductsDayAdapter by lazy {
         getProductCardViewAdapter(
             this,
@@ -67,12 +79,94 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         )
     }*/
 
+    private var tabAnimationShow: ValueAnimator? = null
+    private var tabAnimationHide: ValueAnimator? = null
+
+    private fun showTabAnimation() {
+        resetTabAnimation()
+        binding.productCardTabs.setVisibleWithInteractionEnabled(true)
+        tabAnimationShow = ValueAnimator.ofFloat(
+            -binding.productCardTabs.height.toFloat(),
+            binding.productCardTabs.height.toFloat() - 1.dp
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.productCardTabs.translationY = valueAnimator.animatedValue as Float
+            }
+            duration = 350
+            start()
+        }
+    }
+
+    private fun hideTabAnimation() {
+        resetTabAnimation()
+
+        priceAnimationHide = ValueAnimator.ofFloat(
+            binding.productCardTabs.translationY,
+            -binding.productCardTabs.height.toFloat(),
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.productCardTabs.translationY = valueAnimator.animatedValue as Float
+            }
+            addOnAnimationEndListener {
+                binding.productCardTabs.setVisibleWithInteractionEnabled(false)
+            }
+            duration = 450
+            start()
+        }
+    }
+
+    private fun resetTabAnimation() {
+        tabAnimationShow?.cancel()
+        tabAnimationHide?.cancel()
+        tabAnimationShow = null
+        tabAnimationHide = null
+    }
+
+    private var priceAnimationShow: ValueAnimator? = null
+    private var priceAnimationHide: ValueAnimator? = null
+
+    private fun showPriceAnimation() {
+        resetPriceAnimation()
+        priceAnimationShow = ValueAnimator.ofFloat(
+            binding.clProductCardPrice.translationY,
+            0f
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.clProductCardPrice.translationY = valueAnimator.animatedValue as Float
+            }
+            duration = 500
+            start()
+        }
+    }
+
+    private fun hidePriceAnimation() {
+        resetPriceAnimation()
+        priceAnimationHide = ValueAnimator.ofFloat(
+            binding.clProductCardPrice.translationY,
+            resources.getDimension(R.dimen.price_panel_size).dp.toFloat(),
+        ).apply {
+            addUpdateListener { valueAnimator ->
+                binding.clProductCardPrice.translationY = valueAnimator.animatedValue as Float
+            }
+            duration = 500
+            start()
+        }
+    }
+
+    private fun resetPriceAnimation() {
+        priceAnimationShow?.cancel()
+        priceAnimationHide?.cancel()
+        priceAnimationShow = null
+        priceAnimationHide = null
+    }
+
     override fun onViewBindingInflated(binding: ProductCardFragmentBinding) {
         viewModel.product.value = args.product
         binding.viewModel = viewModel
 
         binding.rvProductCardImages.adapter = priceImageAdapter
         binding.rvProductCardAnalogues.adapter = analoguesProductsAdapter
+        binding.rvProductCardWatchedRecently.adapter = watchedRecentlyProductsAdapter
         //binding.pricePageWithProduct.rv.adapter = withProductProductsDayAdapter
 
         var isScrollSelect = false
@@ -81,8 +175,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 if (!isScrollSelect) {
                     when (tab?.position) {
                         0 -> binding.nsvProductCard.smoothScrollTo(
-                            binding.productCardPrice.x.toInt(),
-                            binding.productCardPrice.y.toInt() - binding.productCardTabs.height
+                            binding.cvProductCardPrice.x.toInt(),
+                            binding.cvProductCardPrice.y.toInt() - binding.productCardTabs.height
                         )
 
                         1 -> binding.nsvProductCard.smoothScrollTo(
@@ -91,8 +185,8 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                         )
 
                         2 -> binding.nsvProductCard.smoothScrollTo(
-                            binding.clProductCardAnalogues.x.toInt(),
-                            binding.clProductCardAnalogues.y.toInt() - binding.productCardTabs.height
+                            binding.tvProductCardAnalogues.x.toInt(),
+                            binding.tvProductCardAnalogues.y.toInt() - binding.productCardTabs.height
                         )
 
                         3 -> binding.nsvProductCard.smoothScrollTo(
@@ -114,32 +208,33 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         })
 
         binding.nsvProductCard.setOnScrollChangeListener { view, i, i2, i3, i4 ->
-            if (i2 > binding.productCardPrice.y && binding.productCardTabs.visibility == View.INVISIBLE) {
-                tabsAnimatorShow.start()
+            Log.d("myL", "" + i2 + " / " + binding.productCardFlexboxLayout.y + " / " + binding.productCardTabs.visibility + " / " + (binding.productCardTabs.visibility == View.VISIBLE))
+            if (i2 > binding.productCardFlexboxLayout.y && binding.productCardTabs.visibility == View.INVISIBLE) {
+                Log.d("myL", "show")
+                showTabAnimation()
             }
 
-            if (i2 < binding.productCardDesc.y && binding.productCardTabs.visibility == View.VISIBLE) {
-                binding.productCardTabs.translationY = -binding.productCardTabs.height / 2f
-                binding.productCardTabs.setVisibleWithInteractionEnabled(false)
+            if (i2.toFloat() == binding.productCardFlexboxLayout.y && binding.productCardTabs.visibility == View.VISIBLE) {
+                Log.d("myL", "hide")
+                hideTabAnimation()
             }
-
 
             val scrollLayoutOffsetTriggerPoint = i2 + screenHeight / 3
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.productCardDesc.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.cvProductCardPrice.y && scrollLayoutOffsetTriggerPoint < binding.productCardDesc.y) {
                 if (!binding.productCardTabs.getTabAt(0)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(0)?.select()
                 }
             }
 
-            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.clProductCardAnalogues.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.productCardDesc.y && scrollLayoutOffsetTriggerPoint < binding.tvProductCardAnalogues.y) {
                 if (!binding.productCardTabs.getTabAt(1)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(1)?.select()
                 }
             }
 
-            if (scrollLayoutOffsetTriggerPoint > binding.clProductCardAnalogues.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
+            if (scrollLayoutOffsetTriggerPoint > binding.tvProductCardAnalogues.y && scrollLayoutOffsetTriggerPoint < binding.productCardInstructions.y) {
                 if (!binding.productCardTabs.getTabAt(2)!!.isSelected) {
                     isScrollSelect = true
                     binding.productCardTabs.getTabAt(2)?.select()
@@ -160,28 +255,17 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 }
             }
 
-        }
-
-        binding.productCardPharmaciesLocation1.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph,
-                bundleOf(
-                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
-                )
-            )
-        }
-        binding.productCardPharmaciesLocation2.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                PharmaciesMapApiR.id.pharmacies_map_graph,
-                bundleOf(
-                    PHARMACIES_MAP_TYPE_INTERACTION to TypeInteraction.NAVIGATION
-                )
-            )
+            if (i2 > binding.productCardPrice.root.y && (priceAnimationShow == null || priceAnimationShow?.isRunning == false)) {
+                showPriceAnimation()
+            }
+            if (i2 < binding.productCardPrice.root.y && (priceAnimationHide == null || priceAnimationHide?.isRunning == false)) {
+                hidePriceAnimation()
+            }
         }
 
         binding.productCardReleaseForm.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph,
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ListingR.id.listing_graph,
                 bundleOf(
                     LISTING_ARGUMENT to "Форма выпуска"
                 )
@@ -240,13 +324,13 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
         }
 
         binding.tvProductCardAnaloguesAll.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph, bundleOf(
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ListingR.id.listing_graph,
+                bundleOf(
                     LISTING_ARGUMENT to "Аналоги лекарства"
                 )
             )
         }
-
 
         binding.withProduct1.productCardItem.setOnClickListener {
             viewModel.navigationManager.generalNavController.navigateWithAnim(
@@ -266,9 +350,17 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
             )
         }
 
+        binding.tvProductCardWatchedRecentlyAll.setOnClickListener {
+            /*viewModel.navigationManager.generalNavController.navigateWithAnim(
+                ListingApiR.id.listing_graph, bundleOf(
+                    LISTING_ARGUMENT to "Вы недавно смотрели"
+                )
+            )*/
+        }
+
         binding.tvWithProductAll.setOnClickListener {
-            viewModel.navigationManager.generalNavController.navigateWithAnim(
-                ListingApiR.id.listing_graph,
+            viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+                ListingR.id.listing_graph,
                 bundleOf(
                     LISTING_ARGUMENT to "С этим товаром покупают"
                 )
@@ -295,6 +387,10 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
         viewModel.analoguesProducts.observe(viewLifecycleOwner) {
             analoguesProductsAdapter.swapData(it)
+        }
+
+        viewModel.watchedRecentlyProducts.observe(viewLifecycleOwner) {
+            watchedRecentlyProductsAdapter.swapData(it)
         }
 
         /*viewModel.withProductProducts.observe(viewLifecycleOwner) {
@@ -333,20 +429,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
 
     }
 
-    private val tabsAnimatorShow: ValueAnimator
-        get() {
-            binding.productCardTabs.setVisibleWithInteractionEnabled(true)
-            return ValueAnimator.ofFloat(
-                -binding.productCardTabs.height.toFloat(),
-                binding.productCardTabs.height.toFloat() - 1.dp
-            ).apply {
-                addUpdateListener { valueAnimator ->
-                    binding.productCardTabs.translationY = valueAnimator.animatedValue as Float
-                }
-                duration = 350
-            }
-        }
-
     override fun onResume() {
         super.onResume()
         viewModel.navigationManager.onBottomAppBarShowed(false)
@@ -361,7 +443,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
             var maxOffsetForTitle: Int? = null
             var maxOffsetForFab: Int? = null
             var descStartTranslationY: Float? = null
-            var fabStartTranslationX: Float? = null
             binding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
                 if (maxOffsetForRecycler == null) {
                     maxOffsetForRecycler = binding.appbar.height - binding.toolbar.height * 2
@@ -374,9 +455,6 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                 }
                 if (descStartTranslationY == null) {
                     descStartTranslationY = binding.tvProductCardDesc.translationY
-                }
-                if (fabStartTranslationX == null) {
-                    fabStartTranslationX = binding.flProductCardAptekiLocation.translationX
                 }
 
                 val absVerticalOffset = abs(verticalOffset)
@@ -392,25 +470,14 @@ class ProductCardFragment : BaseFragment<ProductCardViewModel, ProductCardFragme
                     binding.tvProductCardDesc.alpha = 1 - descOffsetPercent
                     binding.tvProductCardDesc.translationY =
                         descStartTranslationY!! * descOffsetPercent
-                    binding.flProductCardAptekiLocation.translationY = (-50).dp * descOffsetPercent
                 } else {
                     binding.tvProductCardDesc.visibility = View.INVISIBLE
-                    binding.flProductCardAptekiLocation.translationY = (-50).dp.toFloat()
                 }
 
                 if (binding.rvProductCardImages.visibility == View.GONE) {
                     binding.toolbar.setBackgroundResource(ComponentsR.color.white)
                 } else {
                     binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
-                }
-
-                if (maxOffsetForFab!! - absVerticalOffset > binding.toolbar.height) {
-                    binding.productCardPharmaciesLocation2.show()
-                    val fabOffsetTranslationX = 1 - absVerticalOffset * 1f / maxOffsetForRecycler!!
-                    binding.flProductCardAptekiLocation.translationX =
-                        fabStartTranslationX!! * fabOffsetTranslationX
-                } else {
-                    binding.productCardPharmaciesLocation2.hide()
                 }
             }
             binding.toolbar.setNavigationOnClickListener {

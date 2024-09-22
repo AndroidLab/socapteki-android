@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.apteka.components.data.repository.kogin.LoginRepository
-import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.MessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.services.user.UserPreferences
@@ -14,6 +12,7 @@ import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.making_order.data.model.DeliveryTimeModel
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -21,8 +20,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MakingOrderAddressViewModel @Inject constructor(
-    private val requestHandler: RequestHandler,
-    private val loginRepository: LoginRepository,
+    //private val requestHandler: RequestHandler,
+    //private val loginRepository: LoginRepository,
     val userPreferences: UserPreferences,
     navigationManager: NavigationManager,
     messageService: MessageService
@@ -122,8 +121,9 @@ class MakingOrderAddressViewModel @Inject constructor(
      */
     val selectedDeliveryDate: LiveData<String> = selectedDeliveryCalendar.map {
         it?.let { calendar ->
-            "${String.format("%02d", calendar[Calendar.DAY_OF_MONTH])}.${
+            "${String.format(Locale.getDefault(), "%02d", calendar[Calendar.DAY_OF_MONTH])}.${
                 String.format(
+                    Locale.getDefault(),
                     "%02d",
                     calendar[Calendar.MONTH] + 1
                 )

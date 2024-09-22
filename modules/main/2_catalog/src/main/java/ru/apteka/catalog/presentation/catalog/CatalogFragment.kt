@@ -41,7 +41,7 @@ class CatalogFragment : BaseFragment<CatalogViewModel, CatalogFragmentBinding>()
 
     private fun onMenuItemClick(item: CatalogItem) {
         viewModel.navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            CatalogFragmentDirections.toSubCatalogFragment(item, false)
+            CatalogFragmentDirections.toSubCatalogFragment(item)
         )
     }
 

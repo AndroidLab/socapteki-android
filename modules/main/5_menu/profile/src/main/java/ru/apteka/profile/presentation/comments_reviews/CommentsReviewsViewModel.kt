@@ -21,23 +21,4 @@ class CommentsReviewsViewModel @Inject constructor(
     messageService
 ) {
 
-
-
-    init {
-        /*viewModelScope.launchIO {
-            requestHandler.handleApiRequest(
-                onRequest = { loginRepository.getSubscriptions() },
-                onSuccess = { subscriptions ->
-                    mainThread {
-
-                    }
-                },
-                isLoading = _isLoading
-            )
-        }*/
-    }
-
-
-
-
 }

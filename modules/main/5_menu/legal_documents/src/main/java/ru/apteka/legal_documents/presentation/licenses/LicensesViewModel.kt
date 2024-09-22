@@ -73,8 +73,4 @@ class LicensesViewModel @Inject constructor(
         }
     }
 
-    init {
-
-    }
-
 }

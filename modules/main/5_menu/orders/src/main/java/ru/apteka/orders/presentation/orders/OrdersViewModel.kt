@@ -1,5 +1,6 @@
 package ru.apteka.orders.presentation.orders
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -120,9 +121,6 @@ class OrdersViewModel @Inject constructor(
     val orderFilter = OrderFilterModel(
         _items = listOf(
             OrderFilterModel.Item(
-                status = null
-            ),
-            OrderFilterModel.Item(
                 status = OrderStatus.NEW
             ),
             OrderFilterModel.Item(
@@ -145,9 +143,10 @@ class OrdersViewModel @Inject constructor(
             ),
         )
     ) {
+        Log.d("myL", "selected " + it)
         //ordersPreferences.orderFilter = it.status
     }.apply {
-        items[0].isItemSelected.value = true
+        //items[0].isItemSelected.value = true
     }
 
     /**
@@ -170,7 +169,10 @@ class OrdersViewModel @Inject constructor(
                     OrderStatus.RECEIVED -> orders.value!!.filter { it.status == OrderStatus.RECEIVED }
                     OrderStatus.CANCELED -> orders.value!!.filter { it.status == OrderStatus.CANCELED }
                     OrderStatus.AWAITING_PAYMENT -> orders.value!!.filter { it.status == OrderStatus.AWAITING_PAYMENT }
-                    else -> orders.value
+                    else -> {
+                        Log.d("myL", "2 ")
+                        orders.value
+                    }
                 }?.sortedByDescending { it.date }
             )
         }
@@ -180,6 +182,7 @@ class OrdersViewModel @Inject constructor(
         }
 
         addSource(orderFilter.selectedItem) {
+            Log.d("myL", "1 " + orderFilter.selectedItem)
             filterOrders()
         }
 

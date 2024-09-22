@@ -7,7 +7,7 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 android {
@@ -16,7 +16,7 @@ android {
 
 dependencies {
     implementation(project(":components"))
-    implementation(project(":modules:features:listing:api"))
+    implementation(project(":modules:features:listing"))
 
     implementation(libs.bundles.navigationDeps)
 }

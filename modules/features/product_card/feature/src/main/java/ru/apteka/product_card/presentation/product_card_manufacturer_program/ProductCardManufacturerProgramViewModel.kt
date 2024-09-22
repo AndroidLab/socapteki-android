@@ -35,7 +35,7 @@ class ProductCardManufacturerProgramViewModel @Inject constructor(
     /**
      * Возвращает список продуктов.
      */
-    val products = ScopedLiveData<ViewModel, List<ProductCardModel>>()
+    val products = ScopedLiveData<ViewModel, List<ProductCardModel>>(emptyList())
 
     init {
         viewModelScope.launchIO {

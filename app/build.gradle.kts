@@ -6,7 +6,7 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.googleServicesConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 private val major = 0
@@ -58,10 +58,11 @@ dependencies {
     implementation(project(":modules:features:pharmacies_map:api"))
     implementation(project(":modules:features:pharmacies_map:feature"))
     implementation(project(":modules:features:making_order:feature"))
+    implementation(project(":modules:features:order_details:feature"))
+    implementation(project(":modules:features:stock_details:feature"))
     implementation(project(":modules:features:favorites:feature"))
     implementation(project(":modules:features:feedback:feature"))
     implementation(project(":modules:features:barcode_scanner:feature"))
-    implementation(project(":modules:features:listing:feature"))
 
     implementation(libs.coreKtx)
     implementation(libs.constraintlayout)
@@ -71,7 +72,6 @@ dependencies {
     implementation(libs.bundles.lifecycleDeps)
     implementation(libs.mapsMobile)
     implementation(libs.measured)
-    implementation(libs.glideGlide)
     implementation(libs.andRatingBar)
     implementation(libs.sberIdSDK)
 }

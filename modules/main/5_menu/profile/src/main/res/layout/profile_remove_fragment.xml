@@ -140,7 +140,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/profileRemoveRadioGroup"
-                    app:visibleIf="@{viewModel.rb5}" />
+                    app:visibleIf="@{viewModel.rb5}"
+                    tools:ignore="TextFields" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/mbProfileRemoveCancel"

@@ -2,7 +2,7 @@ package ru.apteka.stocks.data.repository.stocks
 
 
 import retrofit2.http.POST
-import ru.apteka.stocks.data.models.StockModel
+import ru.apteka.components.data.models.StockModel
 
 /**
  * Описывает методы избранного.

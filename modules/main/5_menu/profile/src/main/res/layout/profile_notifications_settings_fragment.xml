@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -50,6 +49,7 @@
 
                     <!-- Email уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -82,6 +82,7 @@
 
                     <!-- Email уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -95,6 +96,7 @@
 
                     <!-- Sms уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.notificationsStocksSms}"
@@ -107,6 +109,7 @@
 
                     <!-- Push уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.notificationsStocksPush}"
@@ -138,6 +141,7 @@
 
                     <!-- Sms или email уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -151,6 +155,7 @@
 
                     <!-- Push уведомления -->
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        style="@style/Theme.Socapteki.CheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.notificationsPointsPush}"

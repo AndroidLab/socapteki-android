@@ -5,6 +5,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import ru.apteka.components.data.models.DiscountModel
+import ru.apteka.components.data.models.Label
 import ru.apteka.components.data.models.OrderDeliveryMethod
 import ru.apteka.components.data.models.OrderModel
 import ru.apteka.components.data.models.OrderPayStatus
@@ -19,6 +21,7 @@ import ru.apteka.components.data.services.favorites_service.FavoriteService
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.ScopedLiveData
+import ru.apteka.components.data.utils.dp
 import ru.apteka.components.data.utils.getProductsFake
 import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
@@ -26,6 +29,8 @@ import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
 import ru.apteka.home.data.models.AdvertModel
 import ru.apteka.home.data.models.BonusModel
+import ru.apteka.home.data.models.BonusStubModel
+import ru.apteka.home.data.models.BonusTicketModel
 import ru.apteka.home.data.models.OtherModel
 import ru.apteka.home.data.models.PromotionFilterModel
 import ru.apteka.home.data.models.PromotionModel
@@ -59,16 +64,16 @@ class HomeViewModel @Inject constructor(
     val account = accountsPreferences.accountFlow.asLiveData()
 
     /**
-     * Получает заказы.
+     * Возвращает заказы.
      */
     suspend fun getOrdersFake(): List<OrderModel> {
         return listOf(
             OrderModel(
                 number = 123,
+                sum = "4 559,90 ₽",
                 status = OrderStatus.NEW,
                 date = 1697711146,
                 payStatus = OrderPayStatus.SUCCESS,
-                sum = "4 559,90 ₽",
                 deliveryMethod = OrderDeliveryMethod.DELIVERY,
                 deliveryAddress = "2-я Владимирская ул. 29А, Москва",
                 paymentMethod = "Онлайн",
@@ -99,8 +104,10 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+
+
     /**
-     * Возвращает список заказоы.
+     * Возвращает список заказов.
      */
     val ordersCard = ScopedLiveData<ViewModel, List<OrderModel>>(emptyList())
 
@@ -115,6 +122,11 @@ class HomeViewModel @Inject constructor(
     val adverts = ScopedLiveData<ViewModel, List<AdvertModel>>(emptyList())
 
     /**
+     * Возвращает товары 'Товары дня'
+     */
+    val productsDay = ScopedLiveData(emptyList<ProductCardModel>())
+
+    /**
      * Возвращает флаг загрузки рекламных блоков.
      */
     val advertsIsLoading = ScopedLiveData(false)
@@ -124,9 +136,6 @@ class HomeViewModel @Inject constructor(
      */
     val promotionFilter = PromotionFilterModel(
         _items = listOf(
-            PromotionFilterModel.Item(
-                status = "Все"
-            ),
             PromotionFilterModel.Item(
                 status = "Лекарства"
             ),
@@ -140,7 +149,7 @@ class HomeViewModel @Inject constructor(
     ) {
         // ordersPreferences.orderFilter = it.status
     }.apply {
-        items[0].isItemSelected.value = true
+        //items[0].isItemSelected.value = true
     }
 
     /**
@@ -152,11 +161,6 @@ class HomeViewModel @Inject constructor(
      * Возвращает флаг загрузки акций.
      */
     val promotionsIsLoading = ScopedLiveData(false)
-
-    /**
-     * Возвращает список продуктов дня.
-     */
-    val productsDay = ScopedLiveData(emptyList<ProductCardModel>())
 
     /**
      * Возвращает флаг загрузки продуктов дня.
@@ -183,48 +187,6 @@ class HomeViewModel @Inject constructor(
      */
     val categoriesIsLoading = ScopedLiveData(false)
 
-    private val fakeBonuses = listOf(
-        BonusModel(
-            title = "Начисление",
-            date = 1697711146,
-            value = 320,
-            desc = "Интернет заказ"
-        ),
-        BonusModel(
-            title = "Начисление",
-            date = 1697711146,
-            value = 320,
-            desc = "Интернет заказ"
-        ),
-        BonusModel(
-            title = "Начисление",
-            date = 1697711146,
-            value = -320,
-            desc = "Покупка в розницу"
-        ),
-        BonusModel(
-            title = "Начисление",
-            date = 1697711146,
-            value = 320,
-            desc = "Интернет заказ"
-        ),
-        BonusModel(
-            title = "Списание",
-            date = 1697711146,
-            value = -320,
-            desc = "Покупка в розницу"
-        ),
-    )
-
-    /**
-     *
-     */
-    val bonuses = ScopedLiveData(emptyList<BonusModel>())
-
-    /**
-     *
-     */
-    val bonusesLoading = ScopedLiveData(true)
 
     init {
         viewModelScopeLaunch {
@@ -250,12 +212,12 @@ class HomeViewModel @Inject constructor(
             launchIO {
                 requestHandler.handleApiRequest(
                     onRequest = { getProductsFake() },
-                    onSuccess = {
+                    onSuccess = { products ->
                         mainThread {
                             productsDay.postValue(
-                                it.map { product ->
+                                products.map { product ->
                                     ProductCardModel(
-                                        product = product,
+                                        product = product
                                     ).apply {
                                         favorite = ProductFavoriteModel(
                                             favoriteService = favoriteService,
@@ -325,15 +287,6 @@ class HomeViewModel @Inject constructor(
                         categoriesIsLoading.postValue(it)
                     }
                 )
-            }
-
-            launchIO {
-                viewModelScope.launchIO {
-                    bonusesLoading.postValue(true)
-                    delay(750)
-                    bonuses.postValue(fakeBonuses)
-                    bonusesLoading.postValue(false)
-                }
             }
         }
     }

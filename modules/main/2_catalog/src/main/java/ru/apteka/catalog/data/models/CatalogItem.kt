@@ -12,5 +12,6 @@ import java.util.UUID
 data class CatalogItem(
     val title: String,
     val image: String? = null,
+    val subItems: List<String> = emptyList(),
     val id: UUID = UUID.randomUUID()
 ): Parcelable

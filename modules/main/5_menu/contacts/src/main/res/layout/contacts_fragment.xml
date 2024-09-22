@@ -35,47 +35,12 @@
                     android:orientation="vertical">
 
                     <!-- Благотвортельные проекты -->
-                    <com.google.android.material.card.MaterialCardView
+                    <include
                         android:id="@+id/contactsCharity"
-                        style="@style/Theme.Socapteki.BackgroundCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/color_secondary_container">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="16dp"
-                            android:paddingVertical="12dp">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_contacts_charity"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginHorizontal="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/contacts_charity"
-                                android:textColor="@color/color_primary"
-                                android:textSize="16sp" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/ic_arrow_expand"
-                                app:tint="@color/color_primary"
-                                tools:ignore="ContentDescription" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
+                        layout="@layout/our_charity_projects_view"
+                        android:layout_marginTop="16dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -271,13 +236,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                style="@style/Theme.Socapteki.SemiBold"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="12dp"
                                 android:text="@string/contacts_write_to_us"
                                 android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                             <!-- Общие вопросы -->
                             <include
@@ -319,14 +285,16 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <TextView
+                                style="@style/Theme.Socapteki.ManropeMedium"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/contacts_contact_us"
-                                android:textColor="@color/black"
+                                android:textColor="@color/color_text_primary"
                                 android:textSize="18sp" />
 
                             <ImageView
@@ -467,7 +435,8 @@
                                     <include
                                         layout="@layout/separator_view"
                                         app:sepMarginEnd="@{16}"
-                                        app:sepMarginStart="@{16}" />
+                                        app:sepMarginStart="@{16}"
+                                        tools:ignore="TooDeepLayout" />
 
                                     <TextView
                                         android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package ru.apteka.symptoms_diseases.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -68,12 +67,10 @@ class SymptomsDiseasesViewModel @Inject constructor(
         SymptomModel("Дменория"),
     )
 
-    private val symptoms = MutableLiveData<List<Any>>(emptyList())
-
     /**
      * Возвращает список симптомов.
      */
-    val letters = ScopedLiveData(emptyList<Any>())
+    val symptoms = ScopedLiveData(emptyList<Any>())
 
     /**
      * Возвращает флаг прогресса поиска.

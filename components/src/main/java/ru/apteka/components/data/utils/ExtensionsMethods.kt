@@ -3,6 +3,7 @@ package ru.apteka.components.data.utils
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -317,7 +318,7 @@ fun String.subStringsByRegex(regex: String): List<String> {
 
 /**
  * Возвращает флаг содержится ли объект в списке.
- * @param item Регулярное выражение.
+ * @param predicate Регулярное выражение.
  */
 fun <T> List<T>.contains(predicate: (item: T) -> Boolean): Boolean {
     return this.firstOrNull { predicate(it) } != null
@@ -404,6 +405,17 @@ val screenWidth
 val screenHeight
     get() = Resources.getSystem().displayMetrics.heightPixels
 
+/**
+ * Возвращает высоту нижней навигационной панели.
+ */
+val Context.bottomSystemNavigationBarHeight: Int
+    @SuppressLint("DiscouragedApi", "InternalInsetResource")
+    get() = resources.getIdentifier("navigation_bar_height", "dimen", "android").let {
+        if (it > 0)
+            resources.getDimensionPixelSize(it)
+        else
+            0
+    }
 
 /**
  * Шарит ссылку другим приложениям.

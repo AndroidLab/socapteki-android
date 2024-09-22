@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{() -> bindingItem.onItemClick()}"
             android:text="@{bindingItem.title}"
+            android:textColor="@color/color_text_primary"
             app:chipBackgroundColor="@{bindingItem.isItemSelected ? @color/color_secondary_container : @color/background_secondary}"
             app:chipCornerRadius="100dp"
             app:chipStrokeColor="@{bindingItem.isItemSelected ? @color/color_primary : @android:color/transparent}"

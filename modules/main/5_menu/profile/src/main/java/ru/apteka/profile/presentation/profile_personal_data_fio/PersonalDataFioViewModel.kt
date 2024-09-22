@@ -48,7 +48,9 @@ class PersonalDataFioViewModel @Inject constructor(
                         success()
                     }
                 },
-                isLoading = _isLoading
+                onLoading = {
+                    isLoading.postValue(it)
+                }
             )
         }
     }

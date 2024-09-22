@@ -128,7 +128,6 @@ data class ConfirmationCodeModel(
     companion object {
         /**
          * Устанавливает маску ввода кода.
-         * @param textView [TextView] - Отображение.
          * @param codeMask [String] - Маска.
          */
         @JvmStatic

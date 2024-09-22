@@ -1,6 +1,7 @@
-package ru.apteka.licenses.data.repository.licenses_repository
+package ru.apteka.legal_documents.data.repository.legal_documents_repository
 
 import kotlinx.coroutines.delay
+import ru.apteka.licenses.data.repository.licenses_repository.ILicensesApi
 import javax.inject.Inject
 
 /**

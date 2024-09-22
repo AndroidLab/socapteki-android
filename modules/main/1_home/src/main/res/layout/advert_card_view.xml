@@ -24,8 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
-            android:src="@drawable/advert_banner"/>
-            <!--android:src="@drawable/advert_banner" -->
+            android:src="@drawable/advert_banner"
+            tools:ignore="ContentDescription" />
+        <!--android:src="@drawable/advert_banner" -->
 
         <!--<FrameLayout
             android:layout_width="match_parent"

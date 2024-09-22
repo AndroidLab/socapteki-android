@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="listing_product_with_products">С этим товаром покупают</string>
+    <string name="listing_product_watched_recently">Вы недавно смотрели</string>
+    <string name="listing_product_filters">Фильтры</string>
+    <string name="listing_product_show_count_products">Показать %s товаров</string>
+    <string name="listing_product_search_products">Поиск…</string>
+    <string name="listing_product_filter_price_from">От</string>
+    <string name="listing_product_filter_price_before">До</string>
+    <string name="listing_product_filter_all_brands">Все бренды</string>
+    <string name="listing_product_filter_all_countries">Все страны</string>
+    <string name="listing_product_filter_all_substance">Все вещества</string>
+    <string name="listing_product_filter_all_manufacturer">Все производители</string>
+    <string name="listing_product_view_all">Посмотреть все</string>
+
+</resources>

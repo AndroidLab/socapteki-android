@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item type="id" name="main_home_graph" />
     <item type="id" name="home_graph" />
+    <item type="id" name="bonus_graph" />
     <item type="id" name="catalog_graph" />
     <item type="id" name="stocks_graph" />
     <item type="id" name="basket_graph" />
@@ -19,4 +21,5 @@
     <item type="id" name="symptoms_diseases_graph" />
     <item type="id" name="customers_graph" />
     <item type="id" name="orders_graph" />
+    <item type="id" name="order_details_graph" />
 </resources>

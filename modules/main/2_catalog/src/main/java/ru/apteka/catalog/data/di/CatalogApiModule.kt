@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 class CatalogApiModule {
 
     /**
-     * Предоставляет экземпляр [ICatalogApi].
+     * Предоставляет экземпляр.
      */
     /*@Provides
     fun provideCatalogApi(retrofitClient: Retrofit): ru.apteka.listing.data.repository.listing.ICatalogApi =

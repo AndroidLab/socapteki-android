@@ -8,7 +8,7 @@ import ru.apteka.components.data.models.SelectableModel
  */
 class PromotionFilterModel(
     _items: List<Item>,
-    _onItemSelected: (Item) -> Unit = {}
+    _onItemSelected: (Item?) -> Unit = {}
 ) : SelectableModel<PromotionFilterModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

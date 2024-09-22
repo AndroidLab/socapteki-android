@@ -29,181 +29,286 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Сообщение о регистрации -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:visibleIf="@{viewModel.account == null}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bonus_program_auth_desc"
+                        android:textColor="@color/color_text_primary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/mbReferalProgramAuth"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/bonus_program_auth" />
+
+                </LinearLayout>
+
                 <!-- Вы зработали -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_corners_shape"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_margin="16dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/bonuses_banner"
-                        tools:ignore="ContentDescription" />
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:visibleIf="@{viewModel.account != null}">
 
                     <TextView
+                        style="@style/Theme.Socapteki.ManropeMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="Вы заработали"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:text="@string/referral_program_earned_it"
+                        android:textColor="@color/color_text_primary" />
 
-                </LinearLayout>
-
-                <!-- История рекомендаций -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Theme.Socapteki.BackgroundCard"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="16dp"
-                                android:text="История рекомендаций"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/historyRecommendationAll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:padding="16dp"
-                                android:text="@string/all"
-                                android:textColor="@color/color_primary" />
-
-                        </LinearLayout>
-
-                        <ru.apteka.components.ui.LoaderLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:isLoading="@{viewModel.historyRecommendationIsLoading}">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingHorizontal="16dp"
-                                app:forItems="@{viewModel.historyRecommendation}"
-                                app:useTemplate="@{@layout/referral_program_template}" />
-
-                        </ru.apteka.components.ui.LoaderLayout>
-
-                        <TextView
-                            android:id="@+id/referralProgramOffer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:gravity="center_horizontal"
-                            android:paddingVertical="12dp"
-                            android:text="Ознакомиться с офертой"
-                            android:textColor="@color/color_primary" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- История рекомендаций -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="220dp"
+                        android:layout_marginTop="8dp"
+                        app:cardBackgroundColor="#a4fe14"
+                        app:cardCornerRadius="16dp">
 
                         <ImageView
-                            android:layout_width="match_parent"
+                            android:layout_width="160dp"
                             android:layout_height="200dp"
-                            android:layout_margin="16dp"
+                            android:layout_gravity="end|center_vertical"
                             android:scaleType="fitXY"
-                            android:src="@drawable/bonuses_banner2"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:text="@string/referral_program_desc" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/referralProgramConditions"
-                            style="@style/Theme.Socapteki.OutlinedButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:text="Условия реферальной программы" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Как это работает -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Theme.Socapteki.BackgroundCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="8dp">
+                            android:src="@drawable/referal_program_pot"
+                            tools:ignore="ContentDescription"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:text="Как это работает:"
-                            android:textColor="@color/dark_black"
-                            android:textSize="18sp"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="1 050"
+                            android:textColor="@color/color_primary"
+                            android:textSize="48dp"
                             android:textStyle="bold" />
 
-                        <include
-                            layout="@layout/referral_program_how_it_work_view"
-                            app:count="@{`1`}"
-                            app:desc="@{`Просто поделитесь ссылкой`}"
-                            app:title="@{`Пригласите друга`}" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="60dp"
+                            android:text="@string/referral_program_bonuses"
+                            android:textColor="@color/color_primary"
+                            android:textStyle="bold" />
 
-                        <include
-                            layout="@layout/referral_program_how_it_work_view"
-                            app:count="@{`2`}"
-                            app:desc="@{`На первый заказ от 1500 Ꝑ`}"
-                            app:title="@{`Друг получит скидку 150 Ꝑ`}" />
+                        <TextView
+                            style="@style/Theme.Socapteki.ManropeMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="8dp"
+                            android:text="6 рекомендаций"
+                            android:textColor="@color/color_text_primary" />
 
-                        <include
-                            layout="@layout/referral_program_how_it_work_view"
-                            app:count="@{`3`}"
-                            app:desc="@{`Когда друг заберет заказ. Копите и оплачивайте ими свои покупки`}"
-                            app:title="@{`Вам тоже придут 150 бонусов`}" />
+                    </com.google.android.material.card.MaterialCardView>
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                <!-- История рекомендаций -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    app:visibleIf="@{viewModel.account != null}">
+
+                    <include
+                        android:id="@+id/historyRecommendation"
+                        layout="@layout/horizontal_list_header"
+                        app:textBtn="@{@string/all}"
+                        app:title="@{`История рекомендаций`}" />
+
+                    <ru.apteka.components.ui.LoaderLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isLoading="@{viewModel.historyRecommendationIsLoading}">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            app:forItems="@{viewModel.historyRecommendation}"
+                            app:useTemplate="@{@layout/referral_program_template}" />
+
+                    </ru.apteka.components.ui.LoaderLayout>
+
+                    <TextView
+                        android:id="@+id/referralProgramOffer"
+                        style="@style/Theme.Socapteki.SemiBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="12dp"
+                        android:text="@string/referral_program_acquainted_with_offer"
+                        android:textColor="@color/color_primary" />
+
+                </LinearLayout>
+
+                <!-- Ссылка для приглашения -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:visibleIf="@{viewModel.account != null}">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        app:cardBackgroundColor="@color/color_surface_variant"
+                        app:strokeColor="@color/color_primary"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:layout_width="400dp"
+                            android:layout_height="400dp"
+                            android:layout_gravity="end"
+                            android:alpha=".3"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/referal_program_star"
+                            android:translationX="150dp"
+                            android:translationY="-150dp"
+                            tools:ignore="ContentDescription"/>
+
+                        <TextView
+                            style="@style/Theme.Socapteki.SemiBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginBottom="60dp"
+                            android:text="@string/referral_program_your_link"
+                            android:textColor="@color/color_primary"
+                            android:textSize="16sp" />
+
+                        <!-- Ссылка для приглашения -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/mcReferalProgramUrl"
+                            style="@style/Theme.Socapteki.BackgroundCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="16dp"
+                            android:alpha=".5"
+                            app:cardBackgroundColor="@color/white"
+                            app:contentPaddingBottom="8dp"
+                            app:contentPaddingLeft="16dp"
+                            app:contentPaddingRight="16dp"
+                            app:contentPaddingTop="8dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:singleLine="true"
+                                    android:text="https://wwww.socapteka.ru/ref73894"
+                                    android:textColor="@color/color_text_primary" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_referal_program_url_copy"
+                                    tools:ignore="ContentDescription"/>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/mbReferalProgramShare"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="60dp"
+                            android:text="@string/referral_program_share_social" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/referral_program_desc" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/referralProgramConditions"
+                        style="@style/Theme.Socapteki.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/referral_program_terms_referral_program" />
+
+                </LinearLayout>
+
+                <!-- Как это работает -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/corners_shape"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/referral_program_how_it_works"
+                        android:textColor="@color/color_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <include
+                        layout="@layout/referral_program_how_it_work_view"
+                        app:count="@{`1`}"
+                        app:desc="@{`Просто поделитесь ссылкой`}"
+                        app:title="@{`Пригласите друга`}" />
+
+                    <include
+                        layout="@layout/referral_program_how_it_work_view"
+                        app:count="@{`2`}"
+                        app:desc="@{`На первый заказ от 1500Ꝑ`}"
+                        app:title="@{`Друг получит скидку 150Ꝑ`}" />
+
+                    <include
+                        layout="@layout/referral_program_how_it_work_view"
+                        app:count="@{`3`}"
+                        app:desc="@{`Когда друг заберет заказ. Копите и оплачивайте ими свои покупки`}"
+                        app:title="@{`Вам тоже придут 150 бонусов`}" />
+
+                </LinearLayout>
 
                 <include layout="@layout/footer_stub" />
 

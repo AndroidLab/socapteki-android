@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/product_card_graph"
     app:startDestination="@id/productCardFragment">
 
@@ -39,5 +37,7 @@
         android:name="ru.apteka.product_card.presentation.product_card_manufacturer_program.ProductCardManufacturerProgramFragment">
 
     </fragment>
+
+    <include app:graph="@navigation/listing_graph" />
 
 </navigation>

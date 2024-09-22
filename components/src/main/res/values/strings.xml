@@ -1,6 +1,4 @@
 <resources>
-    <string name="error">Ошибка</string>
-    <string name="http_error">Http error %s</string>
     <string name="http_error_not_connection">Отсутствует подключение к сети</string>
     <string name="binding_class_not_created">Биндинг класс еще не создан.</string>
     <string name="common_today">Сегодня</string>
@@ -25,21 +23,16 @@
     <string name="success2">Успешно</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
-    <string name="exit">Выйти</string>
-    <string name="create">Создать</string>
     <string name="add">Добавить</string>
     <string name="address">Адресс</string>
     <string name="time">Время</string>
-    <string name="recipients">Получатели</string>
     <string name="fio">ФИО</string>
-    <string name="telephone">Телефон</string>
     <string name="phone_number">Номер телефона</string>
     <string name="mail">Почта</string>
     <string name="stocks">Акции</string>
     <string name="to_pay">Оплатить</string>
     <string name="email">Электронная почта</string>
     <string name="enter">Войти</string>
-    <string name="update">Обновить</string>
     <string name="comment">Комментарий</string>
     <string name="all_products">Все товары</string>
     <string name="read_completely">Читать полностью</string>
@@ -60,6 +53,7 @@
     <string name="city_not_selected">Город не выбран</string>
     <string name="add_favorite">Добавить в избранное</string>
     <string name="in_favorite">В избранном</string>
+    <string name="show_more">Показать еще</string>
 
     <string name="label_hit_sales">Хит продаж</string>
     <string name="label_product_day">Товар дня</string>
@@ -69,9 +63,8 @@
 
     <string name="analogues_products">Аналоги лекарства</string>
     <string name="with_products">С этим товаром покупают</string>
-    <string name="recently_viewed_products">Вы недавно смотрели</string>
+    <string name="watched_recently">Вы недавно смотрели</string>
     <string name="access_phone_camera">Для продолжения необходим доступ к камере телефона. Нажмите кнопку настройки и дайте доступ к камере телефона.</string>
-    <string name="access_mic_record">Для продолжения необходим доступ к микрофону телефона. Нажмите кнопку настройки и дайте доступ к микрофону телефона.</string>
 
     <string name="order_payment_failed">Оплата не прошла</string>
     <string name="order_details_delivery_method_delivery">Доставка</string>
@@ -86,18 +79,30 @@
     <string name="order_status_canceled">Отменен</string>
     <string name="order_payment_awaiting">Ожидает оплаты</string>
 
-    <string-array name="sorts">
-        <item>Популярные</item>
-        <item>Популярные 1</item>
-        <item>Популярные 2</item>
-        <item>Популярные 3</item>
-    </string-array>
+    <string name="bonus_program_auth">Вход или регистрация</string>
+    <string name="bonus_program_auth_desc">Наблюдайте, как копятся бонусы\nЧем больше друзей получат заказы из нашей аптеки, тем больше бонусов придет на ваш счет</string>
 
     <string name="menu_label_1">Главная</string>
+    <string name="menu_label_1_2">Карта</string>
     <string name="menu_label_2">Каталог</string>
     <string name="menu_label_3">Акции</string>
     <string name="menu_label_4">Корзина</string>
     <string name="menu_label_5">Меню</string>
     <string name="menu_profile">Профиль</string>
+
+    <string name="product_sort">Сортировка</string>
+    <string name="product_sort_popular">Популярные</string>
+    <string name="product_sort_cheaper">Дешевле</string>
+    <string name="product_sort_expensive">Дороже</string>
+    <string name="product_sort_stock">В наличии</string>
+    <string name="product_sort_discount">Товары со скидкой</string>
+    <string name="product_sort_first_popular">Сначала популярные</string>
+    <string name="product_sort_first_cheaper">Сначала дешевле</string>
+    <string name="product_sort_first_expensive">Сначала дороже</string>
+    <string name="product_sort_first_stock">Сначала в наличии</string>
+    <string name="product_sort_first_discount">Сначала товары со скидкой</string>
+
+    <string name="our_charity_projects">Наши благотворительные проекты</string>
+
 
 </resources>

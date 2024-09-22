@@ -6,10 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import ru.apteka.components.data.models.Label
+import ru.apteka.components.data.models.OrderDeliveryMethod
+import ru.apteka.components.data.models.OrderModel
+import ru.apteka.components.data.models.OrderPayStatus
+import ru.apteka.components.data.models.OrderStatus
+import ru.apteka.components.data.models.StockModel
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.ScopedLiveData
+import ru.apteka.components.data.utils.getProductsFake2
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.mainThread
 import ru.apteka.components.ui.BaseViewModel
@@ -32,24 +39,72 @@ class NotificationsViewModel @Inject constructor(
 ) {
     private val fakeNotifications = listOf(
         NotificationModel(
-            title = "«Социальная Аптека»",
-            desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
-            type = NotificationModel.NotificationType.ORDERS
+            title = "Доставка, 4 559,90 ₽",
+            desc = "2-я Владимирская ул. 29А, Москва",
+            type = NotificationModel.NotificationType.ORDERS,
+            orderOrStock = OrderModel(
+                number = 123,
+                sum = "4 559,90 ₽",
+                status = OrderStatus.NEW,
+                date = 1697711146,
+                payStatus = OrderPayStatus.SUCCESS,
+                deliveryMethod = OrderDeliveryMethod.DELIVERY,
+                deliveryAddress = "2-я Владимирская ул. 29А, Москва",
+                paymentMethod = "Онлайн",
+                products = getProductsFake2(),
+            )
         ),
         NotificationModel(
-            title = "«Социальная Аптека»",
-            desc = "Заказ №507505552 готов и ожидает вас еще 2 дн. Справка 8 800 200 9001",
-            type = NotificationModel.NotificationType.ORDERS
+            title = "Доставка, 4 559,90 ₽",
+            desc = "2-я Владимирская ул. 29А, Москва",
+            type = NotificationModel.NotificationType.ORDERS,
+            orderOrStock = OrderModel(
+                number = 12345,
+                status = OrderStatus.NEW,
+                date = 1697624746,
+                payStatus = OrderPayStatus.SUCCESS,
+                sum = "4 559,90 ₽",
+                deliveryMethod = OrderDeliveryMethod.DELIVERY,
+                deliveryAddress = "2-я Владимирская ул. 29А, Москва",
+                paymentMethod = "Онлайн",
+                products = getProductsFake2(),
+            )
         ),
         NotificationModel(
-            title = "-20% на Johnsons Baby",
-            desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
-            type = NotificationModel.NotificationType.STOCKS
+            title = "Скидки до 45% на товары для красотыy",
+            desc = "01 сентября 2023 - 30 сентября 2023",
+            type = NotificationModel.NotificationType.STOCKS,
+            orderOrStock = StockModel(
+                imageSrc = "",
+                title = "Скидки до 45% на товары для красоты",
+                date = "01 сентября 2023 - 30 сентября 2023",
+                description = "Только с 1 сентября по 30 сентября 2023г. специальное предложение на товары для красоты - скидка до 45 %!Натуральный препарат с экстрактом французского артишока улучшает отток желчи и помогает защитить печень.\n" +
+                        "Кому может подойти средство:\n" +
+                        "детям с диагнозом \"дискенезия желчевыводящих путей\" и частыми запорами. Раствор разрешен даже младенцам под наблюдением врача. Таблетки можно использовать от 6 лет.\n" +
+                        "взрослым с нарушением питания: частым употреблением фастфуда и спиртных напитков\n" +
+                        "взрослым с проблемной кожей, если причина высыпаний внутри\n" +
+                        "взрослым, принимающим большое количество медикаментов\n" +
+                        "Хофитол в растворе или таблетках со скидкой до 20% заказывайте здесь! Количество товаров ограничено.",
+                labels = listOf(Label.ADVERT),
+            ),
         ),
         NotificationModel(
-            title = "Эссенциале  по акции 2+1",
-            desc = "Supporting line text lorem ipsum dolor sit amet, consectetur",
-            type = NotificationModel.NotificationType.STOCKS
+            title = "Скидки до 40% на товары для красоты",
+            desc = "01 сентября 2023 - 30 сентября 2023",
+            type = NotificationModel.NotificationType.STOCKS,
+            orderOrStock = StockModel(
+                imageSrc = "",
+                title = "Скидки до 40% на товары для красоты",
+                date = "01 сентября 2023 - 30 сентября 2023",
+                description = "Только с 1 сентября по 30 сентября 2023г. специальное предложение на товары для красоты - скидка до 45 %!Натуральный препарат с экстрактом французского артишока улучшает отток желчи и помогает защитить печень.\n" +
+                        "Кому может подойти средство:\n" +
+                        "детям с диагнозом \"дискенезия желчевыводящих путей\" и частыми запорами. Раствор разрешен даже младенцам под наблюдением врача. Таблетки можно использовать от 6 лет.\n" +
+                        "взрослым с нарушением питания: частым употреблением фастфуда и спиртных напитков\n" +
+                        "взрослым с проблемной кожей, если причина высыпаний внутри\n" +
+                        "взрослым, принимающим большое количество медикаментов\n" +
+                        "Хофитол в растворе или таблетках со скидкой до 20% заказывайте здесь! Количество товаров ограничено.",
+                labels = listOf(Label.ADVERT),
+            ),
         )
     )
 

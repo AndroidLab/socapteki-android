@@ -15,9 +15,10 @@ import ru.apteka.components.data.utils.debounce
 import ru.apteka.components.data.utils.launchIO
 import ru.apteka.components.data.utils.navigateWithAnim
 import ru.apteka.components.ui.BaseViewModel
-import ru.apteka.listing_api.api.LISTING_ARGUMENT
+import ru.apteka.listing.LISTING_ARGUMENT
+import ru.apteka.listing.R
 import javax.inject.Inject
-import ru.apteka.listing_api.R as ListingApiR
+
 
 /**
  * Представляет модель представления "Страница бренды".
@@ -281,8 +282,8 @@ class LettersPageViewModel @Inject constructor(
     }
 
     private fun navigateToListing(title: String) {
-        navigationManager.generalNavController.navigateWithAnim(
-            ListingApiR.id.listing_graph,
+        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
+            R.id.listing_graph,
             bundleOf(
                 LISTING_ARGUMENT to title
             )

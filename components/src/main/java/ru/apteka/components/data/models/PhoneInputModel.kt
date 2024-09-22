@@ -28,7 +28,6 @@ class PhoneInputModel {
     companion object {
         /**
          * Устанавливает маску ввода номера.
-         * @param textView [TextView] - Отображение.
          * @param phoneMask [String] - Маска.
          */
         @JvmStatic

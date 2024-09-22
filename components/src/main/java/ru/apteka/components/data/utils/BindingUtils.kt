@@ -82,7 +82,6 @@ fun TextView.setExtraText(
 
 /**
  * Устанавливает размер текста.
- * @param textView [TextView] - Отображение.
  * @param value [Float] - Значение для преобразования в sp.
  */
 @BindingAdapter("app:extraTextSize")
@@ -203,7 +202,7 @@ fun View.setExtraPadding(
  * @param layoutWidth [Int]
  * @param layoutHeight [Int]
  */
-@BindingAdapter("app:extra_layout_width", "app:extra_layout_height", requireAll = false)
+@BindingAdapter("app:extraLayoutWidth", "app:extraLayoutHeight", requireAll = false)
 fun setLayoutHeight(view: View, layoutWidth: Int?, layoutHeight: Int?) {
     val lp = view.layoutParams
     lp.width = if (layoutWidth == -1 || layoutWidth == -2) {
@@ -358,10 +357,28 @@ fun ImageView.setExtraTint(@ColorInt color: Int?) {
     }
 }
 
+/**
+ * Устанавливает цвет helper text в [].
+ * @param color Цвет текста.
+ */
+@BindingAdapter("app:extraHelperTextColor")
+fun TextInputLayout.setExtraHelperTextColor(@ColorInt color: Int?) {
+    if (color != null && color != 0) {
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_enabled)
+        )
+        val colors = intArrayOf(
+            color
+        )
+        setHelperTextColor(
+            ColorStateList(states, colors)
+        )
+    }
+}
 
 /**
  * Устанавливает форматированную дату в [TextView].
- * @param timeInMills Время в секундах.
+ * @param timeInSec Время в секундах.
  * @param lowerCase Регистр.
  */
 @BindingAdapter("app:formatDateFromSec", "app:lowerCase")
@@ -466,7 +483,6 @@ fun RecyclerView.circlePagerIndicator(
  * Создает представление из шаблона для каждого элемента списка.
  * @param items List<T>? Список элементов.
  * @param template Int? Идентификатор ресурса шаблона.
- * @param gap Int? Размер пространства между отображениями в dp.
  * @param lifecycleOwner [LifecycleOwner].
  */
 @BindingAdapter(
@@ -622,7 +638,7 @@ private fun addExpansionLayoutListener(title: TextView?, indicator: ImageView?) 
         title?.setTextColor(
             ContextCompat.getColor(
                 title.context,
-                if (expanded) R.color.color_primary else R.color.dark_black
+                if (expanded) R.color.color_primary else R.color.color_text_primary
             )
         )
         indicator?.setExtraTint(

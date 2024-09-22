@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import ru.apteka.feedback.data.repository.feedback.IСharityApi
+import ru.apteka.charity.data.repository.charity.ICharityApi
 
 
 @Module
@@ -13,10 +13,10 @@ import ru.apteka.feedback.data.repository.feedback.IСharityApi
 class СharityApiModule {
 
     /**
-     * Предоставляет экземпляр [IСharityApi].
+     * Предоставляет экземпляр [ICharityApi].
      */
     @Provides
-    fun provideApi(retrofitClient: Retrofit): IСharityApi =
-        retrofitClient.create(IСharityApi::class.java)
+    fun provideApi(retrofitClient: Retrofit): ICharityApi =
+        retrofitClient.create(ICharityApi::class.java)
 
 }

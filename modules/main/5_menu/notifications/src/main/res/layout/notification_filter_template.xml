@@ -5,6 +5,7 @@
     <data>
 
         <import type="ru.apteka.components.data.utils.ExtensionsMethodsKt" />
+
         <import type="kotlin.collections.CollectionsKt" />
 
         <variable
@@ -22,12 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> bindingItem.onItemClick()}"
-            app:extraText="@{bindingItem.status.title}"
-            app:extraTextArg="@{CollectionsKt.listOf(bindingItem.count)}"
+            android:textColor="@color/color_text_primary"
             app:chipBackgroundColor="@{bindingItem.isItemSelected ? @color/color_secondary_container : @color/background_secondary}"
             app:chipCornerRadius="100dp"
             app:chipStrokeColor="@{bindingItem.isItemSelected ? @color/color_primary : @android:color/transparent}"
-            app:chipStrokeWidth="@{bindingItem.isItemSelected ? ExtensionsMethodsKt.getDp(1) : 0}" />
+            app:chipStrokeWidth="@{bindingItem.isItemSelected ? ExtensionsMethodsKt.getDp(1) : 0}"
+            app:extraText="@{bindingItem.status.title}"
+            app:extraTextArg="@{CollectionsKt.listOf(bindingItem.count)}" />
 
         <Space
             android:id="@id/separator"

@@ -1,9 +1,11 @@
 package ru.apteka.referral_program.presentation
 
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import ru.apteka.components.data.services.RequestHandler
+import ru.apteka.components.data.services.account.AccountsPreferences
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
 import ru.apteka.components.data.utils.ScopedLiveData
@@ -19,12 +21,18 @@ import javax.inject.Inject
 @HiltViewModel
 class ReferralProgramViewModel @Inject constructor(
     private val requestHandler: RequestHandler,
+    private val accountsPreferences: AccountsPreferences,
     navigationManager: NavigationManager,
     messageService: IMessageService
 ) : BaseViewModel(
     navigationManager,
     messageService
 ) {
+    /**
+     * Возвращает аккаунт.
+     */
+    val account = accountsPreferences.accountFlow.asLiveData()
+
     private val fakeHistoryRecommendation = listOf(
         HistoryRecommendationModel("12.01.23", "+150"),
         HistoryRecommendationModel("11.01.23", "+150"),

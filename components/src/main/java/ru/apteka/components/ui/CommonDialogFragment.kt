@@ -58,7 +58,7 @@ class CommonDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isCancelable = commonDialogModel.dialogModel.isCancelable ?: true
+        isCancelable = commonDialogModel.dialogModel.isCancelable
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
             val _buttonCancel = commonDialogModel.dialogModel.buttonCancel

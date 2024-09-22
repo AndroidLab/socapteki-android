@@ -43,8 +43,6 @@ data class OrderModel(
         get() = products.map {
             it.image
         }
-
-
 }
 
 /**

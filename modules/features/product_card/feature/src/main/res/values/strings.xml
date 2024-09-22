@@ -9,11 +9,8 @@
     <string name="product_card_availability_pharmacies">Наличие в аптеках</string>
     <string name="product_card_manufacturer">Производитель</string>
     <string name="product_card_active_substance">Действующее вещество</string>
-    <string name="product_card_expiration_date">Срок годности</string>
     <string name="product_card_pickup">Самовывоз</string>
     <string name="product_card_home_delivery">Доставка на дом</string>
-
-    <string name="price_page_add_basket">В корзину</string>
 
     <string name="product_card_instruction">Инструкция по применению</string>
     <string name="product_card_send_comment">Написать отзыв</string>
@@ -21,7 +18,6 @@
     <string name="product_card_comments_show_more">Смотреть все отзывы (234)</string>
 
     <string name="product_card_double_bonuses">Двойные бонусы при заказке через приложение</string>
-    <string name="product_card_manufacturer_program">Купите 2 упаковки лекарства одного производителя и получите скидку 1000Р на общую сумму покупки!</string>
 
     <string name="write_review_title">Написать отзыв</string>
     <string name="write_review_evaluation">Оценка</string>
@@ -38,5 +34,11 @@
         взрослым, принимающим большое количество медикаментов
         Хофитол в растворе или таблетках со скидкой до 20% заказывайте здесь! Количество товаров ограничено.
     </string>
+
+    <string name="product_card_participating_in_promotion">Товары, участвующие в акции:</string>
+    <string name="product_card_price_valid_only_website">Цена действует только при заказе на сайте</string>
+    <string name="product_card_double_bonuses_ordering_through_app">Двойные бонусы при заказе через приложение</string>
+    <string name="product_card_learn_more_about_manufacturer_program">Узнать больше о программе производителя</string>
+
 
 </resources>

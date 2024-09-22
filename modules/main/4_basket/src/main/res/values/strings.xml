@@ -10,5 +10,10 @@
     <string name="basket_always_useful_all_products">Все товары</string>
     <string name="basket_buy">Оформить заказ</string>
     <string name="basket_product_restore">Вернуть %s</string>
+    <string name="basket_your_order">Ваш заказ:</string>
+    <string name="basket_discount">Скида:</string>
+    <string name="basket_bonuses_for_order">Бонусы за заказ:</string>
+    <string name="basket_bonuses_released">Отпускается:</string>
+    <string name="basket_without_prescription">Без рецепта</string>
 
 </resources>

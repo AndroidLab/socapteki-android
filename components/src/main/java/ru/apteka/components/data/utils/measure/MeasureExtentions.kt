@@ -2,6 +2,7 @@ package ru.apteka.components.data.utils.measure
 
 import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Units
+import java.util.Locale
 
 
 /**
@@ -22,7 +23,7 @@ fun <T : Units> Measure<T>.format(unit: T = units): String {
  */
 fun <T : Units> Measure<T>.stringValue(unit: T = units): String {
     return when (unit) {
-        is Money -> String.format("%,d", value(unit).toLong())
+        is Money -> String.format(Locale.getDefault(), "%,d", value(unit).toLong())
         else -> throw NotImplementedError("Нет реализации преобразования для единицы измерения $unit")
     }
 }

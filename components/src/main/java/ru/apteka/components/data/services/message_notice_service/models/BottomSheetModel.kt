@@ -1,5 +1,6 @@
 package ru.apteka.components.data.services.message_notice_service.models
 
+import android.content.DialogInterface
 import android.os.Parcelable
 import android.view.View
 import androidx.annotation.LayoutRes
@@ -15,5 +16,6 @@ data class BottomSheetModel(
     val binding: @RawValue ViewDataBinding? = null,
     val onLayoutInflate: ((ViewDataBinding, BottomSheetDialogFragment, BottomSheetBehavior<View>) -> Unit)? = null, //binding, dialog, behavior ->
     val useScrollableContainer: Boolean = true,
-    val flagDimBehind: Boolean = false
+    val flagDimBehind: Boolean = false,
+    val onCancel: ((DialogInterface) -> Unit)? = null
 ) : Parcelable

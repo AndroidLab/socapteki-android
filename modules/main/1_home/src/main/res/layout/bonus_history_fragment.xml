@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.home.presentation.bonus_history.BonusHistoryViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svBonusHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bonusHistoryToolbar">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_corners_shape"
+                    android:orientation="vertical"
+                    app:forItems="@{viewModel.bonuses}"
+                    app:useTemplate="@{@layout/bonus_history_template}" />
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <include
+            layout="@layout/progress_bar"
+            app:isLoading="@{viewModel.isLoading}" />
+
+        <!-- Туул бар -->
+        <include
+            android:id="@+id/bonusHistoryToolbar"
+            layout="@layout/toolbar" />
+
+    </RelativeLayout>
+
+</layout>

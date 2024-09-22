@@ -24,6 +24,7 @@ import ru.apteka.profile.presentation.profile_personal_data_fio.PersonalDataFioF
 import ru.apteka.profile.presentation.profile_personal_data_mail.PersonalDataMailFragment
 import ru.apteka.profile.presentation.profile_personal_data_phone.PersonalDataPhoneFragment
 import java.util.Calendar
+import java.util.Locale
 
 /**
  * Представляет фрагмент "Личные данные".
@@ -69,8 +70,9 @@ class PersonalDataFragment : BaseFragment<PersonalDataViewModel, PersonalDataFra
                     ru.apteka.components.R.style.Theme_Socapteki_DataPicker,
                     { view, year, month, day ->
                         viewModel.date.value =
-                            "${String.format("%02d", day)}.${
+                            "${String.format(Locale.getDefault(), "%02d", day)}.${
                                 String.format(
+                                    Locale.getDefault(),
                                     "%02d",
                                     month + 1
                                 )

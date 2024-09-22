@@ -1,7 +1,6 @@
 <resources>
 
-    <string name="contacts_title">Контакты</string>
-    <string name="contacts_charity">Наши благотворительные проекты</string>
+    <string name="contacts_title">Контакты и реквизиты</string>
     <string name="contacts_map">Аптеки на карте</string>
     <string name="contacts_reception">Приемная</string>
     <string name="contacts_drug_reference">Справочная лекарств</string>

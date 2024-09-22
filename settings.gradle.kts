@@ -71,9 +71,9 @@ include(":modules:main:5_menu:orders")
 
 
 
+
 //Модуль 'Листинг'.
-include(":modules:features:listing:feature")
-include(":modules:features:listing:api")
+include(":modules:features:listing")
 
 //Модуль 'Выбор города'.
 include(":modules:features:choosing_city:feature")
@@ -94,6 +94,14 @@ include(":modules:features:feedback:api")
 //Модуль 'Оформление заказа'.
 include(":modules:features:making_order:feature")
 include(":modules:features:making_order:api")
+
+//Модуль 'Детали заказа'.
+include(":modules:features:order_details:feature")
+include(":modules:features:order_details:api")
+
+//Модуль 'Детали акции'.
+include(":modules:features:stock_details:feature")
+include(":modules:features:stock_details:api")
 
 //Модуль 'Избранное'.
 include(":modules:features:favorites:feature")

@@ -10,7 +10,7 @@ import ru.apteka.components.data.models.SelectableModel
  */
 class OrderFilterModel(
     _items: @RawValue List<Item>,
-    _onItemSelected: (Item) -> Unit
+    _onItemSelected: (Item?) -> Unit
 ) : SelectableModel<OrderFilterModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

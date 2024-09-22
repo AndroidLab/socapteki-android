@@ -7,7 +7,7 @@ plugins {
     id(libs.plugins.navigationConventionPlugin.get().pluginId)
     id(libs.plugins.retrofitConventionPlugin.get().pluginId)
     id(libs.plugins.glideConventionPlugin.get().pluginId)
-    id(libs.plugins.firebaseConventionPlugin.get().pluginId)
+    //id(libs.plugins.firebaseConventionPlugin.get().pluginId)
 }
 
 android {
@@ -16,6 +16,8 @@ android {
 
 dependencies {
     implementation(project(":components"))
+    implementation(project(":modules:features:order_details:api"))
+    implementation(project(":modules:features:stock_details:api"))
 
     implementation(libs.bundles.navigationDeps)
     implementation(libs.circleimageview)

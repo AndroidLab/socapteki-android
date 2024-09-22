@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.apteka.social.presentation.auth.auth_mail.AuthMailViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.alab.extra_bouncy.BouncyNestedScrollView
+            android:id="@+id/svAuthMailToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/authMailToolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <ru.apteka.components.ui.LoaderLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isLoading="@{viewModel.isLoading}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/auth_mail_desc"
+                        android:textColor="@color/color_text_secondary" />
+
+                    <!-- Выбор ФИО -->
+                    <com.alab.input_layout_inner_hint.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/fio"
+                        app:startIconDrawable="@drawable/ic_fio">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAuthMailFio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:maxLength="64"
+                            android:maxLines="1"
+                            android:text="@={viewModel.fio}" />
+
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                    <!-- Дата рождения -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <com.alab.input_layout_inner_hint.TextInputLayout
+                            style="@style/TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{!viewModel.isLoading}"
+                            android:hint="@string/work_with_us_questionnaire_birthday_hint"
+                            app:endIconMode="clear_text"
+                            app:startIconDrawable="@drawable/ic_date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAuthMailBirthday"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/text_input_white_background_unfocused_shape"
+                                android:digits=" .,_0,1,2,3,4,5,6,7,8,9"
+                                android:inputType="number"
+                                android:text="@={viewModel.birthday}" />
+
+                        </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                        <View
+                            android:id="@+id/vAuthMailDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@android:color/transparent" />
+
+                        <ImageView
+                            android:id="@+id/authMailBirthdayInfo"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_info"
+                            tools:ignore="ContentDescription" />
+
+                    </FrameLayout>
+
+                    <!-- Емайл -->
+                    <com.alab.input_layout_inner_hint.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:enabled="@{!viewModel.isLoading}"
+                        android:hint="@string/mail"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:errorText="@{viewModel.isEmailValid == null ? `` : context.getString(viewModel.isEmailValid)}"
+                        app:extraHelperTextColor="@{viewModel.isMailVerified ? @color/color_primary : @color/orange}"
+                        app:helperText="@{viewModel.email.empty | viewModel.isEmailValid != null ? `` : viewModel.isMailVerified ? @string/auth_mail_verified_mail : @string/auth_mail_not_verified_mail}"
+                        app:startIconDrawable="@drawable/ic_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContactsFeedbackEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:text="@={viewModel.email}" />
+
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:onClick="@{() -> viewModel.receiveCode()}"
+                        android:paddingHorizontal="4dp"
+                        android:paddingVertical="8dp"
+                        android:text="@{viewModel.isCodeSend ? @string/auth_mail_receive_code_again : @string/auth_mail_receive_code}"
+                        android:textColor="@color/color_primary"
+                        app:visibleIf="@{!viewModel.email.empty &amp; viewModel.isEmailValid == null}" />
+
+                    <!-- Поле ввода пинкода -->
+                    <com.alab.input_layout_inner_hint.TextInputLayout
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/confirm_code_hint"
+                        app:errorText="@{viewModel.isCodeConfirmError() ? @string/confirm_code_error : ``}"
+                        app:visibleIf="@{!viewModel.email.empty &amp; viewModel.isEmailValid == null &amp; viewModel.isCodeSend}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAuthMailConfirmCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/text_input_white_background_unfocused_shape"
+                            android:digits=" ,_0,1,2,3,4,5,6,7,8,9"
+                            android:inputType="number"
+                            android:text="@={viewModel.code}"
+                            app:codeMask="@{`_ _ _ _`}" />
+
+                    </com.alab.input_layout_inner_hint.TextInputLayout>
+
+                    <!-- Выбор пола -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:visibleIf="@{viewModel.sexModel.mediator}">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.sexModel.items.get(0).isItemSelected}"
+                            android:onClick="@{() -> viewModel.sexModel.items.get(0).onItemClick()}"
+                            android:paddingHorizontal="8dp"
+                            android:text="@string/auth_mail_sex_male" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:checked="@{viewModel.sexModel.items.get(1).isItemSelected}"
+                            android:onClick="@{() -> viewModel.sexModel.items.get(1).onItemClick()}"
+                            android:paddingHorizontal="8dp"
+                            android:text="@string/auth_mail_sex_female" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        android:background="@drawable/corners_shape"
+                        android:orientation="horizontal"
+                        android:paddingVertical="16dp"
+                        android:paddingEnd="16dp"
+                        app:extraBackgroundTint="@{viewModel.isMailVerified() ? @color/color_secondary_container : @color/light_grey}"
+                        tools:ignore="RtlSymmetry">
+
+                        <CheckBox
+                            android:id="@+id/cbAuthMailEReceipt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.isReceiveReceipts &amp; viewModel.isMailVerified}"
+                            android:enabled="@{viewModel.isMailVerified}"
+                            android:translationY="-10dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/personal_data_mail_e_receipt_title"
+                                android:textColor="@color/dark_black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/personal_data_mail_e_receipt_desc"
+                                android:textColor="@color/light_black" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/authMailEReceiptQuestion"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_question"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ru.apteka.components.ui.LoaderLayout>
+
+        </com.alab.extra_bouncy.BouncyNestedScrollView>
+
+        <include
+            android:id="@+id/authMailToolbar"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_above="@id/flAuthMailSave" />
+
+        <!-- Кнопка 'Сохранить изменения' -->
+        <FrameLayout
+            android:id="@+id/flAuthMailSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbAuthMailSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:enabled="@{viewModel.isFieldsFilled()}"
+                android:text="@string/auth_mail_save" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

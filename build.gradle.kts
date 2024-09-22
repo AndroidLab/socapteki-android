@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.androidxNavigationSafeargs) apply false
     alias(libs.plugins.googleServices) apply false
     alias(libs.plugins.crashlytics) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.orgSonarqube) apply true
 }
 

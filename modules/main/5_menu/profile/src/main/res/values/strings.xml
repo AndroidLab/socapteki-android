@@ -38,7 +38,6 @@
     <string name="personal_data_phone">Телефон</string>
     <string name="personal_data_email">Электронная почта</string>
     <string name="personal_data_sex">Пол</string>
-    <string name="personal_data_mail_not_ferified">Почта не верифицирована</string>
     <string name="personal_data_profile_management">Управление профилем</string>
     <string name="personal_data_mail_e_receipt_title">Получать электронный чек вместо бумажного на e-mail</string>
     <string name="personal_data_mail_e_receipt_desc">при оплате на кассе в аптеке, на сайте, в мобильном приложении</string>
@@ -65,8 +64,6 @@
     <string name="profile_management_remove_dialog_desc">Вы действительно хотите удалить ваш аккаунт? Все ваши данные будут удалены без возможности восстановления.</string>
     <string name="profile_management_remove_dialog_loyalty_desc">При удалении аккаунта, Вы можете оставить возможность пользоваться программой лояльности в офлайн-аптеках</string>
     <string name="profile_management_remove_dialog_loyalty">Не удалять меня из программы лояльности</string>
-    <string name="profile_management_remove_dialog_err_title">Удаление профиля недоступно</string>
-    <string name="profile_management_remove_dialog_err_desc">Пока есть активные заказы, удалить профиль не получится.\nПопробуйте сначала получить заказ или отменить его.</string>
 
 
     <string name="profile_remove_title">Удаление аккаунта</string>

@@ -9,7 +9,7 @@ import ru.apteka.components.data.models.SelectableModel
  */
 class NotificationFilterModel(
     _items: @RawValue List<Item>,
-    _onItemSelected: (Item) -> Unit
+    _onItemSelected: (Item?) -> Unit
 ) : SelectableModel<NotificationFilterModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

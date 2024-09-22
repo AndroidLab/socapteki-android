@@ -12,7 +12,7 @@ data class PaymentsMethodsModel(
         Item(PaymentMethod.ONLINE, R.string.making_order_payments_methods_online),
         Item(PaymentMethod.SBP, R.string.making_order_payments_methods_spb),
     ),
-    val _onItemSelected: (Item) -> Unit
+    val _onItemSelected: (Item?) -> Unit
 ) : SelectableModel<PaymentsMethodsModel.Item>(
     items = _items,
     onItemSelected = _onItemSelected

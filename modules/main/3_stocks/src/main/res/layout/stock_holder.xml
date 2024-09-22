@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="ru.apteka.stocks.data.models.StockModel" />
+            type="ru.apteka.components.data.models.StockModel" />
 
     </data>
 

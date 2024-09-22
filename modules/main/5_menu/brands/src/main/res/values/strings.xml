@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="brands_title">Бренды и производители</string>
+    <string name="brands_title">Производители и бренды</string>
     <string name="brands_manufactures_page">Производители</string>
     <string name="brands_brands_page">Бренды</string>
     <string name="brands_all_brands_by_letter">Все бренды на «%s»</string>

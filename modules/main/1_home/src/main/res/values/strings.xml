@@ -14,19 +14,18 @@
     <string name="home_advantages_more_products_desc">Редкие лекарства доступны в одном месте</string>
     <string name="home_advantages_no_queue_title">Обслуживание без очереди</string>
     <string name="home_advantages_no_queue_desc">Получение товара в аптеке без очереди после поступления СМС уведомления о готовности заказа</string>
-    <string name="home_menu_brands">Бренды и производители</string>
+    <string name="home_menu_brands">Производители и бренды</string>
     <string name="home_menu_pharmacies_map">Адреса аптек</string>
-    <string name="home_menu_partners">Наши партнеры</string>
 
-    <string name="bonus_program_title">Бонусная программа</string>
     <string name="bonus_program_virtual_card">Виртуальная карта</string>
-    <string name="bonus_program_banner_title">Участвуйте в бонусной программе</string>
-    <string name="bonus_program_banner_desc">И получай скидку на покупку товаров</string>
-    <string name="bonus_program_text">Каждый зарегистрированный пользователь сайта может стать участником бонусной программы, зарабатывая бонусные баллы, которые можно использовать для получения скидки до 10% при оформлении заказа</string>
-    <string name="bonus_program_referral">Реферальная программа</string>
+    <string name="bonus_program_invite_friend">Приглашайте друзей и получайте бонусы</string>
+    <string name="bonus_program_invite_friend_desc">Подарим другу 150 рублей на первый заказ, а вам - 150 бонусов</string>
+    <string name="bonus_program_invite_friend_more">&lt;font color=\"#00A95D\">&lt;u>Подробнее&lt;/u>&lt;/font></string>
     <string name="bonus_program_history">История бонусов</string>
-    <string name="bonus_program_history_all">Все</string>
-    <string name="bonus_program_register_card">Зарегистрируйте карту, чтобы получать бонусы и скидки на покупку товаров</string>
-    <string name="bonus_program_read_offer">Ознакомиться с офертой</string>
+
+    <string name="bonus_history_title">История бонусов</string>
+
+    <string name="bonus_program_suggestions_for_you">Предложения для вас</string>
+    <string name="bonus_program_activate">Активировать</string>
 
 </resources>

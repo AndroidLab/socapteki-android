@@ -1,6 +1,7 @@
 package ru.apteka.components.ui.adapters
 
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ru.apteka.components.data.models.ProductCardModel
@@ -34,8 +35,8 @@ class ProductCardViewAdapter(
         val lp = root.layoutParams as RecyclerView.LayoutParams
         if (isHorizontal) {
             itemWidth -= itemWidth / 8
-            lp.marginStart = if (isFirst) 8.dp else 0.dp
-            lp.marginEnd = if (isLast) 8.dp else 0.dp
+            //lp.marginStart = if (isFirst) 8.dp else 0.dp
+            lp.marginEnd = if (!isLast) 8.dp else 0.dp
             lp.width = itemWidth
         } else {
             lp.width = RecyclerView.LayoutParams.MATCH_PARENT

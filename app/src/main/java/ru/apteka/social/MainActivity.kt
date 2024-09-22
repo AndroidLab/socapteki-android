@@ -240,10 +240,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomAppBarFab.setOnClickListener {
             val controller = viewModel.navigationManager.currentBottomNavControllerLiveData.value!!
-            if (controller.graph.id == ru.apteka.components.R.id.home_graph) {
+            if (controller.graph.id == ru.apteka.components.R.id.main_home_graph) {
                 viewModel.navigationManager.onFabClick()
             } else {
-                viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
+                viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.main_home_graph)
             }
         }
 
@@ -554,7 +554,7 @@ class MainActivity : AppCompatActivity() {
                 if (previousMainDestinationId == MenuR.id.menuFragment) {
                     viewModel.navigationManager.currentBottomNavControllerLiveData.value?.popBackStack()
                 }
-                viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.home_graph)
+                viewModel.navigationManager.bottomAppBarModel.onItemSelected(ComponentsR.id.main_home_graph)
             } else {
                 if (!viewModel.navigationManager.isHomeFront.value!!) {
                     viewModel.navigationManager.onFabClick()
@@ -578,6 +578,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             }
+            binding.bottomNavigationHomeItem.tvItem.text = getString(ComponentsR.string.menu_label_1_2)
         } else {
             binding.bottomAppBarFab.apply {
                 setImageResource(ComponentsR.drawable.ic_home)
@@ -588,6 +589,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             }
+            binding.bottomNavigationHomeItem.tvItem.text = getString(ComponentsR.string.menu_label_1)
         }
     }
 
@@ -596,7 +598,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomAppBar.setupWithNavController(
                 bottomAppBarModel = viewModel.navigationManager.bottomAppBarModel,
                 navGraphIds = listOf(
-                    HomeR.navigation.home_graph,
+                    HomeR.navigation.main_home_graph,
                     CatalogR.navigation.catalog_graph,
                     StocksR.navigation.stocks_graph,
                     BasketR.navigation.basket_graph,

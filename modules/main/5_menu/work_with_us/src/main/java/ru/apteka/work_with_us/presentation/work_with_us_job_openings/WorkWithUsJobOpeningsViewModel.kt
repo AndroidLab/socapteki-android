@@ -1,19 +1,10 @@
 package ru.apteka.work_with_us.presentation.work_with_us_job_openings
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flow
 import ru.apteka.components.data.services.RequestHandler
 import ru.apteka.components.data.services.message_notice_service.IMessageService
 import ru.apteka.components.data.services.navigation_manager.NavigationManager
@@ -26,7 +17,6 @@ import ru.apteka.work_with_us.R
 import ru.apteka.work_with_us.data.model.EmployeeReviewModel
 import ru.apteka.work_with_us.data.model.JobOpeningModel
 import ru.apteka.work_with_us.data.model.JobOpeningsFilterModel
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import ru.apteka.components.R as ComponentsR
 
@@ -62,7 +52,7 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
             ),
         )
     ) {
-        userPreferences.jobOpeningsCityFilter = it.title
+        userPreferences.jobOpeningsCityFilter = it?.title ?: "null"
     }.apply {
         setItemSelected(0)
     }
@@ -131,80 +121,6 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
     init {
         viewModelScope.launchIO {
             launchIO {
-                isLoading.postValue(true)
-                delay(1500)
-                jobOpenings.postValue(
-                    listOf(
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Москва, ул. Красный проспект 319",
-                            city = "Москва"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Москва, ул. Красный проспект 319",
-                            city = "Москва"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Москва, ул. Красный проспект 319",
-                            city = "Москва"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Ростов-на Дону, ул. Красный проспект 319",
-                            city = "Ростов-на Дону"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Ростов-на Дону, ул. Красный проспект 319",
-                            city = "Ростов-на Дону"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Ростов-на Дону, ул. Красный проспект 319",
-                            city = "Ростов-на Дону"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Батайск, ул. Красный проспект 319",
-                            city = "Батайск"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                        JobOpeningModel(
-                            name = "Фармацевт-провизор",
-                            address = "г. Батайск, ул. Красный проспект 319",
-                            city = "Батайск"
-                        ) {
-                            navigateToJobOpening(it)
-                        },
-                    )
-                )
-                isLoading.postValue(false)
-
-                /*requestHandler.handleApiRequest(
-                    onRequest = { ordersRepository.getOrders() },
-                    onSuccess = { orders ->
-                        _orders.postValue(orders)
-                    },
-                    isLoading = _isLoading
-                )*/
-            }
-
-            launchIO {
                 eventsIsLoading.postValue(true)
                 delay(1500)
                 events.postValue(
@@ -245,13 +161,5 @@ class WorkWithUsJobOpeningsViewModel @Inject constructor(
                 employeeReviewsIsLoading.postValue(false)
             }
         }
-    }
-
-    private fun navigateToJobOpening(jobOpeningModel: JobOpeningModel) {
-        navigationManager.currentBottomNavControllerLiveData.value!!.navigateWithAnim(
-            WorkWithUsJobOpeningsFragmentDirections.toWorkWithUsJobOpeningsDetailsFragment(
-                jobOpeningModel
-            )
-        )
     }
 }

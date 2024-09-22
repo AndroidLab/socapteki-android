@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/bonus_graph"
+    app:startDestination="@id/bonusFragment">
+
+    <fragment
+        android:id="@+id/bonusFragment"
+        android:name="ru.apteka.home.presentation.bonus.BonusFragment" >
+
+        <action
+            android:id="@+id/toBonusHistoryFragment"
+            app:destination="@id/bonusHistoryFragment" />
+
+        <action
+            android:id="@+id/toBonusTicketDetailsFragment"
+            app:destination="@id/bonusTicketDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/bonusHistoryFragment"
+        android:name="ru.apteka.home.presentation.bonus_history.BonusHistoryFragment" />
+
+    <fragment
+        android:id="@+id/bonusTicketDetailsFragment"
+        android:name="ru.apteka.home.presentation.bonus_ticket_details.BonusTicketDetailsFragment" >
+
+        <argument
+            android:name="ticket"
+            app:argType="ru.apteka.home.data.models.BonusTicketModel" />
+
+    </fragment>
+
+    <include app:graph="@navigation/listing_graph" />
+
+</navigation>

@@ -181,7 +181,8 @@
                     android:text="@={viewModel.comment}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductMail" />
+                    app:layout_constraintTop_toBottomOf="@id/writeReviewProductMail"
+                    tools:ignore="TextFields" />
 
                 <include
                     layout="@layout/progress_bar"

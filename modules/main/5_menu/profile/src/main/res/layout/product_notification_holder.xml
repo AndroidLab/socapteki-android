@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="3dp"
-                android:text="Без рецепта"
+                android:text="@string/label_without_prescription"
                 android:textColor="@color/light_black"
                 app:layout_constraintStart_toEndOf="@id/productRecipe"
                 app:layout_constraintTop_toBottomOf="@id/productTitle" />

@@ -18,7 +18,7 @@ import javax.inject.Singleton
 internal class NetworkModule {
 
     companion object {
-        private const val connectTimeout = 30L
+        private const val CONNECT_TIMEOUT = 30L
     }
 
     /**
@@ -27,11 +27,11 @@ internal class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        accountsService: AccountsPreferences
+        accountsPreferences: AccountsPreferences
     ): OkHttpClient = OkHttpClient.Builder().apply {
         hostnameVerifier { _, _ -> true }
-        readTimeout(connectTimeout, TimeUnit.SECONDS)
-        connectTimeout(connectTimeout, TimeUnit.SECONDS)
+        readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+        connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
         addInterceptor(
             HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
@@ -43,7 +43,7 @@ internal class NetworkModule {
                     chain.request().newBuilder().apply {
                         addHeader(
                             "Authorization",
-                            "Bearer ${accountsService.account!!.token}"
+                            "Bearer ${accountsPreferences.account!!.token}"
                         )
                         addHeader("Content-Type", "application/json")
                     }.build()
